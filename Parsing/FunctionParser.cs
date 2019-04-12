@@ -4,25 +4,27 @@ using LLVMSharp;
 
 namespace LlvmSharpLang
 {
-    public class FunctionParser : Parser<Function>
+    public class FunctionParser : IParser<Function>
     {
         public override Function Parse(TokenStream stream)
         {
-            IEnumerator<Token> enumerator = stream.GetEnumerator();
-
-            // Consume 'fn' keyword.
-            enumerator.MoveNext();
+            // Skip 'fn' keyword.
+            stream.Skip();
 
             // Consume function identifier.
-            enumerator.MoveNext();
+            stream.Skip();
 
-            string name = enumerator.Current.Value;
+            string name = stream.Get();
             Function fn = new Function();
 
             // Set the function name.
             fn.SetName(name);
 
-            // TODO: Continue implementing.
+            // Parse arguments.
+            FormalArg[] args = new FormalArgParser().Parse(stream);
+
+            // Assign arguments.
+            fn.Args = args;
 
             return fn;
         }

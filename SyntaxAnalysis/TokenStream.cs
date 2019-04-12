@@ -13,5 +13,22 @@ namespace LlvmSharpLang
         {
             //
         }
+
+        public bool Skip()
+        {
+            this.GetEnumerator().MoveNext();
+        }
+
+        public Token Next()
+        {
+            this.Skip();
+
+            return this.GetEnumerator().Current;
+        }
+
+        public Token Get()
+        {
+            return this.GetEnumerator().Current;
+        }
     }
 }
