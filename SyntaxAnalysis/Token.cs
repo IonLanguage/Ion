@@ -1,10 +1,10 @@
 namespace LlvmSharpLang {
     public struct Token {
-        public readonly TokenType Type;
+        public TokenType Type;
 
-        public readonly string Value;
+        public string Value;
 
-        public readonly int StartPos;
+        public int StartPos;
 
         public int EndPos {
             get => this.StartPos + this.Value.Length;

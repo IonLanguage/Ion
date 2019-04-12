@@ -14,7 +14,7 @@ namespace LlvmSharpLang
             LLVMBool successFlag = new LLVMBool(0);
 
             // Create the module.
-            LLVMModuleRef mod = LLVM.ModuleCreateWithName("EntryModule");
+            LLVMModuleRef module = LLVM.ModuleCreateWithName("EntryModule");
 
             LLVMTypeRef[] paramTypes = {
                 LLVM.Int32Type(),
@@ -22,7 +22,7 @@ namespace LlvmSharpLang
             };
 
             LLVMTypeRef retType = LLVM.FunctionType(LLVM.Int32Type(), paramTypes, false);
-            LLVMValueRef sum = LLVM.AddFunction(mod, "sum", retType);
+            LLVMValueRef sum = LLVM.AddFunction(module, "sum", retType);
 
             LLVMBasicBlockRef entry = LLVM.AppendBasicBlock(sum, "entry");
 
@@ -34,7 +34,7 @@ namespace LlvmSharpLang
 
             LLVM.BuildRet(builder, tmp);
 
-            if (LLVM.VerifyModule(mod, LLVMVerifierFailureAction.LLVMPrintMessageAction, out var error) != successFlag)
+            if (LLVM.VerifyModule(module, LLVMVerifierFailureAction.LLVMPrintMessageAction, out var error) != successFlag)
             {
                 Console.WriteLine($"Error: {error}");
             }
@@ -55,7 +55,7 @@ namespace LlvmSharpLang
 
             LLVM.InitializeMCJITCompilerOptions(options);
 
-            if (LLVM.CreateMCJITCompilerForModule(out var engine, mod, options, out error) != successFlag)
+            if (LLVM.CreateMCJITCompilerForModule(out var engine, module, options, out error) != successFlag)
             {
                 Console.WriteLine($"Error: {error}");
             }
@@ -65,12 +65,28 @@ namespace LlvmSharpLang
 
             Console.WriteLine("Result of sum is: " + result);
 
-            LLVM.DumpModule(mod);
+            // --- Tests start ---
+            var stream = new TokenStream(new Token[] {
+                new Token() {
+                    Type = TokenType.KeywordFn,
+                    Value = "fn"
+                },
+
+                new Token() {
+                    Type = TokenType.KeywordFn,
+                    Value = "helloWorld"
+                }
+            });
+
+            var fnParser = new FunctionParser();
+            var fn = fnParser.Parse(stream);
+
+            fn.Emit(module);
+            // --- Tests end ---
+
+            LLVM.DumpModule(module);
             LLVM.DisposeBuilder(builder);
             LLVM.DisposeExecutionEngine(engine);
-
-            // Token tests.
-            var stream = new TokenStream();
         }
     }
 }

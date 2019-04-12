@@ -4,12 +4,12 @@ namespace LlvmSharpLang
 {
     public class TokenStream : LinkedList<Token>
     {
-        public TokenStream(Token[] tokens) : base(tokens)
+        public TokenStream() : base()
         {
             //
         }
 
-        public TokenStream() : base()
+        public TokenStream(Token[] tokens) : base(tokens)
         {
             //
         }
