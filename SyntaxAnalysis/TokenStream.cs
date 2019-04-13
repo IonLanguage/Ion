@@ -18,7 +18,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
             this.Reset();
         }
 
-        public void Reset() {
+        public void Reset()
+        {
             this.enumerator = this.GetEnumerator();
         }
 

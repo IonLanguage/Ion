@@ -1,9 +1,14 @@
 #### SDK/Dotnet package
-sudo apt install dotnet-sdk-2.2=2.2.105-1
+
+```shell
+$ sudo apt install dotnet-sdk-2.2=2.2.105-1
+```
 
 #### SDK Path for "Invalid SDK" error
 
-sudo nano /etc/profile.d/dotnet.sh
+```shell
+$ sudo nano /etc/profile.d/dotnet.sh
+```
 
 ```shell
 # ---
@@ -16,7 +21,7 @@ export DOTNET_ROOT=/usr/share/dotnet
 
 # OR use to find path:
 
-dpkg-query -L dotnet-sdk-2.2
+$ dpkg-query -L dotnet-sdk-2.2
 
 # ---
 

@@ -9,7 +9,15 @@ namespace LlvmSharpLang.Parsing
     {
         public FormalArg[] Parse(TokenStream stream)
         {
+            // Skip '('.
+            stream.Skip();
+
             List<FormalArg> args = new List<FormalArg>();
+
+            // TODO
+
+            // Skip ')'.
+            stream.Skip();
 
             return args.ToArray();
         }

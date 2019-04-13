@@ -1,5 +1,7 @@
-namespace LlvmSharpLang.CodeGen {
-    public abstract class NamedEntity<TResult, TContext> : IEntity<TResult, TContext> {
+namespace LlvmSharpLang.CodeGen
+{
+    public abstract class NamedEntity<TResult, TContext> : IEntity<TResult, TContext>
+    {
         public string Name { get; protected set; } = SpecialName.anonymous;
 
         public abstract TResult Emit(TContext context);

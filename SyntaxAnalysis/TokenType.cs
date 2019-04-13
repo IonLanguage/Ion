@@ -1,5 +1,7 @@
-namespace LlvmSharpLang.SyntaxAnalysis {
-    public enum TokenType : int {
+namespace LlvmSharpLang.SyntaxAnalysis
+{
+    public enum TokenType : int
+    {
         // Keywords.
         KeywordFn,
 
@@ -16,6 +18,8 @@ namespace LlvmSharpLang.SyntaxAnalysis {
 
         SymbolColon,
 
-        SymbolSemiColon
+        SymbolSemiColon,
+
+        SymbolArrow
     }
 }

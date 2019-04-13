@@ -18,7 +18,8 @@ namespace LlvmSharpLang.Parsing
             string name = stream.Next().Value;
 
             // Ensure name exists.
-            if (String.IsNullOrEmpty(name)) {
+            if (String.IsNullOrEmpty(name))
+            {
                 throw new Exception("Function identifier was null or empty");
             }
 
@@ -34,10 +35,22 @@ namespace LlvmSharpLang.Parsing
             // Assign arguments.
             function.Args = args;
 
-            // Create the body.
-            Block body = new Block();
+            // Skip ':' for return type.
+            stream.Skip();
 
-            body.SetName("Entry");
+            // Capture return type.
+            string returnType = stream.Next().Value;
+
+            Console.WriteLine("Return type:", returnType);
+
+            // Skip block start '{'.
+            stream.Skip();
+
+            // Parse the body.
+            Block body = new BlockParser().Parse(stream);
+
+            // Set the name of the body block.
+            body.SetEntryName();
 
             // Assign the body.
             function.Body = body;

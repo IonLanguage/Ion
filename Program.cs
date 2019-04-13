@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using LLVMSharp;
+using LlvmSharpLang.CodeGen;
 using LlvmSharpLang.Parsing;
 using LlvmSharpLang.SyntaxAnalysis;
 
@@ -16,7 +17,7 @@ namespace LlvmSharpLang
             LLVMBool successFlag = new LLVMBool(0);
 
             // Create the module.
-            LLVMModuleRef module = LLVM.ModuleCreateWithName("EntryModule");
+            LLVMModuleRef module = LLVM.ModuleCreateWithName(SpecialName.entry);
 
             LLVMTypeRef[] paramTypes = {
                 LLVM.Int32Type(),
@@ -77,10 +78,45 @@ namespace LlvmSharpLang
                 new Token() {
                     Type = TokenType.KeywordFn,
                     Value = "helloWorld"
-                }
+                },
+
+                new Token() {
+                    Type = TokenType.KeywordFn,
+                    Value = "("
+                },
+
+                new Token() {
+                    Type = TokenType.KeywordFn,
+                    Value = ")"
+                },
+
+                new Token() {
+                    Type = TokenType.KeywordFn,
+                    Value = ":"
+                },
+
+                new Token() {
+                    Type = TokenType.KeywordFn,
+                    Value = "int"
+                },
+
+                new Token() {
+                    Type = TokenType.KeywordFn,
+                    Value = "{"
+                },
+
+                new Token() {
+                    Type = TokenType.KeywordFn,
+                    Value = "}"
+                },
             });
 
             var function = new FunctionParser().Parse(stream);
+            var val = new Expr();
+
+            val.ExplicitValue = LLVM.ConstInt(LLVMTypeRef.Int32Type(), 7, false);
+
+            function.Body.ReturnValue = val;
 
             function.Emit(module);
             // --- Tests end ---

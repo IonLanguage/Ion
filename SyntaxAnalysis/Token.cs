@@ -1,12 +1,15 @@
-namespace LlvmSharpLang.SyntaxAnalysis {
-    public struct Token {
+namespace LlvmSharpLang.SyntaxAnalysis
+{
+    public struct Token
+    {
         public TokenType Type;
 
         public string Value;
 
         public int StartPos;
 
-        public int EndPos {
+        public int EndPos
+        {
             get => this.StartPos + this.Value.Length;
         }
     }

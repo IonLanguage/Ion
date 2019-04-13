@@ -10,11 +10,11 @@ namespace LlvmSharpLang.CodeGen
 
         public override LLVMValueRef Emit(LLVMModuleRef module)
         {
-            LLVMTypeRef[] paramTypes = {};
+            LLVMTypeRef[] paramTypes = { };
             LLVMTypeRef retType = LLVM.FunctionType(LLVM.VoidType(), paramTypes, false);
 
             // Create the function.
-            LLVMValueRef function =  LLVM.AddFunction(module, this.Name, retType);
+            LLVMValueRef function = LLVM.AddFunction(module, this.Name, retType);
 
             // Apply the body.
             this.Body.Emit(function);
