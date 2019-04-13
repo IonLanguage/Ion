@@ -18,6 +18,7 @@ namespace LlvmSharpLang.CodeGen
 
         public override LLVMBasicBlockRef Emit(LLVMValueRef context)
         {
+            // Create the block and its corresponding builder.
             LLVMBasicBlockRef block = LLVM.AppendBasicBlock(context, this.Name);
             LLVMBuilderRef builder = LLVM.CreateBuilder();
 

@@ -5,7 +5,7 @@ namespace LlvmSharpLang.CodeGen
 {
     public class Function : NamedModuleEntity<LLVMValueRef>
     {
-        public FormalArg[] Args { get; set; }
+        public List<Arg> Args { get; set; }
 
         public Block Body { get; set; }
 
@@ -13,8 +13,11 @@ namespace LlvmSharpLang.CodeGen
 
         public override LLVMValueRef Emit(LLVMModuleRef module)
         {
-            // TODO: Arg types.
-            LLVMTypeRef[] argTypes = { };
+            // Create argument type array.
+            LLVMTypeRef[] argTypes = this.Args.ConvertAll<LLVMTypeRef>((Arg arg) =>
+            {
+                return arg.Emit(module);
+            }).ToArray();
 
             // Create the return type.
             LLVMTypeRef returnType = LLVM.FunctionType(this.ReturnType.Emit(), argTypes, false);
@@ -26,6 +29,11 @@ namespace LlvmSharpLang.CodeGen
             this.Body.Emit(function);
 
             return function;
+        }
+
+        public void SetArgs(Arg[] args)
+        {
+            this.Args = new List<Arg>(args);
         }
     }
 }
