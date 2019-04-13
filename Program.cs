@@ -78,15 +78,10 @@ namespace LlvmSharpLang
                 }
             });
 
-            var fnParser = new FunctionParser();
-            var fn = fnParser.Parse(stream);
+            var functionParser = new FunctionParser();
+            var function = functionParser.Parse(stream);
 
-            var ft = new Function();
-
-            ft.SetName("TestingFn");
-            ft.Body = new Block();
-
-            ft.Emit(module).Dump();
+            function.Emit(module);
             // --- Tests end ---
 
             LLVM.DumpModule(module);
