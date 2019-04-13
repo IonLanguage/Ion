@@ -7,7 +7,7 @@ namespace LlvmSharpLang
     {
         public FormalArg[] Args { get; set; }
 
-        public LLVMValueRef Emit(LLVMModuleRef module)
+        public override LLVMValueRef Emit(LLVMModuleRef module)
         {
             LLVMTypeRef[] paramTypes = {
                 LLVM.Int32Type(),

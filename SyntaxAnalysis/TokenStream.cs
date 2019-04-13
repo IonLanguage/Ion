@@ -16,7 +16,7 @@ namespace LlvmSharpLang
 
         public bool Skip()
         {
-            this.GetEnumerator().MoveNext();
+            return this.GetEnumerator().MoveNext();
         }
 
         public Token Next()

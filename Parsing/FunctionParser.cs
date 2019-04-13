@@ -6,7 +6,7 @@ namespace LlvmSharpLang
 {
     public class FunctionParser : IParser<Function>
     {
-        public override Function Parse(TokenStream stream)
+        public Function Parse(TokenStream stream)
         {
             // Skip 'fn' keyword.
             stream.Skip();
@@ -14,7 +14,7 @@ namespace LlvmSharpLang
             // Consume function identifier.
             stream.Skip();
 
-            string name = stream.Get();
+            string name = stream.Get().Value;
             Function fn = new Function();
 
             // Set the function name.

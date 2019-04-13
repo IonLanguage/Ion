@@ -1,14 +1,13 @@
+using System.Collections.Generic;
 using LLVMSharp;
 
 namespace LlvmSharpLang
 {
-    public class FormalArgParser : IParser<LLVMValueRef[]>
+    public class FormalArgParser : IParser<FormalArg[]>
     {
-        public LLVMValueRef[] Parse(TokenStream stream)
+        public FormalArg[] Parse(TokenStream stream)
         {
-            List<LLVMValueRef> args = new List<LLVMValueRef>();
-
-            
+            List<FormalArg> args = new List<FormalArg>();
 
             return args.ToArray();
         }
