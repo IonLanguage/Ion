@@ -26,7 +26,11 @@ namespace LlvmSharpLang.Parsing
                 // Continuous arguments.
                 if (!args.Continuous && buffer.Type == TokenType.SymbolContinuous)
                 {
+                    // Set the continuous flag.
                     args.Continuous = true;
+
+                    // Advance stream immediatly.
+                    buffer = stream.Next();
 
                     continue;
                 }
@@ -47,6 +51,9 @@ namespace LlvmSharpLang.Parsing
 
                 // Assign the arg's name.
                 arg.SetName(name);
+
+                // Append the newly created arg.
+                args.Values.Add(arg);
 
                 // Prepare buffer for next iteration.
                 buffer = stream.Next();

@@ -88,8 +88,13 @@ namespace LlvmSharpLang
                 },
 
                 new Token() {
-                    Type = TokenType.SymbolContinuous,
-                    Value = ".."
+                    Type = TokenType.Id,
+                    Value = "int"
+                },
+
+                new Token() {
+                    Type = TokenType.Id,
+                    Value = "testArg1"
                 },
 
                 new Token() {
