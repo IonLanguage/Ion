@@ -14,6 +14,7 @@ namespace LlvmSharpLang.Misc
             { TypeName.Float, LLVMTypeRef.FloatType },
             { TypeName.Double, LLVMTypeRef.DoubleType },
             { TypeName.Boolean, LLVMTypeRef.Int1Type },
+            { TypeName.Void, LLVMTypeRef.VoidType },
 
             // TODO: Should it be *int8?
             { TypeName.Character, LLVMTypeRef.Int8Type }

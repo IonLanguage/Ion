@@ -1,14 +1,20 @@
 using LLVMSharp;
+using LlvmSharpLang.CodeGen.Structure;
 
 namespace LlvmSharpLang.CodeGen
 {
-    public class Arg : NamedModuleEntity<LLVMTypeRef>
+    public class Arg : Named, IUncontextedEntity<LLVMTypeRef>
     {
-        public Type Type { get; set; }
+        protected readonly Type type;
 
-        public override LLVMTypeRef Emit(LLVMModuleRef module)
+        public Arg(Type type)
         {
-            return this.Type.Emit();
+            this.type = type;
+        }
+
+        public LLVMTypeRef Emit()
+        {
+            return this.type.Emit();
         }
     }
 }

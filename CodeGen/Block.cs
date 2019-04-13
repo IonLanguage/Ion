@@ -1,5 +1,6 @@
 using System;
 using LLVMSharp;
+using LlvmSharpLang.CodeGen.Structure;
 
 namespace LlvmSharpLang.CodeGen
 {
@@ -10,13 +11,13 @@ namespace LlvmSharpLang.CodeGen
         Short
     }
 
-    public class Block : NamedValueEntity<LLVMBasicBlockRef>
+    public class Block : Named, IEntity<LLVMBasicBlockRef, LLVMValueRef>
     {
         public Expr ReturnValue { get; set; }
 
         public BlockType Type { get; set; }
 
-        public override LLVMBasicBlockRef Emit(LLVMValueRef context)
+        public LLVMBasicBlockRef Emit(LLVMValueRef context)
         {
             // Create the block and its corresponding builder.
             LLVMBasicBlockRef block = LLVM.AppendBasicBlock(context, this.Name);

@@ -15,5 +15,7 @@ namespace LlvmSharpLang.Misc
         public static Type Double => new Type(TypeName.Double);
 
         public static Type Boolean => new Type(TypeName.Boolean);
+
+        public static Type Void => new Type(TypeName.Void);
     }
 }

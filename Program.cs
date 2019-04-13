@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using LLVMSharp;
 using LlvmSharpLang.CodeGen;
+using LlvmSharpLang.CodeGen.Structure;
 using LlvmSharpLang.Parsing;
 using LlvmSharpLang.SyntaxAnalysis;
 
@@ -37,6 +38,7 @@ namespace LlvmSharpLang
 
             LLVM.BuildRet(builder, tmp);
 
+            // Verify the module.
             if (LLVM.VerifyModule(module, LLVMVerifierFailureAction.LLVMPrintMessageAction, out var error) != successFlag)
             {
                 Console.WriteLine($"Error: {error}");
@@ -83,6 +85,11 @@ namespace LlvmSharpLang
                 new Token() {
                     Type = TokenType.SymbolParenthesesL,
                     Value = "("
+                },
+
+                new Token() {
+                    Type = TokenType.SymbolContinuous,
+                    Value = ".."
                 },
 
                 new Token() {

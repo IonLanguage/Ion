@@ -1,4 +1,5 @@
 using LLVMSharp;
+using LlvmSharpLang.CodeGen.Structure;
 using LlvmSharpLang.Misc;
 
 namespace LlvmSharpLang.CodeGen

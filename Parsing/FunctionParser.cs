@@ -29,10 +29,10 @@ namespace LlvmSharpLang.Parsing
             function.SetName(name);
 
             // Parse arguments.
-            Arg[] args = new ArgParser().Parse(stream);
+            Args args = new ArgsParser().Parse(stream);
 
             // Assign arguments.
-            function.SetArgs(args);
+            function.Args = args;
 
             // Skip ':' for return type.
             stream.Skip();

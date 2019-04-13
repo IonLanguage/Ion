@@ -13,5 +13,7 @@ namespace LlvmSharpLang.Misc
         public static string Double = "double";
 
         public static string Boolean = "bool";
+
+        public static string Void = "void";
     }
 }

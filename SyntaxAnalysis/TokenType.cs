@@ -21,6 +21,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         SymbolParenthesesR,
 
+        SymbolContinuous,
+
         SymbolColon,
 
         SymbolSemiColon,
