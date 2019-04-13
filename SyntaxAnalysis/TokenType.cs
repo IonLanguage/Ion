@@ -7,6 +7,24 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         Id,
 
+        // Math operators.
+        OpAssign,
+
+        OpAdd,
+
+        OpSub,
+
+        OpMultiply,
+
+        OpDivide,
+
+        OpExponent,
+
+        OpModulo,
+
+        // Functionality operators.
+        OpPipe,
+
         // Keywords.
         KeywordFn,
 
