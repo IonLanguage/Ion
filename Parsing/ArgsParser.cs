@@ -47,7 +47,7 @@ namespace LlvmSharpLang.Parsing
                 Arg arg = new Arg(type);
 
                 // Capture the arg's name.
-                string name = stream.Next().Value;
+                string name = stream.Next(TokenType.Id).Value;
 
                 // Assign the arg's name.
                 arg.SetName(name);

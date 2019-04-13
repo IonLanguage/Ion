@@ -11,10 +11,10 @@ namespace LlvmSharpLang.Parsing
         public Function Parse(TokenStream stream)
         {
             // Skip 'fn' keyword.
-            stream.Skip();
+            stream.Skip(TokenType.KeywordFn);
 
             // Capture function identifier.
-            string name = stream.Next().Value;
+            string name = stream.Next(TokenType.Id).Value;
 
             // Ensure name exists.
             if (String.IsNullOrEmpty(name))
@@ -35,7 +35,7 @@ namespace LlvmSharpLang.Parsing
             function.Args = args;
 
             // Skip ':' for return type.
-            stream.Skip();
+            stream.Skip(TokenType.SymbolColon);
 
             // Parse the return type.
             CodeGen.Type returnType = new TypeParser().Parse(stream);

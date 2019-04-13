@@ -36,7 +36,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
             if (currentType != type)
             {
-                throw new Exception($"Expected token of type {type} but got {currentType}");
+                throw new Exception($"Expected token of type '{type}' but got '{currentType}'");
             }
 
             return result;
