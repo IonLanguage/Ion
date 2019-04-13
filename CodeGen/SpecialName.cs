@@ -1,4 +1,4 @@
-namespace LlvmSharpLang {
+namespace LlvmSharpLang.CodeGen {
     public static class SpecialName {
         public static readonly string entry = "entry";
 

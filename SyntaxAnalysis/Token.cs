@@ -1,4 +1,4 @@
-namespace LlvmSharpLang {
+namespace LlvmSharpLang.SyntaxAnalysis {
     public struct Token {
         public TokenType Type;
 

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using LLVMSharp;
+using LlvmSharpLang.CodeGen;
+using LlvmSharpLang.SyntaxAnalysis;
 
-namespace LlvmSharpLang
+namespace LlvmSharpLang.Parsing
 {
     public class FormalArgParser : IParser<FormalArg[]>
     {

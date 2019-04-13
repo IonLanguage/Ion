@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using LLVMSharp;
+using LlvmSharpLang.Parsing;
+using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang
 {

@@ -1,4 +1,4 @@
-namespace LlvmSharpLang {
+namespace LlvmSharpLang.SyntaxAnalysis {
     public enum TokenType : int {
         // Keywords.
         KeywordFn,

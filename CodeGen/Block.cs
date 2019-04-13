@@ -1,6 +1,6 @@
 using LLVMSharp;
 
-namespace LlvmSharpLang
+namespace LlvmSharpLang.CodeGen
 {
     public class Block : NamedValueEntity<LLVMBasicBlockRef>
     {

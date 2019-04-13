@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using LLVMSharp;
 
-namespace LlvmSharpLang
+namespace LlvmSharpLang.CodeGen
 {
     public class Function : NamedModuleEntity<LLVMValueRef>
     {

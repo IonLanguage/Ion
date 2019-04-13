@@ -1,6 +1,6 @@
 using LLVMSharp;
 
-namespace LlvmSharpLang
+namespace LlvmSharpLang.CodeGen
 {
     public interface IEntity<TResult, TContext>
     {

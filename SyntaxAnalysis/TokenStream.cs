@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace LlvmSharpLang
+namespace LlvmSharpLang.SyntaxAnalysis
 {
     public class TokenStream : LinkedList<Token>
     {

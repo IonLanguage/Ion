@@ -1,7 +1,7 @@
 using System;
 using LLVMSharp;
 
-namespace LlvmSharpLang
+namespace LlvmSharpLang.CodeGen
 {
     public class FormalArg : NamedModuleEntity<LLVMValueRef>
     {
