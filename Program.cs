@@ -78,8 +78,7 @@ namespace LlvmSharpLang
                 }
             });
 
-            var functionParser = new FunctionParser();
-            var function = functionParser.Parse(stream);
+            var function = new FunctionParser().Parse(stream);
 
             function.Emit(module);
             // --- Tests end ---

@@ -10,12 +10,8 @@ namespace LlvmSharpLang
 
         public override LLVMValueRef Emit(LLVMModuleRef module)
         {
-            LLVMTypeRef[] paramTypes = {
-                LLVM.Int32Type(),
-                LLVM.Int32Type()
-            };
-
-            LLVMTypeRef retType = LLVM.FunctionType(LLVM.Int32Type(), paramTypes, false);
+            LLVMTypeRef[] paramTypes = {};
+            LLVMTypeRef retType = LLVM.FunctionType(LLVM.VoidType(), paramTypes, false);
 
             // Create the function.
             LLVMValueRef function =  LLVM.AddFunction(module, this.Name, retType);
