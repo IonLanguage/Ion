@@ -71,7 +71,7 @@ namespace LlvmSharpLang
             Console.WriteLine("Result of sum is: " + result);
 
             // --- Tests start ---
-            var stream = new TokenStream(new Token[] {
+            var fnStream = new TokenStream(new Token[] {
                 new Token() {
                     Type = TokenType.KeywordFn,
                     Value = "fn"
@@ -123,7 +123,34 @@ namespace LlvmSharpLang
                 },
             });
 
-            var function = new FunctionParser().Parse(stream);
+            var globalVarStream = new TokenStream(new Token[] {
+                new Token() {
+                    Type = TokenType.Id,
+                    Value = "bool"
+                },
+
+                new Token() {
+                    Type = TokenType.SymbolAt,
+                    Value = "@"
+                },
+
+                new Token() {
+                    Type = TokenType.Id,
+                    Value = "myGlobal"
+                },
+            });
+
+            // Global variable.
+            var globalVar = new GlobalVarParser().Parse(globalVarStream);
+            var globalVarValue = new Expr();
+
+            globalVarValue.ExplicitValue = LLVM.ConstInt(LLVMTypeRef.Int1Type(), 1, false);
+            globalVar.Value = globalVarValue;
+
+            globalVar.Emit(module);
+
+            // Function.
+            var function = new FunctionParser().Parse(fnStream);
             var val = new Expr();
 
             val.ExplicitValue = LLVM.ConstInt(LLVMTypeRef.Int32Type(), 7, false);

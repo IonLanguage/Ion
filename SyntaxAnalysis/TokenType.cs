@@ -27,6 +27,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         SymbolSemiColon,
 
-        SymbolArrow
+        SymbolArrow,
+
+        SymbolAt
     }
 }
