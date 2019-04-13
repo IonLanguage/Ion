@@ -10,7 +10,6 @@ namespace LlvmSharpLang.Parsing
     {
         public Function Parse(TokenStream stream)
         {
-            Console.WriteLine(stream.Get().Value);
             // Skip 'fn' keyword.
             stream.Skip();
 
@@ -38,13 +37,11 @@ namespace LlvmSharpLang.Parsing
             // Skip ':' for return type.
             stream.Skip();
 
-            // Capture return type.
-            string returnType = stream.Next().Value;
+            // Parse the return type.
+            CodeGen.Type returnType = new TypeParser().Parse(stream);
 
-            Console.WriteLine("Return type:", returnType);
-
-            // Skip block start '{'.
-            stream.Skip();
+            // Assign the return type.
+            function.ReturnType = returnType;
 
             // Parse the body.
             Block body = new BlockParser().Parse(stream);

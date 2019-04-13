@@ -2,6 +2,11 @@ namespace LlvmSharpLang.SyntaxAnalysis
 {
     public enum TokenType : int
     {
+        // General.
+        Unknown,
+
+        Id,
+
         // Keywords.
         KeywordFn,
 

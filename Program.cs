@@ -81,32 +81,32 @@ namespace LlvmSharpLang
                 },
 
                 new Token() {
-                    Type = TokenType.KeywordFn,
+                    Type = TokenType.SymbolParenthesesL,
                     Value = "("
                 },
 
                 new Token() {
-                    Type = TokenType.KeywordFn,
+                    Type = TokenType.SymbolParenthesesR,
                     Value = ")"
                 },
 
                 new Token() {
-                    Type = TokenType.KeywordFn,
+                    Type = TokenType.SymbolColon,
                     Value = ":"
                 },
 
                 new Token() {
-                    Type = TokenType.KeywordFn,
+                    Type = TokenType.Id,
                     Value = "int"
                 },
 
                 new Token() {
-                    Type = TokenType.KeywordFn,
+                    Type = TokenType.SymbolBlockL,
                     Value = "{"
                 },
 
                 new Token() {
-                    Type = TokenType.KeywordFn,
+                    Type = TokenType.SymbolBlockR,
                     Value = "}"
                 },
             });
