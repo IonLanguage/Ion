@@ -6,7 +6,7 @@ using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.Parsing
 {
-    public class FormalArgParser : IParser<Arg[]>
+    public class ArgParser : IParser<Arg[]>
     {
         public Arg[] Parse(TokenStream stream)
         {
