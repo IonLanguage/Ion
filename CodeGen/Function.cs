@@ -3,9 +3,10 @@ using LLVMSharp;
 
 namespace LlvmSharpLang
 {
-    public class Function : NamedEntity<LLVMValueRef>
+    public class Function : NamedModuleEntity<LLVMValueRef>
     {
         public FormalArg[] Args { get; set; }
+        public Block Body { get; set; }
 
         public override LLVMValueRef Emit(LLVMModuleRef module)
         {
@@ -16,7 +17,13 @@ namespace LlvmSharpLang
 
             LLVMTypeRef retType = LLVM.FunctionType(LLVM.Int32Type(), paramTypes, false);
 
-            return LLVM.AddFunction(module, this.Name, retType);
+            // Create the function.
+            LLVMValueRef function =  LLVM.AddFunction(module, this.Name, retType);
+
+            // Apply the body.
+            this.Body.Emit(function);
+
+            return function;
         }
     }
 }

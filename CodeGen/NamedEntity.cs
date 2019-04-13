@@ -1,12 +1,8 @@
-using LLVMSharp;
+namespace LlvmSharpLang {
+    public abstract class NamedEntity<TResult, TContext> : IEntity<TResult, TContext> {
+        public string Name { get; protected set; } = SpecialName.anonymous;
 
-namespace LlvmSharpLang
-{
-    public abstract class NamedEntity<T> : IEntity<T>
-    {
-        public string Name { get; protected set; } = "anonymous";
-
-        public abstract T Emit(LLVMModuleRef module);
+        public abstract TResult Emit(TContext context);
 
         public void SetName(string name)
         {

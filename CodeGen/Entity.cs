@@ -2,8 +2,8 @@ using LLVMSharp;
 
 namespace LlvmSharpLang
 {
-    public interface IEntity<T>
+    public interface IEntity<TResult, TContext>
     {
-        T Emit(LLVMModuleRef module);
+        TResult Emit(TContext context);
     }
 }

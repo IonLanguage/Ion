@@ -8,25 +8,39 @@ namespace LlvmSharpLang
     {
         public Function Parse(TokenStream stream)
         {
+            Console.WriteLine(stream.Get().Value);
             // Skip 'fn' keyword.
             stream.Skip();
 
-            // Consume function identifier.
-            stream.Skip();
+            // Capture function identifier.
+            string name = stream.Next().Value;
 
-            string name = stream.Get().Value;
-            Function fn = new Function();
+            // Ensure name exists.
+            if (String.IsNullOrEmpty(name)) {
+                throw new Exception("Function identifier was null or empty");
+            }
+
+            // Create the function entity.
+            Function function = new Function();
 
             // Set the function name.
-            fn.SetName(name);
+            function.SetName(name);
 
             // Parse arguments.
             FormalArg[] args = new FormalArgParser().Parse(stream);
 
             // Assign arguments.
-            fn.Args = args;
+            function.Args = args;
 
-            return fn;
+            // Create the body.
+            Block body = new Block();
+
+            body.SetName("Entry");
+
+            // Assign the body.
+            function.Body = body;
+
+            return function;
         }
     }
 }

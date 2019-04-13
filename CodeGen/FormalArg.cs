@@ -3,7 +3,7 @@ using LLVMSharp;
 
 namespace LlvmSharpLang
 {
-    public class FormalArg : NamedEntity<LLVMValueRef>
+    public class FormalArg : NamedModuleEntity<LLVMValueRef>
     {
         public LLVMTypeRef Type { get; set; }
 
