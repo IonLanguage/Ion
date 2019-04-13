@@ -16,12 +16,21 @@ namespace LlvmSharpLang.Parsing
             List<Arg> args = new List<Arg>();
 
             // TODO
+
+            // --- START TESTING ---
             var testArg = new Arg();
 
             testArg.SetName("testArg");
             testArg.Type = TypeFactory.Int32;
 
             args.Add(testArg);
+
+            var testArg2 = new Arg();
+
+            testArg2.Type = TypeFactory.Int64;
+
+            args.Add(testArg2);
+            // --- END TESTING ---
 
             // Skip ')'.
             stream.Skip();
