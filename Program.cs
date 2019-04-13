@@ -78,7 +78,7 @@ namespace LlvmSharpLang
                 },
 
                 new Token() {
-                    Type = TokenType.KeywordFn,
+                    Type = TokenType.Id,
                     Value = "helloWorld"
                 },
 
