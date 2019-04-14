@@ -31,8 +31,10 @@ namespace LlvmSharpLang.SyntaxAnalysis
         {
             bool successful = this.enumerator.MoveNext();
 
-            if (successful)
+            // Ensure not overflowing.
+            if (successful && this.index + 1 <= this.Count - 1)
             {
+                Console.WriteLine(" ==> Skipped!");
                 this.index++;
             }
 
@@ -70,7 +72,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
         {
             int nextIndex = this.index + 1;
 
-            if (this.Capacity > nextIndex)
+            if (this.Count - 1 >= nextIndex)
             {
                 return this[nextIndex];
             }
