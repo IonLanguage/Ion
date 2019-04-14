@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using LLVMSharp.Core;
 
 namespace Tests
 {
@@ -10,8 +11,9 @@ namespace Tests
         }
 
         [Test]
-        public void Test1()
+        public void StaticCreateDefault()
         {
+            Assert.AreEqual(Error.Create("Test"), "GenericError: Test");
             Assert.Pass();
         }
     }
