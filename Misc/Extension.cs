@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Linq;
+using LLVMSharp;
 
 namespace LlvmSharpLang.Misc
 {
@@ -16,6 +17,15 @@ namespace LlvmSharpLang.Misc
 
                 default: return input.First().ToString().ToUpper() + input.Substring(1);
             }
+        }
+
+        public static LLVMBuilderRef CreateBuilder(this LLVMBasicBlockRef block)
+        {
+            LLVMBuilderRef builder = LLVM.CreateBuilder();
+
+            LLVM.PositionBuilderAtEnd(builder, block);
+
+            return builder;
         }
     }
 }

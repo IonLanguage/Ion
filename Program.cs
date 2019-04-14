@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using LLVMSharp;
 using LlvmSharpLang.CodeGen;
 using LlvmSharpLang.CodeGen.Structure;
+using LlvmSharpLang.Misc;
 using LlvmSharpLang.Parsing;
 using LlvmSharpLang.SyntaxAnalysis;
 
@@ -140,6 +141,18 @@ namespace LlvmSharpLang
                 },
             });
 
+            var declareStream = new TokenStream(new Token[] {
+                new Token() {
+                    Type = TokenType.Id,
+                    Value = "int"
+                },
+
+                new Token() {
+                    Type = TokenType.Id,
+                    Value = "myLocal"
+                },
+            });
+
             // Global variable.
             var globalVar = new GlobalVarParser().Parse(globalVarStream);
             var globalVarValue = new Expr();
@@ -158,6 +171,12 @@ namespace LlvmSharpLang
             function.Body.ReturnValue = val;
 
             function.Emit(module);
+
+            // Variable declaration.
+            var declare = new VarDeclareParser().Parse(declareStream);
+
+            declare.Emit(function.Body.Current.CreateBuilder());
+
             // --- Tests end ---
 
             LLVM.DumpModule(module);

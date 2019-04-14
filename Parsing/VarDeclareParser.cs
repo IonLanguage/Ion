@@ -1,0 +1,31 @@
+using LlvmSharpLang.CodeGen;
+using LlvmSharpLang.Parsing;
+using LlvmSharpLang.SyntaxAnalysis;
+
+namespace LlvmSharpLang
+{
+    public class VarDeclareParser : IParser<VarDeclare>
+    {
+        public VarDeclare Parse(TokenStream stream)
+        {
+            // Consume the type string.
+            string typeValue = stream.Next().Value;
+
+            // Create the type.
+            Type type = new Type(typeValue);
+
+            // Create the variable declaration & link the type.
+            VarDeclare declaration = new VarDeclare(type);
+
+            // Consume the variable name.
+            string name = stream.Next().Value;
+
+            // Assign the name.
+            declaration.SetName(name);
+
+            // TODO: Value.
+
+            return declaration;
+        }
+    }
+}
