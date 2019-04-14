@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <RootNamespace>llvm_sharp</RootNamespace>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="LLVMSharp" Version="5.0.0" />
+    </ItemGroup>
+</Project>
