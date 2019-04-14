@@ -9,9 +9,12 @@ namespace LlvmSharpLang
     {
         public Type Type { get; protected set; }
 
-        public VarDeclare(Type type)
+        public Expr Value { get; set; }
+
+        public VarDeclare(Type type, Expr value)
         {
             this.Type = type;
+            this.Value = value;
         }
 
         public LLVMValueRef Emit(LLVMBuilderRef context)
@@ -19,7 +22,11 @@ namespace LlvmSharpLang
             // Create the variable.
             LLVMValueRef variable = LLVM.BuildAlloca(context, this.Type.Emit(), this.Name);
 
-            // TODO: What else?
+            // Assign value if applicable.
+            if (this.Value != null)
+            {
+                LLVM.BuildStore(context, this.Value.Emit(), variable);
+            }
 
             return variable;
         }

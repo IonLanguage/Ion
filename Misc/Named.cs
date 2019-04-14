@@ -8,7 +8,7 @@ namespace LlvmSharpLang.CodeGen
 
         public Named()
         {
-            this.Name = SpecialName.anonymous;
+            this.Name = SpecialName.Anonymous;
         }
 
         public void SetName(string name)

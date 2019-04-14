@@ -19,7 +19,7 @@ namespace LlvmSharpLang
             LLVMBool successFlag = new LLVMBool(0);
 
             // Create the module.
-            LLVMModuleRef module = LLVM.ModuleCreateWithName(SpecialName.entry);
+            LLVMModuleRef module = LLVM.ModuleCreateWithName(SpecialName.Entry);
 
             LLVMTypeRef[] paramTypes = {
                 LLVM.Int32Type(),

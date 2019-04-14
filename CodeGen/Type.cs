@@ -4,7 +4,7 @@ using LlvmSharpLang.Misc;
 
 namespace LlvmSharpLang.CodeGen
 {
-    public class Type : IUncontextedEntity<LLVMTypeRef>
+    public class Type : Named, IUncontextedEntity<LLVMTypeRef>
     {
         protected readonly string value;
 

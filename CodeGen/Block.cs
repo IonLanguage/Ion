@@ -46,7 +46,7 @@ namespace LlvmSharpLang.CodeGen
 
         public void SetEntryName()
         {
-            this.SetName(SpecialName.entry);
+            this.SetName(SpecialName.Entry);
         }
     }
 }

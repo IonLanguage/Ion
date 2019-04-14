@@ -22,6 +22,15 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         OpModulo,
 
+        // Literals.
+        LiteralInteger,
+
+        LiteralDecimal,
+
+        LiteralCharacter,
+
+        LiteralString,
+
         // Functionality operators.
         OpPipe,
 
