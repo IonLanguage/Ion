@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using LLVMSharp.Core;
+using LlvmSharpLang.Core;
 
 namespace Tests
 {
