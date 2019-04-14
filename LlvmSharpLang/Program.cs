@@ -178,6 +178,9 @@ namespace LlvmSharpLang
             declare.Emit(function.Body.Current.CreateBuilder());
             // --- Tests end ---
 
+            // Print out IR.
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+
             LLVM.DumpModule(module);
             LLVM.DisposeBuilder(builder);
             LLVM.DisposeExecutionEngine(engine);
