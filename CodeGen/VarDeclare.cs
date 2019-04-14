@@ -4,6 +4,7 @@ using LlvmSharpLang.CodeGen.Structure;
 
 namespace LlvmSharpLang
 {
+    // TODO: This should be somehow boxed around "statement" so it emits within a body.
     public class VarDeclare : Named, IEntity<LLVMValueRef, LLVMBuilderRef>
     {
         public Type Type { get; protected set; }

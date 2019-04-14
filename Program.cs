@@ -176,7 +176,6 @@ namespace LlvmSharpLang
             var declare = new VarDeclareParser().Parse(declareStream);
 
             declare.Emit(function.Body.Current.CreateBuilder());
-
             // --- Tests end ---
 
             LLVM.DumpModule(module);
