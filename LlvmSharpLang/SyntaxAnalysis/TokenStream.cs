@@ -34,7 +34,6 @@ namespace LlvmSharpLang.SyntaxAnalysis
             // Ensure not overflowing.
             if (successful && this.index + 1 <= this.Count - 1)
             {
-                Console.WriteLine(" ==> Skipped!");
                 this.index++;
             }
 
