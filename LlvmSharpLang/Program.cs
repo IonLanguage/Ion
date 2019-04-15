@@ -169,10 +169,10 @@ namespace LlvmSharpLang
             val.ExplicitValue = LLVM.ConstInt(LLVMTypeRef.Int32Type(), 7, false);
 
             function.Body.ReturnValue = val;
-
             function.Emit(module);
 
             // Variable declaration.
+            // TODO: This should be emitted/parsed from within a block (on the block's Emit event).
             var declare = new VarDeclareParser().Parse(declareStream);
 
             declare.Emit(function.Body.Current.CreateBuilder());

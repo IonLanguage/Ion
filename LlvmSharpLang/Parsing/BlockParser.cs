@@ -26,9 +26,15 @@ namespace LlvmSharpLang.Parsing
             }
             // TODO: Otherwise, throw error about block type.
 
-            // TODO
+            Token nextToken = stream.Peek();
 
-            // Skip block end '{' or statement end ';'.
+            // Next token is not a block-closing token.
+            if (nextToken.Type != TokenType.SymbolBlockR && block.Type != BlockType.Short)
+            {
+
+            }
+
+            // Skip default block end '}' or short block end ';'.
             stream.Skip();
 
             return block;
