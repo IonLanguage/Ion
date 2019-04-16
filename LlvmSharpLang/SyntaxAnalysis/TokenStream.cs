@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
+using LlvmSharpLang.Misc;
 
 namespace LlvmSharpLang.SyntaxAnalysis
 {
-    public class TokenStream : List<Token>
+    public class TokenStream : Stream<Token>
     {
-        protected int index;
-
-        protected IEnumerator<Token> enumerator;
 
         public TokenStream() : base()
         {
@@ -19,25 +17,6 @@ namespace LlvmSharpLang.SyntaxAnalysis
         {
             // Prepare the initial enumerator.
             this.Reset();
-        }
-
-        public void Reset()
-        {
-            this.index = 0;
-            this.enumerator = this.GetEnumerator();
-        }
-
-        public bool Skip()
-        {
-            bool successful = this.enumerator.MoveNext();
-
-            // Ensure not overflowing.
-            if (successful && this.index + 1 <= this.Count - 1)
-            {
-                this.index++;
-            }
-
-            return successful;
         }
 
         public bool Skip(TokenType type)
@@ -53,34 +32,10 @@ namespace LlvmSharpLang.SyntaxAnalysis
             return result;
         }
 
-        public Token Next()
-        {
-            this.Skip();
-
-            return this.enumerator.Current;
-        }
-
         public Token Next(TokenType type)
         {
             this.Skip(type);
 
-            return this.enumerator.Current;
-        }
-
-        public Token Peek()
-        {
-            int nextIndex = this.index + 1;
-
-            if (this.Count - 1 >= nextIndex)
-            {
-                return this[nextIndex];
-            }
-
-            return this[this.index];
-        }
-
-        public Token Get()
-        {
             return this.enumerator.Current;
         }
     }

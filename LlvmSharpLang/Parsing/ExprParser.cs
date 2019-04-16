@@ -14,10 +14,30 @@ namespace LlvmSharpLang.Parsing
 
             // Capture explicit value token.
             Token valueToken = stream.Next();
+            LLVMValueRef? value = null;
 
-            // Resolve the literal value.
-            // TODO: Temporarily using Int32, should be dynamic.
-            Resolver.Literal(valueToken, TypeFactory.Int32.Emit());
+            // Literal integer value.
+            if (Pattern.Integer.IsMatch(valueToken.Value))
+            {
+                value = Resolver.Literal(valueToken, TypeFactory.Int32.Emit());
+            }
+            // TODO: Should determine whether Double or Float.
+            // Literal decimal value.
+            else if (Pattern.Decimal.IsMatch(valueToken.Value))
+            {
+                value = Resolver.Literal(valueToken, TypeFactory.Double.Emit()); ;
+            }
+
+            // Gather contextual info from upcoming token.
+            Token nextToken = stream.Peek();
+
+            // Expression is simply a single literal.
+            if (nextToken.Type == TokenType.SymbolSemiColon)
+            {
+                expr.ExplicitValue = value;
+
+                return expr;
+            }
 
             // TODO: Add support for complex expressions.
 
