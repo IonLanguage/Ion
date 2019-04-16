@@ -4,8 +4,10 @@ using LlvmSharpLang.CodeGen.Structure;
 
 namespace LlvmSharpLang.CodeGen
 {
-    public class Expr : IUncontextedEntity<LLVMValueRef>
+    public class Expr : IStatement, IUncontextedEntity<LLVMValueRef>
     {
+        public StatementType StatementType => StatementType.Expression;
+
         public LLVMValueRef? ExplicitValue { get; set; }
 
         public static Action<LLVMBuilderRef> Void = (builder) =>

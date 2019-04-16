@@ -4,11 +4,19 @@ using LlvmSharpLang.CodeGen.Structure;
 
 namespace LlvmSharpLang.CodeGen
 {
-    public class Statement : IEntity<LLVMValueRef, LLVMBuilderRef>
+    public enum StatementType
     {
-        public LLVMValueRef Emit(LLVMBuilderRef context)
-        {
-            throw new NotImplementedException();
-        }
+        Declaration,
+
+        Assignment,
+
+        Return,
+
+        Expression
+    }
+
+    public interface IStatement
+    {
+        StatementType StatementType { get; }
     }
 }

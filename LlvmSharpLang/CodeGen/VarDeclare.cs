@@ -5,8 +5,10 @@ using LlvmSharpLang.CodeGen.Structure;
 namespace LlvmSharpLang
 {
     // TODO: This should be somehow boxed around "statement" so it emits within a body.
-    public class VarDeclare : Named, IEntity<LLVMValueRef, LLVMBuilderRef>
+    public class VarDeclare : Named, IStatement, IEntity<LLVMValueRef, LLVMBuilderRef>
     {
+        public StatementType StatementType => StatementType.Declaration;
+
         public Type Type { get; protected set; }
 
         public Expr Value { get; set; }
