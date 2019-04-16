@@ -184,6 +184,8 @@ namespace LlvmSharpLang
             LLVM.DumpModule(module);
             LLVM.DisposeBuilder(builder);
             LLVM.DisposeExecutionEngine(engine);
+
+            Console.ResetColor();
         }
     }
 }
