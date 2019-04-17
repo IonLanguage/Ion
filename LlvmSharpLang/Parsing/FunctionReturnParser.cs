@@ -15,8 +15,16 @@ namespace LlvmSharpLang.Parsing
             // There is no return expression.
             if (nextToken.Type == TokenType.SymbolSemiColon)
             {
-                return Expr.;
+                return null;
             }
+
+            // Otherwise, invoke the expression parser.
+            Expr expr = new ExprParser().Parse(stream);
+
+            // Consume semi-colon after the expression.
+            stream.Skip(TokenType.SymbolSemiColon);
+
+            return expr;
         }
     }
 }
