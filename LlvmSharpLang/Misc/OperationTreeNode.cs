@@ -4,7 +4,7 @@ namespace LlvmSharpLang.Misc
     {
         public OperationType Operation { get; set; }
 
-        public OperationTreeNode(Tree tree) : base(tree)
+        public OperationTreeNode(Tree<TreeNode> tree) : base(tree)
         {
             //
         }

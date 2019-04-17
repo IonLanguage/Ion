@@ -24,7 +24,7 @@ namespace LlvmSharpLang.Parsing
 
                 // return new FunctionReturnParser().Parse(stream);
             }
-            // Expression.
+            // Expression (function call, property access, etc.).
             else if (nextToken.Type == TokenType.Id)
             {
                 return new ExprParser().Parse(stream);

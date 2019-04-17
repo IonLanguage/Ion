@@ -31,7 +31,8 @@ namespace LlvmSharpLang.Parsing
             // Next token is not a block-closing token.
             if (nextToken.Type != TokenType.SymbolBlockR && block.Type != BlockType.Short)
             {
-
+                // TODO: Parse statements continually until block end.
+                new StatementParser().Parse(stream);
             }
 
             // Skip default block end '}' or short block end ';'.
