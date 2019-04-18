@@ -21,12 +21,12 @@ namespace LlvmSharpLang.SyntaxAnalysis
             IgnoreWhitespace = true
         };
 
-        public char current
+        public char Char
         {
-            get => this.Input[this.Char];
+            get => this.Input[this.Position];
         }
 
-        public int Char { get; set; }
+        public int Position { get; set; }
 
         public string Input { get; }
 
@@ -47,6 +47,11 @@ namespace LlvmSharpLang.SyntaxAnalysis
             //
         }
 
+        /// <summary>
+        /// Begin the tokenization process,
+        /// obtaining/extracting all possible
+        /// tokens from the input string.
+        /// </summary>
         public List<Token> Tokenize()
         {
             List<Token> tokens = new List<Token>();
@@ -54,62 +59,77 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
             while (next.HasValue)
             {
+                // Append token value to the result list.
                 tokens.Add(next.Value);
+
+                // Continue enumeration.
                 next = this.GetNextToken();
             }
 
             return tokens;
         }
 
+        /// <summary>
+        /// Attempt to obtain the next upcoming
+        /// token.
+        /// </summary>
         public Token? GetNextToken()
         {
-            if (this.Char > this.Input.Length - 1)
+            // Return immediatly if position overflows.
+            if (this.Position > this.Input.Length - 1)
             {
                 return null;
             }
+            // Skip whitespace characters if applicable.
             else if (this.Options.IgnoreWhitespace)
             {
-                while (char.IsWhiteSpace(this.current))
+                while (char.IsWhiteSpace(this.Char))
                 {
                     this.Skip();
                 }
             }
 
-            int start = this.Char;
-            Token token = new Token { StartPos = start };
+            int start = this.Position;
 
-            if (char.IsLetter(this.current))
+            Token token = new Token
             {
-                string value = this.current.ToString();
+                StartPos = start
+            };
+
+            if (char.IsLetter(this.Char))
+            {
+                string value = this.Char.ToString();
 
                 this.Skip();
 
-                while (char.IsLetterOrDigit(this.current))
+                while (char.IsLetterOrDigit(this.Char))
                 {
-                    value += this.current;
+                    value += this.Char;
                     this.Skip();
                 }
 
                 token.Value = value;
+
+                // Identify the token as an Id by default.
                 token.Type = TokenType.Id;
 
+                // If the keyword is registered, identify the token.
                 if (Constants.keywordMap.ContainsKey(value))
-
                 {
                     token.Type = Constants.keywordMap[value];
                 }
 
                 return token;
             }
-            else if (char.IsDigit(this.current))
+            else if (char.IsDigit(this.Char))
             {
-                string value = this.current.ToString();
+                string value = this.Char.ToString();
 
                 this.Skip();
 
-                while (char.IsDigit(this.current))
+                while (char.IsDigit(this.Char))
                 {
-                    value += this.current;
+                    value += this.Char;
                     this.Skip();
                 }
 
@@ -119,24 +139,24 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 return token;
             }
 
-            if (Constants.symbolMap.ContainsKey(this.current.ToString()))
+            if (Constants.symbolMap.ContainsKey(this.Char.ToString()))
             {
-                token.Type = Constants.symbolMap[this.current.ToString()];
-                token.Value = this.current.ToString();
+                token.Type = Constants.symbolMap[this.Char.ToString()];
+                token.Value = this.Char.ToString();
 
                 this.Skip();
                 return token;
             }
-            else if (this.current == '#')
+            else if (this.Char == '#')
             {
                 this.Skip();
 
-                while (this.current != '\n' && this.current != '\r' && this.current != -1)
+                while (this.Char != '\n' && this.Char != '\r' && this.Char != -1)
                 {
                     this.Skip();
                 }
 
-                if (this.current != -1)
+                if (this.Char != -1)
                 {
                     return this.GetNextToken();
                 }
@@ -153,7 +173,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
             //     return;
             // }
 
-            this.Char += characters;
+            this.Position += characters;
         }
     }
 
