@@ -3,7 +3,7 @@ using LlvmSharpLang.SyntaxAnalysis;
 using System.Collections.Generic;
 using System;
 
-namespace LlvmSharpLang.LexicalAnalysis
+namespace LlvmSharpLang.SyntaxAnalysis
 {
     public class Lexer
     {
@@ -12,10 +12,6 @@ namespace LlvmSharpLang.LexicalAnalysis
 
         public string input { get; }
         public bool ignoreWhitespace { get; }
-
-        protected static readonly Dictionary<string, TokenType> keywordMap = new Dictionary<string, TokenType> {
-            {"fn", TokenType.KeywordFn}
-        };
 
         public Lexer(string input, bool ignoreWhitespace = true)
         {
@@ -67,12 +63,11 @@ namespace LlvmSharpLang.LexicalAnalysis
                 token.Value = value;
                 token.Type = TokenType.Id;
 
-                if (keywordMap.ContainsKey(value))
+                if (Constants.keywordMap.ContainsKey(value))
 
                 {
-                    token.Type = keywordMap[value];
+                    token.Type = Constants.keywordMap[value];
                 }
-
 
                 return token;
             }
@@ -93,70 +88,13 @@ namespace LlvmSharpLang.LexicalAnalysis
                 return token;
             }
 
-            if (this.current == '@')
+            if (Constants.symbolMap.ContainsKey(this.current.ToString()))
             {
-                this.Skip();
-                return new Token
-                {
-                    StartPos = start,
-                    Type = TokenType.SymbolAt,
-                    Value = "@"
-                };
-            }
+                token.Type = Constants.symbolMap[this.current.ToString()];
+                token.Value = this.current.ToString();
 
-            if (this.current == '{')
-            {
                 this.Skip();
-                return new Token
-                {
-                    StartPos = start,
-                    Type = TokenType.SymbolBlockL,
-                    Value = "{"
-                };
-            }
-
-            if (this.current == '}')
-            {
-                this.Skip();
-                return new Token
-                {
-                    StartPos = start,
-                    Type = TokenType.SymbolBlockR,
-                    Value = "}"
-                };
-            }
-
-            if (this.current == '(')
-            {
-                this.Skip();
-                return new Token
-                {
-                    StartPos = start,
-                    Type = TokenType.SymbolParenthesesL,
-                    Value = "("
-                };
-            }
-
-            if (this.current == ')')
-            {
-                this.Skip();
-                return new Token
-                {
-                    StartPos = start,
-                    Type = TokenType.SymbolParenthesesR,
-                    Value = ")"
-                };
-            }
-
-            if (this.current == ':')
-            {
-                this.Skip();
-                return new Token
-                {
-                    StartPos = start,
-                    Type = TokenType.SymbolColon,
-                    Value = ":"
-                };
+                return token;
             }
 
             if (this.current == '#')
