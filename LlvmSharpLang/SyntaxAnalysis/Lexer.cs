@@ -5,28 +5,53 @@ using System;
 
 namespace LlvmSharpLang.LexicalAnalysis
 {
+    public struct LexerOptions
+    {
+        public bool IgnoreWhitespace { get; set; }
+    }
+
+    /// <summary>
+    /// Parses input code string and creates
+    /// corresponding tokens.
+    /// </summary>
     public class Lexer
     {
-        public char current { get => this.input[this.character]; }
-        public int character { get; set; }
+        public static readonly LexerOptions defaultOptions = new LexerOptions
+        {
+            IgnoreWhitespace = true
+        };
 
-        public string input { get; }
-        public bool ignoreWhitespace { get; }
+        public char current
+        {
+            get => this.Input[this.Char];
+        }
+
+        public int Char { get; set; }
+
+        public string Input { get; }
+
+        public LexerOptions Options { get; }
 
         protected static readonly Dictionary<string, TokenType> keywordMap = new Dictionary<string, TokenType> {
             {"fn", TokenType.KeywordFn}
         };
 
-        public Lexer(string input, bool ignoreWhitespace = true)
+        public Lexer(string input, LexerOptions options)
         {
-            this.input = input;
-            this.ignoreWhitespace = ignoreWhitespace;
+            this.Input = input;
+            this.Options = options;
+        }
+
+        public Lexer(string input) : this(input, Lexer.defaultOptions)
+        {
+            //
         }
 
         public List<Token> Tokenize()
         {
             List<Token> tokens = new List<Token>();
             Token? next = this.GetNextToken();
+
             while (next.HasValue)
             {
                 tokens.Add(next.Value);
@@ -38,12 +63,11 @@ namespace LlvmSharpLang.LexicalAnalysis
 
         public Token? GetNextToken()
         {
-            if (this.character > this.input.Length - 1)
+            if (this.Char > this.Input.Length - 1)
             {
                 return null;
             }
-
-            if (this.ignoreWhitespace)
+            else if (this.IgnoreWhitespace)
             {
                 while (char.IsWhiteSpace(this.current))
                 {
@@ -51,13 +75,15 @@ namespace LlvmSharpLang.LexicalAnalysis
                 }
             }
 
-            int start = this.character;
+            int start = this.Char;
             Token token = new Token { StartPos = start };
 
             if (char.IsLetter(this.current))
             {
                 string value = this.current.ToString();
+
                 this.Skip();
+
                 while (char.IsLetterOrDigit(this.current))
                 {
                     value += this.current;
@@ -68,7 +94,6 @@ namespace LlvmSharpLang.LexicalAnalysis
                 token.Type = TokenType.Id;
 
                 if (keywordMap.ContainsKey(value))
-
                 {
                     token.Type = keywordMap[value];
                 }
@@ -76,11 +101,12 @@ namespace LlvmSharpLang.LexicalAnalysis
 
                 return token;
             }
-
-            if (char.IsDigit(this.current))
+            else if (char.IsDigit(this.current))
             {
                 string value = this.current.ToString();
+
                 this.Skip();
+
                 while (char.IsDigit(this.current))
                 {
                     value += this.current;
@@ -92,10 +118,10 @@ namespace LlvmSharpLang.LexicalAnalysis
 
                 return token;
             }
-
-            if (this.current == '@')
+            else if (this.current == '@')
             {
                 this.Skip();
+
                 return new Token
                 {
                     StartPos = start,
@@ -103,10 +129,10 @@ namespace LlvmSharpLang.LexicalAnalysis
                     Value = "@"
                 };
             }
-
-            if (this.current == '{')
+            else if (this.current == '{')
             {
                 this.Skip();
+
                 return new Token
                 {
                     StartPos = start,
@@ -114,10 +140,10 @@ namespace LlvmSharpLang.LexicalAnalysis
                     Value = "{"
                 };
             }
-
-            if (this.current == '}')
+            else if (this.current == '}')
             {
                 this.Skip();
+
                 return new Token
                 {
                     StartPos = start,
@@ -125,10 +151,10 @@ namespace LlvmSharpLang.LexicalAnalysis
                     Value = "}"
                 };
             }
-
-            if (this.current == '(')
+            else if (this.current == '(')
             {
                 this.Skip();
+
                 return new Token
                 {
                     StartPos = start,
@@ -136,10 +162,10 @@ namespace LlvmSharpLang.LexicalAnalysis
                     Value = "("
                 };
             }
-
-            if (this.current == ')')
+            else if (this.current == ')')
             {
                 this.Skip();
+
                 return new Token
                 {
                     StartPos = start,
@@ -147,10 +173,10 @@ namespace LlvmSharpLang.LexicalAnalysis
                     Value = ")"
                 };
             }
-
-            if (this.current == ':')
+            else if (this.current == ':')
             {
                 this.Skip();
+
                 return new Token
                 {
                     StartPos = start,
@@ -158,10 +184,10 @@ namespace LlvmSharpLang.LexicalAnalysis
                     Value = ":"
                 };
             }
-
-            if (this.current == '#')
+            else if (this.current == '#')
             {
                 this.Skip();
+
                 while (this.current != '\n' && this.current != '\r' && this.current != -1)
                 {
                     this.Skip();
@@ -184,11 +210,8 @@ namespace LlvmSharpLang.LexicalAnalysis
             //     return;
             // }
 
-            this.character += characters;
+            this.Char += characters;
         }
-
-
-
     }
 
 }
