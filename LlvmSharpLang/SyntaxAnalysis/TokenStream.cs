@@ -15,8 +15,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         public TokenStream(Token[] tokens) : base(tokens)
         {
-            // Prepare the initial enumerator.
-            this.Reset();
+            //
         }
 
         public bool Skip(TokenType type)
