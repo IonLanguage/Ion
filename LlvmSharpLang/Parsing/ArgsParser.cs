@@ -12,19 +12,19 @@ namespace LlvmSharpLang.Parsing
         public Args Parse(TokenStream stream)
         {
             // Skip '('.
-            stream.Skip(TokenType.SymbolParenthesesL);
+            stream.Skip(SyntaxAnalysis.TokenType.SymbolParenthesesL);
 
             Args args = new Args();
             Token buffer = stream.Next();
 
             // Loop until parentheses end.
-            while (buffer.Type != TokenType.SymbolParenthesesR)
+            while (buffer.Type != SyntaxAnalysis.TokenType.SymbolParenthesesR)
             {
                 // Get argument type value.
                 string typeValue = buffer.Value;
 
                 // Continuous arguments.
-                if (!args.Continuous && buffer.Type == TokenType.SymbolContinuous)
+                if (!args.Continuous && buffer.Type == SyntaxAnalysis.TokenType.SymbolContinuous)
                 {
                     // Set the continuous flag.
                     args.Continuous = true;
@@ -47,7 +47,7 @@ namespace LlvmSharpLang.Parsing
                 Arg arg = new Arg(type);
 
                 // Capture the arg's name.
-                string name = stream.Next(TokenType.Id).Value;
+                string name = stream.Next(SyntaxAnalysis.TokenType.Id).Value;
 
                 // Assign the arg's name.
                 arg.SetName(name);

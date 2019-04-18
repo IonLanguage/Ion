@@ -34,17 +34,17 @@ namespace LlvmSharpLang.Misc
         public static LLVMValueRef Literal(Token token, LLVMTypeRef type)
         {
             // Token value is an integer.
-            if (token.Type == TokenType.LiteralInteger)
+            if (token.Type == SyntaxAnalysis.TokenType.LiteralInteger)
             {
                 return LLVM.ConstInt(type, ulong.Parse(token.Value), false);
             }
             // Token value is a decimal.
-            else if (token.Type == TokenType.LiteralDecimal)
+            else if (token.Type == SyntaxAnalysis.TokenType.LiteralDecimal)
             {
                 return LLVM.ConstReal(type, double.Parse(token.Value));
             }
             // Token value is a string.
-            else if (token.Type == TokenType.LiteralString)
+            else if (token.Type == SyntaxAnalysis.TokenType.LiteralString)
             {
                 return LLVM.ConstString(token.Value, (uint)token.Value.Length, false);
             }

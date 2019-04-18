@@ -4,11 +4,11 @@ namespace LlvmSharpLang.Misc
     {
         public TreeNodeChildren Children { get; }
 
-        protected readonly Tree<TreeNode> tree;
+        public Tree<TreeNode> Tree { get; }
 
         public TreeNode(Tree<TreeNode> tree)
         {
-            this.tree = tree;
+            this.Tree = tree;
             this.Children = new TreeNodeChildren();
         }
     }

@@ -32,7 +32,7 @@ namespace LlvmSharpLang.Parsing
             Token nextToken = stream.Peek();
 
             // Expression is simply a single literal.
-            if (nextToken.Type == TokenType.SymbolSemiColon)
+            if (nextToken.Type == SyntaxAnalysis.TokenType.SymbolSemiColon)
             {
                 expr.ExplicitValue = value;
 
