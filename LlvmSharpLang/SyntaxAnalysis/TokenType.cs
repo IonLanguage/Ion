@@ -39,9 +39,11 @@ namespace LlvmSharpLang.SyntaxAnalysis
         LiteralString,
 
         // Keywords.
-        KeywordFn,
+        KeywordFunction,
 
         KeywordReturn,
+
+        KeywordExit,
 
         // Symbols.
         SymbolBlockL,

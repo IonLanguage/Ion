@@ -10,7 +10,9 @@ namespace LlvmSharpLang.SyntaxAnalysis
     public static class Constants
     {
         public static readonly TokenTypeMap keywords = new TokenTypeMap {
-            {"fn", TokenType.KeywordFn}
+            {"fn", TokenType.KeywordFunction},
+            {"exit", TokenType.KeywordExit},
+            {"return", TokenType.KeywordReturn}
         };
 
         public static readonly TokenTypeMap symbols = new TokenTypeMap {

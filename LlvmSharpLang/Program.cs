@@ -74,7 +74,7 @@ namespace LlvmSharpLang
             // --- Tests start ---
             var fnStream = new TokenStream(new Token[] {
                 new Token() {
-                    Type = TokenType.KeywordFn,
+                    Type = TokenType.KeywordFunction,
                     Value = "fn"
                 },
 
