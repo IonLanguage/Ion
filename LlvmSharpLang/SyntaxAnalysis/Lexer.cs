@@ -5,9 +5,10 @@ using System;
 
 namespace LlvmSharpLang.SyntaxAnalysis
 {
-    public struct LexerOptions
+    [Flags]
+    public enum LexerOptions
     {
-        public bool IgnoreWhitespace { get; set; }
+        IgnoreWhitespace = 1
     }
 
     /// <summary>
@@ -16,11 +17,10 @@ namespace LlvmSharpLang.SyntaxAnalysis
     /// </summary>
     public class Lexer
     {
-        public static readonly LexerOptions defaultOptions = new LexerOptions
-        {
-            IgnoreWhitespace = true
-        };
-
+        /// <summary>
+        /// The character located at the current
+        /// position in the input string.
+        /// </summary>
         public char Char
         {
             get => this.Input[this.Position];
@@ -32,9 +32,11 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         public LexerOptions Options { get; }
 
-        protected static readonly Dictionary<string, TokenType> keywordMap = new Dictionary<string, TokenType> {
-            {"fn", TokenType.KeywordFn}
-        };
+        /// <summary>
+        /// Temporarily the captured string value
+        /// as a buffer.
+        /// </summary>
+        protected string buffer;
 
         public Lexer(string input, LexerOptions options)
         {
@@ -42,7 +44,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
             this.Options = options;
         }
 
-        public Lexer(string input) : this(input, Lexer.defaultOptions)
+        public Lexer(string input) : this(input, 0)
         {
             //
         }
@@ -81,7 +83,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 return null;
             }
             // Skip whitespace characters if applicable.
-            else if (this.Options.IgnoreWhitespace)
+            else if (this.Options.HasFlag(LexerOptions.IgnoreWhitespace))
             {
                 while (char.IsWhiteSpace(this.Char))
                 {
@@ -89,62 +91,63 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 }
             }
 
-            int start = this.Position;
-
+            // Begin capturing the token.
             Token token = new Token
             {
-                StartPos = start
+                StartPos = this.Position
             };
 
+            // Capturing either an identifier or keyword.
             if (char.IsLetter(this.Char))
             {
-                string value = this.Char.ToString();
+                // Initialize the buffer.
+                this.buffer = this.Skip();
 
-                this.Skip();
-
+                // Consume the value.
                 while (char.IsLetterOrDigit(this.Char))
                 {
-                    value += this.Char;
+                    buffer += this.Char;
                     this.Skip();
                 }
 
-                token.Value = value;
+                token.Value = buffer;
 
-                // Identify the token as an Id by default.
+                // Identify the token as an identifier by default.
                 token.Type = TokenType.Id;
 
                 // If the keyword is registered, identify the token.
-                if (Constants.keywordMap.ContainsKey(value))
+                if (Constants.keywords.ContainsKey(buffer))
                 {
-                    token.Type = Constants.keywordMap[value];
+                    token.Type = Constants.keywords[buffer];
                 }
 
                 return token;
             }
             else if (char.IsDigit(this.Char))
             {
-                string value = this.Char.ToString();
-
-                this.Skip();
+                // Initialize the buffer.
+                this.buffer = this.Skip();
 
                 while (char.IsDigit(this.Char))
                 {
-                    value += this.Char;
+                    buffer += this.Char;
                     this.Skip();
                 }
 
                 token.Type = TokenType.LiteralInteger;
-                token.Value = int.Parse(value).ToString();
+                token.Value = int.Parse(buffer).ToString();
 
                 return token;
             }
 
-            if (Constants.symbolMap.ContainsKey(this.Char.ToString()))
+            // TODO: Should be buffer instead of current char.
+            if (Constants.symbols.ContainsKey(this.Char.ToString()))
             {
-                token.Type = Constants.symbolMap[this.Char.ToString()];
+                token.Type = Constants.symbols[this.Char.ToString()];
                 token.Value = this.Char.ToString();
 
                 this.Skip();
+
                 return token;
             }
             else if (this.Char == '#')
@@ -165,15 +168,22 @@ namespace LlvmSharpLang.SyntaxAnalysis
             return null;
         }
 
-        public void Skip(int characters = 1)
+        /// <summary>
+        /// Skip a specific amount of characters
+        // from the current position.
+        /// </summary>
+        public string Skip(int amount = 1)
         {
+            // TODO
             // if (this.character + characters >= this.program.Length)
             // {
             //     this.character = this.program.Length - 1;
             //     return;
             // }
 
-            this.Position += characters;
+            this.Position += amount;
+
+            return this.Input.Substring(this.Position, amount);
         }
     }
 
