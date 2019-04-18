@@ -8,19 +8,26 @@ namespace LlvmSharpLang.SyntaxAnalysis
         Id,
 
         // Math operators.
-        OpAssign,
+        OperatorAssignment,
 
-        OpAdd,
+        OperatorAddition,
 
-        OpSub,
+        OperatorSubstraction,
 
-        OpMultiply,
+        OperatorMultiplication,
 
-        OpDivide,
+        OperatorDivision,
 
-        OpExponent,
+        OperatorExponent,
 
-        OpModulo,
+        OperatorModulo,
+
+        OperatorEscape,
+
+        // Functionality operators.
+        OperatorPipe,
+
+        OperatorAddressOf,
 
         // Literals.
         LiteralInteger,
@@ -30,9 +37,6 @@ namespace LlvmSharpLang.SyntaxAnalysis
         LiteralCharacter,
 
         LiteralString,
-
-        // Functionality operators.
-        OpPipe,
 
         // Keywords.
         KeywordFn,

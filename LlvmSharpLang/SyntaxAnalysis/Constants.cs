@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-using TokenTypeMap = Dictionary<string, TokenType>;
-using ComplexTokenTypeMap = Dictionary<Regex, TokenType>;
+using TokenTypeMap = System.Collections.Generic.Dictionary<string, LlvmSharpLang.SyntaxAnalysis.TokenType>;
+using ComplexTokenTypeMap = System.Collections.Generic.Dictionary<System.Text.RegularExpressions.Regex, LlvmSharpLang.SyntaxAnalysis.TokenType>;
+using LlvmSharpLang.Misc;
 
 namespace LlvmSharpLang.SyntaxAnalysis
 {
@@ -23,9 +24,22 @@ namespace LlvmSharpLang.SyntaxAnalysis
             {"=>", TokenType.SymbolArrow}
         };
 
-        public static readonly ComplexTokenTypeMap complex = new ComplexTokenTypeMap
+        public static readonly TokenTypeMap operators = new TokenTypeMap {
+            {"+", TokenType.OperatorAddition},
+            {"-", TokenType.OperatorSubstraction},
+            {"*", TokenType.OperatorMultiplication},
+            {"/", TokenType.OperatorDivision},
+            {"%", TokenType.OperatorModulo},
+            {"^", TokenType.OperatorExponent},
+            {"=", TokenType.OperatorAssignment},
+            {"|", TokenType.OperatorPipe},
+            {"&", TokenType.OperatorAddressOf},
+            {"\\", TokenType.OperatorEscape}
+        };
+
+        public static readonly ComplexTokenTypeMap complexTokenTypes = new ComplexTokenTypeMap
         {
-            {new Regex(@"")}
+            {Util.CreateRegex(@"[_a-z]+[_a-z0-9]*"), TokenType.Id}
         };
     }
 

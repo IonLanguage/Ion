@@ -1,8 +1,7 @@
 using LlvmSharpLang.CodeGen;
-using LlvmSharpLang.Parsing;
 using LlvmSharpLang.SyntaxAnalysis;
 
-namespace LlvmSharpLang
+namespace LlvmSharpLang.Parsing
 {
     public class VarDeclareParser : IParser<VarDeclare>
     {
@@ -27,7 +26,7 @@ namespace LlvmSharpLang
             Token nextToken = stream.Peek();
 
             // Value is being assigned.
-            if (nextToken.Type == TokenType.OpAssign)
+            if (nextToken.Type == TokenType.OperatorAssignment)
             {
                 // Parse value.
                 Expr value = new ExprParser().Parse(stream);
