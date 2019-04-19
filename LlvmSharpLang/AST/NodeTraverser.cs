@@ -12,6 +12,10 @@ namespace LlvmSharpLang.AST
             this.node = node;
         }
 
+        /// <summary>
+        /// Traverse a node and its children, visiting all
+        /// the nodes of a level before moving to the next level.
+        /// </summary>
         public void BreadthFirst(Action<Node<T>> callback)
         {
             Queue<Node<T>> queue = new Queue<Node<T>>();
