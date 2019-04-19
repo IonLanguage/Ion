@@ -74,81 +74,81 @@ namespace LlvmSharpLang
             // --- Tests start ---
             var fnStream = new TokenStream(new Token[] {
                 new Token() {
-                    Type = SyntaxAnalysis.TokenType.KeywordFunction,
+                    Type = TokenType.KeywordFunction,
                     Value = "fn"
                 },
 
                 new Token() {
-                    Type = SyntaxAnalysis.TokenType.Id,
+                    Type = TokenType.Id,
                     Value = "helloWorld"
                 },
 
                 new Token() {
-                    Type = SyntaxAnalysis.TokenType.SymbolParenthesesL,
+                    Type = TokenType.SymbolParenthesesL,
                     Value = "("
                 },
 
                 new Token() {
-                    Type = SyntaxAnalysis.TokenType.Id,
+                    Type = TokenType.Id,
                     Value = "int"
                 },
 
                 new Token() {
-                    Type = SyntaxAnalysis.TokenType.Id,
+                    Type = TokenType.Id,
                     Value = "testArg1"
                 },
 
                 new Token() {
-                    Type = SyntaxAnalysis.TokenType.SymbolParenthesesR,
+                    Type = TokenType.SymbolParenthesesR,
                     Value = ")"
                 },
 
                 new Token() {
-                    Type = SyntaxAnalysis.TokenType.SymbolColon,
+                    Type = TokenType.SymbolColon,
                     Value = ":"
                 },
 
                 new Token() {
-                    Type = SyntaxAnalysis.TokenType.Id,
+                    Type = TokenType.Id,
                     Value = "int"
                 },
 
                 new Token() {
-                    Type = SyntaxAnalysis.TokenType.SymbolBlockL,
+                    Type = TokenType.SymbolBlockL,
                     Value = "{"
                 },
 
                 new Token() {
-                    Type = SyntaxAnalysis.TokenType.SymbolBlockR,
+                    Type = TokenType.SymbolBlockR,
                     Value = "}"
                 },
             });
 
             var globalVarStream = new TokenStream(new Token[] {
                 new Token() {
-                    Type = SyntaxAnalysis.TokenType.Id,
+                    Type = TokenType.Id,
                     Value = "bool"
                 },
 
                 new Token() {
-                    Type = SyntaxAnalysis.TokenType.SymbolAt,
+                    Type = TokenType.SymbolAt,
                     Value = "@"
                 },
 
                 new Token() {
-                    Type = SyntaxAnalysis.TokenType.Id,
+                    Type = TokenType.Id,
                     Value = "myGlobal"
                 },
             });
 
             var declareStream = new TokenStream(new Token[] {
                 new Token() {
-                    Type = SyntaxAnalysis.TokenType.Id,
+                    Type = TokenType.Id,
                     Value = "int"
                 },
 
                 new Token() {
-                    Type = SyntaxAnalysis.TokenType.Id,
+                    Type = TokenType.Id,
                     Value = "myLocal"
                 },
             });
