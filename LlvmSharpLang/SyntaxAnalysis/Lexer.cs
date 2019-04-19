@@ -1,6 +1,8 @@
+using System.Text;
 using LLVMSharp;
 using LlvmSharpLang.SyntaxAnalysis;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System;
 
 namespace LlvmSharpLang.SyntaxAnalysis
@@ -44,7 +46,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
             this.Options = options;
         }
 
-        public Lexer(string input) : this(input, 0)
+        // Defaults to ignoring whitespace unless other specified.
+        public Lexer(string input) : this(input, (LexerOptions.IgnoreWhitespace))
         {
             //
         }
@@ -101,27 +104,24 @@ namespace LlvmSharpLang.SyntaxAnalysis
             if (char.IsLetter(this.Char))
             {
                 // Initialize the buffer.
-                this.buffer = this.Skip();
+                int position = this.Position;
+                this.buffer = this.Char.ToString();
 
                 // Consume the value.
-                while (char.IsLetterOrDigit(this.Char))
+                while (char.IsLetterOrDigit(this.Input[position]))
                 {
-                    buffer += this.Char;
-                    this.Skip();
+                    position += 1;
+                    buffer += this.Input[position];
                 }
 
                 token.Value = buffer;
-
-                // Identify the token as an identifier by default.
-                token.Type = TokenType.Id;
 
                 // If the keyword is registered, identify the token.
                 if (Constants.keywords.ContainsKey(buffer))
                 {
                     token.Type = Constants.keywords[buffer];
+                    return token;
                 }
-
-                return token;
             }
             else if (char.IsDigit(this.Char))
             {
@@ -165,7 +165,40 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 }
             }
 
+            // Complex types support.
+            foreach (KeyValuePair<Regex, TokenType> pair in Constants.complexTokenTypes)
+            {
+                // If it matches, return the token (already modified by the function).
+                if (this.MatchExpression(ref token, pair.Value, pair.Key))
+                {
+                    return token;
+                }
+            }
+
             return null;
+        }
+
+        /// <summary>
+        /// Checks for a positive match for a complex type or just generic regex,
+        /// if positive, it'll update the referenced token to the provided type with the matched text.
+        /// </summary>
+        public bool MatchExpression(ref Token token, TokenType type, Regex regex)
+        {
+            // Substrings from the current position to get the viable matching string.
+            string input = this.Input.Substring(this.Position).TrimStart();
+            Match match = regex.Match(input);
+
+            // If the match is success, update the token to reflect this.
+            if (match.Success && match.Index == 0)
+            {
+                token.Value = match.Value;
+                token.Type = type;
+
+                this.Skip(match.Value.Length);
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -183,7 +216,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
             this.Position += amount;
 
-            return this.Input.Substring(this.Position, amount);
+            return this.Input.Substring(this.Position - amount, amount);
         }
     }
 
