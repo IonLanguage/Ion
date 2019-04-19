@@ -1,6 +1,6 @@
 using LlvmSharpLang.SyntaxAnalysis;
 
-namespace LlvmSharpLang.Misc
+namespace LlvmSharpLang.AST
 {
     public class OperationTreeNode : TreeNode
     {

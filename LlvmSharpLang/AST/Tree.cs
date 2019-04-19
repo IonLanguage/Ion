@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace LlvmSharpLang.Misc
+namespace LlvmSharpLang.AST
 {
     public class Tree<T> where T : TreeNode
     {

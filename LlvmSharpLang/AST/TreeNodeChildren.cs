@@ -1,4 +1,4 @@
-namespace LlvmSharpLang.Misc
+namespace LlvmSharpLang.AST
 {
     public class TreeNodeChildren
     {
