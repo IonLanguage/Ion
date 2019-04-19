@@ -5,6 +5,10 @@ namespace LlvmSharpLang.AST
 {
     public class Node<T>
     {
+        /// <summary>
+        /// A class containing the children
+        /// associated with this node.
+        /// </summary>
         public NodeChildren<T> Children { get; }
 
         public int Index { get; }
