@@ -2,11 +2,11 @@ using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.AST
 {
-    public class OperationTreeNode : TreeNode
+    public class TokenNode : Node<Token>
     {
         public TokenType Operator { get; set; }
 
-        public OperationTreeNode(Tree<TreeNode> tree) : base(tree)
+        public TokenNode(Token value) : base(value.StartPos, value)
         {
             //
         }
