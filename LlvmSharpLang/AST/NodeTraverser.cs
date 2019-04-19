@@ -18,11 +18,13 @@ namespace LlvmSharpLang.AST
         /// </summary>
         public void BreadthFirst(Action<Node<T>> callback)
         {
+            // Create the node queue to loop.
             Queue<Node<T>> queue = new Queue<Node<T>>();
 
             // Add the initial node to the queue.
             queue.Enqueue(this.node);
 
+            // Loop while the queue is not empty.
             while (queue.Count > 0)
             {
                 Node<T> node = queue.Dequeue();
