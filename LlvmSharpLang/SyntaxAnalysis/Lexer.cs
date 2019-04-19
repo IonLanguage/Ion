@@ -43,10 +43,11 @@ namespace LlvmSharpLang.SyntaxAnalysis
         public Lexer(string input, LexerOptions options)
         {
             this.Input = input;
-            this.Options = (LexerOptions.IgnoreWhitespace);
+            this.Options = options;
         }
 
-        public Lexer(string input) : this(input, 0)
+        // Defaults to ignoring whitespace unless other specified
+        public Lexer(string input) : this(input, (LexerOptions.IgnoreWhitespace))
         {
             //
         }
@@ -164,10 +165,10 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 }
             }
 
-            // Last priority: complex types
+            // Complex types support.
             foreach (KeyValuePair<Regex, TokenType> pair in Constants.complexTokenTypes)
             {
-                // If it matches, return the token (already modified by the function)
+                // If it matches, return the token (already modified by the function).
                 if (this.MatchExpression(ref token, pair.Value, pair.Key))
                 {
                     return token;
@@ -179,15 +180,15 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         /// <summary>
         /// Checks for a positive match for a complex type or just generic regex,
-        /// if positive, it'll update the referenced token to the provided type with the matched text
+        /// if positive, it'll update the referenced token to the provided type with the matched text.
         /// </summary>
         public bool MatchExpression(ref Token token, TokenType type, Regex regex)
         {
-            // Substrings from the current position to get the viable matching string
+            // Substrings from the current position to get the viable matching string.
             string input = this.Input.Substring(this.Position).TrimStart();
             Match match = regex.Match(input);
 
-            // If the match is success, update the token to reflect this
+            // If the match is success, update the token to reflect this.
             if (match.Success && match.Index == 0)
             {
                 token.Value = match.Value;
