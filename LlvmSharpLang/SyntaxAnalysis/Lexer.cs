@@ -203,7 +203,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         /// <summary>
         /// Skip a specific amount of characters
-        // from the current position.
+        /// from the current position.
         /// </summary>
         public string Skip(int amount = 1)
         {
