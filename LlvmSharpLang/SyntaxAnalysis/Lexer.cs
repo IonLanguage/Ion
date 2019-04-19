@@ -123,22 +123,6 @@ namespace LlvmSharpLang.SyntaxAnalysis
                     return token;
                 }
             }
-            else if (char.IsDigit(this.Char))
-            {
-                // Initialize the buffer.
-                this.buffer = this.Skip();
-
-                while (char.IsDigit(this.Char))
-                {
-                    buffer += this.Char;
-                    this.Skip();
-                }
-
-                token.Type = TokenType.LiteralInteger;
-                token.Value = int.Parse(buffer).ToString();
-
-                return token;
-            }
 
             // TODO: Should be buffer instead of current char.
             if (Constants.symbols.ContainsKey(this.Char.ToString()))
