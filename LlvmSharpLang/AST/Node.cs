@@ -11,6 +11,10 @@ namespace LlvmSharpLang.AST
 
         public T Value { get; set; }
 
+        /// <summary>
+        /// Whether this node is final and
+        /// does not contain any children.
+        /// </summary>
         public bool IsLeaf => this.Children.Empty;
 
         public NodeTraverser<T> Traverse { get; }
