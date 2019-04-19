@@ -46,7 +46,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
             this.Options = options;
         }
 
-        // Defaults to ignoring whitespace unless other specified
+        // Defaults to ignoring whitespace unless other specified.
         public Lexer(string input) : this(input, (LexerOptions.IgnoreWhitespace))
         {
             //
