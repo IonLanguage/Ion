@@ -214,7 +214,6 @@ namespace LlvmSharpLang.SyntaxAnalysis
             // }
 
             this.Position += amount;
-            Console.WriteLine("+" + amount);
 
             return this.Input.Substring(this.Position - amount, amount);
         }
