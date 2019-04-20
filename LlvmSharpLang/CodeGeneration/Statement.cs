@@ -1,8 +1,8 @@
 using System;
 using LLVMSharp;
-using LlvmSharpLang.CodeGen.Structure;
+using LlvmSharpLang.CodeGeneration.Structure;
 
-namespace LlvmSharpLang.CodeGen
+namespace LlvmSharpLang.CodeGeneration
 {
     public enum StatementType
     {
@@ -12,7 +12,9 @@ namespace LlvmSharpLang.CodeGen
 
         Return,
 
-        Expression
+        Expression,
+
+        FunctionCall
     }
 
     public interface IStatement

@@ -22,5 +22,14 @@ namespace LlvmSharpLang.CognitiveServices
 
             return null;
         }
+
+        /// <summary>
+        /// Determine whether the string value
+        /// is linked to a valid operator.
+        /// </summary>
+        public static bool IsOperator(string value)
+        {
+            return Constants.operators.ContainsKey(value);
+        }
     }
 }

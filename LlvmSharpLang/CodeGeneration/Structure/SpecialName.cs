@@ -1,4 +1,4 @@
-namespace LlvmSharpLang.CodeGen.Structure
+namespace LlvmSharpLang.CodeGeneration.Structure
 {
     public static class SpecialName
     {

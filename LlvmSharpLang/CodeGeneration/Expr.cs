@@ -1,14 +1,25 @@
 using System;
 using LLVMSharp;
-using LlvmSharpLang.CodeGen.Structure;
+using LlvmSharpLang.CodeGeneration.Structure;
 
-namespace LlvmSharpLang.CodeGen
+namespace LlvmSharpLang.CodeGeneration
 {
+    public enum ExprType
+    {
+        Operation,
+
+        FunctionCall
+    }
+
     public class Expr : IStatement, IUncontextedEntity<LLVMValueRef>
     {
         public StatementType StatementType => StatementType.Expression;
 
         public LLVMValueRef? ExplicitValue { get; set; }
+
+        public ExprType Type { get; set; }
+
+        public string FunctionCallTarget { get; set; }
 
         public static Action<LLVMBuilderRef> Void = (builder) =>
         {

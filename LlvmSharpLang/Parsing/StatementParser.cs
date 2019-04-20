@@ -1,5 +1,5 @@
 using System;
-using LlvmSharpLang.CodeGen;
+using LlvmSharpLang.CodeGeneration;
 using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.Parsing

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using LLVMSharp;
-using LlvmSharpLang.CodeGen.Structure;
+using LlvmSharpLang.CodeGeneration.Structure;
 using LlvmSharpLang.Misc;
 
-namespace LlvmSharpLang.CodeGen
+namespace LlvmSharpLang.CodeGeneration
 {
     public class Function : Named, IEntity<LLVMValueRef, LLVMModuleRef>
     {

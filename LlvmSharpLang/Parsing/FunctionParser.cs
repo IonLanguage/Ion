@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using LLVMSharp;
-using LlvmSharpLang.CodeGen;
+using LlvmSharpLang.CodeGeneration;
 using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.Parsing
@@ -38,7 +38,7 @@ namespace LlvmSharpLang.Parsing
             stream.Skip(TokenType.SymbolColon);
 
             // Parse the return type.
-            CodeGen.Type returnType = new TypeParser().Parse(stream);
+            CodeGeneration.Type returnType = new TypeParser().Parse(stream);
 
             // Assign the return type.
             function.ReturnType = returnType;

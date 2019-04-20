@@ -1,6 +1,6 @@
-using LlvmSharpLang.CodeGen.Structure;
+using LlvmSharpLang.CodeGeneration.Structure;
 
-namespace LlvmSharpLang.CodeGen
+namespace LlvmSharpLang.CodeGeneration
 {
     public abstract class Named
     {

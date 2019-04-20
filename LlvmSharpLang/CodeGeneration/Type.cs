@@ -1,8 +1,8 @@
 using LLVMSharp;
-using LlvmSharpLang.CodeGen.Structure;
+using LlvmSharpLang.CodeGeneration.Structure;
 using LlvmSharpLang.Misc;
 
-namespace LlvmSharpLang.CodeGen
+namespace LlvmSharpLang.CodeGeneration
 {
     public class Type : Named, IUncontextedEntity<LLVMTypeRef>
     {

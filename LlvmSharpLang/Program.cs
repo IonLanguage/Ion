@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using LLVMSharp;
-using LlvmSharpLang.CodeGen;
-using LlvmSharpLang.CodeGen.Structure;
+using LlvmSharpLang.CodeGeneration;
+using LlvmSharpLang.CodeGeneration.Structure;
 using LlvmSharpLang.Misc;
 using LlvmSharpLang.Parsing;
 using LlvmSharpLang.SyntaxAnalysis;

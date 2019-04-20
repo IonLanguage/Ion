@@ -1,4 +1,4 @@
-using LlvmSharpLang.CodeGen;
+using LlvmSharpLang.CodeGeneration;
 
 namespace LlvmSharpLang.Misc
 {
