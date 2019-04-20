@@ -7,7 +7,7 @@ namespace LlvmSharpLang.CodeGeneration
 {
     public class Function : Named, IEntity<LLVMValueRef, LLVMModuleRef>
     {
-        public Args Args { get; set; }
+        public FormalArgs Args { get; set; }
 
         public Block Body { get; set; }
 

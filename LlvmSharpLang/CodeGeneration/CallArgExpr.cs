@@ -1,15 +1,12 @@
 using System;
 using LLVMSharp;
 using LlvmSharpLang.CodeGeneration;
-using LlvmSharpLang.CognitiveServices;
-using LlvmSharpLang.Misc;
-using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.Parsing
 {
-    public class ExprParser : IParser<Expr>
+    public class CallArgExpr : Expr
     {
-        public Expr Parse(TokenStream stream)
+        public override LLVMValueRef Emit(LLVMBuilderRef context)
         {
             // TODO: Implement.
             throw new NotImplementedException();

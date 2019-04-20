@@ -4,17 +4,17 @@ using LlvmSharpLang.CodeGeneration.Structure;
 
 namespace LlvmSharpLang.CodeGeneration
 {
-    public class Args : IUncontextedEntity<LLVMTypeRef[]>
+    public class FormalArgs : IUncontextedEntity<LLVMTypeRef[]>
     {
         public Type Type { get; set; }
 
-        public List<Arg> Values { get; set; }
+        public List<FormalArg> Values { get; set; }
 
         public bool Continuous { get; set; }
 
-        public Args()
+        public FormalArgs()
         {
-            this.Values = new List<Arg>();
+            this.Values = new List<FormalArg>();
             this.Continuous = false;
         }
 

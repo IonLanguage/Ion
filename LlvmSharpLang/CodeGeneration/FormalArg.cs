@@ -3,11 +3,11 @@ using LlvmSharpLang.CodeGeneration.Structure;
 
 namespace LlvmSharpLang.CodeGeneration
 {
-    public class Arg : Named, IUncontextedEntity<LLVMTypeRef>
+    public class FormalArg : Named, IUncontextedEntity<LLVMTypeRef>
     {
         protected readonly Type type;
 
-        public Arg(Type type)
+        public FormalArg(Type type)
         {
             this.type = type;
         }

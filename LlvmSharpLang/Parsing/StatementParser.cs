@@ -19,10 +19,7 @@ namespace LlvmSharpLang.Parsing
             // Return statement.
             if (nextToken.Type == TokenType.KeywordReturn)
             {
-                // TODO: Implement.
-                throw new NotImplementedException();
-
-                // return new FunctionReturnParser().Parse(stream);
+                return new FunctionReturnParser().Parse(stream);
             }
             // Expression (function call, property access, etc.).
             else if (nextToken.Type == TokenType.Id)

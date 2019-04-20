@@ -3,10 +3,13 @@ using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.Parsing
 {
-    public class FunctionReturnParser : IParser<Expr>
+    public class FunctionReturnParser : IParser<FunctionReturnExpr>
     {
-        public Expr Parse(TokenStream stream)
+        public FunctionReturnExpr Parse(TokenStream stream)
         {
+            // Create the return expression entity.
+            FunctionReturnExpr returnExpr = new FunctionReturnExpr();
+
             // Skip return keyword.
             stream.Skip(TokenType.KeywordReturn);
 
@@ -15,16 +18,17 @@ namespace LlvmSharpLang.Parsing
             // There is no return expression.
             if (nextToken.Type == TokenType.SymbolSemiColon)
             {
-                return null;
+                return returnExpr;
             }
 
+            // TODO: Is this cast correct?
             // Otherwise, invoke the expression parser.
-            Expr expr = new ExprParser().Parse(stream);
+            returnExpr = (FunctionReturnExpr)new ExprParser().Parse(stream);
 
             // Consume semi-colon after the expression.
             stream.Skip(TokenType.SymbolSemiColon);
 
-            return expr;
+            return returnExpr;
         }
     }
 }

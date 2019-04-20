@@ -6,18 +6,18 @@ namespace LlvmSharpLang.CodeGeneration
 {
     public enum ExprType
     {
-        Operation,
+        UnaryExpression,
 
-        FunctionCall
+        BinaryExpression,
+
+        FunctionCall,
+
+        FunctionReturn
     }
 
-    public class Expr : IStatement, IUncontextedEntity<LLVMValueRef>
+    public abstract class Expr : Named, IEntity<LLVMValueRef, LLVMBuilderRef>
     {
-        public StatementType StatementType => StatementType.Expression;
-
-        public LLVMValueRef? ExplicitValue { get; set; }
-
-        public ExprType Type { get; set; }
+        public abstract ExprType Type { get; }
 
         public string FunctionCallTarget { get; set; }
 
@@ -26,16 +26,6 @@ namespace LlvmSharpLang.CodeGeneration
             LLVM.BuildRetVoid(builder);
         };
 
-        public LLVMValueRef Emit()
-        {
-            // An explicit value has been set.
-            if (this.ExplicitValue.HasValue)
-            {
-                return this.ExplicitValue.Value;
-            }
-
-            // TODO: Implement.
-            throw new NotImplementedException();
-        }
+        public abstract LLVMValueRef Emit(LLVMBuilderRef context);
     }
 }

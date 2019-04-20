@@ -64,6 +64,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         SymbolArrow,
 
-        SymbolAt
+        SymbolAt,
+
+        SymbolComma
     }
 }

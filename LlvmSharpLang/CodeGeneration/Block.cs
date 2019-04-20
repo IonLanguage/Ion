@@ -36,7 +36,7 @@ namespace LlvmSharpLang.CodeGeneration
             }
 
             // Otherwise, emit the set return value.
-            LLVM.BuildRet(builder, this.ReturnValue.Emit());
+            this.ReturnValue.Emit(builder);
 
             // Cache emitted block.
             this.Current = block;
