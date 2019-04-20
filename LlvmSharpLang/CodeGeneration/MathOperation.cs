@@ -35,7 +35,7 @@ namespace LlvmSharpLang.CodeGeneration
             {
                 throw new Exception("Expected operation type to be set");
             }
-            // Ensure at least the left side value is set.
+            // Ensure that the left-side and right-side value is set.
             else if (!this.LeftSide.HasValue || !this.RightSide.HasValue)
             {
                 throw new Exception("Expected left-side and right-side value to be set");
