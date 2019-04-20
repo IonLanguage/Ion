@@ -5,7 +5,7 @@ namespace LlvmSharpLang.CognitiveServices
     public class TokenIdentifier
     {
         /// <summary>
-        /// Attempt to identify the simple, corresponding
+        /// Attempt to identify a simple, corresponding
         /// token type from a string value.
         /// </summary>
         public static TokenType? Identify(string value)

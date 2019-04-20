@@ -1,5 +1,7 @@
+using System;
 using LLVMSharp;
 using LlvmSharpLang.CodeGen;
+using LlvmSharpLang.CognitiveServices;
 using LlvmSharpLang.Misc;
 using LlvmSharpLang.SyntaxAnalysis;
 
@@ -16,16 +18,17 @@ namespace LlvmSharpLang.Parsing
             Token valueToken = stream.Next();
             LLVMValueRef? value = null;
 
-            // Literal integer value.
-            if (Pattern.Integer.IsMatch(valueToken.Value))
+            // Attempt to identify the value.
+            TokenType? identifiedType = TokenIdentifier.Identify(valueToken.Value);
+
+            // The value's token type was successfully identified.
+            if (identifiedType.HasValue)
             {
-                value = Resolver.Literal(valueToken, TypeFactory.Int32.Emit());
+                // TODO
             }
-            // TODO: Should determine whether Double or Float.
-            // Literal decimal value.
-            else if (Pattern.Decimal.IsMatch(valueToken.Value))
+            else
             {
-                value = Resolver.Literal(valueToken, TypeFactory.Double.Emit()); ;
+                throw new Exception("Unable to identify token type from provided value");
             }
 
             // Gather contextual info from upcoming token.
