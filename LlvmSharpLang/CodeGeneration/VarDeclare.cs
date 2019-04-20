@@ -1,6 +1,6 @@
 using LLVMSharp;
-using LlvmSharpLang.CodeGen;
-using LlvmSharpLang.CodeGen.Structure;
+using LlvmSharpLang.CodeGeneration;
+using LlvmSharpLang.CodeGeneration.Structure;
 
 namespace LlvmSharpLang
 {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using LLVMSharp;
-using LlvmSharpLang.CodeGen;
-using LlvmSharpLang.CodeGen.Structure;
+using LlvmSharpLang.CodeGeneration;
+using LlvmSharpLang.CodeGeneration.Structure;
 using LlvmSharpLang.Misc;
 using LlvmSharpLang.Parsing;
 using LlvmSharpLang.SyntaxAnalysis;
@@ -178,13 +178,16 @@ namespace LlvmSharpLang
             declare.Emit(function.Body.Current.CreateBuilder());
             // --- Tests end ---
 
-            // Print out IR.
+            // Print output IR.
             Console.ForegroundColor = ConsoleColor.DarkCyan;
 
             LLVM.DumpModule(module);
+
+            // Dispose resources.
             LLVM.DisposeBuilder(builder);
             LLVM.DisposeExecutionEngine(engine);
 
+            // Reset the foreground color after printing output IR.
             Console.ResetColor();
         }
     }

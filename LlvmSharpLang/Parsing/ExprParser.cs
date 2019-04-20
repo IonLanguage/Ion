@@ -1,5 +1,7 @@
+using System;
 using LLVMSharp;
-using LlvmSharpLang.CodeGen;
+using LlvmSharpLang.CodeGeneration;
+using LlvmSharpLang.CognitiveServices;
 using LlvmSharpLang.Misc;
 using LlvmSharpLang.SyntaxAnalysis;
 
@@ -16,22 +18,48 @@ namespace LlvmSharpLang.Parsing
             Token valueToken = stream.Next();
             LLVMValueRef? value = null;
 
-            // Literal integer value.
-            if (Pattern.Integer.IsMatch(valueToken.Value))
-            {
-                value = Resolver.Literal(valueToken, TypeFactory.Int32.Emit());
-            }
-            // TODO: Should determine whether Double or Float.
-            // Literal decimal value.
-            else if (Pattern.Decimal.IsMatch(valueToken.Value))
-            {
-                value = Resolver.Literal(valueToken, TypeFactory.Double.Emit()); ;
-            }
-
             // Gather contextual info from upcoming token.
             Token nextToken = stream.Peek();
 
-            // Expression is simply a single literal.
+            // Attempt to identify the value.
+            TokenType? identifiedType = TokenIdentifier.Identify(valueToken.Value);
+
+            // The value's token type was successfully identified.
+            if (identifiedType.HasValue)
+            {
+                switch (identifiedType.Value)
+                {
+                    // Possible function call or operation.
+                    case TokenType.Id:
+                        {
+                            // Function call.
+                            if (nextToken.Type == TokenType.SymbolParenthesesL)
+                            {
+                                expr.Type = ExprType.FunctionCall;
+                                expr.FunctionCallTarget = valueToken.Value;
+                            }
+                            // Operation.
+                            else if (TokenIdentifier.IsOperator(nextToken.Value))
+                            {
+                                // TODO
+                            }
+
+                            break;
+                        }
+
+                    default:
+                        {
+                            throw new Exception("Unexpected token; Expecting function call or operation");
+                        }
+                }
+            }
+            else
+            {
+                throw new Exception("Unable to identify token type from provided value");
+            }
+
+            // TODO: Review because of changes above.
+            // Expression is singular.
             if (nextToken.Type == SyntaxAnalysis.TokenType.SymbolSemiColon)
             {
                 expr.ExplicitValue = value;

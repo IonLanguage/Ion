@@ -1,5 +1,5 @@
 using LlvmSharpLang.SyntaxAnalysis;
-using LlvmSharpLang.CodeGen.Structure;
+using LlvmSharpLang.CodeGeneration.Structure;
 
 namespace LlvmSharpLang.AST
 {

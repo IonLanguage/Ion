@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using LLVMSharp;
-using LlvmSharpLang.CodeGen.Structure;
+using LlvmSharpLang.CodeGeneration.Structure;
 
-namespace LlvmSharpLang.CodeGen
+namespace LlvmSharpLang.CodeGeneration
 {
     public class Args : IUncontextedEntity<LLVMTypeRef[]>
     {

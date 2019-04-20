@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using LLVMSharp;
-using LlvmSharpLang.CodeGen;
+using LlvmSharpLang.CodeGeneration;
 using LlvmSharpLang.Misc;
 using LlvmSharpLang.SyntaxAnalysis;
 
@@ -41,7 +41,7 @@ namespace LlvmSharpLang.Parsing
                 }
 
                 // Create the arg's type.
-                CodeGen.Type type = new CodeGen.Type(typeValue);
+                CodeGeneration.Type type = new CodeGeneration.Type(typeValue);
 
                 // Create the arg.
                 Arg arg = new Arg(type);
