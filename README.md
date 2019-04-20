@@ -23,4 +23,24 @@ printf("Hello %s", "world!");
 ```
 3. **Built-in DOM support**.
 
+Inspired by React.js' JSX syntax, the language will have built-in DOM and HTML support.
+
+```rust
+fn main(): int {
+    web.mount(<div>Built-in HTML syntax is awesome!</div>);
+
+    return 0;
+}
+```
+
+This feature, along with decorators & anonymous functions, will come super handy when building APIs!
+
+```rust
+str @name = "John Doe";
+
+@route("/") {
+    return <p>Hello, {@name}.</p>; // Hello, John Doe.
+}
+```
+
 4. **Portable**.
