@@ -8,46 +8,6 @@ using LlvmSharpLang.Misc;
 
 namespace LlvmSharpLang.SyntaxAnalysis
 {
-
-    public static class TypeMapExtensions
-    {
-
-        public static bool Some(this TokenTypeMap map, Func<string, bool> func)
-        {
-            foreach (string str in map.Keys)
-            {
-                if (func(str))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-
-        }
-
-        public static TokenTypeMap SortByKeyLength(this TokenTypeMap map)
-        {
-            var keys = new string[map.Count];
-            map.Keys.CopyTo(keys, 0);
-            List<String> keyList = new List<string>(keys);
-            keyList.Sort((a, b) =>
-            {
-                if (a.Length > b.Length) return -1;
-                else if (b.Length > a.Length) return 1;
-                else return 0;
-            });
-            TokenTypeMap @new = new Dictionary<string, TokenType>();
-            foreach (var item in keyList)
-            {
-                @new[item] = map[item];
-            }
-
-            return @new;
-        }
-
-    }
-
     public static class Constants
     {
         public static string mainFunctionName = "main";
@@ -92,5 +52,4 @@ namespace LlvmSharpLang.SyntaxAnalysis
             {Util.CreateRegex(@"'([^'\\\n]|\\.)'"), TokenType.LiteralCharacter}
         };
     }
-
 }
