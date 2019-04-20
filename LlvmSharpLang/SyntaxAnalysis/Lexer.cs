@@ -129,63 +129,40 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 }
             }
 
-            // TODO: Both symbols and operators lex the same, maybe consilidate into one soon
+            // TODO: Both symbols and operators lex the same, maybe consilidate into one soon.
             if (Constants.symbols.Some(str => str.StartsWith(this.Char)))
             {
                 foreach (KeyValuePair<string, TokenType> pair in Constants.symbols)
                 {
                     // If the symbol is next in the input.
-                    if (this.MatchExpression(ref token, pair.Value, Util.CreateRegex(Regex.Escape(pair.Key)), false))
+                    if (this.MatchExpression(ref token, pair.Value, Util.CreateRegex(Regex.Escape(pair.Key))))
                     {
-                        // if the current token value is null, or this token value is longer, then we can set the old value and type or the new ones.
-                        if (token.Value == null || pair.Key.Length > token.Value.Length)
-                        {
-                            token.Value = pair.Key;
-                            token.Type = pair.Value;
-                        }
+                        return token;
                     }
                 }
-
-                // if we managed to assign something, skip over it then return
-                if (token.Value != null)
-                {
-                    this.Skip(token.Value.Length);
-                    return token;
-                }
             }
-            else if (Constants.operators.Some(str => str.StartsWith(this.Char)))
+
+            if (Constants.operators.Some(str => str.StartsWith(this.Char)))
             {
                 foreach (KeyValuePair<string, TokenType> pair in Constants.operators)
                 {
                     // If the operator is next in the input.
-                    if (this.MatchExpression(ref token, pair.Value, Util.CreateRegex(Regex.Escape(pair.Key)), false))
+                    if (this.MatchExpression(ref token, pair.Value, Util.CreateRegex(Regex.Escape(pair.Key))))
                     {
-                        // if the current token value is null, or this token value is longer, then we can set the old value and type or the new ones.
-                        if (token.Value == null || pair.Key.Length > token.Value.Length)
-                        {
-                            token.Value = pair.Key;
-                            token.Type = pair.Value;
-                        }
+                        return token;
                     }
-                }
-
-                // if we managed to assign something, skip over it then return
-                if (token.Value != null)
-                {
-                    this.Skip(token.Value.Length);
-                    return token;
                 }
             }
 
             // TODO: Not hardcoded.
-            // TODO: Multiline comments
-            // '#' is our character for singe line comments
+            // TODO: Multiline comments.
+            // '#' is our character for singe line comments.
             if (this.Char == '#')
             {
-                // Skip over the #
+                // Skip over the '#'.
                 this.Skip();
 
-                // While we haven't reached the end of the line, and we haven't reached the end of the file, keep skippinp
+                // While we haven't reached the end of the line, and we haven't reached the end of the file, keep skipping.
                 while (this.Char != '\n' && this.Char != '\r' && this.Char != EOF)
                 {
                     this.Skip();

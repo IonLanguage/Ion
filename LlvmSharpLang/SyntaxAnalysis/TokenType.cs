@@ -23,6 +23,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
         OperatorModulo,
 
         OperatorEscape,
+
         OperatorEquality,
 
         // Functionality operators.
