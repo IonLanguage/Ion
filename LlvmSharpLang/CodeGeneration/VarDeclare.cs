@@ -2,7 +2,7 @@ using LLVMSharp;
 using LlvmSharpLang.CodeGeneration;
 using LlvmSharpLang.CodeGeneration.Structure;
 
-namespace LlvmSharpLang
+namespace LlvmSharpLang.CodeGeneration
 {
     // TODO: This should be somehow boxed around "statement" so it emits within a body.
     public class VarDeclare : Named, IStatement, IEntity<LLVMValueRef, LLVMBuilderRef>
