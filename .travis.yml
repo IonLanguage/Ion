@@ -1,0 +1,8 @@
+language: csharp
+mono: none
+dotnet: 2.0.0
+script:
+  - dotnet restore
+  - dotnet build ./LlvmSharpLang/
+  - dotnet build ./LlvmSharpLang.Tests/
+  - dotnet test ./LlvmSharpLang.Tests/
