@@ -26,6 +26,26 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         }
 
+        public static TokenTypeMap SortByKeyLength(this TokenTypeMap map)
+        {
+            var keys = new string[map.Count];
+            map.Keys.CopyTo(keys, 0);
+            List<String> keyList = new List<string>(keys);
+            keyList.Sort((a, b) =>
+            {
+                if (a.Length > b.Length) return -1;
+                else if (b.Length > a.Length) return 1;
+                else return 0;
+            });
+            TokenTypeMap @new = new Dictionary<string, TokenType>();
+            foreach (var item in keyList)
+            {
+                @new[item] = map[item];
+            }
+
+            return @new;
+        }
+
     }
 
     public static class Constants
@@ -47,9 +67,10 @@ namespace LlvmSharpLang.SyntaxAnalysis
             {":", TokenType.SymbolColon},
             {";", TokenType.SymbolSemiColon},
             {"=>", TokenType.SymbolArrow}
-        };
+        }.SortByKeyLength();
 
         public static readonly TokenTypeMap operators = new TokenTypeMap {
+            {"==", TokenType.OperatorEquality},
             {"+", TokenType.OperatorAddition},
             {"-", TokenType.OperatorSubstraction},
             {"*", TokenType.OperatorMultiplication},
@@ -59,9 +80,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
             {"=", TokenType.OperatorAssignment},
             {"|", TokenType.OperatorPipe},
             {"&", TokenType.OperatorAddressOf},
-            {"\\", TokenType.OperatorEscape},
-            {"==", TokenType.OperatorEquality}
-        };
+            {"\\", TokenType.OperatorEscape}
+        }.SortByKeyLength();
 
         public static readonly ComplexTokenTypeMap complexTokenTypes = new ComplexTokenTypeMap
         {
