@@ -43,6 +43,13 @@ namespace LlvmSharpLang.SyntaxAnalysis
             {"\\", TokenType.OperatorEscape}
         }.SortByKeyLength();
 
+        public static readonly List<TokenTypeMap> simpleTokenTypeMaps = new List<TokenTypeMap>
+        {
+            Constants.keywords,
+            Constants.symbols,
+            Constants.operators
+        };
+
         public static readonly ComplexTokenTypeMap complexTokenTypes = new ComplexTokenTypeMap
         {
             {Util.CreateRegex(@"[_a-z]+[_a-z0-9]*"), TokenType.Id},

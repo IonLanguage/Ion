@@ -155,8 +155,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
             }
 
             // TODO: Not hardcoded.
-            // TODO: Multiline comments.
-            // '#' is our character for singe line comments.
+            // TODO: Multiline comments support.
+            // Definition of a single-line comment.
             if (this.Char == '#')
             {
                 // Skip over the '#'.
