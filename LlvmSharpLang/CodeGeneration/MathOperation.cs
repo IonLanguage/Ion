@@ -1,5 +1,6 @@
 using System;
 using LLVMSharp;
+using LlvmSharpLang.CodeGeneration;
 using LlvmSharpLang.CodeGeneration.Structure;
 
 namespace LlvmSharpLang.CodeGeneration
@@ -35,19 +36,38 @@ namespace LlvmSharpLang.CodeGeneration
                 throw new Exception("Expected operation type to be set");
             }
             // Ensure at least the left side value is set.
-            else if (this.LeftSide == null)
+            else if (!this.LeftSide.HasValue || !this.RightSide.HasValue)
             {
-                throw new Exception("Expected left-side value to be set");
+                throw new Exception("Expected left-side and right-side value to be set");
             }
 
             switch (this.Type.Value)
             {
                 case OperationType.Addition:
                     {
-                        // TODO
-                        LLVM.BuildAdd(this.LeftSide, this.RightSide, this.Name);
+                        return LLVM.BuildAdd(context, this.LeftSide.Value, this.RightSide.Value, this.Name);
+                    }
 
-                        break;
+                case OperationType.Substraction:
+                    {
+                        return LLVM.BuildSub(context, this.LeftSide.Value, this.RightSide.Value, this.Name);
+                    }
+
+                case OperationType.Multiplication:
+                    {
+                        // TODO: Types.
+                        return LLVM.BuildMul(context, this.LeftSide.Value, this.RightSide.Value, this.Name);
+                    }
+
+                case OperationType.Division:
+                    {
+                        // TODO: Types.
+                        return LLVM.BuildUDiv(context, this.LeftSide.Value, this.RightSide.Value, this.Name);
+                    }
+                case OperationType.Modulo:
+                    {
+                        // TODO: Types.
+                        return LLVM.BuildSRem(context, this.LeftSide.Value, this.RightSide.Value, this.Name);
                     }
 
                 default:
