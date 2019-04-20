@@ -7,13 +7,12 @@ namespace Tests
 {
     public class Tests
     {
-
         protected List<TokenType> tokenTypes;
 
         [SetUp]
         public void Setup()
         {
-            tokenTypes = new List<TokenType>() {
+            this.tokenTypes = new List<TokenType>() {
                 TokenType.KeywordFunction,
                 TokenType.Id,
                 TokenType.SymbolBlockL,
