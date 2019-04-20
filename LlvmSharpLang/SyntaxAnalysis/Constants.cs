@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -7,6 +8,26 @@ using LlvmSharpLang.Misc;
 
 namespace LlvmSharpLang.SyntaxAnalysis
 {
+
+    public static class TypeMapExtensions
+    {
+
+        public static bool Some(this TokenTypeMap map, Func<string, bool> func)
+        {
+            foreach (string str in map.Keys)
+            {
+                if (func(str))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+
+        }
+
+    }
+
     public static class Constants
     {
         public static string mainFunctionName = "main";
@@ -38,7 +59,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
             {"=", TokenType.OperatorAssignment},
             {"|", TokenType.OperatorPipe},
             {"&", TokenType.OperatorAddressOf},
-            {"\\", TokenType.OperatorEscape}
+            {"\\", TokenType.OperatorEscape},
+            {"==", TokenType.OperatorEquality}
         };
 
         public static readonly ComplexTokenTypeMap complexTokenTypes = new ComplexTokenTypeMap

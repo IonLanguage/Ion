@@ -1,8 +1,9 @@
+using System.Text.RegularExpressions;
 using System.Text;
 using LLVMSharp;
 using LlvmSharpLang.SyntaxAnalysis;
+using LlvmSharpLang.Misc;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System;
 
 namespace LlvmSharpLang.SyntaxAnalysis
@@ -19,6 +20,9 @@ namespace LlvmSharpLang.SyntaxAnalysis
     /// </summary>
     public class Lexer
     {
+
+        public static readonly int EOF = -1;
+
         /// <summary>
         /// The character located at the current
         /// position in the input string.
@@ -108,7 +112,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 this.buffer = this.Char.ToString();
 
                 // Consume the value.
-                while (char.IsLetterOrDigit(this.Input[position]))
+                while (char.IsLetterOrDigit(this.Input[position + 1]))
                 {
                     position += 1;
                     buffer += this.Input[position];
@@ -119,31 +123,76 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 // If the keyword is registered, identify the token.
                 if (Constants.keywords.ContainsKey(buffer))
                 {
+                    this.Skip(token.Value.Length);
                     token.Type = Constants.keywords[buffer];
                     return token;
                 }
             }
 
-            // TODO: Should be buffer instead of current char.
-            if (Constants.symbols.ContainsKey(this.Char.ToString()))
+            // TODO: Both symbols and operators lex the same, maybe consilidate into one soon
+            if (Constants.symbols.Some(str => str.StartsWith(this.Char)))
             {
-                token.Type = Constants.symbols[this.Char.ToString()];
-                token.Value = this.Char.ToString();
+                foreach (KeyValuePair<string, TokenType> pair in Constants.symbols)
+                {
+                    // If the symbol is next in the input.
+                    if (this.MatchExpression(ref token, pair.Value, Util.CreateRegex(Regex.Escape(pair.Key)), false))
+                    {
+                        // if the current token value is null, or this token value is longer, then we can set the old value and type or the new ones.
+                        if (token.Value == null || pair.Key.Length > token.Value.Length)
+                        {
+                            token.Value = pair.Key;
+                            token.Type = pair.Value;
+                        }
+                    }
+                }
 
-                this.Skip();
-
-                return token;
+                // if we managed to assign something, skip over it then return
+                if (token.Value != null)
+                {
+                    this.Skip(token.Value.Length);
+                    return token;
+                }
             }
-            else if (this.Char == '#')
+            else if (Constants.operators.Some(str => str.StartsWith(this.Char)))
             {
+                foreach (KeyValuePair<string, TokenType> pair in Constants.operators)
+                {
+                    // If the operator is next in the input.
+                    if (this.MatchExpression(ref token, pair.Value, Util.CreateRegex(Regex.Escape(pair.Key)), false))
+                    {
+                        // if the current token value is null, or this token value is longer, then we can set the old value and type or the new ones.
+                        if (token.Value == null || pair.Key.Length > token.Value.Length)
+                        {
+                            token.Value = pair.Key;
+                            token.Type = pair.Value;
+                        }
+                    }
+                }
+
+                // if we managed to assign something, skip over it then return
+                if (token.Value != null)
+                {
+                    this.Skip(token.Value.Length);
+                    return token;
+                }
+            }
+
+            // TODO: Not hardcoded.
+            // TODO: Multiline comments
+            // '#' is our character for singe line comments
+            if (this.Char == '#')
+            {
+                // Skip over the #
                 this.Skip();
 
-                while (this.Char != '\n' && this.Char != '\r' && this.Char != -1)
+                // While we haven't reached the end of the line, and we haven't reached the end of the file, keep skippinp
+                while (this.Char != '\n' && this.Char != '\r' && this.Char != EOF)
                 {
                     this.Skip();
                 }
 
-                if (this.Char != -1)
+                // If we didn't reach the end of the file, we can return the next token.
+                if (this.Char != EOF)
                 {
                     return this.GetNextToken();
                 }
@@ -153,7 +202,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
             foreach (KeyValuePair<Regex, TokenType> pair in Constants.complexTokenTypes)
             {
                 // If it matches, return the token (already modified by the function).
-                if (this.MatchExpression(ref token, pair.Value, pair.Key))
+                if (this.MatchExpression(ref token, pair.Value, pair.Key, true))
                 {
                     return token;
                 }
@@ -166,7 +215,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
         /// Checks for a positive match for a complex type or just generic regex,
         /// if positive, it'll update the referenced token to the provided type with the matched text.
         /// </summary>
-        public bool MatchExpression(ref Token token, TokenType type, Regex regex)
+        public bool MatchExpression(ref Token token, TokenType type, Regex regex, bool edit = true)
         {
             // Substrings from the current position to get the viable matching string.
             string input = this.Input.Substring(this.Position).TrimStart();
@@ -175,10 +224,13 @@ namespace LlvmSharpLang.SyntaxAnalysis
             // If the match is success, update the token to reflect this.
             if (match.Success && match.Index == 0)
             {
-                token.Value = match.Value;
-                token.Type = type;
+                if (edit)
+                {
+                    token.Value = match.Value;
+                    token.Type = type;
 
-                this.Skip(match.Value.Length);
+                    this.Skip(match.Value.Length);
+                }
                 return true;
             }
 
@@ -189,7 +241,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
         /// Skip a specific amount of characters
         /// from the current position.
         /// </summary>
-        public string Skip(int amount = 1)
+        public void Skip(int amount = 1)
         {
             // TODO
             // if (this.character + characters >= this.program.Length)
@@ -199,8 +251,6 @@ namespace LlvmSharpLang.SyntaxAnalysis
             // }
 
             this.Position += amount;
-
-            return this.Input.Substring(this.Position - amount, amount);
         }
     }
 
