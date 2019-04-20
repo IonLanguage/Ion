@@ -27,7 +27,7 @@ namespace LlvmSharpLang.CodeGeneration
             // Assign value if applicable.
             if (this.Value != null)
             {
-                LLVM.BuildStore(context, this.Value.Emit(), variable);
+                LLVM.BuildStore(context, this.Value.Emit(context), variable);
             }
 
             return variable;

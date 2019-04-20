@@ -32,7 +32,7 @@ namespace LlvmSharpLang.Parsing
             if (nextToken.Type != TokenType.SymbolBlockR && block.Type != BlockType.Short)
             {
                 // TODO: Parse statements continually until block end.
-                new StatementParser().Parse(stream);
+                new PrimaryExprParser().Parse(stream);
             }
 
             // Skip default block end '}' or short block end ';'.

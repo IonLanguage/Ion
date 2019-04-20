@@ -79,7 +79,7 @@ namespace LlvmSharpLang
                 },
 
                 new Token() {
-                    Type = TokenType.Id,
+                    Type = TokenType.Identifier,
                     Value = "helloWorld"
                 },
 
@@ -89,12 +89,12 @@ namespace LlvmSharpLang
                 },
 
                 new Token() {
-                    Type = TokenType.Id,
+                    Type = TokenType.Identifier,
                     Value = "int"
                 },
 
                 new Token() {
-                    Type = TokenType.Id,
+                    Type = TokenType.Identifier,
                     Value = "testArg1"
                 },
 
@@ -109,7 +109,7 @@ namespace LlvmSharpLang
                 },
 
                 new Token() {
-                    Type = TokenType.Id,
+                    Type = TokenType.Identifier,
                     Value = "int"
                 },
 
@@ -126,7 +126,7 @@ namespace LlvmSharpLang
 
             var globalVarStream = new TokenStream(new Token[] {
                 new Token() {
-                    Type = TokenType.Id,
+                    Type = TokenType.Identifier,
                     Value = "bool"
                 },
 
@@ -136,46 +136,22 @@ namespace LlvmSharpLang
                 },
 
                 new Token() {
-                    Type = TokenType.Id,
+                    Type = TokenType.Identifier,
                     Value = "myGlobal"
                 },
             });
 
             var declareStream = new TokenStream(new Token[] {
                 new Token() {
-                    Type = TokenType.Id,
+                    Type = TokenType.Identifier,
                     Value = "int"
                 },
 
                 new Token() {
-                    Type = TokenType.Id,
+                    Type = TokenType.Identifier,
                     Value = "myLocal"
                 },
             });
-
-            // Global variable.
-            var globalVar = new GlobalVarParser().Parse(globalVarStream);
-            var globalVarValue = new Expr();
-
-            globalVarValue.ExplicitValue = LLVM.ConstInt(LLVMTypeRef.Int1Type(), 1, false);
-            globalVar.Value = globalVarValue;
-
-            globalVar.Emit(module);
-
-            // Function.
-            var function = new FunctionParser().Parse(fnStream);
-            var val = new Expr();
-
-            val.ExplicitValue = LLVM.ConstInt(LLVMTypeRef.Int32Type(), 7, false);
-
-            function.Body.ReturnValue = val;
-            function.Emit(module);
-
-            // Variable declaration.
-            // TODO: This should be emitted/parsed from within a block (on the block's Emit event).
-            var declare = new VarDeclareParser().Parse(declareStream);
-
-            declare.Emit(function.Body.Current.CreateBuilder());
             // --- Tests end ---
 
             // Print output IR.

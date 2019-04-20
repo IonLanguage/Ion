@@ -15,7 +15,7 @@ namespace LlvmSharpLang.CodeGeneration
             this.Args = args;
         }
 
-        public LLVMValueRef Emit(LLVMBuilderRef context)
+        public override LLVMValueRef Emit(LLVMBuilderRef context)
         {
             LLVMValueRef functionCall = LLVM.BuildCall(context, null, this.Args.Emit(), this.Name);
 

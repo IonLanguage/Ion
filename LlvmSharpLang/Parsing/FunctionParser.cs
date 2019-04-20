@@ -14,7 +14,7 @@ namespace LlvmSharpLang.Parsing
             stream.Skip(TokenType.KeywordFunction);
 
             // Capture function identifier.
-            string name = stream.Next(TokenType.Id).Value;
+            string name = stream.Next(TokenType.Identifier).Value;
 
             // Ensure name exists.
             if (String.IsNullOrEmpty(name))

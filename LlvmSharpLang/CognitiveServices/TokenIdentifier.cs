@@ -8,7 +8,7 @@ namespace LlvmSharpLang.CognitiveServices
         /// Attempt to identify a simple, corresponding
         /// token type from a string value.
         /// </summary>
-        public static TokenType? Identify(string value)
+        public static TokenType? IdentifySimple(string value)
         {
             // Loop through all simple token type maps.
             foreach (var tokenTypeMap in Constants.simpleTokenTypeMaps)
@@ -20,6 +20,26 @@ namespace LlvmSharpLang.CognitiveServices
                 }
             }
 
+            return null;
+        }
+
+        /// <summary>
+        /// Attempt to identify a complex, corresponding
+        /// token type from a string value.
+        /// </summary>
+        public static TokenType? IdentifyComplex(string value)
+        {
+            // Loop through all complex token types.
+            foreach (var complexTokenType in Constants.complexTokenTypes)
+            {
+                // Attempt to match the complex token type's regex pattern.
+                if (complexTokenType.Key.IsMatch(value))
+                {
+                    return complexTokenType.Value;
+                }
+            }
+
+            // No match found, return null.
             return null;
         }
 

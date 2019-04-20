@@ -5,7 +5,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
         // General.
         Unknown,
 
-        Id,
+        Identifier,
 
         // Math operators.
         OperatorAssignment,

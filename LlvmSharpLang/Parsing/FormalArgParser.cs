@@ -17,7 +17,7 @@ namespace LlvmSharpLang.Parsing
             FormalArg arg = new FormalArg(type);
 
             // Capture the arg's name.
-            string name = stream.Next(SyntaxAnalysis.TokenType.Id).Value;
+            string name = stream.Next(SyntaxAnalysis.TokenType.Identifier).Value;
 
             // Assign the arg's name.
             arg.SetName(name);

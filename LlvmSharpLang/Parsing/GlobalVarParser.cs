@@ -17,7 +17,7 @@ namespace LlvmSharpLang.Parsing
             stream.Skip(TokenType.SymbolAt);
 
             // Consume name.
-            string name = stream.Next(TokenType.Id).Value;
+            string name = stream.Next(TokenType.Identifier).Value;
 
             // Create the global variable.
             GlobalVar globalVar = new GlobalVar(type);
