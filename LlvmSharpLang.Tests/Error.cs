@@ -1,16 +1,10 @@
 using NUnit.Framework;
 using LlvmSharpLang.Core;
 
-namespace Tests
+namespace LlvmSharpLang.Tests
 {
-    public class Tests
+    public class ErrorTests
     {
-        [SetUp]
-        public void Setup()
-        {
-            //
-        }
-
         [Test]
         public void StaticCreateDefault()
         {

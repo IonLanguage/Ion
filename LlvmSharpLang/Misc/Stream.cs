@@ -4,6 +4,8 @@ namespace LlvmSharpLang.Misc
 {
     public class Stream<T> : List<T>
     {
+        public int Index => this.index;
+
         protected int index;
 
         protected IEnumerator<T> enumerator;
@@ -48,13 +50,6 @@ namespace LlvmSharpLang.Misc
 
         public T Peek()
         {
-            int nextIndex = this.index + 1;
-
-            if (this.Count - 1 >= nextIndex)
-            {
-                return this[nextIndex];
-            }
-
             return this[this.index];
         }
 

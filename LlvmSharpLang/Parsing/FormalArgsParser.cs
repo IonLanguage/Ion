@@ -18,7 +18,10 @@ namespace LlvmSharpLang.Parsing
             FormalArgs args = new FormalArgs();
 
             // Create the loop buffer token.
-            Token buffer = stream.Get();
+            Token buffer = stream.Peek();
+
+            System.Console.WriteLine($"Current (GET) buffer is: {stream.Get()}");
+            System.Console.WriteLine($"Starting buffer is: {stream.Peek()}");
 
             // Loop until parentheses end.
             while (buffer.Type != TokenType.SymbolParenthesesR)
@@ -55,6 +58,7 @@ namespace LlvmSharpLang.Parsing
                 // Append the parsed arg.
                 args.Values.Add(arg);
             }
+
 
             // Finish process. No need to skip parentheses end.
             return args;

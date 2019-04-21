@@ -89,31 +89,6 @@ namespace LlvmSharpLang
                 },
 
                 new Token {
-                    Type = TokenType.Type,
-                    Value = "int"
-                },
-
-                new Token {
-                    Type = TokenType.Identifier,
-                    Value = "testArg1"
-                },
-
-                new Token {
-                    Type = TokenType.SymbolComma,
-                    Value = null
-                },
-
-                new Token {
-                    Type = TokenType.Type,
-                    Value = "float"
-                },
-
-                new Token {
-                    Type = TokenType.Identifier,
-                    Value = "testArg2"
-                },
-
-                new Token {
                     Type = TokenType.SymbolParenthesesR,
                     Value = ")"
                 },
