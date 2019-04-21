@@ -8,16 +8,16 @@ namespace LlvmSharpLang.Parsing
         public FormalArg Parse(TokenStream stream)
         {
             // Capture argument type value.
-            string typeValue = stream.Next().Value;
+            string typeValue = stream.Next(TokenType.Type).Value;
 
             // Create the arg's type.
             CodeGeneration.Type type = new CodeGeneration.Type(typeValue);
 
-            // Create the arg.
+            // Create the formal argument entity.
             FormalArg arg = new FormalArg(type);
 
             // Capture the arg's name.
-            string name = stream.Next(SyntaxAnalysis.TokenType.Identifier).Value;
+            string name = stream.Next(TokenType.Identifier).Value;
 
             // Assign the arg's name.
             arg.SetName(name);

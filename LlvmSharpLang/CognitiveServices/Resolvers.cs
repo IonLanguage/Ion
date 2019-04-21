@@ -65,17 +65,17 @@ namespace LlvmSharpLang.CognitiveServices
         public static LLVMValueRef Literal(TokenType tokenType, string value, CodeGeneration.Type type)
         {
             // Token value is an integer.
-            if (tokenType == SyntaxAnalysis.TokenType.LiteralInteger)
+            if (tokenType == TokenType.LiteralInteger)
             {
                 return LLVM.ConstInt(type.Emit(), ulong.Parse(value), false);
             }
             // Token value is a decimal.
-            else if (tokenType == SyntaxAnalysis.TokenType.LiteralDecimal)
+            else if (tokenType == TokenType.LiteralDecimal)
             {
                 return LLVM.ConstReal(type.Emit(), double.Parse(value));
             }
             // Token value is a string.
-            else if (tokenType == SyntaxAnalysis.TokenType.LiteralString)
+            else if (tokenType == TokenType.LiteralString)
             {
                 return LLVM.ConstString(value, (uint)value.Length, false);
             }

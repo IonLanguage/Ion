@@ -11,9 +11,10 @@ namespace LlvmSharpLang.Parsing
     {
         public FormalArgs Parse(TokenStream stream)
         {
-            // Skip '('.
+            // Skip parentheses start.
             stream.Skip(TokenType.SymbolParenthesesL);
 
+            // Create the formal args entity.
             FormalArgs args = new FormalArgs();
 
             // Create the loop buffer token.
@@ -43,7 +44,7 @@ namespace LlvmSharpLang.Parsing
                 FormalArg arg = new FormalArgParser().Parse(stream);
 
                 // Update the buffer.
-                buffer = stream.Get();
+                buffer = stream.Next();
 
                 // Append the parsed arg.
                 args.Values.Add(arg);

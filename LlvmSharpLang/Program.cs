@@ -72,7 +72,7 @@ namespace LlvmSharpLang
             Console.WriteLine("Result of sum is: " + result);
 
             // --- Tests start ---
-            var fnStream = new TokenStream(new Token[] {
+            var functionStream = new TokenStream(new Token[] {
                 new Token() {
                     Type = TokenType.KeywordFunction,
                     Value = "fn"
@@ -89,7 +89,7 @@ namespace LlvmSharpLang
                 },
 
                 new Token() {
-                    Type = TokenType.Identifier,
+                    Type = TokenType.Type,
                     Value = "int"
                 },
 
@@ -124,7 +124,7 @@ namespace LlvmSharpLang
                 },
             });
 
-            var globalVarStream = new TokenStream(new Token[] {
+            var globalVarSeq = new TokenStream(new Token[] {
                 new Token() {
                     Type = TokenType.Identifier,
                     Value = "bool"
@@ -141,7 +141,7 @@ namespace LlvmSharpLang
                 },
             });
 
-            var declareStream = new TokenStream(new Token[] {
+            var declareSeq = new TokenStream(new Token[] {
                 new Token() {
                     Type = TokenType.Identifier,
                     Value = "int"
@@ -152,6 +152,9 @@ namespace LlvmSharpLang
                     Value = "myLocal"
                 },
             });
+
+            // Create and emit the function stream.
+            new FunctionParser().Parse(functionStream).Emit(module);
             // --- Tests end ---
 
             // Print output IR.

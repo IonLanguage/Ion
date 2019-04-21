@@ -7,6 +7,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         Identifier,
 
+        Type,
+
         // Math operators.
         OperatorAssignment,
 

@@ -12,5 +12,10 @@ namespace LlvmSharpLang.SyntaxAnalysis
         {
             get => this.StartPos + this.Value.Length;
         }
+
+        public override string ToString()
+        {
+            return $"[{this.Type}:'{this.Value}'@{this.StartPos}-{this.EndPos}]";
+        }
     }
 }
