@@ -73,81 +73,96 @@ namespace LlvmSharpLang
 
             // --- Tests start ---
             var functionStream = new TokenStream(new Token[] {
-                new Token() {
+                new Token {
                     Type = TokenType.KeywordFunction,
                     Value = "fn"
                 },
 
-                new Token() {
+                new Token {
                     Type = TokenType.Identifier,
                     Value = "helloWorld"
                 },
 
-                new Token() {
+                new Token {
                     Type = TokenType.SymbolParenthesesL,
                     Value = "("
                 },
 
-                new Token() {
+                new Token {
                     Type = TokenType.Type,
                     Value = "int"
                 },
 
-                new Token() {
+                new Token {
                     Type = TokenType.Identifier,
                     Value = "testArg1"
                 },
 
-                new Token() {
+                new Token {
+                    Type = TokenType.SymbolComma,
+                    Value = null
+                },
+
+                new Token {
+                    Type = TokenType.Type,
+                    Value = "float"
+                },
+
+                new Token {
+                    Type = TokenType.Identifier,
+                    Value = "testArg2"
+                },
+
+                new Token {
                     Type = TokenType.SymbolParenthesesR,
                     Value = ")"
                 },
 
-                new Token() {
+                new Token {
                     Type = TokenType.SymbolColon,
                     Value = ":"
                 },
 
-                new Token() {
+                new Token {
                     Type = TokenType.Identifier,
                     Value = "int"
                 },
 
-                new Token() {
+                new Token {
                     Type = TokenType.SymbolBlockL,
                     Value = "{"
                 },
 
-                new Token() {
+                new Token {
                     Type = TokenType.SymbolBlockR,
                     Value = "}"
                 },
             });
 
-            var globalVarSeq = new TokenStream(new Token[] {
-                new Token() {
+            var globalVarStream = new TokenStream(new Token[] {
+                new Token {
                     Type = TokenType.Identifier,
                     Value = "bool"
                 },
 
-                new Token() {
+                new Token {
                     Type = TokenType.SymbolAt,
                     Value = "@"
                 },
 
-                new Token() {
+                new Token {
                     Type = TokenType.Identifier,
                     Value = "myGlobal"
                 },
             });
 
-            var declareSeq = new TokenStream(new Token[] {
-                new Token() {
+            var declareStream = new TokenStream(new Token[] {
+                new Token {
                     Type = TokenType.Identifier,
                     Value = "int"
                 },
 
-                new Token() {
+                new Token {
                     Type = TokenType.Identifier,
                     Value = "myLocal"
                 },

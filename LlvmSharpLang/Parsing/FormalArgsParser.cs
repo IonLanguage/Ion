@@ -46,6 +46,12 @@ namespace LlvmSharpLang.Parsing
                 // Update the buffer.
                 buffer = stream.Next();
 
+                // Ensure next token is valid.
+                if (buffer.Type != TokenType.SymbolComma && buffer.Type != TokenType.SymbolParenthesesR)
+                {
+                    throw new Exception("Unexpected token; Expected comma or parentheses end in argument list");
+                }
+
                 // Append the parsed arg.
                 args.Values.Add(arg);
             }
