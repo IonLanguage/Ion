@@ -10,7 +10,7 @@ namespace LlvmSharpLang.Parsing
     {
         public Function Parse(TokenStream stream)
         {
-            // Skip 'fn' keyword.
+            // Skip the function definition keyword.
             stream.Skip(TokenType.KeywordFunction);
 
             // Capture function identifier.

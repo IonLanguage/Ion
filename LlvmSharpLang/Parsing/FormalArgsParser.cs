@@ -18,22 +18,22 @@ namespace LlvmSharpLang.Parsing
             FormalArgs args = new FormalArgs();
 
             // Create the loop buffer token.
-            Token buffer = stream.Peek();
+            Token peekBuffer = stream.Peek();
 
-            System.Console.WriteLine($"Current (GET) buffer is: {stream.Get()}");
-            System.Console.WriteLine($"Starting bruffer is: {stream.Peek()}");
+            System.Console.WriteLine($"Current (GET) is: {stream.Get()}");
+            System.Console.WriteLine($"Peek is: {stream.Peek()}");
 
             // Loop until parentheses end.
-            while (buffer.Type != TokenType.SymbolParenthesesR)
+            while (peekBuffer.Type != TokenType.SymbolParenthesesR)
             {
                 // Continuous arguments.
-                if (!args.Continuous && buffer.Type == TokenType.SymbolContinuous)
+                if (!args.Continuous && peekBuffer.Type == TokenType.SymbolContinuous)
                 {
                     // Set the continuous flag.
                     args.Continuous = true;
 
                     // Advance stream immediatly.
-                    buffer = stream.Next(TokenType.SymbolParenthesesR);
+                    peekBuffer = stream.Next(TokenType.SymbolParenthesesR);
 
                     continue;
                 }
@@ -47,20 +47,30 @@ namespace LlvmSharpLang.Parsing
                 FormalArg arg = new FormalArgParser().Parse(stream);
 
                 // Update the buffer.
-                buffer = stream.Next();
+                peekBuffer = stream.Peek();
 
                 // Ensure next token is valid.
-                if (buffer.Type != TokenType.SymbolComma && buffer.Type != TokenType.SymbolParenthesesR)
+                if (peekBuffer.Type != TokenType.SymbolComma && peekBuffer.Type != TokenType.SymbolParenthesesR)
                 {
                     throw new Exception("Unexpected token; Expected comma or parentheses end in argument list");
+                }
+                // Skip comma.
+                else if (peekBuffer.Type == TokenType.SymbolComma)
+                {
+                    stream.Skip();
                 }
 
                 // Append the parsed arg.
                 args.Values.Add(arg);
             }
 
+            // Skip parentheses end if applicable.
+            if (peekBuffer.Type == TokenType.SymbolParenthesesR)
+            {
+                stream.Skip(TokenType.SymbolParenthesesR);
+            }
 
-            // Finish process. No need to skip parentheses end.
+            // Finish process.
             return args;
         }
     }
