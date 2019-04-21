@@ -5,9 +5,9 @@ using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.Parsing
 {
-    public class CallArgsParser : IParser<CallArgExpr[]>
+    public class CallArgsParser : IParser<List<CallArgExpr>>
     {
-        public CallArgExpr[] Parse(TokenStream stream)
+        public List<CallArgExpr> Parse(TokenStream stream)
         {
             List<CallArgExpr> args = new List<CallArgExpr>();
 
@@ -45,7 +45,7 @@ namespace LlvmSharpLang.Parsing
             // Skip arguments end token.
             stream.Skip(TokenType.SymbolParenthesesR);
 
-            return args.ToArray();
+            return args;
         }
     }
 }

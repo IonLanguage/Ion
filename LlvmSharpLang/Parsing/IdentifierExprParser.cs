@@ -34,12 +34,6 @@ namespace LlvmSharpLang.Parsing
             // Otherwise, it's a function call.
             stream.Skip(TokenType.SymbolParenthesesL);
 
-            // Ensure the function has been emitted.
-            if (!CodeMap.functions.ContainsKey(identifier))
-            {
-                throw new Exception("Call to a non-existent function performed");
-            }
-
             // Parse the function call entity.
             FunctionCallExpr functionCallExpr = new FunctionCallExprParser().Parse(stream);
 
