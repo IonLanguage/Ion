@@ -103,6 +103,20 @@ namespace LlvmSharpLang
                 },
 
                 new Token {
+                    Type = TokenType.SymbolComma
+                },
+
+                new Token {
+                    Type = TokenType.Type,
+                    Value = "float"
+                },
+
+                new Token {
+                    Type = TokenType.Identifier,
+                    Value = "myInteger2"
+                },
+
+                new Token {
                     Type = TokenType.SymbolParenthesesR,
                     Value = ")"
                 },
