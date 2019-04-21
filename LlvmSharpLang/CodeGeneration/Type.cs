@@ -15,7 +15,7 @@ namespace LlvmSharpLang.CodeGeneration
 
         public LLVMTypeRef Emit()
         {
-            return Resolver.Type(this.value)();
+            return Resolvers.LlvmTypeFromName(this.value);
         }
     }
 }

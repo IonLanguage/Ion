@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace LlvmSharpLang.Misc
+namespace LlvmSharpLang.CognitiveServices
 {
     public static class Pattern
     {

@@ -23,22 +23,6 @@ namespace LlvmSharpLang.SyntaxAnalysis
             {OperationType.Modulo, LLVM.BuildSRem}
         };
 
-        // TODO: Add verification for both type and value.
-        public static readonly Dictionary<TokenType, ConstantValueDelegate> constantValueDelegates = new Dictionary<TokenType, ConstantValueDelegate>
-        {
-            {TokenType.LiteralInteger, (CodeGeneration.Type type, string value) => {
-                return LLVM.ConstInt(type.Emit(), ulong.Parse(value), false);
-            }},
-
-            {TokenType.LiteralDecimal, (CodeGeneration.Type type, string value) => {
-                return LLVM.ConstReal(type.Emit(), double.Parse(value));
-            }},
-
-            {TokenType.LiteralString, (CodeGeneration.Type type, string value) => {
-                return LLVM.ConstString(value, (uint)value.Length, false);
-            }}
-        };
-
         public static readonly TokenTypeMap keywords = new TokenTypeMap {
             {"fn", TokenType.KeywordFunction},
             {"exit", TokenType.KeywordExit},

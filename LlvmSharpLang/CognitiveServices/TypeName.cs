@@ -1,4 +1,4 @@
-namespace LlvmSharpLang.Misc
+namespace LlvmSharpLang.CognitiveServices
 {
     public static class TypeName
     {

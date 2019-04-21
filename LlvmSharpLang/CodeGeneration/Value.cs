@@ -2,11 +2,12 @@ using System;
 using LLVMSharp;
 using LlvmSharpLang.CodeGeneration.Structure;
 using LlvmSharpLang.CognitiveServices;
+using LlvmSharpLang.Misc;
 using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.CodeGeneration
 {
-    public delegate LLVMValueRef ConstantValueDelegate(Type type, string value);
+    public delegate LLVMValueRef ConstantValueResolver(Type type, string value);
 
     public class Value : IUncontextedEntity<LLVMValueRef>
     {
@@ -29,12 +30,13 @@ namespace LlvmSharpLang.CodeGeneration
             {
                 throw new Exception("Unable to identify value string from complex token types");
             }
-            else if (!Constants.constantValueDelegates.ContainsKey(type.Value))
+            // Ensure token is identified as a literal.
+            else if (!TokenIdentifier.IsLiteral(type.Value))
             {
-                throw new Exception("No resolving delegate is associated with the identified token type");
+                throw new Exception("Unexpected non-literal token value");
             }
 
-            return Constants.constantValueDelegates[type.Value](this.Type, this.ValueString);
+            return Resolvers.Literal(type.Value, this.ValueString, Resolvers.TypeFromTokenType(type.Value));
         }
     }
 }

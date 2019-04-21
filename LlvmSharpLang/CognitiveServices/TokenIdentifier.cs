@@ -69,5 +69,17 @@ namespace LlvmSharpLang.CognitiveServices
         {
             return Constants.keywords.ContainsKey(value);
         }
+
+        /// <summary>
+        /// Determine whether the provided token type
+        /// falls under the literal category.
+        /// </summary>
+        public static bool IsLiteral(TokenType tokenType)
+        {
+            return tokenType == TokenType.LiteralString
+                || tokenType == TokenType.LiteralInteger
+                || tokenType == TokenType.LiteralDecimal
+                || tokenType == TokenType.LiteralCharacter;
+        }
     }
 }
