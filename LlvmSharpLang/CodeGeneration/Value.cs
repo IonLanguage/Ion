@@ -15,28 +15,19 @@ namespace LlvmSharpLang.CodeGeneration
 
         public Type Type { get; }
 
-        public Value(Type type, string valueString)
+        public TokenType TokenType { get; }
+
+        public Value(Type type, TokenType tokenType, string valueString)
         {
             this.Type = type;
+            this.TokenType = tokenType;
             this.ValueString = valueString;
         }
 
         public LLVMValueRef Emit()
         {
-            TokenType? type = TokenIdentifier.IdentifyComplex(this.ValueString);
-
-            // Ensure value was identified.
-            if (!type.HasValue)
-            {
-                throw new Exception("Unable to identify value string from complex token types");
-            }
-            // Ensure token is identified as a literal.
-            else if (!TokenIdentifier.IsLiteral(type.Value))
-            {
-                throw new Exception("Unexpected non-literal token value");
-            }
-
-            return Resolvers.Literal(type.Value, this.ValueString, Resolvers.TypeFromTokenType(type.Value));
+            // Resolve the literal value.
+            return Resolvers.Literal(this.TokenType, this.ValueString, this.Type);
         }
     }
 }

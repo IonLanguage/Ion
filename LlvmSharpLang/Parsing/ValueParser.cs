@@ -22,7 +22,8 @@ namespace LlvmSharpLang.Parsing
                 throw new Exception("Unable to identify literal token type");
             }
 
-            return new Value(Resolvers.TypeFromTokenType(type.Value), value);
+            // Create and return the value.
+            return new Value(Resolvers.TypeFromTokenType(type.Value), type.Value, value);
         }
     }
 }
