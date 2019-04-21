@@ -113,7 +113,7 @@ namespace LlvmSharpLang
 
                 new Token {
                     Type = TokenType.Identifier,
-                    Value = "myInteger2"
+                    Value = "myFloat"
                 },
 
                 new Token {
@@ -179,8 +179,34 @@ namespace LlvmSharpLang
                 },
             });
 
+            var callStream = new TokenStream(new Token[] {
+                new Token {
+                    Type = TokenType.ProgramStart
+                },
+
+                new Token {
+                    Type = TokenType.Identifier,
+                    Value = "helloWorld"
+                },
+
+                new Token {
+                    Type = TokenType.SymbolParenthesesL,
+                    Value = "("
+                },
+
+                new Token {
+                    Type = TokenType.SymbolParenthesesR,
+                    Value = ")"
+                },
+            });
+
             // Create and emit the function stream.
-            new FunctionParser().Parse(functionStream).Emit(module);
+            var fn = new FunctionParser().Parse(functionStream);
+
+            fn.Emit(module);
+
+            // Create and emit the function call stream.
+            new PrimaryExprParser().Parse(callStream).Emit(fn.Body.Current.CreateBuilder());
             // --- Tests end ---
 
             // Print output IR.

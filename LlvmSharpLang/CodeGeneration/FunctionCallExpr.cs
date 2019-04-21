@@ -12,9 +12,9 @@ namespace LlvmSharpLang.CodeGeneration
 
         public string Callee { get; }
 
-        public List<CallArgExpr> Args { get; }
+        public List<Expr> Args { get; }
 
-        public FunctionCallExpr(LLVMValueRef target, string callee, List<CallArgExpr> args)
+        public FunctionCallExpr(LLVMValueRef target, string callee, List<Expr> args)
         {
             this.Target = target;
             this.Callee = callee;

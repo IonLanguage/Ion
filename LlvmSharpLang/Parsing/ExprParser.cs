@@ -11,8 +11,20 @@ namespace LlvmSharpLang.Parsing
     {
         public Expr Parse(TokenStream stream)
         {
-            // TODO: Implement.
-            throw new NotImplementedException();
+            // Parse the left side of the expression.
+            Expr leftSide = new PrimaryExprParser().Parse(stream);
+
+            // Ensure left side was successfully parsed.
+            if (leftSide == null)
+            {
+                throw new Exception("Unable to parse left-side of the expression");
+            }
+
+            // Invoke the binary expression parser.
+            Expr expr = new BinaryOpRightSideParser(leftSide, 0).Parse(stream);
+
+            // Return the parsed expression.
+            return expr;
         }
     }
 }

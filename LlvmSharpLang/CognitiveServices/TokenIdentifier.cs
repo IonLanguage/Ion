@@ -53,6 +53,20 @@ namespace LlvmSharpLang.CognitiveServices
         }
 
         /// <summary>
+        /// Determine whether the provided token type
+        /// is linked to a valid operator.
+        /// </summary>
+        public static bool IsOperator(TokenType tokenType)
+        {
+            return Constants.operators.ContainsValue(tokenType);
+        }
+
+        public static bool IsNumeric(TokenType tokenType)
+        {
+            return TokenGroups.numeric.Contains(tokenType);
+        }
+
+        /// <summary>
         /// Determine whether the string value is
         /// linked to a valid symbol.
         /// </summary>

@@ -68,6 +68,10 @@ namespace LlvmSharpLang.SyntaxAnalysis
         /// </summary>
         OperatorEquality,
 
+        OperatorLessThan,
+
+        OperatorGreaterThan,
+
         // Functionality operators.
         OperatorPipe,
 

@@ -22,8 +22,9 @@ namespace LlvmSharpLang.Parsing
             string identifier = nextToken.Value;
 
             // Variable reference.
-            if (stream.Peek().Type != TokenType.SymbolParenthesesL)
+            if (stream.Peek(2).Type != TokenType.SymbolParenthesesL)
             {
+                // TODO: Should be done by an independent parser (VariableExprParser).
                 // Skip identifier.
                 stream.Skip(TokenType.Identifier);
 
@@ -31,12 +32,10 @@ namespace LlvmSharpLang.Parsing
                 return new VariableExpr(identifier);
             }
 
-            // Otherwise, it's a function call.
-            stream.Skip(TokenType.SymbolParenthesesL);
-
-            // Parse the function call entity.
+            // Otherwise, it's a function call. Invoke the function call parser.
             FunctionCallExpr functionCallExpr = new FunctionCallExprParser().Parse(stream);
 
+            // Return the function call entity.
             return functionCallExpr;
         }
     }

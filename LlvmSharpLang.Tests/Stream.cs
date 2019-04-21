@@ -14,7 +14,8 @@ namespace LlvmSharpLang.Tests
             this.stream = new Stream<int>
             {
                 1,
-                2
+                2,
+                3
             };
         }
 
@@ -33,9 +34,29 @@ namespace LlvmSharpLang.Tests
         }
 
         [Test]
+        public void DoesIndexOverflow()
+        {
+            Assert.True(this.stream.DoesIndexOverflow(-1));
+            Assert.True(this.stream.DoesIndexOverflow(3));
+            Assert.False(this.stream.DoesIndexOverflow(2));
+            Assert.False(this.stream.DoesIndexOverflow(1));
+            Assert.False(this.stream.DoesIndexOverflow(0));
+            Assert.Pass();
+        }
+
+        [Test]
         public void Peek()
         {
             Assert.AreEqual(2, this.stream.Peek());
+            Assert.Pass();
+        }
+
+        [Test]
+        public void PeekWithAmount()
+        {
+            Assert.AreEqual(2, this.stream.Peek());
+            Assert.AreEqual(2, this.stream.Peek(1));
+            Assert.AreEqual(3, this.stream.Peek(2));
             Assert.Pass();
         }
 

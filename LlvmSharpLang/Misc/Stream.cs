@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace LlvmSharpLang.Misc
@@ -52,14 +53,37 @@ namespace LlvmSharpLang.Misc
             return this.Get();
         }
 
-        public T Peek()
+        public T Peek(int amount = 1)
         {
-            if (this.LastItem)
+            // Amount cannot be zero.
+            if (amount == 0)
             {
-                return this.Get();
+                throw new ArgumentException("Amount cannot be zero");
+            }
+            // Return first or last item if index overflows.
+            else if (this.DoesIndexOverflow(this.index + amount))
+            {
+                // Return last item.
+                if (amount > 0)
+                {
+                    return this[this.Count - 1];
+                }
+
+                // Otherwise, return first item.
+                return this[0];
             }
 
-            return this[this.index + 1];
+            return this[this.index + amount];
+        }
+
+        /// <summary>
+        /// Determine if the provided index
+        /// will overflow the amount of items
+        /// currently available.
+        /// </summary>
+        public bool DoesIndexOverflow(int index)
+        {
+            return index < 0 || this.Count - 1 < index;
         }
 
         public T Get()

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using LLVMSharp;
 using LlvmSharpLang.CodeGeneration.Structure;
+using LlvmSharpLang.Core;
 using LlvmSharpLang.Misc;
 
 namespace LlvmSharpLang.CodeGeneration
@@ -31,6 +32,10 @@ namespace LlvmSharpLang.CodeGeneration
 
             // Apply the body.
             this.Body.Emit(function);
+
+            // TODO: Ensure function does not already exist.
+            // Register the function in the symbol table.
+            SymbolTable.functions.Add(this.Name, function);
 
             return function;
         }

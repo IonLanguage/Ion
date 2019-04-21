@@ -5,21 +5,19 @@ using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.Parsing
 {
-    public class CallArgsParser : IParser<List<CallArgExpr>>
+    public class CallArgsParser : IParser<List<Expr>>
     {
-        public List<CallArgExpr> Parse(TokenStream stream)
+        public List<Expr> Parse(TokenStream stream)
         {
-            List<CallArgExpr> args = new List<CallArgExpr>();
+            List<Expr> args = new List<Expr>();
 
-            // --- MERGE START ---
-            // See: https://llvm.org/docs/tutorial/LangImpl02.html @ ParseIdentifierExpr()
             // Contains at least one argument.
             if (stream.Get().Type != TokenType.SymbolParenthesesL)
             {
                 while (true)
                 {
-                    // Parse the argument.
-                    CallArgExpr arg = new CallArgExprParser().Parse(stream);
+                    // Invoke the expression parser to parse the argument.
+                    Expr arg = new ExprParser().Parse(stream);
 
                     // Append the parsed argument.
                     args.Add(arg);

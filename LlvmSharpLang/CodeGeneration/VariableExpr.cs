@@ -1,6 +1,7 @@
 using System;
 using LLVMSharp;
 using LlvmSharpLang.CodeGeneration.Structure;
+using LlvmSharpLang.Core;
 
 namespace LlvmSharpLang.CodeGeneration
 {
@@ -15,8 +16,18 @@ namespace LlvmSharpLang.CodeGeneration
 
         public override LLVMValueRef Emit(LLVMBuilderRef context)
         {
-            // TODO: Implement.
-            throw new NotImplementedException();
+            // Ensure the variable exists in the local scope.
+            if (!SymbolTable.localScope.ContainsKey(this.Name))
+            {
+                throw new Exception($"Reference to undefined variable named '{this.Name}'");
+            }
+
+            // Retrieve the value.
+            LLVMValueRef value = SymbolTable.localScope[this.Name];
+
+            // Return the retrieved value.
+            return value;
         }
+
     }
 }

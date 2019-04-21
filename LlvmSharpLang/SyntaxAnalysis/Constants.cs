@@ -14,15 +14,6 @@ namespace LlvmSharpLang.SyntaxAnalysis
     {
         public static string mainFunctionName = "main";
 
-        public static readonly Dictionary<OperationType, BinaryExprCreator> mathOperationDelegates = new Dictionary<OperationType, BinaryExprCreator>
-        {
-            {OperationType.Addition, LLVM.BuildAdd},
-            {OperationType.Substraction, LLVM.BuildSub},
-            {OperationType.Multiplication, LLVM.BuildMul},
-            {OperationType.Division, LLVM.BuildUDiv},
-            {OperationType.Modulo, LLVM.BuildSRem}
-        };
-
         public static readonly TokenTypeMap keywords = new TokenTypeMap {
             {"fn", TokenType.KeywordFunction},
             {"exit", TokenType.KeywordExit},
@@ -68,6 +59,17 @@ namespace LlvmSharpLang.SyntaxAnalysis
             {Util.CreateRegex(@"[0-9]+\.[0-9]+"), TokenType.LiteralDecimal},
             {Util.CreateRegex(@"[0-9]+"), TokenType.LiteralInteger},
             {Util.CreateRegex(@"'([^'\\\n]|\\.)'"), TokenType.LiteralCharacter}
+        };
+
+        public static readonly Dictionary<TokenType, int> operatorPrecedence = new Dictionary<TokenType, int>
+        {
+            {TokenType.OperatorLessThan, 10},
+            {TokenType.OperatorAddition, 20},
+            {TokenType.OperatorSubstraction, 20},
+            {TokenType.OperatorMultiplication, 40},
+            {TokenType.OperatorDivision, 40},
+            {TokenType.OperatorModulo, 40},
+            {TokenType.OperatorExponent, 80}
         };
     }
 }

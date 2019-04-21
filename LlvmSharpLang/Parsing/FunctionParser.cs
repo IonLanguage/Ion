@@ -19,7 +19,7 @@ namespace LlvmSharpLang.Parsing
             // Ensure name exists.
             if (String.IsNullOrEmpty(name))
             {
-                throw new Exception("Function identifier was null or empty");
+                throw new Exception("Unexpected function identifier to be null or empty");
             }
 
             // Create the function entity.
@@ -28,7 +28,7 @@ namespace LlvmSharpLang.Parsing
             // Set the function name.
             function.SetName(name);
 
-            // Parse arguments.
+            // Parse formal arguments.
             FormalArgs args = new FormalArgsParser().Parse(stream);
 
             // Assign arguments.

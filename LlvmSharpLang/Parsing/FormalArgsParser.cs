@@ -20,9 +20,6 @@ namespace LlvmSharpLang.Parsing
             // Create the loop buffer token.
             Token peekBuffer = stream.Peek();
 
-            System.Console.WriteLine($"Current (GET) is: {stream.Get()}");
-            System.Console.WriteLine($"Peek is: {stream.Peek()}");
-
             // Loop until parentheses end.
             while (peekBuffer.Type != TokenType.SymbolParenthesesR)
             {
@@ -52,7 +49,7 @@ namespace LlvmSharpLang.Parsing
                 // Ensure next token is valid.
                 if (peekBuffer.Type != TokenType.SymbolComma && peekBuffer.Type != TokenType.SymbolParenthesesR)
                 {
-                    throw new Exception("Unexpected token; Expected comma or parentheses end in argument list");
+                    throw new Exception($"Unexpected token of type '{peekBuffer.Type}'; Expected comma or parentheses end in argument list");
                 }
                 // Skip comma.
                 else if (peekBuffer.Type == TokenType.SymbolComma)

@@ -15,16 +15,16 @@ namespace LlvmSharpLang.Parsing
             string identifier = stream.Next(TokenType.Identifier).Value;
 
             // Ensure the function has been emitted.
-            if (!CodeMap.functions.ContainsKey(identifier))
+            if (!SymbolTable.functions.ContainsKey(identifier))
             {
-                throw new Exception("Call to a non-existent function performed");
+                throw new Exception($"Call to a non-existent function named '{identifier}' performed");
             }
 
             // Retrieve the target.
-            LLVMValueRef target = CodeMap.functions[identifier];
+            LLVMValueRef target = SymbolTable.functions[identifier];
 
             // Invoke the function call argument parser.
-            List<CallArgExpr> args = new CallArgsParser().Parse(stream);
+            List<Expr> args = new CallArgsParser().Parse(stream);
 
             // TODO: Callee.
             // Create the function call expression entity.

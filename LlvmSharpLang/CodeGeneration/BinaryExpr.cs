@@ -6,51 +6,27 @@ using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.CodeGeneration
 {
-    public delegate LLVMValueRef BinaryExprCreator(LLVMBuilderRef builder, LLVMValueRef leftSide, LLVMValueRef rightSide, string name);
-
-    public enum OperationType
+    public class BinaryExpr : Expr
     {
-        Addition,
+        public override ExprType Type => ExprType.BinaryExpression;
 
-        Substraction,
+        protected readonly Expr leftSide;
 
-        Multiplication,
+        protected readonly Expr rightSide;
 
-        Division,
+        protected readonly int precedence;
 
-        Modulo,
-
-        // TODO: Implement for exponent.
-        Exponent
-    }
-
-    public class BinaryExpr : Named, IEntity<LLVMValueRef, LLVMBuilderRef>
-    {
-        public OperationType? Type { get; set; }
-
-        public LLVMValueRef? LeftSide { get; set; }
-
-        public LLVMValueRef? RightSide { get; set; }
-
-        public LLVMValueRef Emit(LLVMBuilderRef context)
+        public BinaryExpr(Expr leftSide, Expr rightSide, int precedence)
         {
-            // Ensure operation type is set.
-            if (!this.Type.HasValue)
-            {
-                throw new Exception("Expected operation type to be set");
-            }
-            // Ensure that the left-side and right-side value is set.
-            else if (!this.LeftSide.HasValue || !this.RightSide.HasValue)
-            {
-                throw new Exception("Expected left-side and right-side value to be set");
-            }
-            // If the operation type is mapped, use it.
-            else if (Constants.mathOperationDelegates.ContainsKey(this.Type.Value))
-            {
-                return Constants.mathOperationDelegates[this.Type.Value](context, this.LeftSide.Value, this.RightSide.Value, this.Name);
-            }
+            this.leftSide = leftSide;
+            this.rightSide = rightSide;
+            this.precedence = precedence;
+        }
 
-            throw new Exception("Operation type not supported");
+        public override LLVMValueRef Emit(LLVMBuilderRef context)
+        {
+            // TODO: Implement.
+            throw new NotImplementedException();
         }
     }
 }
