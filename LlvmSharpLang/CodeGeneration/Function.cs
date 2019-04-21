@@ -15,7 +15,7 @@ namespace LlvmSharpLang.CodeGeneration
 
         public Function()
         {
-            this.ReturnType = TypeFactory.Void;
+            this.ReturnType = TypeFactory.Void();
         }
 
         public LLVMValueRef Emit(LLVMModuleRef context)

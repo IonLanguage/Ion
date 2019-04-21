@@ -16,7 +16,9 @@ namespace LlvmSharpLang.CodeGeneration
 
         Variable,
 
-        Value
+        Value,
+
+        FunctionCallArgument
     }
 
     public abstract class Expr : Named, IEntity<LLVMValueRef, LLVMBuilderRef>

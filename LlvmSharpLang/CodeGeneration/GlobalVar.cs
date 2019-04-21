@@ -7,7 +7,7 @@ namespace LlvmSharpLang.CodeGeneration
     {
         public Type Type { get; protected set; }
 
-        public Expr Value { get; set; }
+        public Value Value { get; set; }
 
         public GlobalVar(Type type)
         {
