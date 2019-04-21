@@ -21,7 +21,7 @@ namespace LlvmSharpLang.Parsing
             Token buffer = stream.Peek();
 
             System.Console.WriteLine($"Current (GET) buffer is: {stream.Get()}");
-            System.Console.WriteLine($"Starting buffer is: {stream.Peek()}");
+            System.Console.WriteLine($"Starting bruffer is: {stream.Peek()}");
 
             // Loop until parentheses end.
             while (buffer.Type != TokenType.SymbolParenthesesR)

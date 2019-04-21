@@ -14,8 +14,7 @@ namespace LlvmSharpLang.Tests
             this.stream = new Stream<int>
             {
                 1,
-                2,
-                3
+                2
             };
         }
 
@@ -33,11 +32,20 @@ namespace LlvmSharpLang.Tests
             Assert.Pass();
         }
 
-        // [Test]
-        // public void Peek()
-        // {
-        //     Assert.AreEqual(this.stream.Peek(), 2);
-        //     Assert.Pass();
-        // }
+        [Test]
+        public void Peek()
+        {
+            Assert.AreEqual(2, this.stream.Peek());
+            Assert.Pass();
+        }
+
+        [Test]
+        public void Next()
+        {
+            Assert.AreEqual(2, this.stream.Next());
+            Assert.AreEqual(1, this.stream.Index);
+            Assert.AreEqual(2, this.stream.Get());
+            Assert.Pass();
+        }
     }
 }

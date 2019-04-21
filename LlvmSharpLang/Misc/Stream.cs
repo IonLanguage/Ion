@@ -2,13 +2,14 @@ using System.Collections.Generic;
 
 namespace LlvmSharpLang.Misc
 {
+    // TODO: Upon adding or removing items, the index will NOT update.
     public class Stream<T> : List<T>
     {
         public int Index => this.index;
 
-        protected int index;
+        public bool LastItem => this.index == this.Count - 1;
 
-        protected IEnumerator<T> enumerator;
+        protected int index;
 
         public Stream() : base()
         {
@@ -22,20 +23,23 @@ namespace LlvmSharpLang.Misc
             this.Reset();
         }
 
+        /// <summary>
+        /// Reset the index to zero.
+        /// </summary>
         public void Reset()
         {
             this.index = 0;
-            this.enumerator = this.GetEnumerator();
         }
 
         public bool Skip()
         {
-            bool successful = this.enumerator.MoveNext();
+            bool successful = false;
 
             // Ensure not overflowing.
-            if (successful && this.index + 1 <= this.Count - 1)
+            if (!this.LastItem)
             {
                 this.index++;
+                successful = true;
             }
 
             return successful;
@@ -45,17 +49,22 @@ namespace LlvmSharpLang.Misc
         {
             this.Skip();
 
-            return this.enumerator.Current;
+            return this.Get();
         }
 
         public T Peek()
         {
-            return this[this.index];
+            if (this.LastItem)
+            {
+                return this.Get();
+            }
+
+            return this[this.index + 1];
         }
 
         public T Get()
         {
-            return this.enumerator.Current;
+            return this[this.index];
         }
     }
 }
