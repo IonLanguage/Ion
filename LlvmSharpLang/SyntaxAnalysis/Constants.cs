@@ -12,6 +12,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
 {
     public static class Constants
     {
+        public delegate LLVMValueRef ConstantResolver();
+
         public static string mainFunctionName = "main";
 
         public static readonly TokenTypeMap keywords = new TokenTypeMap {

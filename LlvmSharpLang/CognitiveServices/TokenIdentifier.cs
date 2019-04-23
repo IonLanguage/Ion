@@ -1,4 +1,5 @@
 using LlvmSharpLang.SyntaxAnalysis;
+using LlvmSharpLang.CodeGeneration;
 
 namespace LlvmSharpLang.CognitiveServices
 {
@@ -64,6 +65,11 @@ namespace LlvmSharpLang.CognitiveServices
         public static bool IsNumeric(TokenType tokenType)
         {
             return TokenGroups.numeric.Contains(tokenType);
+        }
+
+        public static bool IsNumeric(Token token)
+        {
+            return TokenIdentifier.IsNumeric(token.Type);
         }
 
         public static bool IsNumeric(Type type)

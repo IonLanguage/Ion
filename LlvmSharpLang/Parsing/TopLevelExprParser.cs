@@ -1,4 +1,5 @@
-using LlvmSharpLang.SynaxAnalysis;
+using LlvmSharpLang.CodeGeneration;
+using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.Parsing
 {
@@ -19,8 +20,8 @@ namespace LlvmSharpLang.Parsing
             // Set the function name to anonymous.
             function.SetNameAnonymous();
 
-            // TODO: Finish implementing.
-            function.Body = new Body();
+            // TODO: Finish implementing (continue Kaleidoscope tutorial).
+            Block body = function.CreateBody();
 
             return function;
         }

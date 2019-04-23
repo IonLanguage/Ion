@@ -19,7 +19,7 @@ namespace LlvmSharpLang.Parsing
             }
 
             // Create the numeric expression entity.
-            NumericExpr numericExpr = new NumericExpr(Resolvers.TypeFromToken(token), token.Value);
+            NumericExpr numericExpr = new NumericExpr(token.Type, Resolvers.TypeFromToken(token), token.Value);
 
             // Return the numeric expression entity.
             return numericExpr;

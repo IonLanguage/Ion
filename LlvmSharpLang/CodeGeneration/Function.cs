@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using LLVMSharp;
 using LlvmSharpLang.CodeGeneration.Structure;
@@ -21,6 +22,12 @@ namespace LlvmSharpLang.CodeGeneration
 
         public LLVMValueRef Emit(LLVMModuleRef context)
         {
+            // Ensure body was provided or created.
+            if (this.Body == null)
+            {
+                throw new Exception("Body is not defined");
+            }
+
             // Emit the argument types.
             LLVMTypeRef[] args = this.Args.Emit();
 
@@ -38,6 +45,22 @@ namespace LlvmSharpLang.CodeGeneration
             SymbolTable.functions.Add(this.Name, function);
 
             return function;
+        }
+
+        /// <summary>
+        /// Creates, assigns and returns a body block,
+        /// replacing existing body.
+        /// </summary>
+        public Block CreateBody()
+        {
+            // Create a block as the body.
+            Block body = new Block();
+
+            // Assign the created block as the body.
+            this.Body = body;
+
+            // Return the newly created body.
+            return body;
         }
     }
 }
