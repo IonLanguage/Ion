@@ -13,8 +13,11 @@ namespace LlvmSharpLang.Parsing
             // Parse the expression.
             Expr expr = new ExprParser().Parse(stream);
 
-            // Skip parentheses end token.
+            // Skip to parentheses end token.
             stream.Skip(TokenType.SymbolParenthesesR);
+
+            // Skip parentheses end token.
+            stream.Skip();
 
             return expr;
         }
