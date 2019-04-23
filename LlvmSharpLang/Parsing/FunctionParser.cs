@@ -47,7 +47,7 @@ namespace LlvmSharpLang.Parsing
             Block body = new BlockParser().Parse(stream);
 
             // Set the name of the body block.
-            body.SetEntryName();
+            body.SetNameEntry();
 
             // Assign the body.
             function.Body = body;

@@ -5,7 +5,6 @@ using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.Parsing
 {
-
     public class PrimaryExprParser : IParser<Expr>
     {
         public Expr Parse(TokenStream stream)
