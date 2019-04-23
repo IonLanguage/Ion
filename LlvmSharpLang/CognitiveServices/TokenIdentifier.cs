@@ -66,6 +66,12 @@ namespace LlvmSharpLang.CognitiveServices
             return TokenGroups.numeric.Contains(tokenType);
         }
 
+        public static bool IsNumeric(Type type)
+        {
+            // TODO: Implement.
+            return true;
+        }
+
         /// <summary>
         /// Determine whether the string value is
         /// linked to a valid symbol.

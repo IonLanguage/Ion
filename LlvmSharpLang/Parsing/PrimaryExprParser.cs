@@ -15,8 +15,7 @@ namespace LlvmSharpLang.Parsing
             // Numeric expression.
             if (TokenIdentifier.IsNumeric(nextTokenType))
             {
-                // TODO: Implement the NumericExprParser, then implement it here.
-                throw new NotImplementedException();
+                return new NumericExprParser().Parse(stream);
             }
             // Identifier expression.
             else if (nextTokenType == TokenType.Identifier)

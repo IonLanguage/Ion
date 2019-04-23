@@ -57,6 +57,11 @@ namespace LlvmSharpLang.CognitiveServices
             throw new Exception($"Non-registered type resolver for token type '{tokenType}'");
         }
 
+        public static CodeGeneration.Type TypeFromToken(Token token)
+        {
+            return Resolvers.TypeFromTokenType(token.Type);
+        }
+
         public static LLVMValueRef Literal(Token token, CodeGeneration.Type type)
         {
             return Resolvers.Literal(token.Type, token.Value, type);
