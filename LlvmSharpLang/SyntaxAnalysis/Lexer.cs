@@ -107,6 +107,16 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 Type = TokenType.Unknown
             };
 
+            // Comments is a highest priority because operator division '/' will catch the beginning '/' of any comments.
+            // If it starts with '/', it's a candidate.
+            foreach (var pair in Constants.commentTokenTypes)
+            {
+                if (this.MatchExpression(ref token, pair.Value, pair.Key))
+                {
+                    return token;
+                }
+            }
+
             // Capturing an identifier, operator or keyword.
             if (char.IsLetter(this.Char))
             {
@@ -193,6 +203,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 // If it matches, return the token (already modified by the function).
                 if (this.MatchExpression(ref token, pair.Value, pair.Key, true))
                 {
+                    // Return the token.
                     return token;
                 }
             }
@@ -205,7 +216,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
         /// Checks for a positive match for a complex type or just generic regex,
         /// if positive, it'll update the referenced token to the provided type with the matched text.
         /// </summary>
-        public bool MatchExpression(ref Token token, TokenType type, Regex regex, bool edit = true)
+        public bool MatchExpression(ref Token token, TokenType type, Regex regex, bool modifyToken = true)
         {
             // Substrings from the current position to get the viable matching string.
             string input = this.Input.Substring(this.Position).TrimStart();
@@ -214,7 +225,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
             // If the match is success, update the token to reflect this.
             if (match.Success && match.Index == 0)
             {
-                if (edit)
+                if (modifyToken)
                 {
                     token.Value = match.Value;
                     token.Type = type;

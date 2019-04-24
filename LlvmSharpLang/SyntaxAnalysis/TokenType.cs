@@ -12,6 +12,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
         /// Represents an unidentified value.
         /// </summary>
         Unknown,
+        SingleLineComment,
+        MultiLineComment,
 
         /// <summary>
         /// An entity identifier.
