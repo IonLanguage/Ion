@@ -12,75 +12,78 @@ namespace LlvmSharpLang.SyntaxAnalysis
         /// Represents an unidentified value.
         /// </summary>
         Unknown,
+
+        /// <summary>
+        /// Represents a single line comment (// text)
+        /// </summary>
         SingleLineComment,
+
+        /// <summary>
+        /// Represents a multi line comment (/* text */)
+        /// </summary>
         MultiLineComment,
 
         /// <summary>
-        /// An entity identifier.
+        /// Represents an entity identifier. (text)
         /// </summary>
         Identifier,
 
         /// <summary>
-        /// A type name.
+        /// Represents a type name.
         /// </summary>
         Type,
 
         /// <summary>
-        /// A comment string.
-        /// </summary>
-        Comment,
-
-        /// <summary>
         /// Represents the variable
-        /// assignment operator.
+        /// assignment operator. (=)
         /// </summary>
         OperatorAssignment,
 
         /// <summary>
         /// Represents the mathematical
-        /// addition operator.
+        /// addition operator. (+)
         /// </summary>
         OperatorAddition,
 
         /// <summary>
         /// Represents the mathematical
-        /// substraction operator.
+        /// substraction operator. (-)
         /// </summary>
         OperatorSubstraction,
 
         /// <summary>
         /// Represents the mathematical
-        /// multiplication operator.
+        /// multiplication operator. (*)
         /// </summary>
         OperatorMultiplication,
 
         /// <summary>
         /// Represents the mathematical
-        /// division operator.
+        /// division operator. (/)
         /// </summary>
         OperatorDivision,
 
         /// <summary>
         /// Represents the mathematical
-        /// exponential operator.
+        /// exponential operator. (^)
         /// </summary>
         OperatorExponent,
 
         /// <summary>
         /// Represents the mathematical
-        /// unsigned remainder operator.
+        /// unsigned remainder operator. (%)
         /// </summary>
         OperatorModulo,
 
         /// <summary>
         /// Represents the escape sequence
-        /// to represent special entities.
+        /// to represent special entities. (\)
         /// </summary>
         OperatorEscape,
 
         /// <summary>
         /// Represents the equality comparison
-        /// operator.
+        /// operator. (==)
         /// </summary>
         OperatorEquality,
 
