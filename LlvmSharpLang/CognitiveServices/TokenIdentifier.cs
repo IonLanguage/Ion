@@ -11,14 +11,10 @@ namespace LlvmSharpLang.CognitiveServices
         /// </summary>
         public static TokenType? IdentifySimple(string value)
         {
-            // Loop through all simple token type maps.
-            foreach (var tokenTypeMap in Constants.simpleTokenTypeMaps)
+            // Attempt to identify and return token type.
+            if (Constants.simpleTokenTypes.ContainsKey(value))
             {
-                // Identify and return token type if applicable.
-                if (tokenTypeMap.ContainsKey(value))
-                {
-                    return tokenTypeMap[value];
-                }
+                return Constants.simpleTokenTypes[value];
             }
 
             return null;

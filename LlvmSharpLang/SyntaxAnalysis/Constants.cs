@@ -7,6 +7,7 @@ using ComplexTokenTypeMap = System.Collections.Generic.Dictionary<System.Text.Re
 using LlvmSharpLang.Misc;
 using LlvmSharpLang.CodeGeneration;
 using LLVMSharp;
+using System.Linq;
 
 namespace LlvmSharpLang.SyntaxAnalysis
 {
@@ -24,13 +25,18 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         public static readonly TokenTypeMap symbols = new TokenTypeMap {
             {"@", TokenType.SymbolAt},
-            {"(", TokenType.SymbolBlockL},
-            {")", TokenType.SymbolBlockR},
-            {"{", TokenType.SymbolParenthesesL},
-            {"}", TokenType.SymbolParenthesesR},
+            {"(", TokenType.SymbolParenthesesL},
+            {")", TokenType.SymbolParenthesesR},
+            {"{", TokenType.SymbolBlockL},
+            {"}", TokenType.SymbolBlockR},
             {":", TokenType.SymbolColon},
             {";", TokenType.SymbolSemiColon},
-            {"=>", TokenType.SymbolArrow}
+            {"=>", TokenType.SymbolArrow},
+            {"..", TokenType.SymbolContinuous},
+            {",", TokenType.SymbolComma},
+            {"//", TokenType.SymbolSingleLineComment},
+            {"/*", TokenType.SymbolMultiLineCommentL},
+            {"*/", TokenType.SymbolMultiLineCommentR}
         }.SortByKeyLength();
 
         public static readonly TokenTypeMap operators = new TokenTypeMap {
@@ -44,15 +50,28 @@ namespace LlvmSharpLang.SyntaxAnalysis
             {"=", TokenType.OperatorAssignment},
             {"|", TokenType.OperatorPipe},
             {"&", TokenType.OperatorAddressOf},
-            {"\\", TokenType.OperatorEscape}
+            {"\\", TokenType.OperatorEscape},
+            {"<", TokenType.OperatorLessThan},
+            {">", TokenType.OperatorGreaterThan},
+            {"and", TokenType.OperatorAnd},
+            {"or", TokenType.OperatorOr},
+            {"!", TokenType.OperatorNot}
         }.SortByKeyLength();
 
-        public static readonly List<TokenTypeMap> simpleTokenTypeMaps = new List<TokenTypeMap>
+        /// <summary>
+        /// A combination of the simple token type maps
+        /// which include operators, symbols and keywords.
+        /// </summary>
+        public static readonly TokenTypeMap simpleTokenTypes = new TokenTypeMap[]
         {
             Constants.keywords,
             Constants.symbols,
             Constants.operators
-        };
+        }
+        .SelectMany((dictionary) => dictionary)
+        .ToLookup((pair) => pair.Key, (pair) => pair.Value)
+        .ToDictionary((group) => group.Key, (group) => group.First())
+        .SortByKeyLength();
 
         public static readonly ComplexTokenTypeMap complexTokenTypes = new ComplexTokenTypeMap
         {

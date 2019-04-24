@@ -8,11 +8,25 @@ namespace LlvmSharpLang.SyntaxAnalysis
         /// </summary>
         ProgramStart,
 
+        /// <summary>
+        /// Represents an unidentified value.
+        /// </summary>
         Unknown,
 
+        /// <summary>
+        /// An entity identifier.
+        /// </summary>
         Identifier,
 
+        /// <summary>
+        /// A type name.
+        /// </summary>
         Type,
+
+        /// <summary>
+        /// A comment string.
+        /// </summary>
+        Comment,
 
         /// <summary>
         /// Represents the variable
@@ -72,6 +86,12 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         OperatorGreaterThan,
 
+        OperatorNot,
+
+        OperatorAnd,
+
+        OperatorOr,
+
         // Functionality operators.
         OperatorPipe,
 
@@ -124,6 +144,12 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         SymbolAt,
 
-        SymbolComma
+        SymbolComma,
+
+        SymbolSingleLineComment,
+
+        SymbolMultiLineCommentL,
+
+        SymbolMultiLineCommentR
     }
 }

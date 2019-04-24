@@ -57,15 +57,16 @@ namespace LlvmSharpLang.SyntaxAnalysis
         }
 
         /// <summary>
-        /// Begin the tokenization process,
-        /// obtaining/extracting all possible
-        /// tokens from the input string.
+        /// Begin the tokenization process, obtaining/extracting all 
+        /// possible tokens from the input string. Tokens which are
+        /// unable to be identified will default to token type unknown.
         /// </summary>
         public List<Token> Tokenize()
         {
             List<Token> tokens = new List<Token>();
             Token? next = this.GetNextToken();
 
+            // Obtain all possible tokens.
             while (next.HasValue)
             {
                 // Append token value to the result list.
@@ -92,63 +93,73 @@ namespace LlvmSharpLang.SyntaxAnalysis
             // Skip whitespace characters if applicable.
             else if (this.Options.HasFlag(LexerOptions.IgnoreWhitespace))
             {
+                // Continue while whitespace is present.
                 while (char.IsWhiteSpace(this.Char))
                 {
                     this.Skip();
                 }
             }
 
-            // Begin capturing the token.
+            // Begin capturing the token. Identify the token as unknown initially.
             Token token = new Token
             {
-                StartPos = this.Position
+                StartPos = this.Position,
+                Type = TokenType.Unknown
             };
 
-            // Capturing either an identifier or keyword.
+            // Capturing an identifier, operator or keyword.
             if (char.IsLetter(this.Char))
             {
-                // Initialize the buffer.
+                // Reset the buffer and position.
                 int position = this.Position;
                 this.buffer = this.Char.ToString();
 
                 // Consume the value.
                 while (char.IsLetterOrDigit(this.Input[position + 1]))
                 {
-                    position += 1;
+                    position++;
                     buffer += this.Input[position];
                 }
 
+                // Assign the consumed value to the token.
                 token.Value = buffer;
 
                 // If the keyword is registered, identify the token.
                 if (Constants.keywords.ContainsKey(buffer))
                 {
-                    this.Skip(token.Value.Length);
+                    // Identify the token with its corresponding keyword.
                     token.Type = Constants.keywords[buffer];
+
+                    // Skip the length of the captured value.
+                    this.Skip(token.Value.Length);
+
+                    // Return the token.
+                    return token;
+                }
+                // Otherwise, if the operator is registered, identify the token.
+                else if (Constants.operators.ContainsKey(buffer))
+                {
+                    // Identify the token with its corresponding operator.
+                    token.Type = Constants.operators[buffer];
+
+                    // Skip the length of the captured value.
+                    this.Skip(token.Value.Length);
+
+                    // Return the token.
                     return token;
                 }
             }
 
-            // TODO: Both symbols and operators lex the same, maybe consilidate into one soon.
-            if (Constants.symbols.Some(str => str.StartsWith(this.Char)))
+            // Test string against simple token type values.
+            foreach (var pair in Constants.simpleTokenTypes)
             {
-                foreach (KeyValuePair<string, TokenType> pair in Constants.symbols)
+                // Possible candidate.
+                if (pair.Key.StartsWith(this.Char))
                 {
                     // If the symbol is next in the input.
                     if (this.MatchExpression(ref token, pair.Value, Util.CreateRegex(Regex.Escape(pair.Key))))
                     {
-                        return token;
-                    }
-                }
-            }
-
-            if (Constants.operators.Some(str => str.StartsWith(this.Char)))
-            {
-                foreach (KeyValuePair<string, TokenType> pair in Constants.operators)
-                {
-                    // If the operator is next in the input.
-                    if (this.MatchExpression(ref token, pair.Value, Util.CreateRegex(Regex.Escape(pair.Key))))
-                    {
+                        // Return the token.
                         return token;
                     }
                 }
@@ -157,7 +168,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
             // TODO: Not hardcoded.
             // TODO: Multiline comments support.
             // Definition of a single-line comment.
-            if (this.Char == '#')
+            /*if (this.Char == '#')
             {
                 // Skip over the '#'.
                 this.Skip();
@@ -173,8 +184,9 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 {
                     return this.GetNextToken();
                 }
-            }
+            }*/
 
+            // TODO: Add comment literal support.
             // Complex types support.
             foreach (KeyValuePair<Regex, TokenType> pair in Constants.complexTokenTypes)
             {
@@ -185,7 +197,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 }
             }
 
-            return null;
+            // At this point the token was not identified. The type defaults to unknown.
+            return token;
         }
 
         /// <summary>
