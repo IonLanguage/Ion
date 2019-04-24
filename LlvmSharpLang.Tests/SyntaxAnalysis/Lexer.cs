@@ -24,6 +24,14 @@ namespace LlvmSharpLang.Tests
                 TokenType.LiteralDecimal,
                 TokenType.LiteralString,
                 TokenType.LiteralCharacter,
+                TokenType.SymbolArrow,
+                TokenType.OperatorAssignment,
+                TokenType.OperatorEquality,
+                TokenType.OperatorLessThan,
+                TokenType.OperatorGreaterThan,
+                TokenType.OperatorNot,
+                TokenType.OperatorAnd,
+                TokenType.OperatorOr,
                 TokenType.SymbolSemiColon,
                 TokenType.SymbolBlockR
             };
@@ -32,10 +40,10 @@ namespace LlvmSharpLang.Tests
         [Test]
 
         // Normal.
-        [TestCase("fn id ( , ) : { 123 1.23 \"hello world\" 'a' ; }")]
+        [TestCase("fn id ( , ) : { 123 1.23 \"hello world\" 'a' => = == < > ! and or ; }")]
 
         // Dense.
-        [TestCase("fn id(,):{123 1.23\"hello world\"'a';}")]
+        [TestCase("fn id(,):{123 1.23\"hello world\"'a'=>= ==<>!and or;}")]
         public void Tokenize(string input)
         {
             Lexer lexer = new Lexer(input);
@@ -50,6 +58,22 @@ namespace LlvmSharpLang.Tests
                 // Compare tokenized token to corresponding token on the sequence.
                 Assert.AreEqual(sequence[i], tokens[i].Type);
             }
+
+            Assert.Pass();
+        }
+
+        [Test]
+        [TestCase(".")]
+        public void NotTokenizeInvalidInput(string input)
+        {
+            Lexer lexer = new Lexer(input);
+            List<Token> tokens = lexer.Tokenize();
+
+            // Ensure tokens length.
+            Assert.AreEqual(tokens.Count, 1);
+
+            // Ensure token is unknown.
+            Assert.AreEqual(tokens[0].Type, TokenType.Unknown);
 
             Assert.Pass();
         }
