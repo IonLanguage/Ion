@@ -30,9 +30,15 @@ namespace LlvmSharpLang.Tests
         }
 
         [Test]
-        public void Lexes()
+
+        // Normal.
+        [TestCase("fn id ( , ) : { 123 1.23 \"hello world\" 'a' ; }")]
+
+        // Dense.
+        [TestCase("fn id(,):{123 1.23\"hello world\"'a';}")]
+        public void Tokenize(string input)
         {
-            Lexer lexer = new Lexer("fn id ( , ) : { 123 1.23 \"hello world\" 'a' ; }");
+            Lexer lexer = new Lexer(input);
             List<Token> tokens = lexer.Tokenize();
 
             // Ensure length is the same.
