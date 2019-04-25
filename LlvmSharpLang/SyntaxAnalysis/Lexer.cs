@@ -68,7 +68,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
             List<Token> tokens = new List<Token>();
             Token? nextToken = this.GetNextToken();
 
-            Console.BackgroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
             // Obtain all possible tokens.
             while (nextToken.HasValue)
@@ -76,6 +76,13 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 if (this.Options.HasFlag(LexerOptions.Debug))
                 {
                     Console.WriteLine($"[Lexer.Tokenize] Adding token of type {nextToken.Value.Type} with value {nextToken.Value.Value}");
+                }
+
+                if (nextToken.Value.Type == TokenType.Unknown)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"[Lexer.Tokenize] Encountered unknown token type with value {nextToken.Value.Value}");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                 }
 
                 // Append token value to the result list.
