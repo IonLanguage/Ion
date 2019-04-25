@@ -79,7 +79,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
                     Console.WriteLine($"[Lexer.Tokenize] Adding token of type {nextToken.Value.Type} with value {nextToken.Value.Value}");
                 }
 
-                // If the token is unknown, issue a warning in console
+                // If the token is unknown, issue a warning in console.
                 if (nextToken.Value.Type == TokenType.Unknown)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;

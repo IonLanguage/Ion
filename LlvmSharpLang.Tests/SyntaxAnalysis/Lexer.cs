@@ -134,10 +134,10 @@ namespace LlvmSharpLang.Tests
         [Test]
         public void TokenizeFile()
         {
-            // Read file content
+            // Read file content.
             string text = File.ReadAllText("../../../SyntaxAnalysis/test.l");
 
-            // Create lexer and tokenize the inputr
+            // Create lexer and tokenize the input.
             Lexer lexer = new Lexer(text, (LexerOptions.Debug | LexerOptions.IgnoreComments | LexerOptions.IgnoreWhitespace));
             List<Token> tokens = lexer.Tokenize();
 
