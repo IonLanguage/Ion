@@ -63,7 +63,7 @@ namespace LlvmSharpLang.Tests
         }
 
         [Test]
-        [TestCase(".")]
+        [TestCase("~")]
         public void NotTokenizeInvalidInput(string input)
         {
             Lexer lexer = new Lexer(input);

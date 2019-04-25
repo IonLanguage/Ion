@@ -64,16 +64,16 @@ namespace LlvmSharpLang.SyntaxAnalysis
         public List<Token> Tokenize()
         {
             List<Token> tokens = new List<Token>();
-            Token? next = this.GetNextToken();
+            Token? nextToken = this.GetNextToken();
 
             // Obtain all possible tokens.
-            while (next.HasValue)
+            while (nextToken.HasValue)
             {
                 // Append token value to the result list.
-                tokens.Add(next.Value);
+                tokens.Add(nextToken.Value);
 
                 // Continue enumeration.
-                next = this.GetNextToken();
+                nextToken = this.GetNextToken();
             }
 
             return tokens;
@@ -104,7 +104,10 @@ namespace LlvmSharpLang.SyntaxAnalysis
             Token token = new Token
             {
                 StartPos = this.Position,
-                Type = TokenType.Unknown
+                Type = TokenType.Unknown,
+
+                // Default to current character to avoid infinite loop.
+                Value = this.Char.ToString()
             };
 
             // Comments is a highest priority because operator division '/' will catch the beginning '/' of any comments.
@@ -208,7 +211,10 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 }
             }
 
-            // At this point the token was not identified. The type defaults to unknown.
+            // At this point the token was not identified. Skip over any captured value.
+            this.Skip(token.Value != null ? token.Value.Length : 0);
+
+            // Return the default token. The token type defaults to unknown.
             return token;
         }
 
