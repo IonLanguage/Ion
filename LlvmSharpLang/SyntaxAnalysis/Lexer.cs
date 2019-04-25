@@ -11,7 +11,9 @@ namespace LlvmSharpLang.SyntaxAnalysis
     [Flags]
     public enum LexerOptions
     {
-        IgnoreWhitespace = 1
+        IgnoreWhitespace = 1,
+        IgnoreComments = 2,
+        Debug = 4
     }
 
     /// <summary>
@@ -51,7 +53,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
         }
 
         // Defaults to ignoring whitespace unless other specified.
-        public Lexer(string input) : this(input, (LexerOptions.IgnoreWhitespace))
+        public Lexer(string input) : this(input, (LexerOptions.IgnoreComments | LexerOptions.IgnoreWhitespace))
         {
             //
         }
@@ -66,9 +68,16 @@ namespace LlvmSharpLang.SyntaxAnalysis
             List<Token> tokens = new List<Token>();
             Token? nextToken = this.GetNextToken();
 
+            Console.BackgroundColor = ConsoleColor.Green;
+
             // Obtain all possible tokens.
             while (nextToken.HasValue)
             {
+                if (this.Options.HasFlag(LexerOptions.Debug))
+                {
+                    Console.WriteLine($"[Lexer.Tokenize] Adding token of type {nextToken.Value.Type} with value {nextToken.Value.Value}");
+                }
+
                 // Append token value to the result list.
                 tokens.Add(nextToken.Value);
 
@@ -76,6 +85,12 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 nextToken = this.GetNextToken();
             }
 
+            if (this.Options.HasFlag(LexerOptions.Debug))
+            {
+                Console.WriteLine($"[Lexer.Tokenize] Finished tokenizing");
+            }
+
+            Console.ResetColor();
             return tokens;
         }
 
@@ -116,6 +131,10 @@ namespace LlvmSharpLang.SyntaxAnalysis
             {
                 if (this.MatchExpression(ref token, pair.Value, pair.Key))
                 {
+                    if (this.Options.HasFlag(LexerOptions.IgnoreComments))
+                    {
+                        return this.GetNextToken();
+                    }
                     return token;
                 }
             }

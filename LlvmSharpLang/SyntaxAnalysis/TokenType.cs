@@ -130,6 +130,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         KeywordExit,
 
+        KeywordIf,
+
         // Symbols.
         SymbolBlockL,
 
