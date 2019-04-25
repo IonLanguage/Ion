@@ -115,6 +115,7 @@ namespace LlvmSharpLang.Tests
         [TestCase("fn id(,):{123 1.23\"hello world\"'a'=>= ==<>!and or;}")]
         public void Tokenize(string input)
         {
+            // Create lexer and tokenize the input.
             Lexer lexer = new Lexer(input, (LexerOptions.Debug | LexerOptions.IgnoreComments | LexerOptions.IgnoreWhitespace));
             List<Token> tokens = lexer.Tokenize();
 

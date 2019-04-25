@@ -74,16 +74,14 @@ namespace LlvmSharpLang.SyntaxAnalysis
             while (nextToken.HasValue)
             {
                 // Debug in console if enabled.
-                if (this.Options.HasFlag(LexerOptions.Debug))
-                {
-                    Console.WriteLine($"[Lexer.Tokenize] Adding token of type {nextToken.Value.Type} with value {nextToken.Value.Value}");
-                }
+                this.Debug($"Adding token of type {nextToken.Value.Type} with value {nextToken.Value.Value}");
+
 
                 // If the token is unknown, issue a warning in console.
                 if (nextToken.Value.Type == TokenType.Unknown)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"[Lexer.Tokenize] Encountered unknown token type with value {nextToken.Value.Value}");
+                    Console.WriteLine($"[Lexer#Tokenize] Encountered unknown token type with value {nextToken.Value.Value}");
                     Console.ForegroundColor = ConsoleColor.Yellow;
                 }
 
@@ -94,10 +92,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 nextToken = this.GetNextToken();
             }
 
-            if (this.Options.HasFlag(LexerOptions.Debug))
-            {
-                Console.WriteLine($"[Lexer.Tokenize] Finished tokenizing");
-            }
+            this.Debug("Finished tokenizing");
 
             Console.ResetColor();
             return tokens;
@@ -140,6 +135,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
             {
                 if (this.MatchExpression(ref token, pair.Value, pair.Key))
                 {
+                    // If the lexer should ignore comments, return the next comment
                     if (this.Options.HasFlag(LexerOptions.IgnoreComments))
                     {
                         return this.GetNextToken();
@@ -286,6 +282,17 @@ namespace LlvmSharpLang.SyntaxAnalysis
             // }
 
             this.Position += amount;
+        }
+
+        protected void Debug(string text)
+        {
+            if (this.Options.HasFlag(LexerOptions.Debug))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"[Lexer#Debug] ");
+                Console.ResetColor();
+                Console.WriteLine(text);
+            }
         }
     }
 
