@@ -52,6 +52,25 @@ namespace LlvmSharpLang.SyntaxAnalysis
         }
 
         /// <summary>
+        /// Insert bounding tokens to the beginning
+        /// and end of the stream.
+        /// </summary>
+        public void InsertBounds()
+        {
+            // Insert the beginning bound.
+            this.Insert(0, new Token
+            {
+                Type = TokenType.ProgramStart
+            });
+
+            // Append the end bound.
+            this.Add(new Token
+            {
+                Type = TokenType.ProgramEnd
+            });
+        }
+
+        /// <summary>
         /// Retrieve the current token and
         /// ensure that its type matches the
         /// provided token type.

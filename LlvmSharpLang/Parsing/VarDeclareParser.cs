@@ -1,3 +1,4 @@
+using System;
 using LlvmSharpLang.CodeGeneration;
 using LlvmSharpLang.SyntaxAnalysis;
 
@@ -11,7 +12,7 @@ namespace LlvmSharpLang.Parsing
             string typeValue = stream.Next().Value;
 
             // Create the type.
-            Type type = new Type(typeValue);
+            CodeGeneration.Type type = new CodeGeneration.Type(typeValue);
 
             // Create the variable declaration & link the type.
             VarDeclare declaration = new VarDeclare(type, null);
@@ -33,6 +34,11 @@ namespace LlvmSharpLang.Parsing
 
                 // Assign value.
                 declaration.Value = value;
+            }
+            // Otherwise, it must be a semi-colon.
+            else if (nextToken.Type != TokenType.SymbolSemiColon)
+            {
+                throw new Exception($"Unexpected token after variable declaration; Expected semi-colon but got '{nextToken.Type}'");
             }
 
             return declaration;

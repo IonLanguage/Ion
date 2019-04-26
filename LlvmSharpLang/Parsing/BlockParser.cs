@@ -1,3 +1,4 @@
+using System;
 using LLVMSharp;
 using LlvmSharpLang.CodeGeneration;
 using LlvmSharpLang.SyntaxAnalysis;
@@ -24,15 +25,26 @@ namespace LlvmSharpLang.Parsing
             {
                 block.Type = BlockType.Short;
             }
-            // TODO: Otherwise, throw error about block type.
+            // Otherwise, the block type could not be identified.
+            else
+            {
+                throw new Exception("Unexpected block type");
+            }
 
             Token nextToken = stream.Peek();
 
             // Next token is not a block-closing token.
             if (nextToken.Type != TokenType.SymbolBlockR && block.Type != BlockType.Short)
             {
+                // Token must be an expression.
                 // TODO: Parse statements continually until block end.
-                new PrimaryExprParser().Parse(stream);
+                Expr expr = new PrimaryExprParser().Parse(stream);
+
+                // Ensure expression was successfully parsed.
+                if (expr == null)
+                {
+                    throw new Exception("Unexpected expression to be null");
+                }
             }
 
             // Skip default block end '}' or short block end ';'.
