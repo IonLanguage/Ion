@@ -3,6 +3,7 @@ using System.IO;
 using NUnit.Framework;
 using LlvmSharpLang.Core;
 using LlvmSharpLang.SyntaxAnalysis;
+using LlvmSharpLang.ErrorReporting;
 
 namespace LlvmSharpLang.Tests
 {

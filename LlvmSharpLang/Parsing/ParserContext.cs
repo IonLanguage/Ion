@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using LlvmSharpLang.CognitiveServices;
+using LlvmSharpLang.Core;
+using LlvmSharpLang.ErrorReporting;
 using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.Parsing
@@ -6,15 +9,39 @@ namespace LlvmSharpLang.Parsing
     // TODO: Finish implementing.
     public class ParserContext
     {
+        public Stack<Error> ErrorStack { get; }
+
         public TokenStream Stream { get; }
 
+        public ParserContext(TokenStream stream)
+        {
+            this.ErrorStack = new Stack<Error>();
+            this.Stream = stream;
+        }
+
         /// <summary>
-        /// Retrieve the precedence of the
-        /// current token.
+        /// Retrieve the precedence of the current
+        /// token.
         /// </summary>
         public int GetCurrentPrecedence()
         {
             return Precedence.Get(this.Stream.Get().Type);
+        }
+
+        /// <summary>
+        /// Append an error to the error stack.
+        /// </summary>
+        public void AppendError(Error error)
+        {
+            this.ErrorStack.Push(error);
+        }
+
+        /// <summary>
+        /// Clear and reset the error stack.
+        /// </summary>
+        public void BeginErrorStack()
+        {
+            this.ErrorStack.Clear();
         }
     }
 }

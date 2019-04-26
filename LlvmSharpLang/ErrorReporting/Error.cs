@@ -2,20 +2,18 @@ using System;
 using LlvmSharpLang.SyntaxAnalysis;
 using LlvmSharpLang.Misc;
 
-namespace LlvmSharpLang.Core
+namespace LlvmSharpLang.ErrorReporting
 {
     public class Error
     {
-        public const string defaultName = "Generic";
-
-        public static string Create(string message, string name = Error.defaultName)
+        public static string Create(string message, string name = InternalErrorNames.Generic)
         {
             string capitalizedName = name.Capitalize();
 
             return $"{capitalizedName}Error: {message}";
         }
 
-        public static void Write(string message, string name = Error.defaultName)
+        public static void Write(string message, string name = InternalErrorNames.Generic)
         {
             Error.Create(message, name);
         }
@@ -24,7 +22,7 @@ namespace LlvmSharpLang.Core
 
         public readonly string name;
 
-        public Error(string message, string name = Error.defaultName)
+        public Error(string message, string name = InternalErrorNames.Generic)
         {
             this.message = message;
             this.name = name;
@@ -35,7 +33,7 @@ namespace LlvmSharpLang.Core
             Error.Write(this.message, this.name);
         }
 
-        public virtual string Get()
+        public override string ToString()
         {
             return Error.Create(this.message, this.name);
         }

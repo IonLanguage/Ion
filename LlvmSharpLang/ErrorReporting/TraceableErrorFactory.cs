@@ -1,7 +1,7 @@
 using LlvmSharpLang.Core;
 using LlvmSharpLang.SyntaxAnalysis;
 
-namespace LlvmSharpLang
+namespace LlvmSharpLang.ErrorReporting
 {
     public class TraceableErrorFactory
     {
@@ -12,7 +12,7 @@ namespace LlvmSharpLang
             this.stream = stream;
         }
 
-        public TraceableError Create(string message, string name = Error.defaultName)
+        public TraceableError Create(string message, string name = InternalErrorNames.Generic)
         {
             return new TraceableError(this.stream, message, name);
         }

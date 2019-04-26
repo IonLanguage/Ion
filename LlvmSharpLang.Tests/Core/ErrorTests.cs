@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using LlvmSharpLang.Core;
+using LlvmSharpLang.ErrorReporting;
 
 namespace LlvmSharpLang.Tests
 {

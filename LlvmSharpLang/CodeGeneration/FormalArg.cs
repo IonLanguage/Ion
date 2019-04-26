@@ -1,5 +1,6 @@
 using LLVMSharp;
 using LlvmSharpLang.CodeGeneration.Structure;
+using LlvmSharpLang.Misc;
 
 namespace LlvmSharpLang.CodeGeneration
 {

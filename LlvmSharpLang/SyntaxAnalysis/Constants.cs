@@ -8,6 +8,7 @@ using LlvmSharpLang.Misc;
 using LlvmSharpLang.CodeGeneration;
 using LLVMSharp;
 using System.Linq;
+using LlvmSharpLang.ErrorReporting;
 
 namespace LlvmSharpLang.SyntaxAnalysis
 {
@@ -94,6 +95,13 @@ namespace LlvmSharpLang.SyntaxAnalysis
             {TokenType.OperatorDivision, 40},
             {TokenType.OperatorModulo, 40},
             {TokenType.OperatorExponent, 80}
+        };
+
+        public static Dictionary<ErrorType, string> errorTypeStrings = new Dictionary<ErrorType, string>
+        {
+            {ErrorType.Error, "Error"},
+            {ErrorType.Fatal, "Fatal"},
+            {ErrorType.Warning, "Warning"}
         };
     }
 }

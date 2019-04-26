@@ -1,6 +1,7 @@
 using LLVMSharp;
 using LlvmSharpLang.CodeGeneration.Structure;
 using LlvmSharpLang.CognitiveServices;
+using LlvmSharpLang.Misc;
 
 namespace LlvmSharpLang.CodeGeneration
 {

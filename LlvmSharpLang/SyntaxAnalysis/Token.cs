@@ -26,6 +26,10 @@ namespace LlvmSharpLang.SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Stringify the token to be able to be inspected
+        /// in the console.
+        /// </summary>
         public override string ToString()
         {
             return $"[{this.Type}:'{this.Value}'@{this.StartPos}-{this.EndPos}]";

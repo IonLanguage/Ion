@@ -1,4 +1,4 @@
-namespace LlvmSharpLang
+namespace LlvmSharpLang.ErrorReporting
 {
     public struct ErrorTraceStackItem
     {
