@@ -1,7 +1,9 @@
 language: csharp
 mono: none
-dotnet: 2.0.0
 script:
+  - sudo dpkg --purge packages-microsoft-prod && sudo dpkg -i packages-microsoft-prod.deb
+  - sudo apt-get update
+  - sudo apt-get install dotnet-sdk-2.2
   - dotnet restore
   - dotnet build ./LlvmSharpLang/
   - dotnet build ./LlvmSharpLang.Tests/

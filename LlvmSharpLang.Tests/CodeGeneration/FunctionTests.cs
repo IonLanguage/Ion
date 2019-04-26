@@ -120,7 +120,8 @@ namespace LlvmSharpLang.Tests.CodeGeneration
             // DEBUG: Output messages only show on error (Assert.fail).
             System.Console.WriteLine("hello world");
 
-            Assert.Fail();
+            // Assert.Fail();
+            Assert.Pass();
         }
     }
 }
