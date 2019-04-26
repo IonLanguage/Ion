@@ -10,6 +10,7 @@ namespace LlvmSharpLang.Tests
     internal sealed class LexerTests
     {
         private TokenType[] sequence;
+
         private TokenType[] fileSequence;
 
         [SetUp]
@@ -158,6 +159,10 @@ namespace LlvmSharpLang.Tests
 
         [Test]
         [TestCase("~")]
+        [TestCase(".")]
+        [TestCase("$")]
+        [TestCase("#")]
+        [TestCase("`")]
         public void NotTokenizeInvalidInput(string input)
         {
             Lexer lexer = new Lexer(input);
