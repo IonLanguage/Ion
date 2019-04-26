@@ -9,6 +9,7 @@ namespace LlvmSharpLang.Parsing
     {
         public List<Expr> Parse(TokenStream stream)
         {
+            // Create the argument list result.
             List<Expr> args = new List<Expr>();
 
             // Contains at least one argument.
@@ -39,9 +40,6 @@ namespace LlvmSharpLang.Parsing
                     stream.Skip();
                 }
             }
-
-            // Skip arguments end token.
-            stream.Skip(TokenType.SymbolParenthesesR);
 
             return args;
         }

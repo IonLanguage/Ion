@@ -18,19 +18,34 @@ namespace LlvmSharpLang.SyntaxAnalysis
         }
 
         /// <summary>
-        /// Skip the current token and ensure
-        /// the next token matches the provided
-        /// token type.
+        /// Skip the current token and ensure both
+        /// the next and current token matches the provided
+        /// corresponding token types.
         /// </summary>
-        public bool Skip(TokenType type)
+        public bool Skip(TokenType next, TokenType? current = null)
         {
+            // Ensure current token matches.
+            if (current.HasValue)
+            {
+                TokenType currentType = this.Get().Type;
+
+                // Ensure current token's type matches provided token type.
+                if (currentType != current)
+                {
+                    throw new Exception($"Expected current token to be of type '{current}' but got '{currentType}'");
+                }
+            }
+
+            // Skip current token.
             bool result = this.Skip();
-            TokenType currentType = this.Get().Type;
+
+            // Ensure next token matches.
+            TokenType nextType = this.Get().Type;
 
             // Ensure next token's type matches provided token type.
-            if (currentType != type)
+            if (nextType != next)
             {
-                throw new Exception($"Expected next token to be of type '{type}' but got '{currentType}'");
+                throw new Exception($"Expected next token to be of type '{next}' but got '{nextType}'");
             }
 
             return result;

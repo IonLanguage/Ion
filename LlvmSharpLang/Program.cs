@@ -198,6 +198,15 @@ namespace LlvmSharpLang
                     Type = TokenType.SymbolParenthesesR,
                     Value = ")"
                 },
+
+                new Token {
+                    Type = TokenType.SymbolSemiColon,
+                    Value = ";"
+                },
+
+                new Token {
+                    Type = TokenType.ProgramEnd
+                }
             });
 
             // Create and emit the function stream.

@@ -7,7 +7,7 @@ namespace LlvmSharpLang.Parsing
     {
         public Expr Parse(TokenStream stream)
         {
-            // Skip parentheses start token.
+            // Skip to parentheses start token.
             stream.Skip(TokenType.SymbolParenthesesL);
 
             // Parse the expression.
@@ -15,9 +15,6 @@ namespace LlvmSharpLang.Parsing
 
             // Skip to parentheses end token.
             stream.Skip(TokenType.SymbolParenthesesR);
-
-            // Skip parentheses end token.
-            stream.Skip();
 
             return expr;
         }

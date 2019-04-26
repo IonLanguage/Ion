@@ -29,8 +29,24 @@ namespace LlvmSharpLang.CodeGeneration
             // Emit the call arguments.
             foreach (var arg in this.Args)
             {
-                // Emit and append to the resulting arguments.
-                args.Add(arg.Emit(context));
+                // Continue if the argument is null.
+                if (arg == null)
+                {
+                    continue;
+                }
+
+                // Emit the argument.
+                LLVMValueRef? argValue = arg.Emit(context);
+
+                // TODO: Should be reported as a warning?
+                // Continue if emission failed.
+                if (!argValue.HasValue)
+                {
+                    continue;
+                }
+
+                // Append to the resulting arguments.
+                args.Add(argValue.Value);
             }
 
             // Create the function call.

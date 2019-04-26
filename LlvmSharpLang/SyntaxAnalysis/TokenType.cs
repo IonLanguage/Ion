@@ -9,6 +9,12 @@ namespace LlvmSharpLang.SyntaxAnalysis
         ProgramStart,
 
         /// <summary>
+        /// Represents the ending point
+        /// of the program.
+        /// </summary>
+        ProgramEnd,
+
+        /// <summary>
         /// Represents an unidentified value.
         /// </summary>
         Unknown,

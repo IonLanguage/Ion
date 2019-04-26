@@ -27,8 +27,8 @@ namespace LlvmSharpLang.Parsing
                 return new ParenthesesExprParser().Parse(stream);
             }
 
-            // Otherwise, not supported.
-            throw new Exception("Expected a primary expression");
+            // At this point, return null.
+            return null;
         }
     }
 

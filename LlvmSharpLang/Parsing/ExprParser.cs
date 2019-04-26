@@ -14,10 +14,10 @@ namespace LlvmSharpLang.Parsing
             // Parse the left side of the expression.
             Expr leftSide = new PrimaryExprParser().Parse(stream);
 
-            // Ensure left side was successfully parsed.
+            // Ensure left side was successfully parsed, otherwise return null.
             if (leftSide == null)
             {
-                throw new Exception("Unable to parse left-side of the expression");
+                return null;
             }
 
             // Invoke the binary expression parser.
