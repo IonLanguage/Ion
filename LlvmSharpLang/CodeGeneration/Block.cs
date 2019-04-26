@@ -14,7 +14,7 @@ namespace LlvmSharpLang.CodeGeneration
 
     public class Block : Named, IEntity<LLVMBasicBlockRef, LLVMValueRef>
     {
-        public Expr ReturnValue { get; set; }
+        public Expr ReturnExpr { get; set; }
 
         public BlockType Type { get; set; }
 
@@ -31,14 +31,14 @@ namespace LlvmSharpLang.CodeGeneration
             LLVM.PositionBuilderAtEnd(builder, block);
 
             // No value was returned.
-            if (this.ReturnValue == null)
+            if (this.ReturnExpr == null)
             {
                 LLVM.BuildRetVoid(builder);
             }
             // Otherwise, emit the set return value.
             else
             {
-                this.ReturnValue.Emit(builder);
+                this.ReturnExpr.Emit(builder);
             }
 
             // Cache emitted block.

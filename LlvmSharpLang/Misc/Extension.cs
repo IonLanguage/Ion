@@ -27,7 +27,8 @@ namespace LlvmSharpLang.Misc
         {
             LLVMBuilderRef builder = LLVM.CreateBuilder();
 
-            LLVM.PositionBuilderAtEnd(builder, block);
+            // Position the builder at the beginning of the block.
+            LLVM.PositionBuilderBefore(builder, block.GetLastInstruction());
 
             return builder;
         }

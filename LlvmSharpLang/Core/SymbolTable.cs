@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using LLVMSharp;
+using LlvmSharpLang.CodeGeneration;
 
 namespace LlvmSharpLang.Core
 {
@@ -15,5 +16,10 @@ namespace LlvmSharpLang.Core
         /// All values are reset once the scope changes.
         /// </summary>
         public static Dictionary<string, LLVMValueRef> localScope = new Dictionary<string, LLVMValueRef>();
+
+        /// <summary>
+        /// The active block being parsed.
+        /// </summary>
+        public static Block activeBlock;
     }
 }

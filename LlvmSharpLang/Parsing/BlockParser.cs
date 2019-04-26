@@ -1,6 +1,7 @@
 using System;
 using LLVMSharp;
 using LlvmSharpLang.CodeGeneration;
+using LlvmSharpLang.Core;
 using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.Parsing
@@ -14,6 +15,9 @@ namespace LlvmSharpLang.Parsing
 
             // Create the block.
             Block block = new Block();
+
+            // Set the block as active in the symbol table.
+            SymbolTable.activeBlock = block;
 
             // Mark the block as default.
             if (begin.Type == TokenType.SymbolBlockL)
@@ -33,8 +37,17 @@ namespace LlvmSharpLang.Parsing
 
             Token nextToken = stream.Peek();
 
+            // Returning a value.
+            if (nextToken.Type == TokenType.KeywordReturn)
+            {
+                // Invoke the return parser. It's okay if it returns null, as it will be emitted as void.
+                Expr returnExpr = new FunctionReturnParser().Parse(stream);
+
+                // Assign the return expression to the block.
+                block.ReturnExpr = returnExpr;
+            }
             // Next token is not a block-closing token.
-            if (nextToken.Type != TokenType.SymbolBlockR && block.Type != BlockType.Short)
+            else if (nextToken.Type != TokenType.SymbolBlockR && block.Type != BlockType.Short)
             {
                 // Token must be an expression.
                 // TODO: Parse statements continually until block end.
