@@ -23,13 +23,27 @@ namespace LlvmSharpLang.Misc
             }
         }
 
-        public static LLVMBuilderRef CreateBuilder(this LLVMBasicBlockRef block)
+        /// <summary>
+        /// Create a new LLVM block builder and position
+        /// it accordingly.
+        /// </summary>
+        public static LLVMBuilderRef CreateBuilder(this LLVMBasicBlockRef block, bool positionAtStart = true)
         {
+            // Create a new builder.
             LLVMBuilderRef builder = LLVM.CreateBuilder();
 
             // Position the builder at the beginning of the block.
-            LLVM.PositionBuilderBefore(builder, block.GetLastInstruction());
+            if (positionAtStart)
+            {
+                LLVM.PositionBuilderBefore(builder, block.GetLastInstruction());
+            }
+            // Otherwise, at the end of the block.
+            else
+            {
+                LLVM.PositionBuilderAtEnd(builder, block);
+            }
 
+            // Return the linked builder.
             return builder;
         }
 
