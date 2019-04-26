@@ -6,7 +6,7 @@ script:
   - sudo apt-get install apt-transport-https
   - sudo apt-get update
   - sudo apt-get install dotnet-sdk-2.2
-  - dotnet restore
-  - dotnet build ./LlvmSharpLang/
-  - dotnet build ./LlvmSharpLang.Tests/
-  - dotnet test ./LlvmSharpLang.Tests/
+  - sudo dotnet restore
+  - sudo dotnet build ./LlvmSharpLang/
+  - sudo dotnet build ./LlvmSharpLang.Tests/
+  - sudo dotnet test ./LlvmSharpLang.Tests/
