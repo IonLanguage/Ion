@@ -1,3 +1,4 @@
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace LlvmSharpLang.Misc
@@ -12,6 +13,18 @@ namespace LlvmSharpLang.Misc
         public static Regex CreateRegex(string pattern)
         {
             return new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        }
+
+        /// <summary>
+        /// Determine whether a path is a directory.
+        /// </summary>
+        public static bool IsDirectory(string path)
+        {
+            // Retrieve the attributes of the path.
+            FileAttributes attributes = File.GetAttributes(path);
+
+            // Return whether the path is a directory.
+            return attributes.HasFlag(FileAttributes.Directory);
         }
     }
 }
