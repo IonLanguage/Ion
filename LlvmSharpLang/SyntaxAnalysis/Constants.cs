@@ -16,8 +16,6 @@ namespace LlvmSharpLang.SyntaxAnalysis
     {
         public delegate LLVMValueRef ConstantResolver();
 
-        public static string mainFunctionName = "main";
-
         public static readonly TokenTypeMap keywords = new TokenTypeMap {
             {"fn", TokenType.KeywordFunction},
             {"exit", TokenType.KeywordExit},

@@ -1,7 +1,10 @@
+using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using LLVMSharp;
 using LlvmSharpLang.SyntaxAnalysis;
 using NUnit.Framework;
+using LlvmSharpLang.Abstraction;
 
 namespace LlvmSharpLang.Tests.CodeGeneration
 {
@@ -9,7 +12,7 @@ namespace LlvmSharpLang.Tests.CodeGeneration
     {
         private string storedIr;
 
-        private LLVMModuleRef module;
+        private Abstraction.Module module;
 
         private Token[] sequence;
 
@@ -24,7 +27,7 @@ namespace LlvmSharpLang.Tests.CodeGeneration
             }*/
 
             // Create the LLVM module.
-            this.module = LLVM.ModuleCreateWithName("test");
+            this.module = new LlvmSharpLang.Abstraction.Module();
 
             // Read the stored IR code to compare.
             this.storedIr = File.ReadAllText("../../../Data/function.ll");
@@ -105,22 +108,15 @@ namespace LlvmSharpLang.Tests.CodeGeneration
         [Test]
         public void MatchStoredIr()
         {
+            // Create test function to emit.
+            this.module.CreateMainFunction();
+
             // Emit the module.
-            string ir;
+            string output = this.module.ToString();
 
-            // TODO: Finish implementing.
-            // ir = LLVM.PrintModuleToString(this.module);
+            // Compare stored IR code with the actual, emitted output.
+            Assert.AreEqual(this.storedIr, output);
 
-            // Compare emitted IR code.
-            // Assert.AreEqual(this.storedIr, ir);
-
-            // TODO: Not showing in tests? Actually it's just empty.
-            LLVM.DumpModule(this.module);
-
-            // DEBUG: Output messages only show on error (Assert.fail).
-            System.Console.WriteLine("hello world");
-
-            // Assert.Fail();
             Assert.Pass();
         }
     }

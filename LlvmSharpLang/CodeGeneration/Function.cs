@@ -62,5 +62,17 @@ namespace LlvmSharpLang.CodeGeneration
             // Return the newly created body.
             return body;
         }
+
+        public FormalArgs CreateArgs()
+        {
+            // Create the args entity.
+            FormalArgs args = new FormalArgs();
+
+            // Assign the created args.
+            this.Args = args;
+
+            // Return the newly created args.
+            return args;
+        }
     }
 }
