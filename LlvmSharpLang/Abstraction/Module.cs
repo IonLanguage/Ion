@@ -6,7 +6,7 @@ using LlvmSharpLang.CodeGeneration.Structure;
 
 namespace LlvmSharpLang.Abstraction
 {
-    public class Module
+    public class Module : IDisposable, ICloneable
     {
         public LLVMModuleRef Source { get; }
 
@@ -44,6 +44,35 @@ namespace LlvmSharpLang.Abstraction
             return function;
         }
 
+        public LLVMContextRef GetContext()
+        {
+            return LLVM.GetModuleContext(this.Source);
+        }
+
+        public object Clone()
+        {
+            return new Module(LLVM.CloneModule(this.Source));
+        }
+
+        public void Dispose()
+        {
+            LLVM.DisposeModule(this.Source);
+        }
+
+        /// <summary>
+        /// Dump the contents of the corresponding
+        /// IR code with this module to the console
+        /// output.
+        /// </summary>
+        public void Dump()
+        {
+            LLVM.DumpModule(this.Source);
+        }
+
+        /// <summary>
+        /// Obtain the corresponding IR code from this
+        /// module.
+        /// </summary>
         public override string ToString()
         {
             // Print IR code to a buffer.
