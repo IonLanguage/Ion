@@ -75,5 +75,10 @@ namespace LlvmSharpLang.Linking
             // Return an array of matching paths.
             return entries.ToArray();
         }
+
+        public string[] Scan(bool recursive = true)
+        {
+            return this.Scan(this.Options.Root, recursive);
+        }
     }
 }
