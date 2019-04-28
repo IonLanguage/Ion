@@ -38,84 +38,19 @@ namespace LlvmSharpLang.Tests.SyntaxAnalysis
                 TokenType.OperatorAnd,
                 TokenType.OperatorOr,
                 TokenType.SymbolSemiColon,
-                TokenType.SymbolBlockR
-            };
-
-            this.fileSequence = new TokenType[] {
-                TokenType.KeywordFunction,
-                TokenType.Identifier,
-                TokenType.SymbolParenthesesL,
-                TokenType.Identifier,
-                TokenType.Identifier,
-                TokenType.SymbolComma,
-                TokenType.Identifier,
-                TokenType.Identifier,
-                TokenType.SymbolParenthesesR,
-                TokenType.SymbolColon,
-                TokenType.Identifier,
-                TokenType.SymbolBlockL,
-                TokenType.LiteralInteger,
-                TokenType.SymbolSemiColon,
-                TokenType.LiteralDecimal,
-                TokenType.SymbolSemiColon,
-                TokenType.LiteralString,
-                TokenType.SymbolSemiColon,
-                TokenType.LiteralCharacter,
-                TokenType.SymbolSemiColon,
-                TokenType.SymbolParenthesesL,
-                TokenType.SymbolParenthesesR,
-                TokenType.SymbolArrow,
-                TokenType.SymbolBlockL,
                 TokenType.SymbolBlockR,
-                TokenType.SymbolSemiColon,
-                TokenType.Identifier,
-                TokenType.OperatorAssignment,
-                TokenType.Identifier,
-                TokenType.SymbolSemiColon,
-                TokenType.KeywordIf,
-                TokenType.SymbolParenthesesL,
-                TokenType.Identifier,
-                TokenType.OperatorEquality,
-                TokenType.Identifier,
-                TokenType.SymbolParenthesesR,
-                TokenType.SymbolBlockL,
-                TokenType.SymbolBlockR,
-                TokenType.SymbolSemiColon,
-                TokenType.KeywordIf,
-                TokenType.SymbolParenthesesL,
-                TokenType.Identifier,
-                TokenType.OperatorLessThan,
-                TokenType.Identifier,
-                TokenType.OperatorAnd,
-                TokenType.Identifier,
-                TokenType.OperatorGreaterThan,
-                TokenType.Identifier,
-                TokenType.SymbolParenthesesR,
-                TokenType.SymbolBlockL,
-                TokenType.SymbolBlockR,
-                TokenType.SymbolSemiColon,
-                TokenType.KeywordIf,
-                TokenType.SymbolParenthesesL,
-                TokenType.OperatorNot,
-                TokenType.Identifier,
-                TokenType.OperatorOr,
-                TokenType.OperatorNot,
-                TokenType.Identifier,
-                TokenType.SymbolParenthesesR,
-                TokenType.SymbolBlockL,
-                TokenType.SymbolBlockR,
-                TokenType.SymbolSemiColon,
-                TokenType.SymbolBlockR
+                TokenType.MultiLineComment,
+                TokenType.SingleLineComment
             };
         }
 
         [Test]
 
         // Normal.
-        [TestCase("fn id ( , ) : { 123 1.23 \"hello world\" 'a' => = == < > ! and or ; }")]
+        [TestCase("fn id ( , ) : { 123 1.23 \"hello world\" 'a' => = == < > ! and or ; } /*a*/ // abc")]
 
         // Dense.
-        [TestCase("fn id(,):{123 1.23\"hello world\"'a'=>= ==<>!and or;}")]
+        [TestCase("fn id(,):{123 1.23\"hello world\"'a'=>= ==<>!and or;}/*a*///abc")]
         public void Tokenize(string input)
         {
             // Create lexer and tokenize the input.
