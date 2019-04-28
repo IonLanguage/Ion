@@ -55,11 +55,7 @@ namespace LlvmSharpLang.Tests.SyntaxAnalysis
         public void Tokenize(string input)
         {
             // Create lexer and tokenize the input.
-            Lexer lexer = new Lexer(input, (
-                LexerOptions.Debug
-                | LexerOptions.IgnoreWhitespace
-            ));
-
+            Lexer lexer = new Lexer(input, (LexerOptions.IgnoreWhitespace));
             List<Token> tokens = lexer.Tokenize();
 
             // Ensure length is the same.
