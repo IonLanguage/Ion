@@ -2,7 +2,7 @@
     <PropertyGroup>
         <OutputType>Library</OutputType>
         <TargetFramework>netcoreapp2.2</TargetFramework>
-        <RootNamespace>llvm_sharp</RootNamespace>
+        <RootNamespace>LlvmSharpLang</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="LLVMSharp" Version="5.0.0" />
