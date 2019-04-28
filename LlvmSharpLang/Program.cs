@@ -196,7 +196,6 @@ namespace LlvmSharpLang
 
             // Create and emit the function call stream.
             new PrimaryExprParser().Parse(callStream).Emit(fn.Body.Current.CreateBuilder());
-            new TopLevelExprParser().Parse();
             // --- Tests end ---
 
             // Print output IR.

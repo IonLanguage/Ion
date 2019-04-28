@@ -6,14 +6,14 @@ namespace LlvmSharpLang.Parsing
 {
     public class Driver
     {
-        protected readonly TokenStream stream;
+        public Module Module { get; protected set; }
 
-        protected readonly Module module;
+        protected readonly TokenStream stream;
 
         public Driver(TokenStream stream)
         {
             this.stream = stream;
-            this.module = new Module();
+            this.Module = new Module();
         }
 
         public Driver(Token[] tokens) : this(new TokenStream(tokens))
@@ -38,7 +38,7 @@ namespace LlvmSharpLang.Parsing
                         Function function = new FunctionParser().Parse(stream);
 
                         // Emit the function.
-                        function.Emit(this.module.Source);
+                        function.Emit(this.Module.Source);
 
                         break;
                     }
@@ -49,7 +49,7 @@ namespace LlvmSharpLang.Parsing
                         Function exprDelegate = new TopLevelExprParser().Parse(stream);
 
                         // Emit the top-level expression.
-                        exprDelegate.Emit(this.module.Source);
+                        exprDelegate.Emit(this.Module.Source);
 
                         break;
                     }
