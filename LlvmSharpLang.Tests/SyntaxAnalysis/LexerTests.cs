@@ -4,8 +4,9 @@ using NUnit.Framework;
 using LlvmSharpLang.Core;
 using LlvmSharpLang.SyntaxAnalysis;
 using LlvmSharpLang.ErrorReporting;
+using LlvmSharpLang.Tests.Core;
 
-namespace LlvmSharpLang.Tests
+namespace LlvmSharpLang.Tests.SyntaxAnalysis
 {
     internal sealed class LexerTests
     {
@@ -129,29 +130,6 @@ namespace LlvmSharpLang.Tests
             {
                 // Compare tokenized token to corresponding token on the sequence.
                 Assert.AreEqual(sequence[i], tokens[i].Type);
-            }
-
-            Assert.Pass();
-        }
-
-        [Test]
-        public void TokenizeFile()
-        {
-            // Read file content.
-            string text = File.ReadAllText("../../../SyntaxAnalysis/test.l");
-
-            // Create lexer and tokenize the input.
-            Lexer lexer = new Lexer(text, (LexerOptions.Debug | LexerOptions.IgnoreComments | LexerOptions.IgnoreWhitespace));
-            List<Token> tokens = lexer.Tokenize();
-
-            // Ensure length is the same.
-            Assert.AreEqual(this.fileSequence.Length, tokens.Count);
-
-            // Verify sequence.
-            for (int i = 0; i < tokens.Count; i++)
-            {
-                // Compare tokenized token to corresponding token on the sequence.
-                Assert.AreEqual(fileSequence[i], tokens[i].Type);
             }
 
             Assert.Pass();

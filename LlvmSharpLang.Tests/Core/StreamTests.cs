@@ -2,7 +2,7 @@ using NUnit.Framework;
 using LlvmSharpLang.Core;
 using LlvmSharpLang.Misc;
 
-namespace LlvmSharpLang.Tests
+namespace LlvmSharpLang.Tests.Core
 {
     public class StreamTests
     {

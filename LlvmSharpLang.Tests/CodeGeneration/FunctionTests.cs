@@ -5,6 +5,7 @@ using LLVMSharp;
 using LlvmSharpLang.SyntaxAnalysis;
 using NUnit.Framework;
 using LlvmSharpLang.Abstraction;
+using LlvmSharpLang.Tests.Core;
 
 namespace LlvmSharpLang.Tests.CodeGeneration
 {
@@ -30,7 +31,7 @@ namespace LlvmSharpLang.Tests.CodeGeneration
             this.module = new LlvmSharpLang.Abstraction.Module();
 
             // Read the stored IR code to compare.
-            this.storedIr = File.ReadAllText("../../../Data/function.ll");
+            this.storedIr = File.ReadAllText(TestUtil.ResolveDataPath("function.ll"));
 
             // Create the sequence.
             this.sequence = new Token[]

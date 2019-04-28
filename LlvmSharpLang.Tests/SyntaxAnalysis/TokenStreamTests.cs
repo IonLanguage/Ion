@@ -1,7 +1,7 @@
 using LlvmSharpLang.SyntaxAnalysis;
 using NUnit.Framework;
 
-namespace LlvmSharpLang.Tests
+namespace LlvmSharpLang.Tests.SyntaxAnalysis
 {
     public class TokenStreamTests
     {
