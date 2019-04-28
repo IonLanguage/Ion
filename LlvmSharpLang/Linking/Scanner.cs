@@ -76,6 +76,11 @@ namespace LlvmSharpLang.Linking
                 {
                     continue;
                 }
+                // Continue if entry is not matched.
+                else if (!this.Options.IsMatch(entry))
+                {
+                    continue;
+                }
 
                 // Register entry in results.
                 entries.Add(entry);
