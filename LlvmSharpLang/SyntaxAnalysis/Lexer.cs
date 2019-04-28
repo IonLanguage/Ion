@@ -129,17 +129,18 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 Value = this.Char.ToString()
             };
 
-            // Comments is a highest priority because operator division '/' will catch the beginning '/' of any comments.
+            // Comments have highest priority because the division operator will catch the beginning of any comments.
             // If it starts with '/', it's a candidate.
             foreach (var pair in Constants.commentTokenTypes)
             {
                 if (this.MatchExpression(ref token, pair.Value, pair.Key))
                 {
-                    // If the lexer should ignore comments, return the next comment
+                    // If the lexer should ignore comments, return the next comment.
                     if (this.Options.HasFlag(LexerOptions.IgnoreComments))
                     {
                         return this.GetNextToken();
                     }
+
                     return token;
                 }
             }
