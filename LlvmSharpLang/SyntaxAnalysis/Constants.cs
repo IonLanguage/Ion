@@ -74,8 +74,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
         {
             {Util.CreateRegex(@"[_a-z]+[_a-z0-9]*"), TokenType.Identifier},
             {Util.CreateRegex(@"""(\\.|[^\""\\])*"""), TokenType.LiteralString},
-            {Util.CreateRegex(@"[0-9]+\.[0-9]+"), TokenType.LiteralDecimal},
-            {Util.CreateRegex(@"[0-9]+"), TokenType.LiteralInteger},
+            {Util.CreateRegex(@"-?[0-9]+\.[0-9]+"), TokenType.LiteralDecimal},
+            {Util.CreateRegex(@"-?[0-9]+"), TokenType.LiteralInteger},
             {Util.CreateRegex(@"'([^'\\\n]|\\.)'"), TokenType.LiteralCharacter}
         };
 
