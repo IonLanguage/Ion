@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -23,9 +25,31 @@ namespace LlvmSharpLang.Linking
         /// </summary>
         public string[] Exclude { get; set; }
 
-        public Regex[] CompiledMatches { get; }
+        public Regex[] CompiledMatches { get; protected set; }
 
-        public Regex[] CompiledExclusions { get; }
+        public Regex[] CompiledExclusions { get; protected set; }
+
+        public void Init()
+        {
+            List<Regex> compiledMatches = new List<Regex>();
+            List<Regex> compiledExclusions = new List<Regex>();
+
+            // Populate compiled matches.
+            foreach (var match in this.Match)
+            {
+                compiledMatches.Add(new Regex(match));
+            }
+
+            // Populate compiled exclusions.
+            foreach (var exclusion in this.Exclude)
+            {
+                compiledExclusions.Add(new Regex(exclusion));
+            }
+
+            // Assign populated bounds.
+            this.CompiledMatches = compiledMatches.ToArray();
+            this.CompiledExclusions = compiledExclusions.ToArray();
+        }
 
         /// <summary>
         /// Determine whether a path matches an

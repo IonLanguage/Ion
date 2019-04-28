@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -25,6 +26,9 @@ namespace LlvmSharpLang.Linking
         public Scanner(ScannerOptions options)
         {
             this.Options = options;
+
+            // Initialize options.
+            this.Options.Init();
         }
 
         public Scanner(string root)
@@ -33,6 +37,9 @@ namespace LlvmSharpLang.Linking
 
             options.Root = root;
             this.Options = options;
+
+            // Initialize options.
+            this.Options.Init();
         }
 
         /// <summary>
@@ -55,9 +62,21 @@ namespace LlvmSharpLang.Linking
             // Join the path with the root path.
             string targetPath = Path.Join(this.Options.Root, path);
 
+            // Set the target path to the root path.
+            if (String.IsNullOrEmpty(path))
+            {
+                targetPath = this.Options.Root;
+            }
+
             // Loop through all entries.
             foreach (var entry in Directory.GetFiles(targetPath))
             {
+                // Continue if entry is excluded.
+                if (this.Options.IsExcluded(entry))
+                {
+                    continue;
+                }
+
                 // Register entry in results.
                 entries.Add(entry);
 
@@ -78,7 +97,7 @@ namespace LlvmSharpLang.Linking
 
         public string[] Scan(bool recursive = true)
         {
-            return this.Scan(this.Options.Root, recursive);
+            return this.Scan(null, recursive);
         }
     }
 }
