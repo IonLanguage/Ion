@@ -143,16 +143,16 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 if (pair.Key.StartsWith(this.Char))
                 {
                     // Create initial regex.
-                    Regex regex = Util.CreateRegex(Regex.Escape(pair.Key));
+                    Regex pattern = Util.CreateRegex(Regex.Escape(pair.Key));
 
-                    // If the match starts with a letter, modify the regex to force whitespace or EOF at the end.
+                    // If the match starts with a letter, modify the regex to force either whitespace or EOF at the end.
                     if (char.IsLetter(pair.Key[0]))
                     {
-                        regex = Util.CreateRegex($"{Regex.Escape(pair.Key)}(\\s|$)");
+                        pattern = Util.CreateRegex($"{Regex.Escape(pair.Key)}(\\s|$)");
                     }
 
                     // If the symbol is next in the input.
-                    if (this.MatchExpression(ref token, pair.Value, regex))
+                    if (this.MatchExpression(ref token, pair.Value, pattern))
                     {
                         // Return the token.
                         return token;
