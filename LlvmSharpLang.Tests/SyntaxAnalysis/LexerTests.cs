@@ -37,6 +37,7 @@ namespace LlvmSharpLang.Tests.SyntaxAnalysis
                 TokenType.OperatorNot,
                 TokenType.OperatorAnd,
                 TokenType.OperatorOr,
+                TokenType.Identifier,
                 TokenType.SymbolSemiColon,
                 TokenType.SymbolBlockR,
                 TokenType.MultiLineComment,
@@ -47,16 +48,15 @@ namespace LlvmSharpLang.Tests.SyntaxAnalysis
         [Test]
 
         // Normal.
-        [TestCase("fn id ( , ) : { 123 1.23 \"hello world\" 'a' => = == < > ! and or ; } /*a*/ // abc")]
+        [TestCase("fn id ( , ) : { 123 1.23 \"hello world\" 'a' => = == < > ! and or andor; } /*a*/ // abc")]
 
         // Dense.
-        [TestCase("fn id(,):{123 1.23\"hello world\"'a'=>= ==<>!and or;}/*a*///abc")]
+        [TestCase("fn id(,):{123 1.23\"hello world\"'a'=>= ==<>!and or andor;}/*a*///abc")]
         public void Tokenize(string input)
         {
             // Create lexer and tokenize the input.
             Lexer lexer = new Lexer(input, (
                 LexerOptions.Debug
-                | LexerOptions.IgnoreComments
                 | LexerOptions.IgnoreWhitespace
             ));
 

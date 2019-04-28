@@ -58,7 +58,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
         }
 
         /// <summary>
-        /// Begin the tokenization process, obtaining/extracting all 
+        /// Begin the tokenization process, obtaining/extracting all
         /// possible tokens from the input string. Tokens which are
         /// unable to be identified will default to token type unknown.
         /// </summary>
@@ -136,57 +136,23 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 }
             }
 
-            // Capturing an identifier, operator or keyword.
-            if (char.IsLetter(this.Char))
-            {
-                // Reset the buffer and position.
-                int position = this.Position;
-                this.buffer = this.Char.ToString();
-
-                // Consume the value.
-                while (char.IsLetterOrDigit(this.Input[position + 1]))
-                {
-                    position++;
-                    buffer += this.Input[position];
-                }
-
-                // Assign the consumed value to the token.
-                token.Value = buffer;
-
-                // If the keyword is registered, identify the token.
-                if (Constants.keywords.ContainsKey(buffer))
-                {
-                    // Identify the token with its corresponding keyword.
-                    token.Type = Constants.keywords[buffer];
-
-                    // Skip the length of the captured value.
-                    this.Skip(token.Value.Length);
-
-                    // Return the token.
-                    return token;
-                }
-                // Otherwise, if the operator is registered, identify the token.
-                else if (Constants.operators.ContainsKey(buffer))
-                {
-                    // Identify the token with its corresponding operator.
-                    token.Type = Constants.operators[buffer];
-
-                    // Skip the length of the captured value.
-                    this.Skip(token.Value.Length);
-
-                    // Return the token.
-                    return token;
-                }
-            }
-
             // Test string against simple token type values.
             foreach (var pair in Constants.simpleTokenTypes)
             {
                 // Possible candidate.
                 if (pair.Key.StartsWith(this.Char))
                 {
+                    // Create initial regex.
+                    Regex regex = Util.CreateRegex(Regex.Escape(pair.Key));
+
+                    // If the match starts with a letter, modify the regex to force whitespace or EOF at the end.
+                    if (char.IsLetter(pair.Key[0]))
+                    {
+                        regex = Util.CreateRegex($"{Regex.Escape(pair.Key)}(\\s|$)");
+                    }
+
                     // If the symbol is next in the input.
-                    if (this.MatchExpression(ref token, pair.Value, Util.CreateRegex(Regex.Escape(pair.Key))))
+                    if (this.MatchExpression(ref token, pair.Value, regex))
                     {
                         // Return the token.
                         return token;
@@ -196,10 +162,10 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
             // TODO: Add comment literal support.
             // Complex types support.
-            foreach (KeyValuePair<Regex, TokenType> pair in Constants.complexTokenTypes)
+            foreach (var pair in Constants.complexTokenTypes)
             {
                 // If it matches, return the token (already modified by the function).
-                if (this.MatchExpression(ref token, pair.Value, pair.Key, true))
+                if (this.MatchExpression(ref token, pair.Value, pair.Key))
                 {
                     // Return the token.
                     return token;
