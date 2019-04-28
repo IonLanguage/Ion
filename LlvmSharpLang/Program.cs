@@ -74,10 +74,6 @@ namespace LlvmSharpLang
             // --- Tests start ---
             var functionStream = new TokenStream(new Token[] {
                 new Token {
-                    Type = TokenType.ProgramStart
-                },
-
-                new Token {
                     Type = TokenType.KeywordFunction,
                     Value = "fn"
                 },
@@ -144,10 +140,6 @@ namespace LlvmSharpLang
 
             var globalVarStream = new TokenStream(new Token[] {
                 new Token {
-                    Type = TokenType.ProgramStart
-                },
-
-                new Token {
                     Type = TokenType.Identifier,
                     Value = "bool"
                 },
@@ -165,10 +157,6 @@ namespace LlvmSharpLang
 
             var declareStream = new TokenStream(new Token[] {
                 new Token {
-                    Type = TokenType.ProgramStart
-                },
-
-                new Token {
                     Type = TokenType.Identifier,
                     Value = "int"
                 },
@@ -180,10 +168,6 @@ namespace LlvmSharpLang
             });
 
             var callStream = new TokenStream(new Token[] {
-                new Token {
-                    Type = TokenType.ProgramStart
-                },
-
                 new Token {
                     Type = TokenType.Identifier,
                     Value = "helloWorld"
@@ -202,10 +186,6 @@ namespace LlvmSharpLang
                 new Token {
                     Type = TokenType.SymbolSemiColon,
                     Value = ";"
-                },
-
-                new Token {
-                    Type = TokenType.ProgramEnd
                 }
             });
 

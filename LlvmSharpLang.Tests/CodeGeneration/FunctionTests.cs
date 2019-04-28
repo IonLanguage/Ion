@@ -37,10 +37,6 @@ namespace LlvmSharpLang.Tests.CodeGeneration
             this.sequence = new Token[]
             {
                 new Token {
-                    Type = TokenType.ProgramStart
-                },
-
-                new Token {
                     Type = TokenType.KeywordFunction,
                     Value = "fn"
                 },

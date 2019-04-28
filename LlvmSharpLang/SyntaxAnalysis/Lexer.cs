@@ -12,8 +12,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
     public enum LexerOptions
     {
         IgnoreWhitespace = 1,
-        IgnoreComments = 2,
-        Debug = 4
+
+        IgnoreComments = 2
     }
 
     /// <summary>
@@ -22,7 +22,6 @@ namespace LlvmSharpLang.SyntaxAnalysis
     /// </summary>
     public class Lexer
     {
-
         public static readonly int EOF = -1;
 
         /// <summary>
@@ -73,16 +72,11 @@ namespace LlvmSharpLang.SyntaxAnalysis
             // Obtain all possible tokens.
             while (nextToken.HasValue)
             {
-                // Debug in console if enabled.
-                this.Debug($"Adding token of type {nextToken.Value.Type} with value {nextToken.Value.Value}");
-
-
                 // If the token is unknown, issue a warning in console.
                 if (nextToken.Value.Type == TokenType.Unknown)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"[Lexer#Tokenize] Encountered unknown token type with value {nextToken.Value.Value}");
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    // TODO: This should be done through ErrorReporting (implement in the future).
+                    Console.WriteLine("Warning: Unexpected token type to be unknown");
                 }
 
                 // Append token value to the result list.
@@ -92,9 +86,6 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 nextToken = this.GetNextToken();
             }
 
-            this.Debug("Finished tokenizing");
-
-            Console.ResetColor();
             return tokens;
         }
 
@@ -262,17 +253,6 @@ namespace LlvmSharpLang.SyntaxAnalysis
             // }
 
             this.Position += amount;
-        }
-
-        protected void Debug(string text)
-        {
-            if (this.Options.HasFlag(LexerOptions.Debug))
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write($"[Lexer#Debug] ");
-                Console.ResetColor();
-                Console.WriteLine(text);
-            }
         }
     }
 

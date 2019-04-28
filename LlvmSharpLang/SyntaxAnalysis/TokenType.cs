@@ -3,18 +3,6 @@ namespace LlvmSharpLang.SyntaxAnalysis
     public enum TokenType : int
     {
         /// <summary>
-        /// Represents the starting point
-        /// of the program.
-        /// </summary>
-        ProgramStart,
-
-        /// <summary>
-        /// Represents the ending point
-        /// of the program.
-        /// </summary>
-        ProgramEnd,
-
-        /// <summary>
         /// Represents an unidentified value.
         /// </summary>
         Unknown,
