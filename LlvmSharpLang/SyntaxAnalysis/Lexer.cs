@@ -11,9 +11,10 @@ namespace LlvmSharpLang.SyntaxAnalysis
     [Flags]
     public enum LexerOptions
     {
-        IgnoreWhitespace = 1,
+        None = 1,
+        IgnoreWhitespace = 2,
 
-        IgnoreComments = 2
+        IgnoreComments = 4
     }
 
     /// <summary>
@@ -47,7 +48,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         public Lexer(string input, LexerOptions options)
         {
-            this.Input = input;
+            this.Input = input.Trim();
             this.Options = options;
         }
 
@@ -76,7 +77,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 if (nextToken.Value.Type == TokenType.Unknown)
                 {
                     // TODO: This should be done through ErrorReporting (implement in the future).
-                    Console.WriteLine("Warning: Unexpected token type to be unknown");
+                    Console.WriteLine($"Warning: Unexpected token type to be unknown, value: {nextToken.Value.Value}");
                 }
 
                 // Append token value to the result list.
@@ -100,15 +101,6 @@ namespace LlvmSharpLang.SyntaxAnalysis
             {
                 return null;
             }
-            // Skip whitespace characters if applicable.
-            else if (this.Options.HasFlag(LexerOptions.IgnoreWhitespace))
-            {
-                // Continue while whitespace is present.
-                while (char.IsWhiteSpace(this.Char))
-                {
-                    this.Skip();
-                }
-            }
 
             // Begin capturing the token. Identify the token as unknown initially.
             Token token = new Token
@@ -119,6 +111,28 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 // Default to current character to avoid infinite loop.
                 Value = this.Char.ToString()
             };
+
+            // Skip whitespace characters if applicable.
+            if (this.Options.HasFlag(LexerOptions.IgnoreWhitespace))
+            {
+                // While the current character is whitespace.
+                while (char.IsWhiteSpace(this.Char))
+                {
+                    // Skip over the character.
+                    this.Skip();
+                }
+            }
+            // If ignore whitespace isn't enabled, then we can save it as a token.
+            else if (char.IsWhiteSpace(this.Char))
+            {
+                // Match all whitespace characters until we hit a normal character.
+                if (this.MatchExpression(ref token, TokenType.Whitespace, Util.CreateRegex(@"[\s]+")))
+                {
+
+                    // Return the token
+                    return token;
+                }
+            }
 
             // Comments have highest priority because the division operator will catch the beginning of any comments.
             // If it starts with '/', it's a candidate.
@@ -144,16 +158,28 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 {
                     // Create initial regex.
                     Regex pattern = Util.CreateRegex(Regex.Escape(pair.Key));
+                    // Skimming involves removing the last character.
+                    bool skim = false;
 
                     // If the match starts with a letter, modify the regex to force either whitespace or EOF at the end.
                     if (char.IsLetter(pair.Key[0]))
                     {
+                        // Modify the regex to include whitespace at the end.
                         pattern = Util.CreateRegex($"{Regex.Escape(pair.Key)}(\\s|$)");
+
+                        // Since the new regex will also pickup a whitespace along the way, we must skim it off.
+                        skim = true;
                     }
 
                     // If the symbol is next in the input.
                     if (this.MatchExpression(ref token, pair.Value, pattern))
                     {
+                        // If skimming is required, remove the last character from the token value.
+                        if (skim)
+                        {
+                            token.Value = token.Value.Substring(0, token.Value.Length - 1);
+                        }
+
                         // Return the token.
                         return token;
                     }

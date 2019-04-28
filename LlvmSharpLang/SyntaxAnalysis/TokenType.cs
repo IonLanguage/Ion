@@ -8,6 +8,11 @@ namespace LlvmSharpLang.SyntaxAnalysis
         Unknown,
 
         /// <summary>
+        /// Represents whitespace
+        /// </summary>
+        Whitespace,
+
+        /// <summary>
         /// Represents a single line comment (// text)
         /// </summary>
         SingleLineComment,
