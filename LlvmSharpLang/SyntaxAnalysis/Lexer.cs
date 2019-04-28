@@ -203,27 +203,6 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 }
             }
 
-            // TODO: Not hardcoded.
-            // TODO: Multiline comments support.
-            // Definition of a single-line comment.
-            /*if (this.Char == '#')
-            {
-                // Skip over the '#'.
-                this.Skip();
-
-                // While we haven't reached the end of the line, and we haven't reached the end of the file, keep skipping.
-                while (this.Char != '\n' && this.Char != '\r' && this.Char != EOF)
-                {
-                    this.Skip();
-                }
-
-                // If we didn't reach the end of the file, we can return the next token.
-                if (this.Char != EOF)
-                {
-                    return this.GetNextToken();
-                }
-            }*/
-
             // TODO: Add comment literal support.
             // Complex types support.
             foreach (KeyValuePair<Regex, TokenType> pair in Constants.complexTokenTypes)
