@@ -215,7 +215,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         /// <summary>
         /// Checks for a positive match for a complex type or just generic regex,
-        /// if positive, it'll update the referenced token to the provided type with the matched text.
+        /// if positive, it'll update the referenced token to the provided type with
+        /// the matched text.
         /// </summary>
         public bool MatchExpression(ref Token token, TokenType type, Regex regex, bool modifyToken = true)
         {
@@ -233,6 +234,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
                     this.Skip(match.Value.Length);
                 }
+
                 return true;
             }
 
