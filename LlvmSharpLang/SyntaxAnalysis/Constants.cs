@@ -20,7 +20,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
             {"fn", TokenType.KeywordFunction},
             {"exit", TokenType.KeywordExit},
             {"return", TokenType.KeywordReturn},
-            {"if", TokenType.KeywordIf}
+            {"if", TokenType.KeywordIf},
+            {"extern", TokenType.KeywordExternal}
         };
 
         public static readonly TokenTypeMap symbols = new TokenTypeMap {

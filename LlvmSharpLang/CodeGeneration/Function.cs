@@ -9,7 +9,7 @@ namespace LlvmSharpLang.CodeGeneration
 {
     public class Function : Named, IEntity<LLVMValueRef, LLVMModuleRef>
     {
-        public FormalArgs Args { get; set; }
+        public Prototype Prototype { get; set; }
 
         public Block Body { get; set; }
 
@@ -29,10 +29,10 @@ namespace LlvmSharpLang.CodeGeneration
             }
 
             // Emit the argument types.
-            LLVMTypeRef[] args = this.Args.Emit();
+            LLVMTypeRef[] args = this.Prototype.Args.Emit();
 
             // Emit the return type.
-            LLVMTypeRef returnType = LLVM.FunctionType(this.ReturnType.Emit(), args, this.Args.Continuous);
+            LLVMTypeRef returnType = LLVM.FunctionType(this.ReturnType.Emit(), args, this.Prototype.Args.Continuous);
 
             // Create the function.
             LLVMValueRef function = LLVM.AddFunction(context, this.Name, returnType);
@@ -69,7 +69,7 @@ namespace LlvmSharpLang.CodeGeneration
             FormalArgs args = new FormalArgs();
 
             // Assign the created args.
-            this.Args = args;
+            this.Prototype.Args = args;
 
             // Return the newly created args.
             return args;

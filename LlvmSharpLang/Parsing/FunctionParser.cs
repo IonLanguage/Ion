@@ -32,7 +32,7 @@ namespace LlvmSharpLang.Parsing
             FormalArgs args = new FormalArgsParser().Parse(stream);
 
             // Assign arguments.
-            function.Args = args;
+            function.Prototype.Args = args;
 
             // Skip ':' for return type.
             stream.Skip(TokenType.SymbolColon);

@@ -131,6 +131,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
 
         KeywordIf,
 
+        KeywordExternal,
+
         // Symbols.
         SymbolBlockL,
 
