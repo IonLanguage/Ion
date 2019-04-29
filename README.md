@@ -44,3 +44,29 @@ str @name = "John Doe";
 ```
 
 4. **Portable**.
+
+#### Development Roadmap
+
+- [ ] Basic control flow (if, else)
+- [X] Expressions
+- [X] Functions
+- [ ] Classes
+- [ ] Interfaces
+- [ ] Structures
+- [ ] Decorators
+- [ ] Anonymous functions
+- [ ] Object blueprints
+- [ ] Async support
+- [ ] Delegates
+- [ ] JSON integration + support
+- [ ] External definitions
+- [ ] Import functionality
+- [ ] Advanced flow control (switch, etc.)
+- [ ] Package manager
+- [ ] Package definition (package manager)
+- [ ] Web API
+- [ ] Built-in DOM support
+- [ ] Compilation to JavaScript
+- [ ] Syntax highlighting (Visual Studio Code)
+- [ ] Cross-platform installer utility
+- [ ] Self-hosted codebase
