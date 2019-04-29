@@ -65,14 +65,39 @@ namespace LlvmSharpLang.CodeGeneration
 
         public FormalArgs CreateArgs()
         {
-            // Create the args entity.
-            FormalArgs args = new FormalArgs();
+            // Create the prototype if applicable.
+            if (this.Prototype == null)
+            {
+                // Create the prototype.
+                this.CreatePrototype();
 
-            // Assign the created args.
-            this.Prototype.Args = args;
+                // Return args created by the previous invocation.
+                return this.Prototype.Args;
+            }
+
+            // Create the args entity.
+            this.Prototype.Args = new FormalArgs();
 
             // Return the newly created args.
-            return args;
+            return this.Prototype.Args;
+        }
+
+        /// <summary>
+        /// Creates a prototype for this function, overriding
+        /// any existing prototype property value. Creates arguments.
+        /// </summary>
+        public Prototype CreatePrototype()
+        {
+            this.Prototype = new Prototype(this.Name, null);
+
+            // Create formal arguments.
+            FormalArgs args = this.CreateArgs();
+
+            // Assign the formal arguments.
+            this.Prototype.Args = args;
+
+            // Return the prototype.
+            return this.Prototype;
         }
     }
 }
