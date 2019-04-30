@@ -1,5 +1,6 @@
 using LlvmSharpLang.CodeGeneration;
 using LlvmSharpLang.SyntaxAnalysis;
+using LlvmSharpLang.CognitiveServices;
 
 namespace LlvmSharpLang.Parsing
 {
@@ -7,8 +8,20 @@ namespace LlvmSharpLang.Parsing
     {
         public FormalArg Parse(TokenStream stream)
         {
-            // Capture argument type value.
-            string typeValue = stream.Next(TokenType.Type).Value;
+            // Initialize the type value.
+            string typeValue;
+
+            // Check if the next token is a type
+            if (TokenIdentifier.IsType(stream.Peek()))
+            {
+                // Capture argument type value.
+                typeValue = stream.Next().Value;
+            }
+            else
+            {
+                // TODO: Better error lol.
+                throw new System.Exception("Oops you need a type!");
+            }
 
             // Create the arg's type.
             CodeGeneration.Type type = new CodeGeneration.Type(typeValue);

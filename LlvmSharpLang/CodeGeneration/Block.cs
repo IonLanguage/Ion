@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System;
 using LLVMSharp;
 using LlvmSharpLang.CodeGeneration.Structure;
@@ -21,6 +22,13 @@ namespace LlvmSharpLang.CodeGeneration
         // TODO: Find a better way to cache emitted values.
         public LLVMBasicBlockRef Current { get; protected set; }
 
+        public List<Expr> Expressions;
+
+        public Block()
+        {
+            this.Expressions = new List<Expr>();
+        }
+
         public LLVMBasicBlockRef Emit(LLVMValueRef context)
         {
             // Create the block and its corresponding builder.
@@ -29,6 +37,12 @@ namespace LlvmSharpLang.CodeGeneration
 
             // Position and link the builder.
             LLVM.PositionBuilderAtEnd(builder, block);
+
+            // Emit the expressions
+            this.Expressions.ForEach((Expr expression) =>
+            {
+                expression.Emit(builder);
+            });
 
             // No value was returned.
             if (this.ReturnExpr == null)

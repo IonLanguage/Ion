@@ -37,27 +37,39 @@ namespace LlvmSharpLang.Parsing
 
             Token nextToken = stream.Peek();
 
-            // Returning a value.
-            if (nextToken.Type == TokenType.KeywordReturn)
+            // While next token is not a block-closing token.
+            while (nextToken.Type != TokenType.SymbolBlockR && block.Type != BlockType.Short)
             {
-                // Invoke the return parser. It's okay if it returns null, as it will be emitted as void.
-                Expr returnExpr = new FunctionReturnParser().Parse(stream);
 
-                // Assign the return expression to the block.
-                block.ReturnExpr = returnExpr;
-            }
-            // Next token is not a block-closing token.
-            else if (nextToken.Type != TokenType.SymbolBlockR && block.Type != BlockType.Short)
-            {
+                // Returning a value.
+                if (nextToken.Type == TokenType.KeywordReturn)
+                {
+                    // Invoke the return parser. It's okay if it returns null, as it will be emitted as void.
+                    Expr returnExpr = new FunctionReturnParser().Parse(stream);
+
+                    // Assign the return expression to the block.
+                    block.ReturnExpr = returnExpr;
+
+                    // Exit the loop and return
+                    break;
+                }
+
                 // Token must be an expression.
-                // TODO: Parse statements continually until block end.
                 Expr expr = new PrimaryExprParser().Parse(stream);
+
+                block.Expressions.Add(expr);
 
                 // Ensure expression was successfully parsed.
                 if (expr == null)
                 {
                     throw new Exception("Unexpected expression to be null");
                 }
+
+                // SKip over the semi colon.
+                stream.Skip();
+
+                // Peek the new token for next parse.
+                nextToken = stream.Peek();
             }
 
             // Skip default block end '}' or short block end ';'.

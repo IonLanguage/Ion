@@ -1,6 +1,7 @@
 using LLVMSharp;
 using LlvmSharpLang.CodeGeneration;
 using LlvmSharpLang.CodeGeneration.Structure;
+using LlvmSharpLang.Core;
 using LlvmSharpLang.Misc;
 
 namespace LlvmSharpLang.CodeGeneration
@@ -31,6 +32,7 @@ namespace LlvmSharpLang.CodeGeneration
             if (this.Value != null)
             {
                 LLVM.BuildStore(context, this.Value.Emit(context), variable);
+                SymbolTable.localScope.Add(this.Name, variable);
             }
 
             return variable;

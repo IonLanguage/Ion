@@ -89,7 +89,7 @@ namespace LlvmSharpLang
                 },
 
                 new Token {
-                    Type = TokenType.Type,
+                    Type = TokenType.TypeInt,
                     Value = "int"
                 },
 
@@ -103,7 +103,7 @@ namespace LlvmSharpLang
                 },
 
                 new Token {
-                    Type = TokenType.Type,
+                    Type = TokenType.TypeFloat,
                     Value = "float"
                 },
 

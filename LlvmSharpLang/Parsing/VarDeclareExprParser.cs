@@ -29,6 +29,9 @@ namespace LlvmSharpLang.Parsing
             // Value is being assigned.
             if (nextToken.Type == TokenType.OperatorAssignment)
             {
+                // Skip over the Assignment operator
+                stream.Skip();
+
                 // Parse value.
                 Expr value = new ExprParser().Parse(stream);
 
