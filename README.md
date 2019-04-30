@@ -2,7 +2,7 @@
 
 A language implemented in C# using LLVM 5.0 bindings.
 
-File extension: `.io`
+File extension: `.ion`
 
 Syntax examples coming soon.
 
@@ -29,7 +29,7 @@ Inspired by React.js' JSX syntax, the language will have built-in DOM and HTML s
 
 ```rust
 fn main(): int {
-    web.mount(<div>Built-in HTML syntax is awesome!</div>);
+    Web.mount(<div>Built-in HTML syntax is awesome!</div>);
 
     return 0;
 }
@@ -40,7 +40,7 @@ This feature, along with decorators & anonymous functions, will come super handy
 ```rust
 str @name = "John Doe";
 
-@route("/") {
+@Web.route("/") {
     return <p>Hello, {@name}.</p>; // Hello, John Doe.
 }
 ```
