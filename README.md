@@ -50,6 +50,7 @@ str @name = "John Doe";
 #### Development Roadmap
 
 - [ ] Basic control flow (if, else)
+- [ ] Pipes
 - [X] Expressions
 - [X] Functions
 - [ ] Classes
