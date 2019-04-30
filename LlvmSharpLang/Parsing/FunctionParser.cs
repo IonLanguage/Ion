@@ -31,6 +31,9 @@ namespace LlvmSharpLang.Parsing
             // Parse formal arguments.
             FormalArgs args = new FormalArgsParser().Parse(stream);
 
+            // Create prototype.
+            function.CreatePrototype();
+
             // Assign arguments.
             function.Prototype.Args = args;
 
