@@ -11,8 +11,13 @@ namespace LlvmSharpLang.Parsing
         {
             TokenType nextTokenType = stream.Peek().Type;
 
+            // Variable declaration expression.
+            if (TokenIdentifier.IsType(nextTokenType))
+            {
+                return new VarDeclareExprParser().Parse(stream);
+            }
             // Numeric expression.
-            if (TokenIdentifier.IsNumeric(nextTokenType))
+            else if (TokenIdentifier.IsNumeric(nextTokenType))
             {
                 return new NumericExprParser().Parse(stream);
             }

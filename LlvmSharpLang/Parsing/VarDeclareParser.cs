@@ -4,7 +4,7 @@ using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.Parsing
 {
-    public class VarDeclareParser : IParser<VarDeclareExpr>
+    public class VarDeclareExprParser : IParser<VarDeclareExpr>
     {
         public VarDeclareExpr Parse(TokenStream stream)
         {
