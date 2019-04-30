@@ -6,24 +6,26 @@ using LlvmSharpLang.Misc;
 namespace LlvmSharpLang.CodeGeneration
 {
     // TODO: This should be somehow boxed around "statement" so it emits within a body.
-    public class VarDeclare : Named, IStatement, IEntity<LLVMValueRef, LLVMBuilderRef>
+    public class VarDeclareExpr : Expr, IStatement, IEntity<LLVMValueRef, LLVMBuilderRef>
     {
+        public override ExprType Type => ExprType.VariableDeclaration;
+
         public StatementType StatementType => StatementType.Declaration;
 
-        public Type Type { get; protected set; }
+        public Type ValueType { get; protected set; }
 
         public Expr Value { get; set; }
 
-        public VarDeclare(Type type, Expr value)
+        public VarDeclareExpr(Type valueType, Expr value)
         {
-            this.Type = type;
+            this.ValueType = valueType;
             this.Value = value;
         }
 
-        public LLVMValueRef Emit(LLVMBuilderRef context)
+        public override LLVMValueRef Emit(LLVMBuilderRef context)
         {
             // Create the variable.
-            LLVMValueRef variable = LLVM.BuildAlloca(context, this.Type.Emit(), this.Name);
+            LLVMValueRef variable = LLVM.BuildAlloca(context, this.ValueType.Emit(), this.Name);
 
             // Assign value if applicable.
             if (this.Value != null)

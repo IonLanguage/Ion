@@ -4,9 +4,9 @@ using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.Parsing
 {
-    public class VarDeclareParser : IParser<VarDeclare>
+    public class VarDeclareParser : IParser<VarDeclareExpr>
     {
-        public VarDeclare Parse(TokenStream stream)
+        public VarDeclareExpr Parse(TokenStream stream)
         {
             // Consume the type string.
             string typeValue = stream.Next().Value;
@@ -15,7 +15,7 @@ namespace LlvmSharpLang.Parsing
             CodeGeneration.Type type = new CodeGeneration.Type(typeValue);
 
             // Create the variable declaration & link the type.
-            VarDeclare declaration = new VarDeclare(type, null);
+            VarDeclareExpr declaration = new VarDeclareExpr(type, null);
 
             // Consume the variable name.
             string name = stream.Next().Value;
