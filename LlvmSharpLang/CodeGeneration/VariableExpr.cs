@@ -7,7 +7,7 @@ namespace LlvmSharpLang.CodeGeneration
 {
     public class VariableExpr : Expr
     {
-        public override ExprType Type => ExprType.Variable;
+        public override ExprType Type => ExprType.VariableReference;
 
         public VariableExpr(string name)
         {

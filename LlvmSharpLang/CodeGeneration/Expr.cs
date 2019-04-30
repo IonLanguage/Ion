@@ -15,7 +15,9 @@ namespace LlvmSharpLang.CodeGeneration
 
         FunctionReturn,
 
-        Variable,
+        VariableReference,
+
+        VariableDeclaration,
 
         Value,
 
