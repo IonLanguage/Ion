@@ -38,7 +38,7 @@ namespace Ion.CodeGeneration
             // Position and link the builder.
             LLVM.PositionBuilderAtEnd(builder, block);
 
-            // Emit the expressions
+            // Emit the expressions.
             this.Expressions.ForEach((Expr expression) =>
             {
                 expression.Emit(builder);
