@@ -13,38 +13,14 @@ namespace LlvmSharpLang.Parsing
             // Skip the function definition keyword.
             stream.Skip(TokenType.KeywordFunction);
 
-            // Capture function identifier.
-            string name = stream.Next(TokenType.Identifier).Value;
+            // Parse the prototype from the stream, this captures the name, arguments and return type.
+            Prototype prototype = new PrototypeParser().Parse(stream);
 
-            // Ensure name exists.
-            if (String.IsNullOrEmpty(name))
-            {
-                throw new Exception("Unexpected function identifier to be null or empty");
-            }
-
-            // Create the function entity.
+            // Create the function.
             Function function = new Function();
 
-            // Set the function name.
-            function.SetName(name);
-
-            // Parse formal arguments.
-            FormalArgs args = new FormalArgsParser().Parse(stream);
-
-            // Create prototype.
-            function.CreatePrototype();
-
-            // Assign arguments.
-            function.Prototype.Args = args;
-
-            // Skip ':' for return type.
-            stream.Skip(TokenType.SymbolColon);
-
-            // Parse the return type.
-            CodeGeneration.Type returnType = new TypeParser().Parse(stream);
-
-            // Assign the return type.
-            function.ReturnType = returnType;
+            // Assign the function prototype to the parsed prototype.
+            function.Prototype = prototype;
 
             // Parse the body.
             Block body = new BlockParser().Parse(stream);

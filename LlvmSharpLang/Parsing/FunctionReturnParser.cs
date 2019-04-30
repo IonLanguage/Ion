@@ -1,3 +1,4 @@
+using System;
 using LlvmSharpLang.CodeGeneration;
 using LlvmSharpLang.SyntaxAnalysis;
 
@@ -10,6 +11,7 @@ namespace LlvmSharpLang.Parsing
             // Skip return keyword.
             stream.Skip(TokenType.KeywordReturn);
 
+            // Look at the next token.
             Token nextToken = stream.Peek();
 
             // There is no return expression.

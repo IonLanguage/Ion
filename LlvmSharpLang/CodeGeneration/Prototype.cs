@@ -6,10 +6,13 @@ namespace LlvmSharpLang.CodeGeneration
     {
         public FormalArgs Args { get; set; }
 
-        public Prototype(string name, FormalArgs args)
+        public Type ReturnType { get; set; }
+
+        public Prototype(string name, FormalArgs args, Type returnType)
         {
             this.SetName(name);
             this.Args = args;
+            this.ReturnType = returnType;
         }
     }
 }

@@ -87,6 +87,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 nextToken = this.GetNextToken();
             }
 
+            Console.ResetColor();
+
             return tokens;
         }
 
@@ -166,7 +168,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
                     if (char.IsLetter(pair.Key[0]))
                     {
                         // Modify the regex to include whitespace at the end.
-                        pattern = Util.CreateRegex($"{Regex.Escape(pair.Key)}(\\s|$)");
+                        pattern = Util.CreateRegex($"{Regex.Escape(pair.Key)}(\\s|$|;)");
 
                         // Since the new regex will also pickup a whitespace along the way, we must skim it off.
                         skim = true;
@@ -178,7 +180,11 @@ namespace LlvmSharpLang.SyntaxAnalysis
                         // If skimming is required, remove the last character from the token value.
                         if (skim)
                         {
-                            token.Value = token.Value.Substring(0, token.Value.Length - 1);
+                            // Reduce the position
+                            this.Position -= token.Value.Length - pair.Key.Length;
+
+                            // Skim the last character off.
+                            token.Value = pair.Key;
                         }
 
                         // Return the token.

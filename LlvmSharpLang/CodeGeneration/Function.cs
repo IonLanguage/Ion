@@ -13,13 +13,6 @@ namespace LlvmSharpLang.CodeGeneration
 
         public Block Body { get; set; }
 
-        public Type ReturnType { get; set; }
-
-        public Function()
-        {
-            this.ReturnType = TypeFactory.Void();
-        }
-
         public LLVMValueRef Emit(LLVMModuleRef context)
         {
             // Ensure body was provided or created.
@@ -31,18 +24,21 @@ namespace LlvmSharpLang.CodeGeneration
             // Emit the argument types.
             LLVMTypeRef[] args = this.Prototype.Args.Emit();
 
+            // Emit the return type
+            LLVMTypeRef returnType = this.Prototype.ReturnType.Emit();
+
             // Emit the function type.
-            LLVMTypeRef type = LLVM.FunctionType(this.ReturnType.Emit(), args, this.Prototype.Args.Continuous);
+            LLVMTypeRef type = LLVM.FunctionType(returnType, args, this.Prototype.Args.Continuous);
 
             // Create the function.
-            LLVMValueRef function = LLVM.AddFunction(context, this.Name, type);
+            LLVMValueRef function = LLVM.AddFunction(context, this.Prototype.Name, type);
 
             // Apply the body.
             this.Body.Emit(function);
 
             // TODO: Ensure function does not already exist.
             // Register the function in the symbol table.
-            SymbolTable.functions.Add(this.Name, function);
+            SymbolTable.functions.Add(this.Prototype.Name, function);
 
             return function;
         }
@@ -88,7 +84,7 @@ namespace LlvmSharpLang.CodeGeneration
         /// </summary>
         public Prototype CreatePrototype()
         {
-            this.Prototype = new Prototype(this.Name, null);
+            this.Prototype = new Prototype(this.Name, null, null);
 
             // Create formal arguments.
             FormalArgs args = this.CreateArgs();
