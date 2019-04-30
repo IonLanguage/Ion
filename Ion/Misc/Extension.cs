@@ -5,7 +5,7 @@ using System.Linq;
 using LLVMSharp;
 using Ion.SyntaxAnalysis;
 
-using TokenTypeMap = System.Collections.Generic.Dictionary<string, LlvmSharpLang.SyntaxAnalysis.TokenType>;
+using TokenTypeMap = System.Collections.Generic.Dictionary<string, Ion.SyntaxAnalysis.TokenType>;
 
 namespace Ion.Misc
 {
