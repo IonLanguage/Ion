@@ -68,6 +68,24 @@ namespace LlvmSharpLang.CognitiveServices
             return TokenIdentifier.IsNumeric(token.Type);
         }
 
+        /// <summary>
+        /// Determine if the provided token type
+        /// is representing a type
+        ///</summary>
+        public static bool IsType(TokenType tokenType)
+        {
+            return Constants.types.ContainsValue(tokenType);
+        }
+
+        /// <summary>
+        /// Determine if the provided token is
+        /// representing a type
+        ///</summary>
+        public static bool IsType(Token token)
+        {
+            return TokenIdentifier.IsType(token.Type);
+        }
+
         public static bool IsNumeric(Type type)
         {
             // TODO: Implement.
