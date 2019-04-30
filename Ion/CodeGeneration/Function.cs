@@ -87,14 +87,11 @@ namespace Ion.CodeGeneration
             // Default the return type to void.
             Type returnType = TypeFactory.Void();
 
-            // Create a new prototype instance.
-            this.Prototype = new Prototype(this.Name, null, returnType);
-
-            // Create formal arguments.
+            // Create default empty formal arguments.
             FormalArgs args = this.CreateArgs();
 
-            // Assign the formal arguments.
-            this.Prototype.Args = args;
+            // Create a new prototype instance.
+            this.Prototype = new Prototype(this.Name, args, returnType);
 
             // Return the prototype.
             return this.Prototype;
