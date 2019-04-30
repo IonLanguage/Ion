@@ -31,11 +31,11 @@ namespace LlvmSharpLang.CodeGeneration
             // Emit the argument types.
             LLVMTypeRef[] args = this.Prototype.Args.Emit();
 
-            // Emit the return type.
-            LLVMTypeRef returnType = LLVM.FunctionType(this.ReturnType.Emit(), args, this.Prototype.Args.Continuous);
+            // Emit the function type.
+            LLVMTypeRef type = LLVM.FunctionType(this.ReturnType.Emit(), args, this.Prototype.Args.Continuous);
 
             // Create the function.
-            LLVMValueRef function = LLVM.AddFunction(context, this.Name, returnType);
+            LLVMValueRef function = LLVM.AddFunction(context, this.Name, type);
 
             // Apply the body.
             this.Body.Emit(function);
@@ -71,7 +71,7 @@ namespace LlvmSharpLang.CodeGeneration
                 // Create the prototype.
                 this.CreatePrototype();
 
-                // Return args created by the previous invocation.
+                // Return formal arguments created by the previous invocation.
                 return this.Prototype.Args;
             }
 

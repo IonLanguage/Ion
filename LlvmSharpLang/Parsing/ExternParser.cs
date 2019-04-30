@@ -3,15 +3,21 @@ using LlvmSharpLang.SyntaxAnalysis;
 
 namespace LlvmSharpLang.Parsing
 {
-    public class ExternParser : IParser<Prototype>
+    public class ExternParser : IParser<Extern>
     {
-        public Prototype Parse(TokenStream stream)
+        public Extern Parse(TokenStream stream)
         {
             // Consume extern keyword.
             stream.Skip(TokenType.KeywordExternal);
 
-            // Invoke and return the prototype parser.
-            return new PrototypeParser().Parse(stream);
+            // Invoke the prototype parser.
+            Prototype prototype = new PrototypeParser().Parse(stream);
+
+            // Create the external definition entity using the parsed prototype.
+            Extern external = new Extern(prototype);
+
+            // Return the external definition entity.
+            return external;
         }
     }
 }

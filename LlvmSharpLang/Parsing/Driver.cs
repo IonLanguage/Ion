@@ -32,6 +32,7 @@ namespace LlvmSharpLang.Parsing
 
             switch (this.stream.Get().Type)
             {
+                // Function definition.
                 case TokenType.KeywordFunction:
                     {
                         // Invoke the function parser.
@@ -39,6 +40,18 @@ namespace LlvmSharpLang.Parsing
 
                         // Emit the function.
                         function.Emit(this.Module.Source);
+
+                        break;
+                    }
+
+                // External definition.
+                case TokenType.KeywordExternal:
+                    {
+                        // Invoke the external definition parser.
+                        Extern external = new ExternParser().Parse(stream);
+
+                        // Emit the external definition.
+                        external.Emit(this.Module.Source);
 
                         break;
                     }
