@@ -6,6 +6,7 @@ using TokenTypeMap = System.Collections.Generic.Dictionary<string, LlvmSharpLang
 using ComplexTokenTypeMap = System.Collections.Generic.Dictionary<System.Text.RegularExpressions.Regex, LlvmSharpLang.SyntaxAnalysis.TokenType>;
 using LlvmSharpLang.Misc;
 using LlvmSharpLang.CodeGeneration;
+using LlvmSharpLang.CognitiveServices;
 using LLVMSharp;
 using System.Linq;
 using LlvmSharpLang.ErrorReporting;
@@ -56,6 +57,16 @@ namespace LlvmSharpLang.SyntaxAnalysis
             {"!", TokenType.OperatorNot}
         }.SortByKeyLength();
 
+        public static readonly TokenTypeMap types = new TokenTypeMap {
+            {TypeName.Double, TokenType.TypeDouble},
+            {TypeName.Int32, TokenType.TypeInt},
+            {TypeName.Int64, TokenType.TypeLong},
+            {TypeName.Boolean, TokenType.TypeBool},
+            {TypeName.Void, TokenType.TypeVoid},
+            {TypeName.Float, TokenType.TypeFloat},
+            {TypeName.Character, TokenType.TypeChar}
+        };
+
         /// <summary>
         /// A combination of the simple token type maps
         /// which include operators, symbols and keywords.
@@ -64,7 +75,8 @@ namespace LlvmSharpLang.SyntaxAnalysis
         {
             Constants.keywords,
             Constants.symbols,
-            Constants.operators
+            Constants.operators,
+            Constants.types
         }
         .SelectMany((dictionary) => dictionary)
         .ToLookup((pair) => pair.Key, (pair) => pair.Value)

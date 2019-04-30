@@ -28,9 +28,23 @@ namespace LlvmSharpLang.SyntaxAnalysis
         Identifier,
 
         /// <summary>
-        /// Represents a type name.
+        /// Represents a double type.
         /// </summary>
-        Type,
+        TypeDouble,
+
+        TypeInt,
+
+        TypeFloat,
+
+        TypeString,
+
+        TypeChar,
+
+        TypeBool,
+
+        TypeLong,
+
+        TypeVoid,
 
         /// <summary>
         /// Represents the variable
