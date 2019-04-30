@@ -19,7 +19,7 @@ namespace Ion.Tests.SyntaxAnalysis
 
                 new Token
                 {
-                    Type = TokenType.Type
+                    Type = TokenType.TypeVoid
                 },
 
                 new Token
@@ -39,9 +39,9 @@ namespace Ion.Tests.SyntaxAnalysis
         [Test]
         public void Skip()
         {
-            Assert.DoesNotThrow(() => this.stream.Skip(TokenType.Type));
+            Assert.DoesNotThrow(() => this.stream.Skip(TokenType.TypeVoid));
             Assert.AreEqual(this.stream.Index, 1);
-            Assert.AreEqual(this.stream.Get().Type, TokenType.Type);
+            Assert.AreEqual(this.stream.Get().Type, TokenType.TypeVoid);
             Assert.Pass();
         }
 

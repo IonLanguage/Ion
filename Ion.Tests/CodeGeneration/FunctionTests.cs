@@ -52,7 +52,7 @@ namespace Ion.Tests.CodeGeneration
                 },
 
                 new Token {
-                    Type = TokenType.Type,
+                    Type = TokenType.TypeInt,
                     Value = "int"
                 },
 
@@ -66,7 +66,7 @@ namespace Ion.Tests.CodeGeneration
                 },
 
                 new Token {
-                    Type = TokenType.Type,
+                    Type = TokenType.TypeFloat,
                     Value = "float"
                 },
 
