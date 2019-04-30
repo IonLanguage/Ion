@@ -1,4 +1,4 @@
-#### Ion Language
+#### Ion language
 
 A language implemented in C# using LLVM 5.0 bindings.
 
@@ -6,7 +6,7 @@ File extension: `.ion`
 
 Syntax examples coming soon.
 
-#### Core Principles
+#### Core principles
 
 1. **Simplicity**. The language should be simple, or as powerful as the programmer wishes. This means that some symbols and patterns are optional and infered by the compiler.
 
@@ -47,12 +47,13 @@ str @name = "John Doe";
 
 4. **Portable**.
 
-#### Development Roadmap
+#### Development roadmap
 
 - [ ] Basic control flow (if, else)
 - [ ] Pipes
 - [X] Expressions
 - [X] Functions
+- [ ] Entity visibility
 - [ ] Classes
 - [ ] Interfaces
 - [ ] Structures
@@ -73,3 +74,47 @@ str @name = "John Doe";
 - [ ] Syntax highlighting (Visual Studio Code)
 - [ ] Cross-platform installer utility
 - [ ] Self-hosted codebase
+
+#### Naming convention
+
+1. **Functions**.
+
+All functions should be in PascalCase.
+
+```rust
+void Main()
+{
+    //
+}
+```
+
+2. **Classes**.
+
+Class names should be in PascalCase, and members in camelCase.
+
+```rust
+import Core.Console;
+
+class Example
+{
+    pub str name = "John Doe";
+
+    void SayHello()
+    {
+        Console.Log("Hello, " + this.name);
+    }
+}
+```
+
+3. **Attributes**.
+
+Attributes are considered proxy functions, thus they should be treated as functions and be named in PascalCase.
+
+```rust
+@Transform(0)
+int Main()
+{
+    // Return value will be transformed to '0'.
+    return 1;
+}
+```
