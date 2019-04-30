@@ -158,6 +158,7 @@ namespace LlvmSharpLang.SyntaxAnalysis
                 {
                     // Create initial regex.
                     Regex pattern = Util.CreateRegex(Regex.Escape(pair.Key));
+
                     // Skimming involves removing the last character.
                     bool skim = false;
 
