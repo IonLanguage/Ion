@@ -180,7 +180,7 @@ namespace Ion.SyntaxAnalysis
                         // If skimming is required, remove the last character from the token value.
                         if (skim)
                         {
-                            // Reduce the position
+                            // Reduce the position.
                             this.Position -= token.Value.Length - pair.Key.Length;
 
                             // Skim the last character off.
