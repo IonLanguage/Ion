@@ -1,4 +1,6 @@
 using Ion.CodeGeneration.Structure;
+using Ion.CognitiveServices;
+using System.Text.RegularExpressions;
 
 namespace Ion.Misc
 {
@@ -16,9 +18,14 @@ namespace Ion.Misc
         /// </summary>
         public void SetName(string name)
         {
-            // TODO: Apply name validation here.
-
-            this.Name = name;
+            if (new Regex(@"[a-z_][A-Z0-9]").IsMatch(name))
+            {
+                this.Name = name;
+            }
+            else
+            {
+                throw new System.Exception("Invalid name: " + name);
+            }
         }
 
         /// <summary>
