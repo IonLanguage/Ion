@@ -52,9 +52,6 @@ namespace Ion.CodeGeneration
                 LLVM.BuildRet(builder, this.ReturnExpr.Emit(builder));
             }
 
-            // Cache emitted block.
-            this.Current = block;
-
             return block;
         }
 
