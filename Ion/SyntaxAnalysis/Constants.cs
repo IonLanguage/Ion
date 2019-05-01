@@ -85,11 +85,11 @@ namespace Ion.SyntaxAnalysis
 
         public static readonly ComplexTokenTypeMap complexTokenTypes = new ComplexTokenTypeMap
         {
-            {Util.CreateRegex(@"[_a-z]+[_a-z0-9]*"), TokenType.Identifier},
-            {Util.CreateRegex(@"""(\\.|[^\""\\])*"""), TokenType.LiteralString},
-            {Util.CreateRegex(@"-?[0-9]+\.[0-9]+"), TokenType.LiteralDecimal},
-            {Util.CreateRegex(@"-?[0-9]+"), TokenType.LiteralInteger},
-            {Util.CreateRegex(@"'([^'\\\n]|\\.)'"), TokenType.LiteralCharacter}
+            {Pattern.Identifier, TokenType.Identifier},
+            {Pattern.String, TokenType.LiteralString},
+            {Pattern.Decimal, TokenType.LiteralDecimal},
+            {Pattern.Integer, TokenType.LiteralInteger},
+            {Pattern.Character, TokenType.LiteralCharacter}
         };
 
         public static readonly ComplexTokenTypeMap commentTokenTypes = new ComplexTokenTypeMap {
