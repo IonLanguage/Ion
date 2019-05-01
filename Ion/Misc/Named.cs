@@ -18,7 +18,7 @@ namespace Ion.Misc
         /// </summary>
         public void SetName(string name)
         {
-            if (new Regex(@"[a-z_][A-Z0-9]").IsMatch(name))
+            if (Pattern.Identifier.IsMatch(name))
             {
                 this.Name = name;
             }
