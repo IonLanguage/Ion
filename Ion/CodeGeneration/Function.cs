@@ -36,9 +36,16 @@ namespace Ion.CodeGeneration
             // Apply the body.
             this.Body.Emit(function);
 
-            // TODO: Ensure function does not already exist.
-            // Register the function in the symbol table.
-            SymbolTable.functions.Add(this.Prototype.Name, function);
+            // Ensures the function does not already exist
+            if (SymbolTable.functions.ContainsKey(this.Prototype.Name))
+            {
+                throw new Exception($@"Function with that name ""{this.Prototype.Name}"" already exists.");
+            }
+            else
+            {
+                // Register the function in the symbol table.
+                SymbolTable.functions.Add(this.Prototype.Name, function);
+            }
 
             return function;
         }
