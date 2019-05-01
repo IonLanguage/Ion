@@ -10,7 +10,6 @@ namespace Ion.Tests.Core
         public void StaticCreateDefault()
         {
             Assert.AreEqual(Error.Create("Test"), "GenericError: Test");
-            Assert.Pass();
         }
     }
 }

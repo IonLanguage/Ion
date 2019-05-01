@@ -33,7 +33,6 @@ namespace Ion.Tests.SyntaxAnalysis
         public void CorrectAmountOfItems()
         {
             Assert.AreEqual(this.stream.Count, 3);
-            Assert.Pass();
         }
 
         [Test]
@@ -42,7 +41,6 @@ namespace Ion.Tests.SyntaxAnalysis
             Assert.DoesNotThrow(() => this.stream.Skip(TokenType.TypeVoid));
             Assert.AreEqual(this.stream.Index, 1);
             Assert.AreEqual(this.stream.Get().Type, TokenType.TypeVoid);
-            Assert.Pass();
         }
 
         [Test]
@@ -62,7 +60,6 @@ namespace Ion.Tests.SyntaxAnalysis
 
             Assert.AreEqual(this.stream.Index, 2);
             Assert.AreEqual(this.stream.Get().Type, TokenType.Identifier);
-            Assert.Pass();
         }
     }
 }

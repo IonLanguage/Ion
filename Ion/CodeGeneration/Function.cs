@@ -90,7 +90,7 @@ namespace Ion.CodeGeneration
             // Create a new prototype instance.
             this.Prototype = new Prototype(this.Name, null, returnType);
 
-            // Create formal arguments.
+            // Create formal arguments after assigning prototype to avoid infinite loop.
             FormalArgs args = this.CreateArgs();
 
             // Assign the formal arguments.

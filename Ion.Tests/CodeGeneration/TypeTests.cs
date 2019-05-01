@@ -7,7 +7,7 @@ namespace Ion.Tests.CodeGeneration
     internal sealed class TypeTests
     {
         [SetUp]
-        public void SetUp()
+        public void Setup()
         {
             //
         }
@@ -16,7 +16,6 @@ namespace Ion.Tests.CodeGeneration
         public void ThrowsOnInvalidParams()
         {
             Assert.Throws<Exception>(() => new Ion.CodeGeneration.Type("test").Emit());
-            Assert.Pass();
         }
     }
 }

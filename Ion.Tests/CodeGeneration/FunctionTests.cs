@@ -6,6 +6,8 @@ using Ion.SyntaxAnalysis;
 using NUnit.Framework;
 using Ion.Abstraction;
 using Ion.Tests.Core;
+using Ion.CodeGeneration;
+using Ion.Parsing;
 
 namespace Ion.Tests.CodeGeneration
 {
@@ -15,27 +17,22 @@ namespace Ion.Tests.CodeGeneration
 
         private Abstraction.Module module;
 
-        private Token[] sequence;
+        private TokenStream stream;
 
         [SetUp]
-        public void SetUp()
+        public void Setup()
         {
-            // TODO: Cannot compare null to LLVMModuleRef.
-            // Dispose previous LLVM module if applicable.
-            /*if (this.module != null)
-            {
-                LLVM.DisposeModule(this.module);
-            }*/
-
-            // Create the LLVM module.
+            // Create a new LLVM module instance.
             this.module = new Ion.Abstraction.Module();
 
-            // Read the stored IR code to compare.
-            this.storedIr = File.ReadAllText(TestUtil.ResolveDataPath("function.ll"));
-
             // Create the sequence.
-            this.sequence = new Token[]
+            Token[] sequence = new Token[]
             {
+                // Program starting point token.
+                new Token {
+                    Type = TokenType.Unknown
+                },
+
                 new Token {
                     Type = TokenType.KeywordFunction,
                     Value = "fn"
@@ -43,7 +40,7 @@ namespace Ion.Tests.CodeGeneration
 
                 new Token {
                     Type = TokenType.Identifier,
-                    Value = "helloWorld"
+                    Value = "test"
                 },
 
                 new Token {
@@ -58,7 +55,7 @@ namespace Ion.Tests.CodeGeneration
 
                 new Token {
                     Type = TokenType.Identifier,
-                    Value = "myInteger"
+                    Value = "firstParameter"
                 },
 
                 new Token {
@@ -72,7 +69,7 @@ namespace Ion.Tests.CodeGeneration
 
                 new Token {
                     Type = TokenType.Identifier,
-                    Value = "myFloat"
+                    Value = "secondParameter"
                 },
 
                 new Token {
@@ -100,21 +97,44 @@ namespace Ion.Tests.CodeGeneration
                     Value = "}"
                 }
             };
+
+            // Create the token stream.
+            this.stream = new TokenStream(sequence);
         }
 
         [Test]
-        public void MatchStoredIr()
+        public void FunctionWithArguments()
         {
-            // Create test function to emit.
+            // Read the expected output IR code.
+            string expected = File.ReadAllText(TestUtil.ResolveDataPath("FunctionWithArguments.ll"));
+
+            // Invoke the function parser.
+            Function function = new FunctionParser().Parse(this.stream);
+
+            // Emit the function.
+            function.Emit(this.module.Source);
+
+            // Emit the module.
+            string output = this.module.ToString();
+
+            // Compare stored IR code with the actual, emitted output.
+            Assert.AreEqual(expected, output);
+        }
+
+        [Test]
+        public void CreateMainFunction()
+        {
+            // Read the expected output IR code.
+            string expected = File.ReadAllText(TestUtil.ResolveDataPath("CreateMainFunction.ll"));
+
+            // Create the main function to emit.
             this.module.CreateMainFunction();
 
             // Emit the module.
             string output = this.module.ToString();
 
             // Compare stored IR code with the actual, emitted output.
-            Assert.AreEqual(this.storedIr, output);
-
-            Assert.Pass();
+            Assert.AreEqual(expected, output);
         }
     }
 }
