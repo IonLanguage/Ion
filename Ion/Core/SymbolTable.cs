@@ -21,5 +21,14 @@ namespace Ion.Core
         /// The active block being parsed.
         /// </summary>
         public static Block activeBlock;
+
+        /// <summary>
+        /// Reset all temporary stored values.
+        /// </summary>
+        public static void Reset()
+        {
+            SymbolTable.localScope.Clear();
+            SymbolTable.activeBlock = null;
+        }
     }
 }

@@ -2,7 +2,7 @@ using System.IO;
 
 namespace Ion.Tests.Core
 {
-    public static class TestUtil
+    internal sealed class TestUtil
     {
         public static string dataDir = "../../../Data/";
 

@@ -4,6 +4,7 @@ using System;
 
 namespace Ion.Tests.CodeGeneration
 {
+    [TestFixture]
     internal sealed class TypeTests
     {
         [SetUp]

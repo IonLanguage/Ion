@@ -11,6 +11,7 @@ using Ion.CodeGeneration;
 
 namespace Ion.Tests.CodeGeneration
 {
+    [TestFixture]
     internal sealed class GlobalVariableTests
     {
         private Abstraction.Module module;

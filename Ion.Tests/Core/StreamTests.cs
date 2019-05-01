@@ -4,9 +4,10 @@ using Ion.Misc;
 
 namespace Ion.Tests.Core
 {
-    public class StreamTests
+    [TestFixture]
+    internal sealed class StreamTests
     {
-        protected Stream<int> stream;
+        private Stream<int> stream;
 
         [SetUp]
         public void Setup()
