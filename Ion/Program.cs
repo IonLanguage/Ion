@@ -138,23 +138,6 @@ namespace Ion
                 },
             });
 
-            var globalVarStream = new TokenStream(new Token[] {
-                new Token {
-                    Type = TokenType.Identifier,
-                    Value = "bool"
-                },
-
-                new Token {
-                    Type = TokenType.SymbolAt,
-                    Value = "@"
-                },
-
-                new Token {
-                    Type = TokenType.Identifier,
-                    Value = "myGlobal"
-                },
-            });
-
             var declareStream = new TokenStream(new Token[] {
                 new Token {
                     Type = TokenType.Identifier,
