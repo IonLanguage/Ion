@@ -84,9 +84,13 @@ namespace Ion.CodeGeneration
         /// </summary>
         public Prototype CreatePrototype()
         {
-            this.Prototype = new Prototype(this.Name, null, null);
+            // Default the return type to void.
+            Type returnType = TypeFactory.Void();
 
-            // Create formal arguments.
+            // Create a new prototype instance.
+            this.Prototype = new Prototype(this.Name, null, returnType);
+
+            // Create formal arguments after assigning prototype to avoid infinite loop.
             FormalArgs args = this.CreateArgs();
 
             // Assign the formal arguments.

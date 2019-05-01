@@ -67,8 +67,6 @@ namespace Ion.Tests.SyntaxAnalysis
                 // Compare tokenized token to corresponding token on the sequence.
                 Assert.AreEqual(sequence[i], tokens[i].Type);
             }
-
-            Assert.Pass();
         }
 
         [Test]
@@ -87,8 +85,6 @@ namespace Ion.Tests.SyntaxAnalysis
 
             // Ensure token is unknown.
             Assert.AreEqual(tokens[0].Type, TokenType.Unknown);
-
-            Assert.Pass();
         }
     }
 }

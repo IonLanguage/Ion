@@ -33,7 +33,10 @@ namespace Ion.Abstraction
             function.SetName(SpecialName.Main);
 
             // Create the body.
-            function.CreateBody();
+            Block body = function.CreateBody();
+
+            // Set the body's name to entry.
+            body.SetNameEntry();
 
             // Create the arguments.
             function.CreateArgs();
