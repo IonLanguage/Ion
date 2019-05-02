@@ -1,6 +1,7 @@
 using Ion.Abstraction;
 using Ion.CodeGeneration;
 using Ion.SyntaxAnalysis;
+using Ion.CognitiveServices;
 
 namespace Ion.Parsing
 {
@@ -41,8 +42,6 @@ namespace Ion.Parsing
 
                 // Emit the function.
                 function.Emit(this.Module.Source);
-
-                break;
             }
             // External definition.
             else if (type == TokenType.KeywordExternal)
@@ -61,8 +60,6 @@ namespace Ion.Parsing
 
                 // Emit the top-level expression.
                 exprDelegate.Emit(this.Module.Source);
-
-                break;
             }
         }
     }
