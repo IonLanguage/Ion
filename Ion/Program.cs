@@ -74,7 +74,7 @@ namespace Ion
             // --- Tests start ---
 
             // Create and emit the function call stream.
-            // new PrimaryExprParser().Parse(callStream).Emit(fn.Body.Current.CreateBuilder());
+            new PrimaryExprParser().Parse(callStream).Emit(fn.Body.Current.CreateBuilder());
             // --- Tests end ---
 
             // Print output IR.

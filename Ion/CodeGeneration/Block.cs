@@ -19,6 +19,9 @@ namespace Ion.CodeGeneration
 
         public BlockType Type { get; set; }
 
+        // TODO: Find a better way to cache emitted values.
+        public LLVMBasicBlockRef Current { get; protected set; }
+
         public List<Expr> Expressions;
 
         public Block()
@@ -51,6 +54,9 @@ namespace Ion.CodeGeneration
             {
                 LLVM.BuildRet(builder, this.ReturnExpr.Emit(builder));
             }
+
+            // Cache emitted block.
+            this.Current = block;
 
             return block;
         }
