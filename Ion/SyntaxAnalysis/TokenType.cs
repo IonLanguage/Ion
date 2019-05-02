@@ -137,8 +137,6 @@ namespace Ion.SyntaxAnalysis
         LiteralString,
 
         // Keywords.
-        KeywordFunction,
-
         KeywordReturn,
 
         KeywordExit,
