@@ -21,8 +21,9 @@ namespace Ion.Abstraction
         }
 
         /// <summary>
-        /// Create and emit an empty main function
-        /// with a body.
+        /// Create an empty main function with a
+        /// body, empty arguments and void return
+        /// type. Does not emit the function.
         /// </summary>
         public Function CreateMainFunction()
         {
@@ -41,9 +42,24 @@ namespace Ion.Abstraction
             // Create the arguments.
             function.CreateArgs();
 
+            // Return the function.
+            return function;
+        }
+
+        /// <summary>
+        /// Create and emit an empty main function
+        /// with a body, empty arguments and void return
+        /// type.
+        /// </summary>
+        public Function EmitMainFunction()
+        {
+            // Create the function.
+            Function function = this.CreateMainFunction();
+
             // Emit the function.
             function.Emit(this.Source);
 
+            // Return the previously created function.
             return function;
         }
 

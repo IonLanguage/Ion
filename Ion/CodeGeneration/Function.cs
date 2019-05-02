@@ -51,6 +51,17 @@ namespace Ion.CodeGeneration
         }
 
         /// <summary>
+        /// Attempt to retrieve the function LLVM value
+        /// reference from the symbol table. Returns null
+        /// if the function does not exist or was not
+        /// previously emitted.
+        /// </summary>
+        public LLVMValueRef Retrieve()
+        {
+            return SymbolTable.functions[this.Name];
+        }
+
+        /// <summary>
         /// Creates, assigns and returns a body block,
         /// replacing existing body.
         /// </summary>

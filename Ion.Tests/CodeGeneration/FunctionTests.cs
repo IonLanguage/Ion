@@ -15,7 +15,7 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class FunctionTests
     {
-        private Abstraction.Module module = new Ion.Abstraction.Module();
+        private Abstraction.Module module;
 
         [SetUp]
         public void Setup()
@@ -194,10 +194,10 @@ namespace Ion.Tests.CodeGeneration
         public void CreateMainFunction()
         {
             // Read the expected output IR code.
-            string expected = File.ReadAllText(TestUtil.ResolveDataPath("CreateMainFunction.ll"));
+            string expected = File.ReadAllText(TestUtil.ResolveDataPath("EmitMainFunction.ll"));
 
-            // Create the main function to emit.
-            this.module.CreateMainFunction();
+            // Emit the main function.
+            this.module.EmitMainFunction();
 
             // Emit the module.
             string output = this.module.ToString();
