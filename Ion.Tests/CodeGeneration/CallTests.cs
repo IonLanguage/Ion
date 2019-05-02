@@ -15,7 +15,7 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class CallTests
     {
-        private Abstraction.Module module = new Ion.Abstraction.Module();
+        private Abstraction.Module module;
 
         [SetUp]
         public void Setup()
@@ -64,7 +64,7 @@ namespace Ion.Tests.CodeGeneration
             string expected = File.ReadAllText(TestUtil.ResolveDataPath("CallWithoutArguments.ll"));
 
             // Emit the main function.
-            this.module.CreateMainFunction();
+            this.module.EmitMainFunction();
 
             // Emit the module.
             string output = this.module.ToString();

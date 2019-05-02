@@ -1,17 +1,25 @@
+using System;
 using Ion.CodeGeneration;
 using Ion.SyntaxAnalysis;
+using Ion.CognitiveServices;
 
 namespace Ion.Parsing
 {
-    public class TypeParser : IParser<Type>
+    public class TypeParser : IParser<CodeGeneration.Type>
     {
-        public Type Parse(TokenStream stream)
+        public CodeGeneration.Type Parse(TokenStream stream)
         {
-            // Consume type value.
-            string value = stream.Next().Value;
+            // Consume type token.
+            Token type = stream.Next();
+
+            // Ensure type value is a type.
+            if (!TokenIdentifier.IsType(type))
+            {
+                throw new Exception($"Expected a type but got '{type.Type}'");
+            }
 
             // Create the type.
-            return new Type(value);
+            return new CodeGeneration.Type(type.Value);
         }
     }
 }

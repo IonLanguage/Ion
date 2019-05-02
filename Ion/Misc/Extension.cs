@@ -47,19 +47,6 @@ namespace Ion.Misc
             return builder;
         }
 
-        public static bool Some(this TokenTypeMap map, Func<string, bool> callback)
-        {
-            foreach (string str in map.Keys)
-            {
-                if (callback(str))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         public static TokenTypeMap SortByKeyLength(this TokenTypeMap map)
         {
             string[] keys = new string[map.Count];

@@ -7,12 +7,6 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class TypeTests
     {
-        [SetUp]
-        public void Setup()
-        {
-            //
-        }
-
         [Test]
         public void ThrowsOnInvalidParams()
         {
