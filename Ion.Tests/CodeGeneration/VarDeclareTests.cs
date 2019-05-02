@@ -3,6 +3,7 @@ using Ion.Core;
 using Ion.Misc;
 using Ion.Parsing;
 using Ion.SyntaxAnalysis;
+using Ion.Tests.Core;
 using LLVMSharp;
 using NUnit.Framework;
 
@@ -60,8 +61,14 @@ namespace Ion.Tests.CodeGeneration
             // Emit the declaration.
             declaration.Emit(mainFunction.Body.Current.CreateBuilder());
 
-            // Emit the module.
-            string output = this.module.ToString();
+            // Emit the module and trim whitespace.
+            string output = this.module.ToString().Trim();
+
+            // Read data to be compared.
+            string expected = TestUtil.ReadDataFile("VariableDeclaration.ll");
+
+            // Compare results.
+            Assert.AreEqual(expected, output);
         }
     }
 }
