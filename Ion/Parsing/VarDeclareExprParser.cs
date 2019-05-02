@@ -38,11 +38,6 @@ namespace Ion.Parsing
                 // Assign value.
                 declaration.Value = value;
             }
-            // Otherwise, it must be a semi-colon.
-            else if (nextToken.Type != TokenType.SymbolSemiColon)
-            {
-                throw new Exception($"Unexpected token after variable declaration; Expected semi-colon but got '{nextToken.Type}'");
-            }
 
             return declaration;
         }
