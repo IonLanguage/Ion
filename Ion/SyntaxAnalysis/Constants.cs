@@ -18,7 +18,6 @@ namespace Ion.SyntaxAnalysis
         public delegate LLVMValueRef ConstantResolver();
 
         public static readonly TokenTypeMap keywords = new TokenTypeMap {
-            {"fn", TokenType.KeywordFunction},
             {"exit", TokenType.KeywordExit},
             {"return", TokenType.KeywordReturn},
             {"if", TokenType.KeywordIf},

@@ -30,42 +30,39 @@ namespace Ion.Parsing
                 return;
             }
 
-            switch (this.stream.Get().Type)
+            TokenType type = this.stream.Get().Type;
+
+            // TODO: Handle global variable.
+            // Function definition or global variable.
+            if (TokenIdentifier.IsType(type))
             {
-                // Function definition.
-                case TokenType.KeywordFunction:
-                    {
-                        // Invoke the function parser.
-                        Function function = new FunctionParser().Parse(stream);
+                // Invoke the function parser.
+                Function function = new FunctionParser().Parse(stream);
 
-                        // Emit the function.
-                        function.Emit(this.Module.Source);
+                // Emit the function.
+                function.Emit(this.Module.Source);
 
-                        break;
-                    }
+                break;
+            }
+            // External definition.
+            else if (type == TokenType.KeywordExternal)
+            {
+                // Invoke the external definition parser.
+                Extern external = new ExternParser().Parse(stream);
 
-                // External definition.
-                case TokenType.KeywordExternal:
-                    {
-                        // Invoke the external definition parser.
-                        Extern external = new ExternParser().Parse(stream);
+                // Emit the external definition.
+                external.Emit(this.Module.Source);
+            }
+            // Otherwise, top-level expression.
+            else
+            {
+                // Invoke the top-level expression parser.
+                Function exprDelegate = new TopLevelExprParser().Parse(stream);
 
-                        // Emit the external definition.
-                        external.Emit(this.Module.Source);
+                // Emit the top-level expression.
+                exprDelegate.Emit(this.Module.Source);
 
-                        break;
-                    }
-
-                default:
-                    {
-                        // Invoke the top-level expression parser.
-                        Function exprDelegate = new TopLevelExprParser().Parse(stream);
-
-                        // Emit the top-level expression.
-                        exprDelegate.Emit(this.Module.Source);
-
-                        break;
-                    }
+                break;
             }
         }
     }

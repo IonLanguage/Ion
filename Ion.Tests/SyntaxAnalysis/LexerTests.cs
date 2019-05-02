@@ -18,7 +18,6 @@ namespace Ion.Tests.SyntaxAnalysis
         public void Setup()
         {
             this.sequence = new TokenType[] {
-                TokenType.KeywordFunction,
                 TokenType.Identifier,
                 TokenType.SymbolParenthesesL,
                 TokenType.SymbolComma,
@@ -48,10 +47,10 @@ namespace Ion.Tests.SyntaxAnalysis
         [Test]
 
         // Normal.
-        [TestCase("fn id ( , ) : { 123 1.23 \"hello world\" 'a' => = == < > ! and or andor; } /*a*/ // abc")]
+        [TestCase("id ( , ) : { 123 1.23 \"hello world\" 'a' => = == < > ! and or andor; } /*a*/ // abc")]
 
         // Dense.
-        [TestCase("fn id(,):{123 1.23\"hello world\"'a'=>= ==<>!and or andor;}/*a*///abc")]
+        [TestCase("id(,):{123 1.23\"hello world\"'a'=>= ==<>!and or andor;}/*a*///abc")]
         public void Tokenize(string input)
         {
             // Create lexer and tokenize the input.

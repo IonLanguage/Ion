@@ -10,9 +10,6 @@ namespace Ion.Parsing
     {
         public Function Parse(TokenStream stream)
         {
-            // Skip the function definition keyword.
-            stream.Skip(TokenType.KeywordFunction);
-
             // Parse the prototype from the stream, this captures the name, arguments and return type.
             Prototype prototype = new PrototypeParser().Parse(stream);
 
