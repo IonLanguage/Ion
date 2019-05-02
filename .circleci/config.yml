@@ -6,18 +6,18 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Restore packages
-        command:
-          dotnet restore
+          name: Restore packages
+          command:
+            dotnet restore
       - run:
-        name: Build core library
-        command:
-          dotnet build ./Ion
+          name: Build core library
+          command:
+            dotnet build ./Ion
       - run:
-        name: Build tests
-        command:
-          dotnet build ./Ion.Tests
+          name: Build tests
+          command:
+            dotnet build ./Ion.Tests
       - run:
-        name: Run tests
-        command:
-          dotnet test ./Ion.Tests
+          name: Run tests
+          command:
+            dotnet test ./Ion.Tests
