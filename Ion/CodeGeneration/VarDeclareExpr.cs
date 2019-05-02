@@ -6,6 +6,7 @@ using Ion.Misc;
 
 namespace Ion.CodeGeneration
 {
+    // TODO: This should be somehow boxed around "statement" so it emits within a body.
     public class VarDeclareExpr : Expr, IStatement, IEntity<LLVMValueRef, LLVMBuilderRef>
     {
         public override ExprType Type => ExprType.VariableDeclaration;
