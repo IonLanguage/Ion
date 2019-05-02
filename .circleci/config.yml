@@ -1,0 +1,23 @@
+version: 2.0
+jobs:
+  build:
+    docker:
+      - image: mcr.microsoft.com/dotnet/core/sdk:2.2
+    steps:
+      - checkout
+      - run:
+        name: Restore packages
+        command:
+          dotnet restore
+      - run:
+        name: Build core library
+        command:
+          dotnet build ./Ion
+      - run:
+        name: Build tests
+        command:
+          dotnet build ./Ion.Tests
+      - run:
+        name: Run tests
+        command:
+          dotnet test ./Ion.Tests
