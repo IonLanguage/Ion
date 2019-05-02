@@ -41,7 +41,7 @@ namespace Ion.Tests.CodeGeneration
 
                 new Token {
                     Type = TokenType.KeywordFunction,
-                    Value = "fn"
+                    Value = "int"
                 },
 
                 new Token {
@@ -81,16 +81,6 @@ namespace Ion.Tests.CodeGeneration
                 new Token {
                     Type = TokenType.SymbolParenthesesR,
                     Value = ")"
-                },
-
-                new Token {
-                    Type = TokenType.SymbolColon,
-                    Value = ":"
-                },
-
-                new Token {
-                    Type = TokenType.Identifier,
-                    Value = "int"
                 },
 
                 new Token {
