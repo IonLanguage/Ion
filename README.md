@@ -28,7 +28,8 @@ printf("Hello %s", "world!");
 Inspired by React.js' JSX syntax, the language will have built-in DOM and HTML support.
 
 ```rust
-int main() {
+int Main() 
+{
     Web.mount(<div>Built-in HTML syntax is awesome!</div>);
 
     return 0;
