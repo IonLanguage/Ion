@@ -55,7 +55,7 @@ namespace Ion.Tests.CodeGeneration
         [Test]
         public void MatchStoredIr()
         {
-            string expected = File.ReadAllText(TestUtil.ResolveDataPath("GlobalVariable.ll"));
+            string expected = TestUtil.ReadOutputDataFile("GlobalVariable");
 
             // Invoke the global variable parser.
             GlobalVar globalVariable = new GlobalVarParser().Parse(stream);

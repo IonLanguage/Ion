@@ -13,7 +13,7 @@ using Ion.Core;
 namespace Ion.Tests.CodeGeneration
 {
     [TestFixture]
-    internal sealed class CallTests
+    internal sealed class DriverTests
     {
         private Abstraction.Module module;
 

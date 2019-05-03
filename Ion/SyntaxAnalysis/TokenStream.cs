@@ -52,6 +52,24 @@ namespace Ion.SyntaxAnalysis
         }
 
         /// <summary>
+        /// Create and insert bounding start and end tokens.
+        /// </summary>
+        public void InsertBounds()
+        {
+            // Insert program start token.
+            this.Insert(0, new Token
+            {
+                Type = TokenType.Unknown
+            });
+
+            // Append program end token.
+            this.Add(new Token
+            {
+                Type = TokenType.Unknown
+            });
+        }
+
+        /// <summary>
         /// Retrieve the current token and
         /// ensure that its type matches the
         /// provided token type.
