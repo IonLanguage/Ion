@@ -1,4 +1,3 @@
-using LLVMSharp;
 using Ion.SyntaxAnalysis;
 
 namespace Ion.Parsing

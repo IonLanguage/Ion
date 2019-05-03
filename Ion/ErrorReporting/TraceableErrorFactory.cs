@@ -1,4 +1,3 @@
-using Ion.Core;
 using Ion.SyntaxAnalysis;
 
 namespace Ion.ErrorReporting
@@ -14,7 +13,7 @@ namespace Ion.ErrorReporting
 
         public TraceableError Create(string message, string name = InternalErrorNames.Generic)
         {
-            return new TraceableError(this.stream, message, name);
+            return new TraceableError(stream, message, name);
         }
     }
 }

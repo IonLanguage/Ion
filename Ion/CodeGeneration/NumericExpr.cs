@@ -1,13 +1,11 @@
-using LLVMSharp;
 using Ion.CognitiveServices;
 using Ion.SyntaxAnalysis;
+using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
     public class NumericExpr : Expr
     {
-        public override ExprType Type => ExprType.Numeric;
-
         public readonly TokenType tokenType;
 
         public readonly Type type;
@@ -21,13 +19,15 @@ namespace Ion.CodeGeneration
             this.value = value;
         }
 
+        public override ExprType Type => ExprType.Numeric;
+
         public override LLVMValueRef Emit(LLVMBuilderRef context)
         {
             // Emit the value.
-            LLVMValueRef value = Resolvers.Literal(this.tokenType, this.value, this.type);
+            LLVMValueRef valueRef = Resolvers.Literal(tokenType, value, type);
 
             // Return the emitted value.
-            return value;
+            return valueRef;
         }
     }
 }

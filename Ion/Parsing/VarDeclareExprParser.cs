@@ -1,6 +1,7 @@
 using System;
 using Ion.CodeGeneration;
 using Ion.SyntaxAnalysis;
+using Type = Ion.CodeGeneration.Type;
 
 namespace Ion.Parsing
 {
@@ -9,22 +10,20 @@ namespace Ion.Parsing
         public VarDeclareExpr Parse(TokenStream stream)
         {
             // Consume the type string.
-            string typeValue = stream.Next().Value;
+            var typeValue = stream.Next().Value;
 
             // Create the type.
-            CodeGeneration.Type type = new CodeGeneration.Type(typeValue);
+            var type = new Type(typeValue);
 
             // Create the variable declaration & link the type.
-            VarDeclareExpr declaration = new VarDeclareExpr(type, null);
+            var declaration = new VarDeclareExpr(type, null);
 
             // Consume the variable name.
-            string name = stream.Next().Value;
+            var name = stream.Next().Value;
 
             // Ensure captured name is not null nor empty.
-            if (String.IsNullOrEmpty(name))
-            {
+            if (string.IsNullOrEmpty(name))
                 throw new Exception("Unexpected variable declaration identifier to be null or empty");
-            }
 
             // Assign the name.
             declaration.SetName(name);

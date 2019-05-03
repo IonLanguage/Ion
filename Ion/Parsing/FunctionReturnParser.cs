@@ -1,5 +1,3 @@
-
-using System;
 using Ion.CodeGeneration;
 using Ion.SyntaxAnalysis;
 

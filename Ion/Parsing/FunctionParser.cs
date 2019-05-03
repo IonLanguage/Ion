@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using LLVMSharp;
 using Ion.CodeGeneration;
 using Ion.SyntaxAnalysis;
 
@@ -14,7 +11,7 @@ namespace Ion.Parsing
             Prototype prototype = new PrototypeParser().Parse(stream);
 
             // Create the function.
-            Function function = new Function();
+            var function = new Function();
 
             // Assign the function prototype to the parsed prototype.
             function.Prototype = prototype;

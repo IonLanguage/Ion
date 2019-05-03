@@ -1,15 +1,12 @@
-using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-
-using TokenTypeMap = System.Collections.Generic.Dictionary<string, Ion.SyntaxAnalysis.TokenType>;
-using ComplexTokenTypeMap = System.Collections.Generic.Dictionary<System.Text.RegularExpressions.Regex, Ion.SyntaxAnalysis.TokenType>;
-using Ion.Misc;
-using Ion.CodeGeneration;
-using Ion.CognitiveServices;
-using LLVMSharp;
 using System.Linq;
+using Ion.CognitiveServices;
 using Ion.ErrorReporting;
+using Ion.Misc;
+using LLVMSharp;
+using TokenTypeMap = System.Collections.Generic.Dictionary<string, Ion.SyntaxAnalysis.TokenType>;
+using ComplexTokenTypeMap =
+    System.Collections.Generic.Dictionary<System.Text.RegularExpressions.Regex, Ion.SyntaxAnalysis.TokenType>;
 
 namespace Ion.SyntaxAnalysis
 {
@@ -17,14 +14,16 @@ namespace Ion.SyntaxAnalysis
     {
         public delegate LLVMValueRef ConstantResolver();
 
-        public static readonly TokenTypeMap keywords = new TokenTypeMap {
+        public static readonly TokenTypeMap keywords = new TokenTypeMap
+        {
             {"exit", TokenType.KeywordExit},
             {"return", TokenType.KeywordReturn},
             {"if", TokenType.KeywordIf},
             {"extern", TokenType.KeywordExternal}
         };
 
-        public static readonly TokenTypeMap symbols = new TokenTypeMap {
+        public static readonly TokenTypeMap symbols = new TokenTypeMap
+        {
             {"@", TokenType.SymbolAt},
             {"(", TokenType.SymbolParenthesesL},
             {")", TokenType.SymbolParenthesesR},
@@ -37,10 +36,11 @@ namespace Ion.SyntaxAnalysis
             {",", TokenType.SymbolComma}
         }.SortByKeyLength();
 
-        public static readonly TokenTypeMap operators = new TokenTypeMap {
+        public static readonly TokenTypeMap operators = new TokenTypeMap
+        {
             {"==", TokenType.OperatorEquality},
             {"+", TokenType.OperatorAddition},
-            {"-", TokenType.OperatorSubstraction},
+            {"-", TokenType.OperatorSubtraction},
             {"*", TokenType.OperatorMultiplication},
             {"/", TokenType.OperatorDivision},
             {"%", TokenType.OperatorModulo},
@@ -56,7 +56,8 @@ namespace Ion.SyntaxAnalysis
             {"!", TokenType.OperatorNot}
         }.SortByKeyLength();
 
-        public static readonly TokenTypeMap types = new TokenTypeMap {
+        public static readonly TokenTypeMap types = new TokenTypeMap
+        {
             {TypeName.Double, TokenType.TypeDouble},
             {TypeName.Int32, TokenType.TypeInt},
             {TypeName.Int64, TokenType.TypeLong},
@@ -67,31 +68,32 @@ namespace Ion.SyntaxAnalysis
         };
 
         /// <summary>
-        /// A combination of the simple token type maps
-        /// which include operators, symbols and keywords.
+        ///     A combination of the simple token type maps
+        ///     which include operators, symbols and keywords.
         /// </summary>
-        public static readonly TokenTypeMap simpleTokenTypes = new TokenTypeMap[]
-        {
-            Constants.keywords,
-            Constants.symbols,
-            Constants.operators,
-            Constants.types
-        }
-        .SelectMany((dictionary) => dictionary)
-        .ToLookup((pair) => pair.Key, (pair) => pair.Value)
-        .ToDictionary((group) => group.Key, (group) => group.First())
-        .SortByKeyLength();
+        public static readonly TokenTypeMap simpleTokenTypes = new[]
+            {
+                keywords,
+                symbols,
+                operators,
+                types
+            }
+            .SelectMany((dictionary) => dictionary)
+            .ToLookup((pair) => pair.Key, (pair) => pair.Value)
+            .ToDictionary((group) => group.Key, (group) => group.First())
+            .SortByKeyLength();
 
         public static readonly ComplexTokenTypeMap complexTokenTypes = new ComplexTokenTypeMap
         {
-            {Pattern.Identifier, TokenType.Identifier},
+            {Pattern.identifier, TokenType.Identifier},
             {Pattern.String, TokenType.LiteralString},
             {Pattern.Decimal, TokenType.LiteralDecimal},
-            {Pattern.Integer, TokenType.LiteralInteger},
-            {Pattern.Character, TokenType.LiteralCharacter}
+            {Pattern.integer, TokenType.LiteralInteger},
+            {Pattern.character, TokenType.LiteralCharacter}
         };
 
-        public static readonly ComplexTokenTypeMap commentTokenTypes = new ComplexTokenTypeMap {
+        public static readonly ComplexTokenTypeMap commentTokenTypes = new ComplexTokenTypeMap
+        {
             {Util.CreateRegex(@"//[^\r\n]+"), TokenType.SingleLineComment},
             {Util.CreateRegex(@"\/\*[^*/]+\*\/"), TokenType.MultiLineComment}
         };
@@ -100,7 +102,7 @@ namespace Ion.SyntaxAnalysis
         {
             {TokenType.OperatorLessThan, 10},
             {TokenType.OperatorAddition, 20},
-            {TokenType.OperatorSubstraction, 20},
+            {TokenType.OperatorSubtraction, 20},
             {TokenType.OperatorMultiplication, 40},
             {TokenType.OperatorDivision, 40},
             {TokenType.OperatorModulo, 40},

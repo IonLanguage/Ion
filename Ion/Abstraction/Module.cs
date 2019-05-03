@@ -1,34 +1,44 @@
 using System;
 using System.Runtime.InteropServices;
-using LLVMSharp;
 using Ion.CodeGeneration;
 using Ion.CodeGeneration.Structure;
+using LLVMSharp;
 
 namespace Ion.Abstraction
 {
     public class Module : IDisposable, ICloneable
     {
-        public LLVMModuleRef Source { get; }
-
         public Module(LLVMModuleRef source)
         {
-            this.Source = source;
+            Source = source;
         }
 
         public Module()
         {
-            this.Source = LLVM.ModuleCreateWithName(SpecialName.Entry);
+            Source = LLVM.ModuleCreateWithName(SpecialName.Entry);
+        }
+
+        public LLVMModuleRef Source { get; }
+
+        public object Clone()
+        {
+            return new Module(LLVM.CloneModule(Source));
+        }
+
+        public void Dispose()
+        {
+            LLVM.DisposeModule(Source);
         }
 
         /// <summary>
-        /// Create an empty main function with a
-        /// body, empty arguments and void return
-        /// type. Does not emit the function.
+        ///     Create an empty main function with a
+        ///     body, empty arguments and void return
+        ///     type. Does not emit the function.
         /// </summary>
         public Function CreateMainFunction()
         {
             // Create the entity.
-            Function function = new Function();
+            var function = new Function();
 
             // Assign name as main.
             function.SetName(SpecialName.Main);
@@ -47,17 +57,17 @@ namespace Ion.Abstraction
         }
 
         /// <summary>
-        /// Create and emit an empty main function
-        /// with a body, empty arguments and void return
-        /// type.
+        ///     Create and emit an empty main function
+        ///     with a body, empty arguments and void return
+        ///     type.
         /// </summary>
         public Function EmitMainFunction()
         {
             // Create the function.
-            Function function = this.CreateMainFunction();
+            Function function = CreateMainFunction();
 
             // Emit the function.
-            function.Emit(this.Source);
+            function.Emit(Source);
 
             // Return the previously created function.
             return function;
@@ -65,40 +75,30 @@ namespace Ion.Abstraction
 
         public LLVMContextRef GetContext()
         {
-            return LLVM.GetModuleContext(this.Source);
-        }
-
-        public object Clone()
-        {
-            return new Module(LLVM.CloneModule(this.Source));
-        }
-
-        public void Dispose()
-        {
-            LLVM.DisposeModule(this.Source);
+            return LLVM.GetModuleContext(Source);
         }
 
         /// <summary>
-        /// Dump the contents of the corresponding
-        /// IR code with this module to the console
-        /// output.
+        ///     Dump the contents of the corresponding
+        ///     IR code with this module to the console
+        ///     output.
         /// </summary>
         public void Dump()
         {
-            LLVM.DumpModule(this.Source);
+            LLVM.DumpModule(Source);
         }
 
         /// <summary>
-        /// Obtain the corresponding IR code from this
-        /// module.
+        ///     Obtain the corresponding IR code from this
+        ///     module.
         /// </summary>
         public override string ToString()
         {
             // Print IR code to a buffer.
-            IntPtr output = LLVM.PrintModuleToString(this.Source);
+            IntPtr output = LLVM.PrintModuleToString(Source);
 
             // Convert buffer to a string.
-            string outputString = Marshal.PtrToStringAnsi(output);
+            var outputString = Marshal.PtrToStringAnsi(output);
 
             // Trim whitespace.
             outputString = outputString.Trim();

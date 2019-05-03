@@ -1,40 +1,38 @@
-using LLVMSharp;
-using Ion.CodeGeneration;
 using Ion.CodeGeneration.Structure;
 using Ion.Core;
-using Ion.Misc;
+using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
     public class VarDeclareExpr : Expr, IStatement, IEntity<LLVMValueRef, LLVMBuilderRef>
     {
-        public override ExprType Type => ExprType.VariableDeclaration;
+        public VarDeclareExpr(Type valueType, Expr value)
+        {
+            ValueType = valueType;
+            Value = value;
+        }
 
-        public StatementType StatementType => StatementType.Declaration;
+        public override ExprType Type => ExprType.VariableDeclaration;
 
         public Type ValueType { get; protected set; }
 
         public Expr Value { get; set; }
 
-        public VarDeclareExpr(Type valueType, Expr value)
-        {
-            this.ValueType = valueType;
-            this.Value = value;
-        }
-
         public override LLVMValueRef Emit(LLVMBuilderRef context)
         {
             // Create the variable.
-            LLVMValueRef variable = LLVM.BuildAlloca(context, this.ValueType.Emit(), this.Name);
+            LLVMValueRef variable = LLVM.BuildAlloca(context, ValueType.Emit(), Name);
 
             // Assign value if applicable.
-            if (this.Value != null)
+            if (Value != null)
             {
-                LLVM.BuildStore(context, this.Value.Emit(context), variable);
-                SymbolTable.localScope.Add(this.Name, variable);
+                LLVM.BuildStore(context, Value.Emit(context), variable);
+                SymbolTable.localScope.Add(Name, variable);
             }
 
             return variable;
         }
+
+        public StatementType StatementType => StatementType.Declaration;
     }
 }
