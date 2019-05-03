@@ -33,15 +33,30 @@ namespace Ion.Parsing
 
             TokenType type = this.stream.Get().Type;
 
-            // TODO: Handle global variable.
             // Function definition or global variable.
             if (TokenIdentifier.IsType(type))
             {
-                // Invoke the function parser.
-                Function function = new FunctionParser().Parse(stream);
+                // Peek the token after identifier.
+                Token afterIdentifier = stream.Peek(2);
 
-                // Emit the function.
-                function.Emit(this.Module.Source);
+                // Function definition.
+                if (afterIdentifier.Type == TokenType.SymbolParenthesesL)
+                {
+                    // Invoke the function parser.
+                    Function function = new FunctionParser().Parse(stream);
+
+                    // Emit the function.
+                    function.Emit(this.Module.Source);
+                }
+                // Otherwise, global variable declaration.
+                else
+                {
+                    // Invoke the global variable parser.
+                    GlobalVar globalVariable = new GlobalVarParser().Parse(stream);
+
+                    // Emit the global variable.
+                    globalVariable.Emit(this.Module.Source);
+                }
             }
             // External definition.
             else if (type == TokenType.KeywordExternal)
