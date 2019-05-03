@@ -48,6 +48,7 @@ namespace Ion.Parsing
                 return false;
             }
 
+            // TODO: Finish fixing this, parsers overflowing (+1) because of this issue with the Program start (05/02/2019).
             TokenType type = this.stream.Get().Type;
 
             // Skip program start token.
