@@ -15,6 +15,12 @@ namespace Ion.CodeGeneration
 
         public LLVMValueRef Emit(LLVMModuleRef context)
         {
+            // Ensure prototype is set.
+            if (this.Prototype == null)
+            {
+                throw new System.Exception("Unexpected external definition's prototype to be null");
+            }
+
             // Emit the formal arguments.
             LLVMTypeRef[] args = this.Prototype.Args.Emit();
 

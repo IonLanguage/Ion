@@ -20,6 +20,9 @@ namespace Ion.Parsing
             // Set the function name to anonymous.
             function.SetNameAnonymous();
 
+            // Create default prototype.
+            function.CreatePrototype();
+
             // TODO: Finish implementing (continue Kaleidoscope tutorial).
             Block body = function.CreateBody();
 
