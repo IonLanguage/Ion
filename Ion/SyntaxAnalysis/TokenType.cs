@@ -2,6 +2,10 @@ namespace Ion.SyntaxAnalysis
 {
     public enum TokenType : int
     {
+        ProgramStart,
+
+        ProgramEnd,
+
         /// <summary>
         /// Represents an unidentified value.
         /// </summary>

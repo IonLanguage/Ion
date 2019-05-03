@@ -60,13 +60,13 @@ namespace Ion.SyntaxAnalysis
             // Insert program start token.
             this.Insert(0, new Token
             {
-                Type = TokenType.Unknown
+                Type = TokenType.ProgramStart
             });
 
             // Append program end token.
             this.Add(new Token
             {
-                Type = TokenType.Unknown
+                Type = TokenType.ProgramEnd
             });
         }
 

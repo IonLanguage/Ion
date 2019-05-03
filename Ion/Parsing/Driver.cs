@@ -23,13 +23,22 @@ namespace Ion.Parsing
             //
         }
 
+        // TODO: What if EOF token has not been processed itself?
+        public bool HasNext
+        {
+            get
+            {
+                return this.stream.Get().Type != TokenType.ProgramEnd;
+            }
+        }
+
         /// <summary>
         /// Process the next sequence. Returns true
         /// if the sequence was successfully processed.
         /// </summary>
         public bool Next()
         {
-            // TODO: What if EOF has not been processed?
+            // TODO: What if EOF token has not been processed itself?
             // End reached.
             if (this.stream.LastItem)
             {
@@ -37,9 +46,6 @@ namespace Ion.Parsing
             }
 
             TokenType type = this.stream.Get().Type;
-
-            // TODO: Debugging.
-            Console.WriteLine(this.stream.ToString());
 
             // Skip unknown tokens for error recovery.
             if (type == TokenType.Unknown)
