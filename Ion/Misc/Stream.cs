@@ -97,8 +97,6 @@ namespace Ion.Misc
                 if (amount > 0)
                 {
                     // TODO
-                    // return SpecialToken.ProgramEnd;
-                    // TODO: Temp. fix: return last item.
                     return this[this.Count - 1];
                 }
 
