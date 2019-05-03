@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Ion.SyntaxAnalysis;
 
 namespace Ion.Misc
 {
@@ -96,8 +95,12 @@ namespace Ion.Misc
             {
                 // Return program end token.
                 if (amount > 0)
+                {
                     // TODO
-                    return SpecialToken.ProgramEnd;
+                    // return SpecialToken.ProgramEnd;
+                    // TODO: Temp. fix: return last item.
+                    return this[this.Count - 1];
+                }
 
                 // Otherwise, return first item.
                 return this[0];
