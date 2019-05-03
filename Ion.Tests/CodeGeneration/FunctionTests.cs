@@ -95,7 +95,7 @@ namespace Ion.Tests.CodeGeneration
             });
 
             // Read the expected output IR code.
-            string expected = File.ReadAllText(TestUtil.ResolveDataPath("FunctionWithArguments.ll"));
+            string expected = TestUtil.ReadOutputDataFile("FunctionWithArguments");
 
             // Invoke the function parser.
             Function function = new FunctionParser().Parse(stream);
@@ -153,7 +153,7 @@ namespace Ion.Tests.CodeGeneration
             });
 
             // Read the expected output IR code.
-            string expected = File.ReadAllText(TestUtil.ResolveDataPath("FunctionWithoutArguments.ll"));
+            string expected = TestUtil.ReadOutputDataFile("FunctionWithoutArguments");
 
             // Invoke the function parser.
             Function function = new FunctionParser().Parse(stream);
@@ -174,7 +174,7 @@ namespace Ion.Tests.CodeGeneration
         public void CreateMainFunction()
         {
             // Read the expected output IR code.
-            string expected = File.ReadAllText(TestUtil.ResolveDataPath("EmitMainFunction.ll"));
+            string expected = TestUtil.ReadOutputDataFile("EmptyMainFunction");
 
             // Emit the main function.
             this.module.EmitMainFunction();

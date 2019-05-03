@@ -20,6 +20,12 @@ namespace Ion.Parsing
             // Consume the variable name.
             string name = stream.Next().Value;
 
+            // Ensure captured name is not null nor empty.
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new Exception("Unexpected variable declaration identifier to be null or empty");
+            }
+
             // Assign the name.
             declaration.SetName(name);
 

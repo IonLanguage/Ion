@@ -1,5 +1,6 @@
 using Ion.CodeGeneration.Structure;
 using Ion.CognitiveServices;
+using System;
 using System.Text.RegularExpressions;
 
 namespace Ion.Misc
@@ -18,13 +19,20 @@ namespace Ion.Misc
         /// </summary>
         public void SetName(string name)
         {
-            if (Pattern.Identifier.IsMatch(name))
+            // Ensure name is not null nor empty.
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new Exception("Unexpected name to be null or empty");
+            }
+            // Ensure identifier pattern matches provided name.
+            else if (Pattern.Identifier.IsMatch(name))
             {
                 this.Name = name;
             }
+            // Otherwise, throw an error.
             else
             {
-                throw new System.Exception("Invalid name: " + name);
+                throw new Exception($"Invalid name: {name}");
             }
         }
 

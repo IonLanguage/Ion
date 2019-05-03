@@ -29,22 +29,13 @@ namespace Ion.Tests.CodeGeneration
         public void VarDeclare()
         {
             // Create the token stream.
-            TokenStream stream = new TokenStream(new Token[] {
-                // Program starting point token.
-                new Token {
-                    Type = TokenType.Unknown
-                },
+            TokenStream stream = TestUtil.CreateStreamFromInputDataFile("VariableDeclaration");
 
-                new Token {
-                    Type = TokenType.Identifier,
-                    Value = "int"
-                },
+            // Ensure correct token stream length.
+            Assert.AreEqual(2, stream.Count);
 
-                new Token {
-                    Type = TokenType.Identifier,
-                    Value = "myLocal"
-                }
-            });
+            // Insert stream bounds.
+            stream.InsertBounds();
 
             // Create and emit the main function.
             Function mainFunction = this.module.EmitMainFunction();
@@ -65,7 +56,7 @@ namespace Ion.Tests.CodeGeneration
             string output = this.module.ToString().Trim();
 
             // Read data to be compared.
-            string expected = TestUtil.ReadDataFile("VariableDeclaration.ll");
+            string expected = TestUtil.ReadOutputDataFile("VariableDeclaration");
 
             // Compare results.
             Assert.AreEqual(expected, output);

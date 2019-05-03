@@ -18,7 +18,12 @@ namespace Ion.CodeGeneration
             // Ensure body was provided or created.
             if (this.Body == null)
             {
-                throw new Exception("Body is not defined");
+                throw new Exception("Unexpected function body to be null");
+            }
+            // Ensure prototype is set.
+            else if (this.Prototype == null)
+            {
+                throw new Exception("Unexpected function prototype to be null");
             }
 
             // Emit the argument types.

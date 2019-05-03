@@ -3,6 +3,6 @@ source_filename = "entry"
 
 define void @main() {
 entry:
-  %myLocal = alloca i32
+  %localVariable = alloca i32
   ret void
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Ion.Misc;
 
 namespace Ion.SyntaxAnalysis
@@ -49,6 +50,18 @@ namespace Ion.SyntaxAnalysis
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Create and insert bounding start and end tokens.
+        /// </summary>
+        public void InsertBounds()
+        {
+            // Insert program start token.
+            this.Insert(0, SpecialToken.ProgramStart);
+
+            // Append program end token.
+            this.Add(SpecialToken.ProgramEnd);
         }
 
         /// <summary>

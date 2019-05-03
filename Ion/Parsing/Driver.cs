@@ -2,6 +2,7 @@ using Ion.Abstraction;
 using Ion.CodeGeneration;
 using Ion.SyntaxAnalysis;
 using Ion.CognitiveServices;
+using System;
 
 namespace Ion.Parsing
 {
@@ -22,26 +23,75 @@ namespace Ion.Parsing
             //
         }
 
-        public void Next()
+        // TODO: What if EOF token has not been processed itself?
+        public bool HasNext
         {
-            // TODO: What if EOF has not been processed?
+            get
+            {
+                TokenType currentType = this.stream.Get().Type;
+                TokenType nextType = this.stream.Peek().Type;
+
+                return currentType != TokenType.ProgramEnd && nextType != TokenType.ProgramEnd;
+            }
+        }
+
+        /// <summary>
+        /// Process the next sequence. Returns true
+        /// if the sequence was successfully processed.
+        /// </summary>
+        public bool Next()
+        {
+            // TODO: What if EOF token has not been processed itself?
             // End reached.
             if (this.stream.LastItem)
             {
-                return;
+                return false;
             }
 
+            // TODO: Finish fixing this, parsers overflowing (+1) because of this issue with the Program start (05/02/2019).
             TokenType type = this.stream.Get().Type;
 
-            // TODO: Handle global variable.
-            // Function definition or global variable.
-            if (TokenIdentifier.IsType(type))
+            // Skip program start token.
+            if (type == TokenType.ProgramStart)
             {
-                // Invoke the function parser.
-                Function function = new FunctionParser().Parse(stream);
+                this.stream.Skip();
 
-                // Emit the function.
-                function.Emit(this.Module.Source);
+                // Assign type as next token type, continue execution.
+                type = this.stream.Get().Type;
+            }
+
+            // Skip unknown tokens for error recovery.
+            if (type == TokenType.Unknown)
+            {
+                // TODO: Use error reporting.
+                Console.WriteLine("Warning: Skipping unknown token");
+
+                return false;
+            }
+            // Function definition or global variable.
+            else if (TokenIdentifier.IsType(type))
+            {
+                // Peek the token after identifier.
+                Token afterIdentifier = stream.Peek(2);
+
+                // Function definition.
+                if (afterIdentifier.Type == TokenType.SymbolParenthesesL)
+                {
+                    // Invoke the function parser.
+                    Function function = new FunctionParser().Parse(stream);
+
+                    // Emit the function.
+                    function.Emit(this.Module.Source);
+                }
+                // Otherwise, global variable declaration.
+                else
+                {
+                    // Invoke the global variable parser.
+                    GlobalVar globalVariable = new GlobalVarParser().Parse(stream);
+
+                    // Emit the global variable.
+                    globalVariable.Emit(this.Module.Source);
+                }
             }
             // External definition.
             else if (type == TokenType.KeywordExternal)
@@ -61,6 +111,9 @@ namespace Ion.Parsing
                 // Emit the top-level expression.
                 exprDelegate.Emit(this.Module.Source);
             }
+
+            // At this point, an entity was processed.
+            return true;
         }
     }
 }
