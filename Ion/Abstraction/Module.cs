@@ -98,7 +98,13 @@ namespace Ion.Abstraction
             IntPtr output = LLVM.PrintModuleToString(this.Source);
 
             // Convert buffer to a string.
-            return Marshal.PtrToStringAnsi(output);
+            string outputString = Marshal.PtrToStringAnsi(output);
+
+            // Trim whitespace.
+            outputString = outputString.Trim();
+
+            // Return resulting output string.
+            return outputString;
         }
     }
 }

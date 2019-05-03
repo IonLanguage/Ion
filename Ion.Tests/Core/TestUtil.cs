@@ -18,6 +18,9 @@ namespace Ion.Tests.Core
             // Read the file contents.
             string content = File.ReadAllText(TestUtil.ResolveDataPath(path));
 
+            // Trim extra whitespace.
+            content = content.Trim();
+
             // Remove platform-specific encoding.
             content = content.Replace("\r", "");
 
@@ -46,7 +49,7 @@ namespace Ion.Tests.Core
             List<Token> tokens = lexer.Tokenize();
 
             // Create the resulting stream.
-            TokenStream stream = new TokenStream();
+            TokenStream stream = new TokenStream(tokens.ToArray());
 
             // Return the stream.
             return stream;

@@ -31,6 +31,9 @@ namespace Ion.Tests.CodeGeneration
             // Create the token stream.
             TokenStream stream = TestUtil.CreateStreamFromInputDataFile("VariableDeclaration");
 
+            // Ensure correct token stream length.
+            Assert.AreEqual(2, stream.Count);
+
             // Insert stream bounds.
             stream.InsertBounds();
 
