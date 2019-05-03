@@ -23,7 +23,7 @@ namespace Ion.SyntaxAnalysis
     /// </summary>
     public class Lexer
     {
-        private static readonly int EOF = -1;
+        public static readonly int EOF = -1;
 
         /// <summary>
         /// The character located at the current
