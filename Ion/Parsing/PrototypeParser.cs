@@ -1,6 +1,5 @@
 using Ion.CodeGeneration;
 using Ion.SyntaxAnalysis;
-using Ion.Misc;
 
 namespace Ion.Parsing
 {
@@ -12,13 +11,13 @@ namespace Ion.Parsing
             Type returnType = new TypeParser().Parse(stream);
 
             // Capture identifier.
-            string identifier = stream.Next(TokenType.Identifier).Value;
+            var identifier = stream.Next(TokenType.Identifier).Value;
 
             // Invoke the formal argument parser.
             FormalArgs args = new FormalArgsParser().Parse(stream);
 
             // Create the resulting prototype entity.
-            Prototype prototype = new Prototype(identifier, args, returnType);
+            var prototype = new Prototype(identifier, args, returnType);
 
             // Return prototype.
             return prototype;

@@ -1,10 +1,7 @@
-using System.Text.RegularExpressions;
-using System.Text;
-using LLVMSharp;
-using Ion.SyntaxAnalysis;
-using Ion.Misc;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Ion.Misc;
 
 namespace Ion.SyntaxAnalysis
 {
@@ -12,24 +9,37 @@ namespace Ion.SyntaxAnalysis
     public enum LexerOptions
     {
         None = 1,
+
         IgnoreWhitespace = 2,
 
         IgnoreComments = 4
     }
 
     /// <summary>
-    /// Parses input code string and creates
-    /// corresponding tokens.
+    ///     Parses input code string and creates
+    ///     corresponding tokens.
     /// </summary>
     public class Lexer
     {
         public static readonly int EOF = -1;
 
         /// <summary>
+        ///     Temporarily the captured string value
+        ///     as a buffer.
+        /// </summary>
+        protected string buffer;
+
+        public Lexer(string input, LexerOptions options = LexerOptions.IgnoreComments | LexerOptions.IgnoreWhitespace)
+        {
+            Input = input.Trim();
+            Options = options;
+        }
+
+        /// <summary>
         /// The character located at the current
         /// position in the input string.
         /// </summary>
-        public char Char => this.Input[this.Position];
+        public char Char => this.Input[Position];
 
         public int Position { get; set; }
 
@@ -37,33 +47,17 @@ namespace Ion.SyntaxAnalysis
 
         public LexerOptions Options { get; }
 
-        /// <summary>
-        /// Temporarily the captured string value
-        /// as a buffer.
-        /// </summary>
-        protected string buffer;
-
-        public Lexer(string input, LexerOptions options)
-        {
-            this.Input = input.Trim();
-            this.Options = options;
-        }
-
         // Defaults to ignoring whitespace unless other specified.
-        public Lexer(string input) : this(input, (LexerOptions.IgnoreComments | LexerOptions.IgnoreWhitespace))
-        {
-            //
-        }
 
         /// <summary>
-        /// Begin the tokenization process, obtaining/extracting all
-        /// possible tokens from the input string. Tokens which are
-        /// unable to be identified will default to token type unknown.
+        ///     Begin the tokenization process, obtaining/extracting all
+        ///     possible tokens from the input string. Tokens which are
+        ///     unable to be identified will default to token type unknown.
         /// </summary>
         public List<Token> Tokenize()
         {
-            List<Token> tokens = new List<Token>();
-            Token? nextToken = this.GetNextToken();
+            var tokens = new List<Token>();
+            var nextToken = GetNextToken();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
 
@@ -72,16 +66,14 @@ namespace Ion.SyntaxAnalysis
             {
                 // If the token is unknown, issue a warning in console.
                 if (nextToken.Value.Type == TokenType.Unknown)
-                {
                     // TODO: This should be done through ErrorReporting (implement in the future).
                     Console.WriteLine($"Warning: Unexpected token type to be unknown, value: {nextToken.Value.Value}");
-                }
 
                 // Append token value to the result list.
                 tokens.Add(nextToken.Value);
 
                 // Continue enumeration.
-                nextToken = this.GetNextToken();
+                nextToken = GetNextToken();
             }
 
             Console.ResetColor();
@@ -90,75 +82,76 @@ namespace Ion.SyntaxAnalysis
         }
 
         /// <summary>
-        /// Attempt to obtain the next upcoming
-        /// token.
+        ///     Attempt to obtain the next upcoming
+        ///     token.
         /// </summary>
         public Token? GetNextToken()
         {
             // Return immediatly if position overflows.
-            if (this.Position > this.Input.Length - 1)
-            {
-                return null;
-            }
+            if (Position > Input.Length - 1) return null;
 
             // Begin capturing the token. Identify the token as unknown initially.
             var token = new Token
             {
-                StartPos = this.Position,
+                StartPos = Position,
                 Type = TokenType.Unknown,
 
                 // Default to current character to avoid infinite loop.
-                Value = this.Char.ToString()
+                Value = Char.ToString()
             };
 
             // Skip whitespace characters if applicable.
-            if (this.Options.HasFlag(LexerOptions.IgnoreWhitespace))
-            {
+            if (Options.HasFlag(LexerOptions.IgnoreWhitespace))
                 // While the current character is whitespace.
-                while (char.IsWhiteSpace(this.Char))
-                {
+                while (char.IsWhiteSpace(Char))
                     // Skip over the character.
-                    this.Skip();
-                }
-            }
+                    Skip();
             // If ignore whitespace isn't enabled, then we can save it as a token.
-            else if (char.IsWhiteSpace(this.Char))
-            {
+            else if (char.IsWhiteSpace(Char))
                 // Match all whitespace characters until we hit a normal character.
+<<<<<<< HEAD
+                if (MatchExpression(ref token, TokenType.Whitespace, Util.CreateRegex(@"[\s]+")))
+=======
                 if (this.MatchExpression(ref token, TokenType.Whitespace, Util.CreateRegex(@"[\s]+")))
                 {
+>>>>>>> master
                     // Return the token
                     return token;
-                }
-            }
 
             // Comments have highest priority because the division operator will catch the beginning of any comments.
             // If it starts with '/', it's a candidate.
+<<<<<<< HEAD
+            foreach (var pair in Constants.commentTokenTypes)
+                if (MatchExpression(ref token, pair.Value, pair.Key))
+=======
             foreach (var (key, value) in Constants.commentTokenTypes)
             {
                 if (this.MatchExpression(ref token, value, key))
+>>>>>>> master
                 {
                     // If the lexer should ignore comments, return the next comment.
-                    if (this.Options.HasFlag(LexerOptions.IgnoreComments))
-                    {
-                        return this.GetNextToken();
-                    }
+                    if (Options.HasFlag(LexerOptions.IgnoreComments)) return GetNextToken();
 
                     return token;
                 }
-            }
 
             // Test string against simple token type values.
+<<<<<<< HEAD
+            foreach (var pair in Constants.simpleTokenTypes)
+                // Possible candidate.
+                if (pair.Key.StartsWith(Char))
+=======
             foreach (var (key, value) in Constants.simpleTokenTypes)
             {
                 // Possible candidate.
                 if (key.StartsWith(this.Char))
+>>>>>>> master
                 {
                     // Create initial regex.
                     var pattern = Util.CreateRegex(Regex.Escape(key));
 
                     // Skimming involves removing the last character.
-                    bool skim = false;
+                    var skim = false;
 
                     // If the match starts with a letter, modify the regex to force either whitespace or EOF at the end.
                     if (char.IsLetter(key[0]))
@@ -171,13 +164,22 @@ namespace Ion.SyntaxAnalysis
                     }
 
                     // If the symbol is next in the input.
+<<<<<<< HEAD
+                    if (MatchExpression(ref token, pair.Value, pattern))
+=======
                     if (this.MatchExpression(ref token, value, pattern))
+>>>>>>> master
                     {
                         // If skimming is required, remove the last character from the token value.
                         if (skim)
                         {
+<<<<<<< HEAD
+                            // Reduce the position
+                            Position -= token.Value.Length - pair.Key.Length;
+=======
                             // Reduce the position.
                             this.Position -= token.Value.Length - key.Length;
+>>>>>>> master
 
                             // Skim the last character off.
                             token.Value = key;
@@ -187,36 +189,43 @@ namespace Ion.SyntaxAnalysis
                         return token;
                     }
                 }
-            }
 
             // TODO: Add comment literal support.
             // Complex types support.
+<<<<<<< HEAD
+            foreach (var pair in Constants.complexTokenTypes)
+                // If it matches, return the token (already modified by the function).
+                if (MatchExpression(ref token, pair.Value, pair.Key))
+=======
             foreach (var (key, value) in Constants.complexTokenTypes)
             {
                 // If it matches, return the token (already modified by the function).
                 if (this.MatchExpression(ref token, value, key))
                 {
+>>>>>>> master
                     // Return the token.
                     return token;
-                }
-            }
 
             // At this point the token was not identified. Skip over any captured value.
+<<<<<<< HEAD
+            Skip(token.Value != null ? token.Value.Length : 0);
+=======
             this.Skip(token.Value?.Length ?? 0);
+>>>>>>> master
 
             // Return the default token. The token type defaults to unknown.
             return token;
         }
 
         /// <summary>
-        /// Checks for a positive match for a complex type or just generic regex,
-        /// if positive, it'll update the referenced token to the provided type with
-        /// the matched text.
+        ///     Checks for a positive match for a complex type or just generic regex,
+        ///     if positive, it'll update the referenced token to the provided type with
+        ///     the matched text.
         /// </summary>
         public bool MatchExpression(ref Token token, TokenType type, Regex regex, bool modifyToken = true)
         {
             // Substrings from the current position to get the viable matching string.
-            string input = this.Input.Substring(this.Position).TrimStart();
+            var input = Input.Substring(Position).TrimStart();
             Match match = regex.Match(input);
 
             // If the match is success, update the token to reflect this.
@@ -227,7 +236,7 @@ namespace Ion.SyntaxAnalysis
                     token.Value = match.Value;
                     token.Type = type;
 
-                    this.Skip(match.Value.Length);
+                    Skip(match.Value.Length);
                 }
 
                 return true;
@@ -237,8 +246,8 @@ namespace Ion.SyntaxAnalysis
         }
 
         /// <summary>
-        /// Skip a specific amount of characters
-        /// from the current position.
+        ///     Skip a specific amount of characters
+        ///     from the current position.
         /// </summary>
         public void Skip(int amount = 1)
         {
@@ -249,7 +258,7 @@ namespace Ion.SyntaxAnalysis
             //     return;
             // }
 
-            this.Position += amount;
+            Position += amount;
         }
     }
 }

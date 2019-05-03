@@ -1,5 +1,3 @@
-using LLVMSharp;
-
 namespace Ion.CodeGeneration.Structure
 {
     public interface IEntity<TResult, TContext>

@@ -4,18 +4,19 @@ using Ion.SyntaxAnalysis;
 namespace Ion.Parsing
 {
     /// <summary>
-    /// Parses top-level expressions using an anonymous
-    /// function.
+    ///     Parses top-level expressions using an anonymous
+    ///     function.
     /// </summary>
     public class TopLevelExprParser : IParser<Function>
     {
         public Function Parse(TokenStream stream)
         {
+            // TODO: Use expression? Maybe add it to the body block?
             // Parse the expression.
             Expr expr = new ExprParser().Parse(stream);
 
             // Create the anonymous function.
-            Function function = new Function();
+            var function = new Function();
 
             // Set the function name to anonymous.
             function.SetNameAnonymous();

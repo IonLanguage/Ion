@@ -2,18 +2,18 @@ namespace Ion.CognitiveServices
 {
     public static class TypeName
     {
-        public static string Character = "char";
+        public const string Character = "char";
 
-        public static string Int32 = "int";
+        public const string Int32 = "int";
 
-        public static string Int64 = "long";
+        public const string Int64 = "long";
 
-        public static string Float = "float";
+        public const string Float = "float";
 
-        public static string Double = "double";
+        public const string Double = "double";
 
-        public static string Boolean = "bool";
+        public const string Boolean = "bool";
 
-        public static string Void = "void";
+        public const string Void = "void";
     }
 }

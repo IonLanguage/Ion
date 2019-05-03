@@ -1,33 +1,30 @@
-using LLVMSharp;
 using Ion.CodeGeneration.Structure;
 using Ion.Misc;
+using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
     public class GlobalVar : Named, IEntity<LLVMValueRef, LLVMModuleRef>
     {
-        public Type Type { get; protected set; }
-
-        public Value Value { get; set; }
-
         public GlobalVar(Type type)
         {
-            this.Type = type;
+            Type = type;
         }
+
+        public Type Type { get; }
+
+        public Value Value { get; set; }
 
         public LLVMValueRef Emit(LLVMModuleRef context)
         {
             // Create the global variable.
-            LLVMValueRef globalVar = LLVM.AddGlobal(context, this.Type.Emit(), this.Name);
+            LLVMValueRef globalVar = LLVM.AddGlobal(context, Type.Emit(), Name);
 
             // Set the linkage to common.
             globalVar.SetLinkage(LLVMLinkage.LLVMCommonLinkage);
 
             // Assign value if applicable.
-            if (this.Value != null)
-            {
-                globalVar.SetInitializer(this.Value.Emit());
-            }
+            if (Value != null) globalVar.SetInitializer(Value.Emit());
 
             return globalVar;
         }

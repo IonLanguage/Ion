@@ -1,21 +1,19 @@
+using System;
 using Ion.Abstraction;
 using Ion.CodeGeneration;
-using Ion.SyntaxAnalysis;
 using Ion.CognitiveServices;
-using System;
+using Ion.SyntaxAnalysis;
 
 namespace Ion.Parsing
 {
     public class Driver
     {
-        public Module Module { get; protected set; }
-
         protected readonly TokenStream stream;
 
         public Driver(TokenStream stream)
         {
             this.stream = stream;
-            this.Module = new Module();
+            Module = new Module();
         }
 
         public Driver(Token[] tokens) : this(new TokenStream(tokens))
@@ -23,41 +21,40 @@ namespace Ion.Parsing
             //
         }
 
+        public Module Module { get; }
+
         // TODO: What if EOF token has not been processed itself?
         public bool HasNext
         {
             get
             {
-                TokenType currentType = this.stream.Get().Type;
-                TokenType nextType = this.stream.Peek().Type;
+                TokenType currentType = stream.Get().Type;
+                TokenType nextType = stream.Peek().Type;
 
                 return currentType != TokenType.ProgramEnd && nextType != TokenType.ProgramEnd;
             }
         }
 
         /// <summary>
-        /// Process the next sequence. Returns true
-        /// if the sequence was successfully processed.
+        ///     Process the next sequence. Returns true
+        ///     if the sequence was successfully processed.
         /// </summary>
         public bool Next()
         {
             // TODO: What if EOF token has not been processed itself?
             // End reached.
-            if (this.stream.LastItem)
-            {
-                return false;
-            }
+            if (stream.LastItem) return false;
 
             // TODO: Finish fixing this, parsers overflowing (+1) because of this issue with the Program start (05/02/2019).
-            TokenType type = this.stream.Get().Type;
+            TokenType type = stream.Get().Type;
 
             // Skip program start token.
             if (type == TokenType.ProgramStart)
             {
-                this.stream.Skip();
+                stream.Skip();
 
                 // Assign type as next token type, continue execution.
-                type = this.stream.Get().Type;
+                type = stream.Get().Type;
             }
 
             // Skip unknown tokens for error recovery.
@@ -81,7 +78,7 @@ namespace Ion.Parsing
                     Function function = new FunctionParser().Parse(stream);
 
                     // Emit the function.
-                    function.Emit(this.Module.Source);
+                    function.Emit(Module.Source);
                 }
                 // Otherwise, global variable declaration.
                 else
@@ -90,7 +87,7 @@ namespace Ion.Parsing
                     GlobalVar globalVariable = new GlobalVarParser().Parse(stream);
 
                     // Emit the global variable.
-                    globalVariable.Emit(this.Module.Source);
+                    globalVariable.Emit(Module.Source);
                 }
             }
             // External definition.
@@ -100,7 +97,7 @@ namespace Ion.Parsing
                 Extern external = new ExternParser().Parse(stream);
 
                 // Emit the external definition.
-                external.Emit(this.Module.Source);
+                external.Emit(Module.Source);
             }
             // Otherwise, top-level expression.
             else
@@ -109,7 +106,7 @@ namespace Ion.Parsing
                 Function exprDelegate = new TopLevelExprParser().Parse(stream);
 
                 // Emit the top-level expression.
-                exprDelegate.Emit(this.Module.Source);
+                exprDelegate.Emit(Module.Source);
             }
 
             // At this point, an entity was processed.

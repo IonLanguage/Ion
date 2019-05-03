@@ -8,110 +8,96 @@ namespace Ion.Misc
     // TODO: Upon adding (inserting) or removing items, the index will NOT update.
     public class Stream<T> : List<T>
     {
-        public int Index => this.index;
-
-        public bool LastItem => this.index == this.Count - 1;
-
         protected int index;
 
         protected int pivotIndex = -1;
 
-        public Stream() : base()
+        public Stream()
         {
             // Prepare the initial enumerator.
-            this.Reset();
+            Reset();
         }
 
         public Stream(T[] items) : base(items)
         {
             // Prepare the initial enumerator.
-            this.Reset();
+            Reset();
         }
 
+        public int Index => index;
+
+        public bool LastItem => index == Count - 1;
+
         /// <summary>
-        /// Set the peek pivot relative to the current
-        /// index.
+        ///     Set the peek pivot relative to the current
+        ///     index.
         /// </summary>
         public void SetRelativePivot(int amount)
         {
-            this.SetPivot(this.index + amount);
+            SetPivot(index + amount);
         }
 
         /// <summary>
-        /// Set the peek pivot.
+        ///     Set the peek pivot.
         /// </summary>
-        public void SetPivot(int index)
+        public void SetPivot(int at)
         {
-            if (index < 1)
-            {
-                throw new ArgumentException("Unexpected index to be less than one");
-            }
+            if (at < 1) throw new ArgumentException("Unexpected index to be less than one");
 
-            this.pivotIndex = index;
+            pivotIndex = at;
         }
 
         /// <summary>
-        /// Reset the peek pivot, no longer affecting
-        /// peek actions.
+        ///     Reset the peek pivot, no longer affecting
+        ///     peek actions.
         /// </summary>
         public void ResetPivot()
         {
-            this.pivotIndex = -1;
+            pivotIndex = -1;
         }
 
         /// <summary>
-        /// Reset the index to zero.
+        ///     Reset the index to zero.
         /// </summary>
         public void Reset()
         {
-            this.index = 0;
+            index = 0;
         }
 
         public bool Skip()
         {
-            bool successful = false;
-
             // Ensure not overflowing.
-            if (!this.LastItem)
-            {
-                this.index++;
-                successful = true;
-            }
+            if (LastItem) return false;
 
-            return successful;
+            index++;
+
+            return true;
         }
 
         public T Next()
         {
-            this.Skip();
+            Skip();
 
-            return this.Get();
+            return Get();
         }
 
         public T Peek(int amount = 1)
         {
-            int index = this.index;
+            var newIndex = index;
 
             // Apply pivot if applicable.
-            if (this.pivotIndex != -1)
-            {
-                index += this.pivotIndex;
-            }
+            if (pivotIndex != -1) newIndex += pivotIndex;
 
             // Amount cannot be zero.
-            if (amount == 0)
-            {
-                throw new ArgumentException("Amount cannot be zero");
-            }
+            if (amount == 0) throw new ArgumentException("Amount cannot be zero");
+
             // Return first or last item if index overflows.
-            else if (this.DoesIndexOverflow(index + amount))
+            if (DoesIndexOverflow(newIndex + amount))
             {
                 // Return program end token.
                 if (amount > 0)
-                {
                     // TODO
                     return SpecialToken.ProgramEnd;
-                }
 
                 // Otherwise, return first item.
                 return this[0];
@@ -121,31 +107,29 @@ namespace Ion.Misc
         }
 
         /// <summary>
-        /// Determine if the provided index
-        /// will overflow the amount of items
-        /// currently available.
+        ///     Determine if the provided index
+        ///     will overflow the amount of items
+        ///     currently available.
         /// </summary>
-        public bool DoesIndexOverflow(int index)
+        public bool DoesIndexOverflow(int at)
         {
-            return index < 0 || this.Count - 1 < index;
+            return at < 0 || Count - 1 < at;
         }
 
         public T Get()
         {
-            return this[this.index];
+            return this[index];
         }
 
         public override string ToString()
         {
             // Create the string builder.
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
 
             // Loop through all values.
-            foreach (var token in this)
-            {
+            foreach (T token in this)
                 // Append the value's string representation to the result.
                 result.AppendLine(token.ToString());
-            }
 
             // Build the final string.
             return result.ToString();

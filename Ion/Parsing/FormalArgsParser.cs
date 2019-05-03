@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using LLVMSharp;
 using Ion.CodeGeneration;
-using Ion.Misc;
 using Ion.SyntaxAnalysis;
 
 namespace Ion.Parsing
@@ -15,7 +12,7 @@ namespace Ion.Parsing
             stream.Skip(TokenType.SymbolParenthesesL);
 
             // Create the formal args entity.
-            FormalArgs args = new FormalArgs();
+            var args = new FormalArgs();
 
             // Create the loop buffer token.
             Token peekBuffer = stream.Peek();
@@ -48,24 +45,17 @@ namespace Ion.Parsing
 
                 // Ensure next token is valid.
                 if (peekBuffer.Type != TokenType.SymbolComma && peekBuffer.Type != TokenType.SymbolParenthesesR)
-                {
-                    throw new Exception($"Unexpected token of type '{peekBuffer.Type}'; Expected comma or parentheses end in argument list");
-                }
+                    throw new Exception(
+                        $"Unexpected token of type '{peekBuffer.Type}'; Expected comma or parentheses end in argument list");
                 // Skip comma.
-                else if (peekBuffer.Type == TokenType.SymbolComma)
-                {
-                    stream.Skip();
-                }
+                else if (peekBuffer.Type == TokenType.SymbolComma) stream.Skip();
 
                 // Append the parsed arg.
                 args.Values.Add(arg);
             }
 
             // Skip parentheses end if applicable.
-            if (peekBuffer.Type == TokenType.SymbolParenthesesR)
-            {
-                stream.Skip(TokenType.SymbolParenthesesR);
-            }
+            if (peekBuffer.Type == TokenType.SymbolParenthesesR) stream.Skip(TokenType.SymbolParenthesesR);
 
             // Finish process.
             return args;

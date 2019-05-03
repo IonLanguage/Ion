@@ -1,6 +1,8 @@
+using System;
 using Ion.CodeGeneration;
-using Ion.SyntaxAnalysis;
 using Ion.CognitiveServices;
+using Ion.SyntaxAnalysis;
+using Type = Ion.CodeGeneration.Type;
 
 namespace Ion.Parsing
 {
@@ -13,26 +15,22 @@ namespace Ion.Parsing
 
             // Check if the next token is a type
             if (TokenIdentifier.IsType(stream.Peek()))
-            {
                 // Capture argument type value.
                 typeValue = stream.Next().Value;
-            }
             else
-            {
                 // TODO: Better error lol.
-                throw new System.Exception("Oops you need a type!");
-            }
+                throw new Exception("Oops you need a type!");
 
-            // Create the arg's type.
-            CodeGeneration.Type type = new CodeGeneration.Type(typeValue);
+            // Create the argument's type.
+            var type = new Type(typeValue);
 
             // Create the formal argument entity.
-            FormalArg arg = new FormalArg(type);
+            var arg = new FormalArg(type);
 
-            // Capture the arg's name.
-            string name = stream.Next(TokenType.Identifier).Value;
+            // Capture the argument's name.
+            var name = stream.Next(TokenType.Identifier).Value;
 
-            // Assign the arg's name.
+            // Assign the argument's name.
             arg.SetName(name);
 
             return arg;

@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using Ion.CodeGeneration;
-using Ion.Core;
 using Ion.SyntaxAnalysis;
 
 namespace Ion.Parsing
@@ -13,13 +11,10 @@ namespace Ion.Parsing
             Token nextToken = stream.Peek();
 
             // Ensure captured token is an identifier.
-            if (nextToken.Type != TokenType.Identifier)
-            {
-                throw new Exception("Expected token to be an identifier");
-            }
+            if (nextToken.Type != TokenType.Identifier) throw new Exception("Expected token to be an identifier");
 
             // Capture identifier token value.
-            string identifier = nextToken.Value;
+            var identifier = nextToken.Value;
 
             // Variable reference.
             if (stream.Peek(2).Type != TokenType.SymbolParenthesesL)

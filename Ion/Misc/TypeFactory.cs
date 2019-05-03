@@ -3,7 +3,7 @@ using Ion.CognitiveServices;
 
 namespace Ion.Misc
 {
-    public class TypeFactory
+    public static class TypeFactory
     {
         public static Type Int32()
         {
