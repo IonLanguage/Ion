@@ -28,7 +28,10 @@ namespace Ion.Parsing
         {
             get
             {
-                return this.stream.Get().Type != TokenType.ProgramEnd;
+                TokenType currentType = this.stream.Get().Type;
+                TokenType nextType = this.stream.Peek().Type;
+
+                return currentType != TokenType.ProgramEnd && nextType != TokenType.ProgramEnd;
             }
         }
 
@@ -46,6 +49,15 @@ namespace Ion.Parsing
             }
 
             TokenType type = this.stream.Get().Type;
+
+            // Skip program start token.
+            if (type == TokenType.ProgramStart)
+            {
+                this.stream.Skip();
+
+                // Assign type as next token type, continue execution.
+                type = this.stream.Get().Type;
+            }
 
             // Skip unknown tokens for error recovery.
             if (type == TokenType.Unknown)

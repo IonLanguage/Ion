@@ -13,6 +13,8 @@ namespace Ion.Misc
 
         protected int index;
 
+        protected int pivotIndex = -1;
+
         public Stream() : base()
         {
             // Prepare the initial enumerator.
@@ -23,6 +25,37 @@ namespace Ion.Misc
         {
             // Prepare the initial enumerator.
             this.Reset();
+        }
+
+        /// <summary>
+        /// Set the peek pivot relative to the current
+        /// index.
+        /// </summary>
+        public void SetRelativePivot(int amount)
+        {
+            this.SetPivot(this.index + amount);
+        }
+
+        /// <summary>
+        /// Set the peek pivot.
+        /// </summary>
+        public void SetPivot(int index)
+        {
+            if (index < 1)
+            {
+                throw new ArgumentException("Unexpected index to be less than one");
+            }
+
+            this.pivotIndex = index;
+        }
+
+        /// <summary>
+        /// Reset the peek pivot, no longer affecting
+        /// peek actions.
+        /// </summary>
+        public void ResetPivot()
+        {
+            this.pivotIndex = -1;
         }
 
         /// <summary>
@@ -56,25 +89,33 @@ namespace Ion.Misc
 
         public T Peek(int amount = 1)
         {
+            int index = this.index;
+
+            // Apply pivot if applicable.
+            if (this.pivotIndex != -1)
+            {
+                index += this.pivotIndex;
+            }
+
             // Amount cannot be zero.
             if (amount == 0)
             {
                 throw new ArgumentException("Amount cannot be zero");
             }
             // Return first or last item if index overflows.
-            else if (this.DoesIndexOverflow(this.index + amount))
+            else if (this.DoesIndexOverflow(index + amount))
             {
-                // Return last item.
+                // Return program end token.
                 if (amount > 0)
                 {
-                    return this[this.Count - 1];
+                    return SpecialToken.
                 }
 
                 // Otherwise, return first item.
                 return this[0];
             }
 
-            return this[this.index + amount];
+            return this[index + amount];
         }
 
         /// <summary>

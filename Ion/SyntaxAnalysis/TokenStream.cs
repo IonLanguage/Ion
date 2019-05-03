@@ -58,16 +58,10 @@ namespace Ion.SyntaxAnalysis
         public void InsertBounds()
         {
             // Insert program start token.
-            this.Insert(0, new Token
-            {
-                Type = TokenType.ProgramStart
-            });
+            this.Insert(0, SpecialToken.ProgramStart);
 
             // Append program end token.
-            this.Add(new Token
-            {
-                Type = TokenType.ProgramEnd
-            });
+            this.Add(SpecialToken.ProgramEnd);
         }
 
         /// <summary>
