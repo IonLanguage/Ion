@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Ion.Misc
 {
-    // TODO: Upon adding or removing items, the index will NOT update.
+    // TODO: Upon adding (inserting) or removing items, the index will NOT update.
     public class Stream<T> : List<T>
     {
         public int Index => this.index;
@@ -89,6 +90,22 @@ namespace Ion.Misc
         public T Get()
         {
             return this[this.index];
+        }
+
+        public override string ToString()
+        {
+            // Create the string builder.
+            StringBuilder result = new StringBuilder();
+
+            // Loop through all values.
+            foreach (var token in this)
+            {
+                // Append the value's string representation to the result.
+                result.AppendLine(token.ToString());
+            }
+
+            // Build the final string.
+            return result.ToString();
         }
     }
 }

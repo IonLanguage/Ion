@@ -2,6 +2,7 @@ using Ion.Abstraction;
 using Ion.CodeGeneration;
 using Ion.SyntaxAnalysis;
 using Ion.CognitiveServices;
+using System;
 
 namespace Ion.Parsing
 {
@@ -22,19 +23,34 @@ namespace Ion.Parsing
             //
         }
 
-        public void Next()
+        /// <summary>
+        /// Process the next sequence. Returns true
+        /// if the sequence was successfully processed.
+        /// </summary>
+        public bool Next()
         {
             // TODO: What if EOF has not been processed?
             // End reached.
             if (this.stream.LastItem)
             {
-                return;
+                return false;
             }
 
             TokenType type = this.stream.Get().Type;
 
+            // TODO: Debugging.
+            Console.WriteLine(this.stream.ToString());
+
+            // Skip unknown tokens for error recovery.
+            if (type == TokenType.Unknown)
+            {
+                // TODO: Use error reporting.
+                Console.WriteLine("Warning: Skipping unknown token");
+
+                return false;
+            }
             // Function definition or global variable.
-            if (TokenIdentifier.IsType(type))
+            else if (TokenIdentifier.IsType(type))
             {
                 // Peek the token after identifier.
                 Token afterIdentifier = stream.Peek(2);
@@ -76,6 +92,9 @@ namespace Ion.Parsing
                 // Emit the top-level expression.
                 exprDelegate.Emit(this.Module.Source);
             }
+
+            // At this point, an entity was processed.
+            return true;
         }
     }
 }
