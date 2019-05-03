@@ -15,50 +15,48 @@ namespace Ion.CodeGeneration
         public LLVMValueRef Emit(LLVMModuleRef context)
         {
             // Ensure body was provided or created.
-            if (Body == null)
+            if (this.Body == null)
                 throw new Exception("Unexpected function body to be null");
             // Ensure prototype is set.
-            else if (Prototype == null) throw new Exception("Unexpected function prototype to be null");
+            if (this.Prototype == null) throw new Exception("Unexpected function prototype to be null");
 
             // Emit the argument types.
-            var args = Prototype.Args.Emit();
+            var args = this.Prototype.Args.Emit();
 
             // Emit the return type
-            LLVMTypeRef returnType = Prototype.ReturnType.Emit();
+            LLVMTypeRef returnType = this.Prototype.ReturnType.Emit();
 
             // Emit the function type.
-            LLVMTypeRef type = LLVM.FunctionType(returnType, args, Prototype.Args.Continuous);
+            LLVMTypeRef type = LLVM.FunctionType(returnType, args, this.Prototype.Args.Continuous);
 
             // Create the function.
-            LLVMValueRef function = LLVM.AddFunction(context, Prototype.Name, type);
+            LLVMValueRef function = LLVM.AddFunction(context, this.Prototype.Name, type);
 
             // Apply the body.
-            Body.Emit(function);
+            this.Body.Emit(function);
 
             // Ensures the function does not already exist
-            if (SymbolTable.functions.ContainsKey(Prototype.Name))
-                throw new Exception($@"Function with that name ""{Prototype.Name}"" already exists.");
-            else
-                // Register the function in the symbol table.
-                SymbolTable.functions.Add(Prototype.Name, function);
+            if (SymbolTable.functions.ContainsKey(this.Prototype.Name))
+                throw new Exception($@"Function with that name ""{this.Prototype.Name}"" already exists.");
+            SymbolTable.functions.Add(this.Prototype.Name, function);
 
             return function;
         }
 
         /// <summary>
-        ///     Attempt to retrieve the function LLVM value
-        ///     reference from the symbol table. Returns null
-        ///     if the function does not exist or was not
-        ///     previously emitted.
+        /// Attempt to retrieve the function LLVM value
+        /// reference from the symbol table. Returns null
+        /// if the function does not exist or was not
+        /// previously emitted.
         /// </summary>
         public LLVMValueRef Retrieve()
         {
-            return SymbolTable.functions[Name];
+            return SymbolTable.functions[this.Name];
         }
 
         /// <summary>
-        ///     Creates, assigns and returns a body block,
-        ///     replacing existing body.
+        /// Creates, assigns and returns a body block,
+        /// replacing existing body.
         /// </summary>
         public Block CreateBody()
         {
@@ -66,7 +64,7 @@ namespace Ion.CodeGeneration
             var body = new Block();
 
             // Assign the created block as the body.
-            Body = body;
+            this.Body = body;
 
             // Return the newly created body.
             return body;
@@ -75,25 +73,25 @@ namespace Ion.CodeGeneration
         public FormalArgs CreateArgs()
         {
             // Create the prototype if applicable.
-            if (Prototype == null)
+            if (this.Prototype == null)
             {
                 // Create the prototype.
-                CreatePrototype();
+                this.CreatePrototype();
 
                 // Return formal arguments created by the previous invocation.
-                return Prototype.Args;
+                return this.Prototype.Args;
             }
 
             // Create the args entity.
-            Prototype.Args = new FormalArgs();
+            this.Prototype.Args = new FormalArgs();
 
             // Return the newly created args.
-            return Prototype.Args;
+            return this.Prototype.Args;
         }
 
         /// <summary>
-        ///     Creates a prototype for this function, overriding
-        ///     any existing prototype property value. Creates arguments.
+        /// Creates a prototype for this function, overriding
+        /// any existing prototype property value. Creates arguments.
         /// </summary>
         public Prototype CreatePrototype()
         {
@@ -101,16 +99,16 @@ namespace Ion.CodeGeneration
             Type returnType = TypeFactory.Void();
 
             // Create a new prototype instance.
-            Prototype = new Prototype(Name, null, returnType);
+            this.Prototype = new Prototype(this.Name, null, returnType);
 
             // Create formal arguments after assigning prototype to avoid infinite loop.
-            FormalArgs args = CreateArgs();
+            FormalArgs args = this.CreateArgs();
 
             // Assign the formal arguments.
-            Prototype.Args = args;
+            this.Prototype.Args = args;
 
             // Return the prototype.
-            return Prototype;
+            return this.Prototype;
         }
     }
 }

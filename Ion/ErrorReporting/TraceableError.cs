@@ -22,7 +22,7 @@ namespace Ion.ErrorReporting
 
             traceBuilder.AppendLine(base.ToString());
 
-            foreach (ErrorTraceStackItem stackItem in Stack) traceBuilder.AppendLine($"\t{stackItem.TraceString}");
+            foreach (ErrorTraceStackItem stackItem in this.Stack) traceBuilder.AppendLine($"\t{stackItem.TraceString}");
 
             return traceBuilder.ToString();
         }

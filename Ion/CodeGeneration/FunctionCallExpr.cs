@@ -7,9 +7,9 @@ namespace Ion.CodeGeneration
     {
         public FunctionCallExpr(LLVMValueRef target, string callee, List<Expr> args)
         {
-            Target = target;
-            Callee = callee;
-            Args = args;
+            this.Target = target;
+            this.Callee = callee;
+            this.Args = args;
         }
 
         public override ExprType Type => ExprType.FunctionCall;
@@ -26,24 +26,30 @@ namespace Ion.CodeGeneration
             var args = new List<LLVMValueRef>();
 
             // Emit the call arguments.
-            foreach (Expr arg in Args)
+            foreach (Expr arg in this.Args)
             {
                 // Continue if the argument is null.
-                if (arg == null) continue;
+                if (arg == null)
+                {
+                    continue;
+                }
 
                 // Emit the argument.
                 LLVMValueRef? argValue = arg.Emit(context);
 
                 // TODO: Should be reported as a warning?
                 // Continue if emission failed.
-                if (!argValue.HasValue) continue;
+                if (!argValue.HasValue)
+                {
+                    continue;
+                }
 
                 // Append to the resulting arguments.
                 args.Add(argValue.Value);
             }
 
             // Create the function call.
-            LLVMValueRef functionCall = LLVM.BuildCall(context, Target, args.ToArray(), Name);
+            LLVMValueRef functionCall = LLVM.BuildCall(context, this.Target, args.ToArray(), this.Name);
 
             return functionCall;
         }

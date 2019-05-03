@@ -33,7 +33,7 @@ namespace Ion.Parsing
                 as the current binary operation, consume it. Otherwise, the process
                 is complete.
                 */
-                if (firstPrecedence < minimalPrecedence) return leftSide;
+                if (firstPrecedence < this.minimalPrecedence) return this.leftSide;
 
                 // At this point, it's a binary operation.
                 TokenType binaryOperator = stream.Get().Type;
@@ -72,10 +72,10 @@ namespace Ion.Parsing
                 }
 
                 // Create the binary expression entity.
-                var binaryExpr = new BinaryExpr(leftSide, rightSide, firstPrecedence);
+                var binaryExpr = new BinaryExpr(this.leftSide, rightSide, firstPrecedence);
 
                 // Merge left-side/right-side.
-                leftSide = binaryExpr;
+                this.leftSide = binaryExpr;
             }
         }
     }

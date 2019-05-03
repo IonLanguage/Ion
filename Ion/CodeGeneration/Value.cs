@@ -11,9 +11,9 @@ namespace Ion.CodeGeneration
     {
         public Value(Type type, TokenType tokenType, string valueString)
         {
-            Type = type;
-            TokenType = tokenType;
-            ValueString = valueString;
+            this.Type = type;
+            this.TokenType = tokenType;
+            this.ValueString = valueString;
         }
 
         public string ValueString { get; }
@@ -25,7 +25,7 @@ namespace Ion.CodeGeneration
         public LLVMValueRef Emit()
         {
             // Resolve the literal value.
-            return Resolvers.Literal(TokenType, ValueString, Type);
+            return Resolvers.Literal(this.TokenType, this.ValueString, this.Type);
         }
     }
 }

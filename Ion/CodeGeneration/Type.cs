@@ -1,7 +1,7 @@
-using LLVMSharp;
 using Ion.CodeGeneration.Structure;
 using Ion.CognitiveServices;
 using Ion.Misc;
+using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {

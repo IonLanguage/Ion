@@ -4,10 +4,6 @@ namespace Ion.AST
 {
     public class NodeChildren<T>
     {
-        public Node<T> Left { get; set; }
-
-        public Node<T> Right { get; set; }
-
         public NodeChildren()
         {
             //
@@ -18,6 +14,10 @@ namespace Ion.AST
             this.Left = left;
             this.Right = right;
         }
+
+        public Node<T> Left { get; set; }
+
+        public Node<T> Right { get; set; }
 
         public bool HasLeft
             => this.Left != null;
@@ -32,8 +32,8 @@ namespace Ion.AST
             => this.HasLeft && this.HasRight;
 
         /// <summary>
-        /// Whether both the left and right children
-        /// nodes do not exist and are unset.
+        ///     Whether both the left and right children
+        ///     nodes do not exist and are unset.
         /// </summary>
         public bool Empty => this.HasAny;
 
@@ -45,19 +45,13 @@ namespace Ion.AST
 
         public List<Node<T>> GetOrdered()
         {
-            List<Node<T>> result = new List<Node<T>>();
+            var result = new List<Node<T>>();
 
             // Collect all children from the left node if applicable.
-            if (this.HasLeft)
-            {
-                result.AddRange(this.Left.Children.GetOrdered());
-            }
+            if (this.HasLeft) result.AddRange(this.Left.Children.GetOrdered());
 
             // Collect all children from the right node if applicable.
-            if (this.HasRight)
-            {
-                result.AddRange(this.Right.Children.GetOrdered());
-            }
+            if (this.HasRight) result.AddRange(this.Right.Children.GetOrdered());
 
             return result;
         }

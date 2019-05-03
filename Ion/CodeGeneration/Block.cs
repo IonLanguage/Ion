@@ -14,11 +14,11 @@ namespace Ion.CodeGeneration
 
     public class Block : Named, IEntity<LLVMBasicBlockRef, LLVMValueRef>
     {
-        public List<Expr> Expressions;
+        public readonly List<Expr> Expressions;
 
         public Block()
         {
-            Expressions = new List<Expr>();
+            this.Expressions = new List<Expr>();
         }
 
         public Expr ReturnExpr { get; set; }
@@ -31,31 +31,32 @@ namespace Ion.CodeGeneration
         public LLVMBasicBlockRef Emit(LLVMValueRef context)
         {
             // Create the block and its corresponding builder.
-            LLVMBasicBlockRef block = LLVM.AppendBasicBlock(context, Name);
+            LLVMBasicBlockRef block = LLVM.AppendBasicBlock(context, this.Name);
             LLVMBuilderRef builder = LLVM.CreateBuilder();
 
             // Position and link the builder.
             LLVM.PositionBuilderAtEnd(builder, block);
 
             // Emit the expressions.
-            Expressions.ForEach(expression => { expression.Emit(builder); });
+            this.Expressions.ForEach(expression => { expression.Emit(builder); });
 
             // No value was returned.
-            if (ReturnExpr == null)
+            if (this.ReturnExpr == null)
                 LLVM.BuildRetVoid(builder);
             // Otherwise, emit the set return value.
             else
-                LLVM.BuildRet(builder, ReturnExpr.Emit(builder));
+                LLVM.BuildRet(builder, this.ReturnExpr.Emit(builder));
 
             // Cache emitted block.
-            Current = block;
+            this.Current = block;
 
+            // Return the block.
             return block;
         }
 
         public void SetNameEntry()
         {
-            SetName(SpecialName.Entry);
+            this.SetName(SpecialName.Entry);
         }
     }
 }

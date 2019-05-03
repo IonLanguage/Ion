@@ -31,11 +31,11 @@ namespace Ion.Linking
         public void Init()
         {
             // Populate compiled matches.
-            CompiledMatches = Match.Select((match) =>
+            this.CompiledMatches = this.Match.Select(match =>
                 new Regex(match)).ToArray();
 
             // Populate compiled exclusions.
-            CompiledExclusions = Exclude.Select((exclusion) =>
+            this.CompiledExclusions = this.Exclude.Select(exclusion =>
                 new Regex(exclusion)).ToArray();
         }
 
@@ -49,7 +49,7 @@ namespace Ion.Linking
             var baseName = Path.GetFileName(path);
 
             // Loop through all compiled exclusions.
-            return CompiledExclusions.Any(exclude => exclude.IsMatch(baseName));
+            return this.CompiledExclusions.Any(exclude => exclude.IsMatch(baseName));
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Ion.Linking
             var baseName = Path.GetFileName(path);
 
             // Loop through all compiled exclusions.
-            return CompiledMatches.Any(match => match.IsMatch(baseName));
+            return this.CompiledMatches.Any(match => match.IsMatch(baseName));
         }
     }
 }

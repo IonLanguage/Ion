@@ -8,7 +8,7 @@ namespace Ion.CodeGeneration
     {
         public GlobalVar(Type type)
         {
-            Type = type;
+            this.Type = type;
         }
 
         public Type Type { get; }
@@ -18,13 +18,13 @@ namespace Ion.CodeGeneration
         public LLVMValueRef Emit(LLVMModuleRef context)
         {
             // Create the global variable.
-            LLVMValueRef globalVar = LLVM.AddGlobal(context, Type.Emit(), Name);
+            LLVMValueRef globalVar = LLVM.AddGlobal(context, this.Type.Emit(), this.Name);
 
             // Set the linkage to common.
             globalVar.SetLinkage(LLVMLinkage.LLVMCommonLinkage);
 
             // Assign value if applicable.
-            if (Value != null) globalVar.SetInitializer(Value.Emit());
+            if (this.Value != null) globalVar.SetInitializer(this.Value.Emit());
 
             return globalVar;
         }

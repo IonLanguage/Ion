@@ -10,24 +10,24 @@ namespace Ion.Abstraction
     {
         public Module(LLVMModuleRef source)
         {
-            Source = source;
+            this.Source = source;
         }
 
         public Module()
         {
-            Source = LLVM.ModuleCreateWithName(SpecialName.Entry);
+            this.Source = LLVM.ModuleCreateWithName(SpecialName.Entry);
         }
 
         public LLVMModuleRef Source { get; }
 
         public object Clone()
         {
-            return new Module(LLVM.CloneModule(Source));
+            return new Module(LLVM.CloneModule(this.Source));
         }
 
         public void Dispose()
         {
-            LLVM.DisposeModule(Source);
+            LLVM.DisposeModule(this.Source);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Ion.Abstraction
         ///     body, empty arguments and void return
         ///     type. Does not emit the function.
         /// </summary>
-        public Function CreateMainFunction()
+        public static Function CreateMainFunction()
         {
             // Create the entity.
             var function = new Function();
@@ -67,7 +67,7 @@ namespace Ion.Abstraction
             Function function = CreateMainFunction();
 
             // Emit the function.
-            function.Emit(Source);
+            function.Emit(this.Source);
 
             // Return the previously created function.
             return function;
@@ -75,7 +75,7 @@ namespace Ion.Abstraction
 
         public LLVMContextRef GetContext()
         {
-            return LLVM.GetModuleContext(Source);
+            return LLVM.GetModuleContext(this.Source);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Ion.Abstraction
         /// </summary>
         public void Dump()
         {
-            LLVM.DumpModule(Source);
+            LLVM.DumpModule(this.Source);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Ion.Abstraction
         public override string ToString()
         {
             // Print IR code to a buffer.
-            IntPtr output = LLVM.PrintModuleToString(Source);
+            IntPtr output = LLVM.PrintModuleToString(this.Source);
 
             // Convert buffer to a string.
             var outputString = Marshal.PtrToStringAnsi(output);

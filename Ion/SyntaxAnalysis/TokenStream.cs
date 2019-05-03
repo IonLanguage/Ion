@@ -8,7 +8,7 @@ namespace Ion.SyntaxAnalysis
         public TokenStream()
         {
             // Prepare the initial enumerator.
-            Reset();
+            this.Reset();
         }
 
         public TokenStream(Token[] tokens) : base(tokens)
@@ -26,7 +26,7 @@ namespace Ion.SyntaxAnalysis
             // Ensure current token matches.
             if (current.HasValue)
             {
-                TokenType currentType = Get().Type;
+                TokenType currentType = this.Get().Type;
 
                 // Ensure current token's type matches provided token type.
                 if (currentType != current)
@@ -34,10 +34,10 @@ namespace Ion.SyntaxAnalysis
             }
 
             // Skip current token.
-            var result = Skip();
+            var result = this.Skip();
 
             // Ensure next token matches.
-            TokenType nextType = Get().Type;
+            TokenType nextType = this.Get().Type;
 
             // Ensure next token's type matches provided token type.
             if (nextType != next)
@@ -52,10 +52,10 @@ namespace Ion.SyntaxAnalysis
         public void InsertBounds()
         {
             // Insert program start token.
-            Insert(0, SpecialToken.ProgramStart);
+            this.Insert(0, SpecialToken.ProgramStart);
 
             // Append program end token.
-            Add(SpecialToken.ProgramEnd);
+            this.Add(SpecialToken.ProgramEnd);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Ion.SyntaxAnalysis
         /// </summary>
         public Token Get(TokenType type)
         {
-            Token token = Get();
+            Token token = this.Get();
 
             // Ensure current token's type matches provided token type.
             if (token.Type != type)
@@ -81,9 +81,9 @@ namespace Ion.SyntaxAnalysis
         /// </summary>
         public Token Next(TokenType type)
         {
-            Skip(type);
+            this.Skip(type);
 
-            return Get();
+            return this.Get();
         }
     }
 }

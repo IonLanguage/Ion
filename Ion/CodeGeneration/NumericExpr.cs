@@ -24,7 +24,7 @@ namespace Ion.CodeGeneration
         public override LLVMValueRef Emit(LLVMBuilderRef context)
         {
             // Emit the value.
-            LLVMValueRef valueRef = Resolvers.Literal(tokenType, value, type);
+            LLVMValueRef valueRef = Resolvers.Literal(this.tokenType, this.value, this.type);
 
             // Return the emitted value.
             return valueRef;

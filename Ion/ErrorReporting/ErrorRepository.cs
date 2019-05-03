@@ -4,9 +4,8 @@ namespace Ion.ErrorReporting
 {
     public class ErrorRepository
     {
-        protected readonly TokenStream stream;
-
         protected readonly TraceableErrorFactory factory;
+        protected readonly TokenStream stream;
 
         public ErrorRepository(TokenStream stream)
         {
@@ -16,7 +15,7 @@ namespace Ion.ErrorReporting
 
         public TraceableError UnexpectedToken(TokenType expected, TokenType actual)
         {
-            return this.factory.Create($"", InternalErrorNames.Syntax);
+            return this.factory.Create("", InternalErrorNames.Syntax);
         }
     }
 }

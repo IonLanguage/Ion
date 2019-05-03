@@ -4,10 +4,10 @@ namespace Ion.AST
     {
         public Node(int index, T value)
         {
-            Index = index;
-            Children = new NodeChildren<T>();
-            Value = value;
-            Traverse = new NodeTraverser<T>(this);
+            this.Index = index;
+            this.Children = new NodeChildren<T>();
+            this.Value = value;
+            this.Traverse = new NodeTraverser<T>(this);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace Ion.AST
         ///     Whether this node is final and
         ///     does not contain any children.
         /// </summary>
-        public bool IsLeaf => Children.Empty;
+        public bool IsLeaf => this.Children.Empty;
 
         public NodeTraverser<T> Traverse { get; }
 
@@ -34,24 +34,24 @@ namespace Ion.AST
         public void Insert(int index, T value)
         {
             // Node should be inserted on the left.
-            if (index < Index)
+            if (index < this.Index)
             {
                 // Make the left child the new node.
-                if (Children.HasLeft)
-                    Children.Left = new Node<T>(index, value);
+                if (this.Children.HasLeft)
+                    this.Children.Left = new Node<T>(index, value);
                 // Otherwise, insert it onto the left child.
                 else
-                    Children.Left.Insert(index, value);
+                    this.Children.Left.Insert(index, value);
             }
             // Otherwise, node should be inserted on the right.
             else
             {
                 // Make the right child the new node.
-                if (Children.HasRight)
-                    Children.Right = new Node<T>(index, value);
+                if (this.Children.HasRight)
+                    this.Children.Right = new Node<T>(index, value);
                 // Otherwise, insert it onto the right child.
                 else
-                    Children.Right.Insert(index, value);
+                    this.Children.Right.Insert(index, value);
             }
         }
 
@@ -63,30 +63,25 @@ namespace Ion.AST
         public bool Contains(int index)
         {
             // Subject is this node.
-            if (index == Index)
-            {
+            if (index == this.Index)
                 return true;
-            }
             // Subject must be located within the left child node.
-            else if (index < Index)
+
+            if (index < this.Index)
             {
                 // The left child node is null, so subject does not exist.
-                if (Children.HasLeft)
+                if (this.Children.HasLeft)
                     return false;
                 // Otherwise, invoke the left child's contains method.
-                else
-                    return Children.Left.Contains(index);
+                return this.Children.Left.Contains(index);
             }
             // Subject must be located within the right child node.
-            else
-            {
-                // The right child node is null, so subject does not exist.
-                if (Children.HasRight)
-                    return false;
-                // Otherwise, invoke the right child's contains method.
-                else
-                    return Children.Right.Contains(index);
-            }
+
+            // The right child node is null, so subject does not exist.
+            if (this.Children.HasRight)
+                return false;
+            // Otherwise, invoke the right child's contains method.
+            return this.Children.Right.Contains(index);
         }
     }
 }
