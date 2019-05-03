@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Ion.SyntaxAnalysis;
 
 namespace Ion.Misc
 {
@@ -18,24 +17,8 @@ namespace Ion.Misc
             Reset();
         }
 
-        public Stream(T lastValue)
-        {
-            this.LastValue = lastValue;
-            
-            // Prepare the initial enumerator.
-            Reset();
-        }
-
         public Stream(T[] items) : base(items)
         {
-            // Prepare the initial enumerator.
-            Reset();
-        }
-        
-        public Stream(T[] items, T lastValue) : base(items)
-        {
-            this.LastValue = lastValue;
-            
             // Prepare the initial enumerator.
             Reset();
         }
@@ -43,8 +26,6 @@ namespace Ion.Misc
         public int Index => index;
 
         public bool LastItem => index == Count - 1;
-        
-        public T LastValue;
 
         /// <summary>
         ///     Set the peek pivot relative to the current
@@ -115,7 +96,7 @@ namespace Ion.Misc
                 // Return program end token.
                 if (amount > 0)
                     // TODO
-                    return LastValue == null ? this[this.Count - 1] : LastValue;
+                    return this[this.Count - 1];
 
                 // Otherwise, return first item.
                 return this[0];
