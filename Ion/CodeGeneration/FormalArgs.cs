@@ -20,7 +20,7 @@ namespace Ion.CodeGeneration
 
         public LLVMTypeRef[] Emit()
         {
-            var args = new List<LLVMTypeRef>();
+            List<LLVMTypeRef> args = new List<LLVMTypeRef>();
 
             // Emit all arguments.
             foreach (FormalArg arg in this.Values) args.Add(arg.Emit());

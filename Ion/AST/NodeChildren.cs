@@ -45,7 +45,7 @@ namespace Ion.AST
 
         public List<Node<T>> GetOrdered()
         {
-            var result = new List<Node<T>>();
+            List<Node<T>> result = new List<Node<T>>();
 
             // Collect all children from the left node if applicable.
             if (this.HasLeft) result.AddRange(this.Left.Children.GetOrdered());

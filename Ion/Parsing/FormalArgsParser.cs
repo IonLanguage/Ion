@@ -29,6 +29,7 @@ namespace Ion.Parsing
                     // Advance stream immediatly.
                     peekBuffer = stream.Next(TokenType.SymbolParenthesesR);
 
+                    // Continue loop.
                     continue;
                 }
                 // Continuous arguments must be final.
@@ -52,7 +53,7 @@ namespace Ion.Parsing
                     stream.Skip();
                 }
 
-                // Append the parsed arg.
+                // Append the parsed argument.
                 args.Values.Add(arg);
             }
 

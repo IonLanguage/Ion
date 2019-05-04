@@ -38,7 +38,7 @@ namespace Ion.Abstraction
         public static Function CreateMainFunction()
         {
             // Create the entity.
-            var function = new Function();
+            Function function = new Function();
 
             // Assign name as main.
             function.SetName(SpecialName.Main);
@@ -98,7 +98,7 @@ namespace Ion.Abstraction
             IntPtr output = LLVM.PrintModuleToString(this.Source);
 
             // Convert buffer to a string.
-            var outputString = Marshal.PtrToStringAnsi(output);
+            string outputString = Marshal.PtrToStringAnsi(output);
 
             // Trim whitespace.
             outputString = outputString.Trim();

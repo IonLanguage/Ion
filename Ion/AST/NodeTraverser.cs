@@ -19,7 +19,7 @@ namespace Ion.AST
         public void BreadthFirst(Action<Node<T>> callback)
         {
             // Create the node queue to loop.
-            var queue = new Queue<Node<T>>();
+            Queue<Node<T>> queue = new Queue<Node<T>>();
 
             // Add the initial node to the queue.
             queue.Enqueue(this.node);
@@ -33,10 +33,16 @@ namespace Ion.AST
                 callback(node);
 
                 // Enqueue the left node if applicable.
-                if (node.Children.HasLeft) queue.Enqueue(node.Children.Left);
+                if (node.Children.HasLeft)
+                {
+                    queue.Enqueue(node.Children.Left);
+                }
 
                 // Enqueue the right node if applicable.
-                if (node.Children.HasRight) queue.Enqueue(node.Children.Right);
+                if (node.Children.HasRight)
+                {
+                    queue.Enqueue(node.Children.Right);
+                }
             }
         }
     }

@@ -19,7 +19,7 @@ namespace Ion.CodeGeneration
             if (this.Prototype == null) throw new Exception("Unexpected external definition's prototype to be null");
 
             // Emit the formal arguments.
-            var args = this.Prototype.Args.Emit();
+            LLVMTypeRef[] args = this.Prototype.Args.Emit();
 
             // Emit the return type.
             LLVMTypeRef returnType = this.Prototype.ReturnType.Emit();

@@ -23,7 +23,7 @@ namespace Ion.CodeGeneration
         public override LLVMValueRef Emit(LLVMBuilderRef context)
         {
             // Create the resulting arguments.
-            var args = new List<LLVMValueRef>();
+            List<LLVMValueRef> args = new List<LLVMValueRef>();
 
             // Emit the call arguments.
             foreach (Expr arg in this.Args)
