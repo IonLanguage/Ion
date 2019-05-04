@@ -7,32 +7,32 @@ namespace Ion.SyntaxAnalysis
         ProgramEnd,
 
         /// <summary>
-        ///     Represents an unidentified value.
+        /// Represents an unidentified value.
         /// </summary>
         Unknown,
 
         /// <summary>
-        ///     Represents whitespace
+        /// Represents whitespace.
         /// </summary>
         Whitespace,
 
         /// <summary>
-        ///     Represents a single line comment (// text)
+        /// Represents a single line comment.
         /// </summary>
         SingleLineComment,
 
         /// <summary>
-        ///     Represents a multi line comment (/* text */)
+        /// Represents a multi line comment.
         /// </summary>
         MultiLineComment,
 
         /// <summary>
-        ///     Represents an entity identifier. (text)
+        /// Represents an entity identifier.
         /// </summary>
         Identifier,
 
         /// <summary>
-        ///     Represents a double type.
+        /// Represents a double type.
         /// </summary>
         TypeDouble,
 
@@ -51,56 +51,56 @@ namespace Ion.SyntaxAnalysis
         TypeVoid,
 
         /// <summary>
-        ///     Represents the variable
-        ///     assignment operator. (=)
+        /// Represents the variable
+        /// assignment operator.
         /// </summary>
         OperatorAssignment,
 
         /// <summary>
-        ///     Represents the mathematical
-        ///     addition operator. (+)
+        /// Represents the mathematical
+        /// addition operator.
         /// </summary>
         OperatorAddition,
 
         /// <summary>
-        ///     Represents the mathematical
-        ///     subtraction operator. (-)
+        /// Represents the mathematical
+        /// subtraction operator.
         /// </summary>
         OperatorSubtraction,
 
         /// <summary>
-        ///     Represents the mathematical
-        ///     multiplication operator. (*)
+        /// Represents the mathematical
+        /// multiplication operator.
         /// </summary>
         OperatorMultiplication,
 
         /// <summary>
-        ///     Represents the mathematical
-        ///     division operator. (/)
+        /// Represents the mathematical
+        /// division operator.
         /// </summary>
         OperatorDivision,
 
         /// <summary>
-        ///     Represents the mathematical
-        ///     exponential operator. (^)
+        /// Represents the mathematical
+        /// exponential operator.
         /// </summary>
         OperatorExponent,
 
         /// <summary>
-        ///     Represents the mathematical
-        ///     unsigned remainder operator. (%)
+        /// Represents the mathematical
+        /// unsigned remainder operator.
         /// </summary>
         OperatorModulo,
 
         /// <summary>
-        ///     Represents the escape sequence
-        ///     to represent special entities. (\)
+        /// Represents the escape sequence
+        /// to represent special entities.
         /// </summary>
         OperatorEscape,
 
         /// <summary>
-        ///     Represents the equality comparison
-        ///     operator. (==)
+        /// Represents the equality comparison
+        /// operator.
         /// </summary>
         OperatorEquality,
 
@@ -121,22 +121,22 @@ namespace Ion.SyntaxAnalysis
 
         // Literals.
         /// <summary>
-        ///     Represents an Int32 literal.
+        /// Represents an Int32 literal.
         /// </summary>
         LiteralInteger,
 
         /// <summary>
-        ///     Represents a Double literal.
+        /// Represents a Double literal.
         /// </summary>
         LiteralDecimal,
 
         /// <summary>
-        ///     Represents a single character.
+        /// Represents a single character.
         /// </summary>
         LiteralCharacter,
 
         /// <summary>
-        ///     Represents a string literal.
+        /// Represents a string literal.
         /// </summary>
         LiteralString,
 
