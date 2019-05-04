@@ -46,7 +46,7 @@ namespace Ion.Linking
         public bool IsExcluded(string path)
         {
             // Obtain the basename of the path.
-            var baseName = Path.GetFileName(path);
+            string baseName = Path.GetFileName(path);
 
             // Loop through all compiled exclusions.
             return this.CompiledExclusions.Any(exclude => exclude.IsMatch(baseName));
@@ -58,7 +58,7 @@ namespace Ion.Linking
         public bool IsMatch(string path)
         {
             // Obtain the basename of the path.
-            var baseName = Path.GetFileName(path);
+            string baseName = Path.GetFileName(path);
 
             // Loop through all compiled exclusions.
             return this.CompiledMatches.Any(match => match.IsMatch(baseName));

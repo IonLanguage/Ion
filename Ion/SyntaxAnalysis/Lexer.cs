@@ -56,8 +56,8 @@ namespace Ion.SyntaxAnalysis
         /// </summary>
         public List<Token> Tokenize()
         {
-            var tokens = new List<Token>();
-            var nextToken = this.GetNextToken();
+            List<Token> tokens = new List<Token>();
+            Token? nextToken = this.GetNextToken();
 
             // Obtain all possible tokens.
             while (nextToken.HasValue)
@@ -76,8 +76,6 @@ namespace Ion.SyntaxAnalysis
                 nextToken = this.GetNextToken();
             }
 
-            Console.ResetColor();
-
             return tokens;
         }
 
@@ -91,7 +89,7 @@ namespace Ion.SyntaxAnalysis
             if (this.Position > this.Input.Length - 1) return null;
 
             // Begin capturing the token. Identify the token as unknown initially.
-            var token = new Token
+            Token token = new Token
             {
                 StartPos = this.Position,
                 Type = TokenType.Unknown,
@@ -144,7 +142,7 @@ namespace Ion.SyntaxAnalysis
                     Regex pattern = Util.CreateRegex(Regex.Escape(pair.Key));
 
                     // Skimming involves removing the last character.
-                    var skim = false;
+                    bool skim = false;
 
                     // If the match starts with a letter, modify the regex to force either whitespace or EOF at the end.
                     if (char.IsLetter(pair.Key[0]))
@@ -201,7 +199,7 @@ namespace Ion.SyntaxAnalysis
         public bool MatchExpression(ref Token token, TokenType type, Regex regex, bool modifyToken = true)
         {
             // Substrings from the current position to get the viable matching string.
-            var input = this.Input.Substring(this.Position).TrimStart();
+            string input = this.Input.Substring(this.Position).TrimStart();
             Match match = regex.Match(input);
 
             // If the match is success, update the token to reflect this.

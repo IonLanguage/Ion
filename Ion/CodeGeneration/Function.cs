@@ -21,7 +21,7 @@ namespace Ion.CodeGeneration
             if (this.Prototype == null) throw new Exception("Unexpected function prototype to be null");
 
             // Emit the argument types.
-            var args = this.Prototype.Args.Emit();
+            LLVMTypeRef[] args = this.Prototype.Args.Emit();
 
             // Emit the return type
             LLVMTypeRef returnType = this.Prototype.ReturnType.Emit();
@@ -61,7 +61,7 @@ namespace Ion.CodeGeneration
         public Block CreateBody()
         {
             // Create a block as the body.
-            var body = new Block();
+            Block body = new Block();
 
             // Assign the created block as the body.
             this.Body = body;

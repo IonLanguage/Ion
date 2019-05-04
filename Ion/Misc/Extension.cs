@@ -52,11 +52,11 @@ namespace Ion.Misc
 
         public static TokenTypeMap SortByKeyLength(this TokenTypeMap map)
         {
-            var keys = new string[map.Count];
+            string[] keys = new string[map.Count];
 
             map.Keys.CopyTo(keys, 0);
 
-            var keyList = new List<string>(keys);
+            List<string> keyList = new List<string>(keys);
 
             // Sort the keys by length.
             keyList.Sort((a, b) =>
@@ -68,9 +68,12 @@ namespace Ion.Misc
                 return 0;
             });
 
-            var updated = new Dictionary<string, TokenType>();
+            Dictionary<string, TokenType> updated = new Dictionary<string, TokenType>();
 
-            foreach (var item in keyList) updated[item] = map[item];
+            foreach (var item in keyList)
+            {
+                updated[item] = map[item];
+            }
 
             return updated;
         }

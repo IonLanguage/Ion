@@ -18,11 +18,15 @@ namespace Ion.ErrorReporting
 
         public override string ToString()
         {
-            var traceBuilder = new StringBuilder();
+            // Create the trace string builder.
+            StringBuilder traceBuilder = new StringBuilder();
 
             traceBuilder.AppendLine(base.ToString());
 
-            foreach (ErrorTraceStackItem stackItem in this.Stack) traceBuilder.AppendLine($"\t{stackItem.TraceString}");
+            foreach (ErrorTraceStackItem stackItem in this.Stack)
+            {
+                traceBuilder.AppendLine($"\t{stackItem.TraceString}");
+            }
 
             return traceBuilder.ToString();
         }

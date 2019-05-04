@@ -16,7 +16,8 @@ namespace Ion.ErrorReporting
 
         public static string Create(string message, string name = InternalErrorNames.Generic)
         {
-            var capitalizedName = name.Capitalize();
+            // Capitalize the error name.
+            string capitalizedName = name.Capitalize();
 
             return $"{capitalizedName}Error: {message}";
         }

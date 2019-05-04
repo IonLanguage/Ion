@@ -26,7 +26,7 @@ namespace Ion.Parsing
             // If this is a binary operation, find it's precedence.
             while (true)
             {
-                var firstPrecedence = Precedence.Get(stream.Get());
+                int firstPrecedence = Precedence.Get(stream.Get());
 
                 /*
                 If this is a binary operation that binds at least as tightly
@@ -61,7 +61,7 @@ namespace Ion.Parsing
                 }
 
                 // Determine the token precedence of the current token.
-                var secondPrecedence = Precedence.Get(stream.Get());
+                int secondPrecedence = Precedence.Get(stream.Get());
 
                 /*
                 If binary operator binds less tightly with the right-side than
@@ -81,7 +81,7 @@ namespace Ion.Parsing
                 }
 
                 // Create the binary expression entity.
-                var binaryExpr = new BinaryExpr(this.leftSide, rightSide, firstPrecedence);
+                BinaryExpr binaryExpr = new BinaryExpr(this.leftSide, rightSide, firstPrecedence);
 
                 // Merge left-side/right-side.
                 this.leftSide = binaryExpr;

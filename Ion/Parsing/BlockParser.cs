@@ -13,7 +13,7 @@ namespace Ion.Parsing
             Token begin = stream.Get();
 
             // Create the block.
-            var block = new Block();
+            Block block = new Block();
 
             // Set the block as active in the symbol table.
             SymbolTable.activeBlock = block;

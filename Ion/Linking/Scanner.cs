@@ -55,13 +55,16 @@ namespace Ion.Linking
         /// </summary>
         public string[] Scan(string path, bool recursive = true)
         {
-            var entries = new List<string>();
+            List<string> entries = new List<string>();
 
             // Join the path with the root path.
-            var targetPath = Path.Join(this.Options.Root, path);
+            string targetPath = Path.Join(this.Options.Root, path);
 
             // Set the target path to the root path.
-            if (string.IsNullOrEmpty(path)) targetPath = this.Options.Root;
+            if (string.IsNullOrEmpty(path))
+            {
+                targetPath = this.Options.Root;
+            }
 
             // Loop through all entries.
             foreach (var entry in Directory.GetFiles(targetPath))
@@ -79,7 +82,7 @@ namespace Ion.Linking
                 if (recursive && Util.IsDirectory(entry))
                 {
                     // Join provided path and entry path.
-                    var nextTarget = Path.Join(path, entry);
+                    string nextTarget = Path.Join(path, entry);
 
                     // Register recursive result.
                     entries.AddRange(this.Scan(nextTarget));

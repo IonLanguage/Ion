@@ -10,7 +10,7 @@ namespace Ion.Parsing
         public List<Expr> Parse(TokenStream stream)
         {
             // Create the argument list result.
-            var args = new List<Expr>();
+            List<Expr> args = new List<Expr>();
 
             // Contains at least one argument.
             if (stream.Get().Type != TokenType.SymbolParenthesesL)

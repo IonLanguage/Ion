@@ -27,7 +27,7 @@ namespace Ion.AST
             // Loop while the queue is not empty.
             while (queue.Count > 0)
             {
-                var node = queue.Dequeue();
+                Node<T> node = queue.Dequeue();
 
                 // Invoke the callback handler.
                 callback(node);

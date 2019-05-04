@@ -74,7 +74,10 @@ namespace Ion.Misc
         public bool Skip()
         {
             // Ensure not overflowing.
-            if (this.IsLastItem) return false;
+            if (this.IsLastItem)
+            {
+                return false;
+            }
 
             this.index++;
 
@@ -90,21 +93,29 @@ namespace Ion.Misc
 
         public T Peek(int amount = 1)
         {
-            var newIndex = this.index;
+            int newIndex = this.index;
 
             // Apply pivot if applicable.
-            if (this.pivotIndex != -1) newIndex += this.pivotIndex;
+            if (this.pivotIndex != -1)
+            {
+                newIndex += this.pivotIndex;
+            }
 
             // Amount cannot be zero.
-            if (amount == 0) throw new ArgumentException("Amount cannot be zero");
+            if (amount == 0)
+            {
+                throw new ArgumentException("Amount cannot be zero");
+            }
 
             // Return first or last item if index overflows.
             if (this.DoesIndexOverflow(newIndex + amount))
             {
                 // Return program end token.
                 if (amount > 0)
+                {
                     // TODO
                     return this[this.Count - 1];
+                }
 
                 // Otherwise, return first item.
                 return this[0];
@@ -131,12 +142,14 @@ namespace Ion.Misc
         public override string ToString()
         {
             // Create the string builder.
-            var result = new StringBuilder();
+            StringBuilder result = new StringBuilder();
 
             // Loop through all values.
             foreach (T token in this)
+            {
                 // Append the value's string representation to the result.
                 result.AppendLine(token.ToString());
+            }
 
             // Build the final string.
             return result.ToString();
