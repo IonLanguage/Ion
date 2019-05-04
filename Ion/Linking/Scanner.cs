@@ -41,8 +41,8 @@ namespace Ion.Linking
         public ScannerOptions Options { get; }
 
         /// <summary>
-        ///     Determine whether the root path folder
-        ///     exists.
+        /// Determine whether the root path folder
+        /// exists.
         /// </summary>
         public bool VerifyRoot()
         {
@@ -50,8 +50,8 @@ namespace Ion.Linking
         }
 
         /// <summary>
-        ///     Scan for matching files within a directory
-        ///     inside the root folder.
+        /// Scan for matching files within a directory
+        /// inside the root folder.
         /// </summary>
         public string[] Scan(string path, bool recursive = true)
         {

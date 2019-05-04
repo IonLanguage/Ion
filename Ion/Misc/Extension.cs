@@ -14,25 +14,25 @@ namespace Ion.Misc
             switch (input)
             {
                 case null:
-                {
-                    throw new ArgumentNullException(nameof(input));
-                }
+                    {
+                        throw new ArgumentNullException(nameof(input));
+                    }
 
                 case "":
-                {
-                    throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
-                }
+                    {
+                        throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
+                    }
 
                 default:
-                {
-                    return input.First().ToString().ToUpper() + input.Substring(1);
-                }
+                    {
+                        return input.First().ToString().ToUpper() + input.Substring(1);
+                    }
             }
         }
 
         /// <summary>
-        ///     Create a new LLVM block builder and position
-        ///     it accordingly.
+        /// Create a new LLVM block builder and position
+        /// it accordingly.
         /// </summary>
         public static LLVMBuilderRef CreateBuilder(this LLVMBasicBlockRef block, bool positionAtStart = true)
         {

@@ -4,8 +4,8 @@ using Ion.SyntaxAnalysis;
 namespace Ion.Parsing
 {
     /// <summary>
-    ///     Parses top-level expressions using an anonymous
-    ///     function.
+    /// Parses top-level expressions using an anonymous
+    /// function.
     /// </summary>
     public class TopLevelExprParser : IParser<Function>
     {

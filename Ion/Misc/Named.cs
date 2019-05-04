@@ -14,7 +14,7 @@ namespace Ion.Misc
         public string Name { get; protected set; }
 
         /// <summary>
-        ///     Sets the name and validates it.
+        /// Sets the name and validates it.
         /// </summary>
         public void SetName(string name)
         {
@@ -30,8 +30,8 @@ namespace Ion.Misc
         }
 
         /// <summary>
-        ///     Sets the name to the special name of
-        ///     anonymous.
+        /// Sets the name to the special name of
+        /// anonymous.
         /// </summary>
         public void SetNameAnonymous()
         {

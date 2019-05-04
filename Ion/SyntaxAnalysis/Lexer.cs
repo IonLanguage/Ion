@@ -16,16 +16,16 @@ namespace Ion.SyntaxAnalysis
     }
 
     /// <summary>
-    ///     Parses input code string and creates
-    ///     corresponding tokens.
+    /// Parses input code string and creates
+    /// corresponding tokens.
     /// </summary>
     public class Lexer
     {
         public static readonly int EOF = -1;
 
         /// <summary>
-        ///     Temporarily the captured string value
-        ///     as a buffer.
+        /// Temporarily the captured string value
+        /// as a buffer.
         /// </summary>
         protected string buffer;
 
@@ -36,8 +36,8 @@ namespace Ion.SyntaxAnalysis
         }
 
         /// <summary>
-        ///     The character located at the current
-        ///     position in the input string.
+        /// The character located at the current
+        /// position in the input string.
         /// </summary>
         public char Char => Input[Position];
 
@@ -50,9 +50,9 @@ namespace Ion.SyntaxAnalysis
         // Defaults to ignoring whitespace unless other specified.
 
         /// <summary>
-        ///     Begin the tokenization process, obtaining/extracting all
-        ///     possible tokens from the input string. Tokens which are
-        ///     unable to be identified will default to token type unknown.
+        /// Begin the tokenization process, obtaining/extracting all
+        /// possible tokens from the input string. Tokens which are
+        /// unable to be identified will default to token type unknown.
         /// </summary>
         public List<Token> Tokenize()
         {
@@ -82,8 +82,8 @@ namespace Ion.SyntaxAnalysis
         }
 
         /// <summary>
-        ///     Attempt to obtain the next upcoming
-        ///     token.
+        /// Attempt to obtain the next upcoming
+        /// token.
         /// </summary>
         public Token? GetNextToken()
         {
@@ -179,9 +179,9 @@ namespace Ion.SyntaxAnalysis
         }
 
         /// <summary>
-        ///     Checks for a positive match for a complex type or just generic regex,
-        ///     if positive, it'll update the referenced token to the provided type with
-        ///     the matched text.
+        /// Checks for a positive match for a complex type or just generic regex,
+        /// if positive, it'll update the referenced token to the provided type with
+        /// the matched text.
         /// </summary>
         public bool MatchExpression(ref Token token, TokenType type, Regex regex, bool modifyToken = true)
         {
@@ -207,8 +207,8 @@ namespace Ion.SyntaxAnalysis
         }
 
         /// <summary>
-        ///     Skip a specific amount of characters
-        ///     from the current position.
+        /// Skip a specific amount of characters
+        /// from the current position.
         /// </summary>
         public void Skip(int amount = 1)
         {

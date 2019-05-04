@@ -19,8 +19,8 @@ namespace Ion.Parsing
         public TokenStream Stream { get; }
 
         /// <summary>
-        ///     Retrieve the precedence of the current
-        ///     token.
+        /// Retrieve the precedence of the current
+        /// token.
         /// </summary>
         public int GetCurrentPrecedence()
         {
@@ -28,7 +28,7 @@ namespace Ion.Parsing
         }
 
         /// <summary>
-        ///     Append an error to the error stack.
+        /// Append an error to the error stack.
         /// </summary>
         public void AppendError(Error error)
         {
@@ -36,7 +36,7 @@ namespace Ion.Parsing
         }
 
         /// <summary>
-        ///     Clear and reset the error stack.
+        /// Clear and reset the error stack.
         /// </summary>
         public void BeginErrorStack()
         {

@@ -31,9 +31,9 @@ namespace Ion.Abstraction
         }
 
         /// <summary>
-        ///     Create an empty main function with a
-        ///     body, empty arguments and void return
-        ///     type. Does not emit the function.
+        /// Create an empty main function with a
+        /// body, empty arguments and void return
+        /// type. Does not emit the function.
         /// </summary>
         public Function CreateMainFunction()
         {
@@ -57,9 +57,9 @@ namespace Ion.Abstraction
         }
 
         /// <summary>
-        ///     Create and emit an empty main function
-        ///     with a body, empty arguments and void return
-        ///     type.
+        /// Create and emit an empty main function
+        /// with a body, empty arguments and void return
+        /// type.
         /// </summary>
         public Function EmitMainFunction()
         {
@@ -79,9 +79,9 @@ namespace Ion.Abstraction
         }
 
         /// <summary>
-        ///     Dump the contents of the corresponding
-        ///     IR code with this module to the console
-        ///     output.
+        /// Dump the contents of the corresponding
+        /// IR code with this module to the console
+        /// output.
         /// </summary>
         public void Dump()
         {
@@ -89,8 +89,8 @@ namespace Ion.Abstraction
         }
 
         /// <summary>
-        ///     Obtain the corresponding IR code from this
-        ///     module.
+        /// Obtain the corresponding IR code from this
+        /// module.
         /// </summary>
         public override string ToString()
         {

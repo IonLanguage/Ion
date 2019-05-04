@@ -6,8 +6,8 @@ using Ion.SyntaxAnalysis;
 namespace Ion.Parsing
 {
     /// <summary>
-    ///     Parser right-side of a binary operation.
-    ///     See https://llvm.org/docs/tutorial/LangImpl02.html @ ParseBinOpRHS().
+    /// Parser right-side of a binary operation.
+    /// See https://llvm.org/docs/tutorial/LangImpl02.html @ ParseBinOpRHS().
     /// </summary>
     public class BinaryOpRightSideParser : IParser<Expr>
     {

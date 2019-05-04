@@ -28,8 +28,8 @@ namespace Ion.Misc
         public bool LastItem => index == Count - 1;
 
         /// <summary>
-        ///     Set the peek pivot relative to the current
-        ///     index.
+        /// Set the peek pivot relative to the current
+        /// index.
         /// </summary>
         public void SetRelativePivot(int amount)
         {
@@ -37,7 +37,7 @@ namespace Ion.Misc
         }
 
         /// <summary>
-        ///     Set the peek pivot.
+        /// Set the peek pivot.
         /// </summary>
         public void SetPivot(int at)
         {
@@ -47,8 +47,8 @@ namespace Ion.Misc
         }
 
         /// <summary>
-        ///     Reset the peek pivot, no longer affecting
-        ///     peek actions.
+        /// Reset the peek pivot, no longer affecting
+        /// peek actions.
         /// </summary>
         public void ResetPivot()
         {
@@ -56,7 +56,7 @@ namespace Ion.Misc
         }
 
         /// <summary>
-        ///     Reset the index to zero.
+        /// Reset the index to zero.
         /// </summary>
         public void Reset()
         {
@@ -108,9 +108,9 @@ namespace Ion.Misc
         }
 
         /// <summary>
-        ///     Determine if the provided index
-        ///     will overflow the amount of items
-        ///     currently available.
+        /// Determine if the provided index
+        /// will overflow the amount of items
+        /// currently available.
         /// </summary>
         public bool DoesIndexOverflow(int at)
         {

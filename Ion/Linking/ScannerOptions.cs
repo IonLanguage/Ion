@@ -7,20 +7,20 @@ namespace Ion.Linking
     public class ScannerOptions
     {
         /// <summary>
-        ///     The root, starting path of the scanner.
+        /// The root, starting path of the scanner.
         /// </summary>
         public string Root { get; set; }
 
         /// <summary>
-        ///     The Regex string pattern(s) that will be
-        ///     used to determine which files to match.
+        /// The Regex string pattern(s) that will be
+        /// used to determine which files to match.
         /// </summary>
         public string[] Match { get; set; }
 
         /// <summary>
-        ///     The Regex string pattern(s) that will be used
-        ///     to determine which files to exclude from
-        ///     matching.
+        /// The Regex string pattern(s) that will be used
+        /// to determine which files to exclude from
+        /// matching.
         /// </summary>
         public string[] Exclude { get; set; }
 
@@ -40,8 +40,8 @@ namespace Ion.Linking
         }
 
         /// <summary>
-        ///     Determine whether a path matches an
-        ///     exclusion.
+        /// Determine whether a path matches an
+        /// exclusion.
         /// </summary>
         public bool IsExcluded(string path)
         {
@@ -53,7 +53,7 @@ namespace Ion.Linking
         }
 
         /// <summary>
-        ///     Determine whether a path matches.
+        /// Determine whether a path matches.
         /// </summary>
         public bool IsMatch(string path)
         {

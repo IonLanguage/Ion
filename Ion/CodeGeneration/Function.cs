@@ -46,10 +46,10 @@ namespace Ion.CodeGeneration
         }
 
         /// <summary>
-        ///     Attempt to retrieve the function LLVM value
-        ///     reference from the symbol table. Returns null
-        ///     if the function does not exist or was not
-        ///     previously emitted.
+        /// Attempt to retrieve the function LLVM value
+        /// reference from the symbol table. Returns null
+        /// if the function does not exist or was not
+        /// previously emitted.
         /// </summary>
         public LLVMValueRef Retrieve()
         {
@@ -57,8 +57,8 @@ namespace Ion.CodeGeneration
         }
 
         /// <summary>
-        ///     Creates, assigns and returns a body block,
-        ///     replacing existing body.
+        /// Creates, assigns and returns a body block,
+        /// replacing existing body.
         /// </summary>
         public Block CreateBody()
         {
@@ -92,8 +92,8 @@ namespace Ion.CodeGeneration
         }
 
         /// <summary>
-        ///     Creates a prototype for this function, overriding
-        ///     any existing prototype property value. Creates arguments.
+        /// Creates a prototype for this function, overriding
+        /// any existing prototype property value. Creates arguments.
         /// </summary>
         public Prototype CreatePrototype()
         {

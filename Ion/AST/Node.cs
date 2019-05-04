@@ -11,8 +11,8 @@ namespace Ion.AST
         }
 
         /// <summary>
-        ///     A class containing the children
-        ///     associated with this node.
+        /// A class containing the children
+        /// associated with this node.
         /// </summary>
         public NodeChildren<T> Children { get; }
 
@@ -21,15 +21,15 @@ namespace Ion.AST
         public T Value { get; set; }
 
         /// <summary>
-        ///     Whether this node is final and
-        ///     does not contain any children.
+        /// Whether this node is final and
+        /// does not contain any children.
         /// </summary>
         public bool IsLeaf => Children.Empty;
 
         public NodeTraverser<T> Traverse { get; }
 
         /// <summary>
-        ///     Create and insert a new children node.
+        /// Create and insert a new children node.
         /// </summary>
         public void Insert(int index, T value)
         {
@@ -56,9 +56,9 @@ namespace Ion.AST
         }
 
         /// <summary>
-        ///     Determine if the children nodes
-        ///     contain the a node matching the provided
-        ///     index.
+        /// Determine if the children nodes
+        /// contain the a node matching the provided
+        /// index.
         /// </summary>
         public bool Contains(int index)
         {

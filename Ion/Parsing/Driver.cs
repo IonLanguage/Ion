@@ -36,8 +36,8 @@ namespace Ion.Parsing
         }
 
         /// <summary>
-        ///     Process the next sequence. Returns true
-        ///     if the sequence was successfully processed.
+        /// Process the next sequence. Returns true
+        /// if the sequence was successfully processed.
         /// </summary>
         public bool Next()
         {

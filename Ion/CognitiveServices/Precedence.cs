@@ -5,10 +5,10 @@ namespace Ion.CognitiveServices
     public class Precedence
     {
         /// <summary>
-        ///     Attempt to retrieve the precedence
-        ///     of an operator. Returns '-1' if the
-        ///     provided token type is not linked to
-        ///     a valid operator.
+        /// Attempt to retrieve the precedence
+        /// of an operator. Returns '-1' if the
+        /// provided token type is not linked to
+        /// a valid operator.
         /// </summary>
         public static int Get(TokenType tokenType)
         {

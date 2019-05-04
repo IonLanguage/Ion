@@ -17,9 +17,9 @@ namespace Ion.SyntaxAnalysis
         }
 
         /// <summary>
-        ///     Skip the current token and ensure both
-        ///     the next and current token matches the provided
-        ///     corresponding token types.
+        /// Skip the current token and ensure both
+        /// the next and current token matches the provided
+        /// corresponding token types.
         /// </summary>
         public bool Skip(TokenType next, TokenType? current = null)
         {
@@ -47,7 +47,7 @@ namespace Ion.SyntaxAnalysis
         }
 
         /// <summary>
-        ///     Create and insert bounding start and end tokens.
+        /// Create and insert bounding start and end tokens.
         /// </summary>
         public void InsertBounds()
         {
@@ -59,9 +59,9 @@ namespace Ion.SyntaxAnalysis
         }
 
         /// <summary>
-        ///     Retrieve the current token and
-        ///     ensure that its type matches the
-        ///     provided token type.
+        /// Retrieve the current token and
+        /// ensure that its type matches the
+        /// provided token type.
         /// </summary>
         public Token Get(TokenType type)
         {
@@ -75,9 +75,9 @@ namespace Ion.SyntaxAnalysis
         }
 
         /// <summary>
-        ///     Skip the current token and ensure
-        ///     the next token matches the provided
-        ///     token type. Returns the next token.
+        /// Skip the current token and ensure
+        /// the next token matches the provided
+        /// token type. Returns the next token.
         /// </summary>
         public Token Next(TokenType type)
         {

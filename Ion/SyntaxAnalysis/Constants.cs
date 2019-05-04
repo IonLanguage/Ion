@@ -68,8 +68,8 @@ namespace Ion.SyntaxAnalysis
         };
 
         /// <summary>
-        ///     A combination of the simple token type maps
-        ///     which include operators, symbols and keywords.
+        /// A combination of the simple token type maps
+        /// which include operators, symbols and keywords.
         /// </summary>
         public static readonly TokenTypeMap simpleTokenTypes = new[]
             {
