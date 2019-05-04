@@ -10,17 +10,6 @@ namespace Ion.Parsing
     {
         protected readonly TokenStream stream;
 
-        public Driver(TokenStream stream)
-        {
-            this.stream = stream;
-            this.Module = new Module();
-        }
-
-        public Driver(Token[] tokens) : this(new TokenStream(tokens))
-        {
-            //
-        }
-
         public Module Module { get; }
 
         // TODO: What if EOF token has not been processed itself?
@@ -30,6 +19,17 @@ namespace Ion.Parsing
             {
                 return !this.stream.IsLastItem;
             }
+        }
+
+        public Driver(TokenStream stream)
+        {
+            this.stream = stream;
+            this.Module = new Module();
+        }
+
+        public Driver(Token[] tokens) : this(new TokenStream(tokens))
+        {
+            //
         }
 
         /// <summary>

@@ -8,6 +8,8 @@ namespace Ion.Abstraction
 {
     public class Module : IDisposable, ICloneable
     {
+        public LLVMModuleRef Source { get; }
+
         public Module(LLVMModuleRef source)
         {
             this.Source = source;
@@ -17,8 +19,6 @@ namespace Ion.Abstraction
         {
             this.Source = LLVM.ModuleCreateWithName(SpecialName.Entry);
         }
-
-        public LLVMModuleRef Source { get; }
 
         public object Clone()
         {

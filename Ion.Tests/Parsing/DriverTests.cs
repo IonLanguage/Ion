@@ -15,14 +15,9 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class DriverTests
     {
-        private Abstraction.Module module;
-
         [SetUp]
-        public void Setup()
+        public static void Setup()
         {
-            // Create a new LLVM module instance.
-            this.module = new Ion.Abstraction.Module();
-
             // Reset symbol table along with its functions.
             SymbolTable.Reset();
             SymbolTable.functions.Clear();
@@ -32,7 +27,7 @@ namespace Ion.Tests.CodeGeneration
         public void HasNext()
         {
             // Create the token stream.
-            TokenStream stream = TestUtil.CreateStreamFromInputDataFile("DriverHasNext");
+            TokenStream stream = TestUtil.CreateStreamFromInputDataFile("Driver");
 
             // Create the driver.
             Driver driver = new Driver(stream);
@@ -45,6 +40,37 @@ namespace Ion.Tests.CodeGeneration
 
             // Expect driver to not have next.
             Assert.False(driver.HasNext);
+        }
+
+        [Test]
+        public void Next()
+        {
+            // Create the token stream.
+            TokenStream stream = TestUtil.CreateStreamFromInputDataFile("Driver");
+
+            // Create the driver.
+            Driver driver = new Driver(stream);
+
+            // Expect driver to have next.
+            Assert.True(driver.HasNext);
+
+            // Invoke the driver.
+            bool processed = driver.Next();
+
+            // Expect driver to have processed.
+            Assert.True(processed);
+
+            // Expect driver to not have next.
+            Assert.False(driver.HasNext);
+
+            // Load expected output.
+            string expected = TestUtil.ReadOutputDataFile("EmptyMainFunction");
+
+            // Emit the driver's module.
+            string output = driver.Module.ToString();
+
+            // Assert output module IR code.
+            Assert.AreEqual(expected, output);
         }
     }
 }
