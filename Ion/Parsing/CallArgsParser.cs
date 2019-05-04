@@ -14,6 +14,7 @@ namespace Ion.Parsing
 
             // Contains at least one argument.
             if (stream.Get().Type != TokenType.SymbolParenthesesL)
+            {
                 while (true)
                 {
                     // Invoke the expression parser to parse the argument.
@@ -26,14 +27,19 @@ namespace Ion.Parsing
 
                     // Arguments ended.
                     if (currentTokenType == TokenType.SymbolParenthesesR)
+                    {
                         break;
+                    }
                     // Otherwise, expect a comma.
-                    if (currentTokenType != TokenType.SymbolComma)
+                    else if (currentTokenType != TokenType.SymbolComma)
+                    {
                         throw new Exception("Unexpected token in function call argument list");
+                    }
 
                     // Skip token.
                     stream.Skip();
                 }
+            }
 
             return args;
         }

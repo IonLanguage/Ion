@@ -10,13 +10,16 @@ namespace Ion.Parsing
         public Value Parse(TokenStream stream)
         {
             // Consume the value string.
-            var value = stream.Next().Value;
+            string value = stream.Next().Value;
 
             // Attempt to identify value string type.
-            var type = TokenIdentifier.IdentifyComplex(value);
+            TokenType? type = TokenIdentifier.IdentifyComplex(value);
 
             // Ensure type has successfully been identified.
-            if (!type.HasValue) throw new Exception("Unable to identify literal token type");
+            if (!type.HasValue)
+            {
+                throw new Exception("Unable to identify literal token type");
+            }
 
             // Create and return the value.
             return new Value(Resolvers.TypeFromTokenType(type.Value), type.Value, value);

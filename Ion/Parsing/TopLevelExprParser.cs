@@ -16,7 +16,7 @@ namespace Ion.Parsing
             Expr expr = new ExprParser().Parse(stream);
 
             // Create the anonymous function.
-            var function = new Function();
+            Function function = new Function();
 
             // Set the function name to anonymous.
             function.SetNameAnonymous();

@@ -11,13 +11,13 @@ namespace Ion.Parsing
             Type returnType = new TypeParser().Parse(stream);
 
             // Capture identifier.
-            var identifier = stream.Next(TokenType.Identifier).Value;
+            string identifier = stream.Next(TokenType.Identifier).Value;
 
             // Invoke the formal argument parser.
             FormalArgs args = new FormalArgsParser().Parse(stream);
 
             // Create the resulting prototype entity.
-            var prototype = new Prototype(identifier, args, returnType);
+            Prototype prototype = new Prototype(identifier, args, returnType);
 
             // Return prototype.
             return prototype;

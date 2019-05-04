@@ -11,11 +11,13 @@ namespace Ion.Parsing
         public FunctionCallExpr Parse(TokenStream stream)
         {
             // Capture identifier.
-            var identifier = stream.Next(TokenType.Identifier).Value;
+            string identifier = stream.Next(TokenType.Identifier).Value;
 
             // Ensure the function has been emitted.
             if (!SymbolTable.functions.ContainsKey(identifier))
+            {
                 throw new Exception($"Call to a non-existent function named '{identifier}' performed");
+            }
 
             // Retrieve the target.
             LLVMValueRef target = SymbolTable.functions[identifier];

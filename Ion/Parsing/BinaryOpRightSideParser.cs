@@ -33,7 +33,10 @@ namespace Ion.Parsing
                 as the current binary operation, consume it. Otherwise, the process
                 is complete.
                 */
-                if (firstPrecedence < this.minimalPrecedence) return this.leftSide;
+                if (firstPrecedence < this.minimalPrecedence)
+                {
+                    return this.leftSide;
+                }
 
                 // At this point, it's a binary operation.
                 TokenType binaryOperator = stream.Get().Type;
@@ -41,8 +44,9 @@ namespace Ion.Parsing
                 // TODO: Should check if it's a BINARY operator, not just an operator.
                 // Ensure the captured operator is validated.
                 if (!TokenIdentifier.IsOperator(binaryOperator))
-                    throw new Exception(
-                        $"Expected token to be a binary operator but got token type '{binaryOperator}'");
+                {
+                    throw new Exception($"Expected token to be a binary operator but got token type '{binaryOperator}'");
+                }
 
                 // Skip operator.
                 stream.Skip();
@@ -51,7 +55,10 @@ namespace Ion.Parsing
                 Expr rightSide = new PrimaryExprParser().Parse(stream);
 
                 // Ensure that the right-side was successfully parsed.
-                if (rightSide == null) throw new Exception("Unable to parse the right-side of the binary expression");
+                if (rightSide == null)
+                {
+                    throw new Exception("Unable to parse the right-side of the binary expression");
+                }
 
                 // Determine the token precedence of the current token.
                 var secondPrecedence = Precedence.Get(stream.Get());
@@ -68,7 +75,9 @@ namespace Ion.Parsing
 
                     // Ensure the right-side was successfully parsed.
                     if (rightSide == null)
+                    {
                         throw new Exception("Unable to parse the right-side of the binary expression");
+                    }
                 }
 
                 // Create the binary expression entity.

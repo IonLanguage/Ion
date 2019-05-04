@@ -30,7 +30,9 @@ namespace Ion.SyntaxAnalysis
 
                 // Ensure current token's type matches provided token type.
                 if (currentType != current)
+                {
                     throw new Exception($"Expected current token to be of type '{current}' but got '{currentType}'");
+                }
             }
 
             // Skip current token.
@@ -41,7 +43,9 @@ namespace Ion.SyntaxAnalysis
 
             // Ensure next token's type matches provided token type.
             if (nextType != next)
+            {
                 throw new Exception($"Expected next token to be of type '{next}' but got '{nextType}'");
+            }
 
             return result;
         }
@@ -69,7 +73,9 @@ namespace Ion.SyntaxAnalysis
 
             // Ensure current token's type matches provided token type.
             if (token.Type != type)
+            {
                 throw new Exception($"Expected current token to be of type '{type}' but got '{token.Type}'");
+            }
 
             return token;
         }

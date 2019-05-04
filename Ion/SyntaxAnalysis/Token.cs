@@ -17,7 +17,10 @@ namespace Ion.SyntaxAnalysis
             get
             {
                 // No value is set.
-                if (this.Value == null) return this.StartPos;
+                if (this.Value == null)
+                {
+                    return this.StartPos;
+                }
 
                 return this.StartPos + this.Value.Length;
             }

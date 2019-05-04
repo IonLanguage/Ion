@@ -11,10 +11,13 @@ namespace Ion.Parsing
             Token nextToken = stream.Peek();
 
             // Ensure captured token is an identifier.
-            if (nextToken.Type != TokenType.Identifier) throw new Exception("Expected token to be an identifier");
+            if (nextToken.Type != TokenType.Identifier)
+            {
+                throw new Exception("Expected token to be an identifier");
+            }
 
             // Capture identifier token value.
-            var identifier = nextToken.Value;
+            string identifier = nextToken.Value;
 
             // Variable reference.
             if (stream.Peek(2).Type != TokenType.SymbolParenthesesL)

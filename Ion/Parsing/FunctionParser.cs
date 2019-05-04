@@ -11,7 +11,7 @@ namespace Ion.Parsing
             Prototype prototype = new PrototypeParser().Parse(stream);
 
             // Create the function.
-            var function = new Function();
+            Function function = new Function();
 
             // Assign the function prototype to the parsed prototype.
             function.Prototype = prototype;
@@ -25,6 +25,7 @@ namespace Ion.Parsing
             // Assign the body.
             function.Body = body;
 
+            // Return the function.
             return function;
         }
     }

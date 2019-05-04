@@ -13,7 +13,10 @@ namespace Ion.Parsing
             Token type = stream.Next();
 
             // Ensure type value is a type.
-            if (!TokenIdentifier.IsType(type)) throw new Exception($"Expected a type but got '{type.Type}'");
+            if (!TokenIdentifier.IsType(type))
+            {
+                throw new Exception($"Expected a type but got '{type.Type}'");
+            }
 
             // Create the type.
             return new Type(type.Value);

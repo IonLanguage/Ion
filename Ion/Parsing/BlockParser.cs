@@ -20,13 +20,19 @@ namespace Ion.Parsing
 
             // Mark the block as default.
             if (begin.Type == TokenType.SymbolBlockL)
+            {
                 block.Type = BlockType.Default;
+            }
             // Mark the block as short.
             else if (begin.Type == TokenType.SymbolArrow)
+            {
                 block.Type = BlockType.Short;
+            }
             // Otherwise, the block type could not be identified.
             else
+            {
                 throw new Exception("Unexpected block type");
+            }
 
             // Look at the next token.
             Token nextToken = stream.Peek();
@@ -53,7 +59,10 @@ namespace Ion.Parsing
                 block.Expressions.Add(expr);
 
                 // Ensure expression was successfully parsed.
-                if (expr == null) throw new Exception("Unexpected expression to be null");
+                if (expr == null)
+                {
+                    throw new Exception("Unexpected expression to be null");
+                }
 
                 // SKip over the semi colon.
                 stream.Skip();

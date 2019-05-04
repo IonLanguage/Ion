@@ -10,20 +10,22 @@ namespace Ion.Parsing
         public VarDeclareExpr Parse(TokenStream stream)
         {
             // Consume the type string.
-            var typeValue = stream.Next().Value;
+            string typeValue = stream.Next().Value;
 
             // Create the type.
-            var type = new Type(typeValue);
+            Type type = new Type(typeValue);
 
             // Create the variable declaration & link the type.
-            var declaration = new VarDeclareExpr(type, null);
+            VarDeclareExpr declaration = new VarDeclareExpr(type, null);
 
             // Consume the variable name.
-            var name = stream.Next().Value;
+            string name = stream.Next().Value;
 
             // Ensure captured name is not null nor empty.
             if (string.IsNullOrEmpty(name))
+            {
                 throw new Exception("Unexpected variable declaration identifier to be null or empty");
+            }
 
             // Assign the name.
             declaration.SetName(name);

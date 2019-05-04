@@ -12,15 +12,24 @@ namespace Ion.Parsing
 
             // Variable declaration expression.
             if (TokenIdentifier.IsType(nextTokenType))
+            {
                 return new VarDeclareExprParser().Parse(stream);
+            }
             // Numeric expression.
             if (TokenIdentifier.IsNumeric(nextTokenType))
+            {
                 return new NumericExprParser().Parse(stream);
+            }
             // Identifier expression.
             if (nextTokenType == TokenType.Identifier)
+            {
                 return new IdentifierExprParser().Parse(stream);
+            }
             // Parentheses expression.
-            if (nextTokenType == TokenType.SymbolParenthesesL) return new ParenthesesExprParser().Parse(stream);
+            if (nextTokenType == TokenType.SymbolParenthesesL)
+            {
+                return new ParenthesesExprParser().Parse(stream);
+            }
 
             // At this point, return null.
             return null;

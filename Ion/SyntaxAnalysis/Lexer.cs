@@ -59,15 +59,15 @@ namespace Ion.SyntaxAnalysis
             var tokens = new List<Token>();
             var nextToken = this.GetNextToken();
 
-            Console.ForegroundColor = ConsoleColor.Yellow;
-
             // Obtain all possible tokens.
             while (nextToken.HasValue)
             {
                 // If the token is unknown, issue a warning in console.
                 if (nextToken.Value.Type == TokenType.Unknown)
+                {
                     // TODO: This should be done through ErrorReporting (implement in the future).
                     Console.WriteLine($"Warning: Unexpected token type to be unknown, value: {nextToken.Value.Value}");
+                }
 
                 // Append token value to the result list.
                 tokens.Add(nextToken.Value);
@@ -102,16 +102,24 @@ namespace Ion.SyntaxAnalysis
 
             // Skip whitespace characters if applicable.
             if (this.Options.HasFlag(LexerOptions.IgnoreWhitespace))
+            {
                 // While the current character is whitespace.
                 while (char.IsWhiteSpace(this.Char))
+                {
                     // Skip over the character.
                     this.Skip();
+                }
+            }
             // If ignore whitespace isn't enabled, then we can save it as a token.
             else if (char.IsWhiteSpace(this.Char))
+            {
                 // Match all whitespace characters until we hit a normal character.
                 if (this.MatchExpression(ref token, TokenType.Whitespace, Util.CreateRegex(@"[\s]+")))
+                {
                     // Return the token
                     return token;
+                }
+            }
 
             // Comments have highest priority because the division operator will catch the beginning of any comments.
             // If it starts with '/', it's a candidate.
@@ -119,7 +127,10 @@ namespace Ion.SyntaxAnalysis
                 if (this.MatchExpression(ref token, pair.Value, pair.Key))
                 {
                     // If the lexer should ignore comments, return the next comment.
-                    if (this.Options.HasFlag(LexerOptions.IgnoreComments)) return this.GetNextToken();
+                    if (this.Options.HasFlag(LexerOptions.IgnoreComments))
+                    {
+                        return this.GetNextToken();
+                    }
 
                     return token;
                 }
@@ -166,10 +177,14 @@ namespace Ion.SyntaxAnalysis
             // TODO: Add comment literal support.
             // Complex types support.
             foreach (var pair in Constants.complexTokenTypes)
+            {
                 // If it matches, return the token (already modified by the function).
                 if (this.MatchExpression(ref token, pair.Value, pair.Key))
+                {
                     // Return the token.
                     return token;
+                }
+            }
 
             // At this point the token was not identified. Skip over any captured value.
             this.Skip(token.Value != null ? token.Value.Length : 0);

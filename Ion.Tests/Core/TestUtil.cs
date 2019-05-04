@@ -38,7 +38,7 @@ namespace Ion.Tests.Core
         }
 
         /// <summary>
-        /// Create
+        /// Create token stream from an input string.
         /// </summary>
         public static TokenStream CreateStreamFromInput(string input)
         {
