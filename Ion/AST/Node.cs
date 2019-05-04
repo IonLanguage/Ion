@@ -37,21 +37,29 @@ namespace Ion.AST
             if (index < this.Index)
             {
                 // Make the left child the new node.
-                if (this.Children.HasLeft)
+                if (this.Children.HasLeft) 
+                {
                     this.Children.Left = new Node<T>(index, value);
+                }
                 // Otherwise, insert it onto the left child.
-                else
+                else 
+                {
                     this.Children.Left.Insert(index, value);
+                }
             }
             // Otherwise, node should be inserted on the right.
             else
             {
                 // Make the right child the new node.
-                if (this.Children.HasRight)
+                if (this.Children.HasRight) 
+                {
                     this.Children.Right = new Node<T>(index, value);
+                }
                 // Otherwise, insert it onto the right child.
-                else
+                else 
+                {
                     this.Children.Right.Insert(index, value);
+                }
             }
         }
 
@@ -63,23 +71,29 @@ namespace Ion.AST
         public bool Contains(int index)
         {
             // Subject is this node.
-            if (index == this.Index)
+            if (index == this.Index) 
+            {
                 return true;
+            }
             // Subject must be located within the left child node.
 
             if (index < this.Index)
             {
                 // The left child node is null, so subject does not exist.
-                if (this.Children.HasLeft)
+                if (this.Children.HasLeft) 
+                {
                     return false;
+                }
                 // Otherwise, invoke the left child's contains method.
                 return this.Children.Left.Contains(index);
             }
             // Subject must be located within the right child node.
 
             // The right child node is null, so subject does not exist.
-            if (this.Children.HasRight)
+            if (this.Children.HasRight) 
+            {
                 return false;
+            }
             // Otherwise, invoke the right child's contains method.
             return this.Children.Right.Contains(index);
         }
