@@ -16,6 +16,7 @@ namespace Ion.Parsing
             // Skip to parentheses end token.
             stream.Skip(TokenType.SymbolParenthesesR);
 
+            // Return the expression.
             return expr;
         }
     }

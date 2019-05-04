@@ -8,8 +8,8 @@ namespace Ion.Parsing
     {
         public FormalArgs Parse(TokenStream stream)
         {
-            // Skip parentheses start.
-            stream.Skip(TokenType.SymbolParenthesesL);
+            // Ensure position.
+            stream.EnsureCurrent(TokenType.SymbolParenthesesL);
 
             // Create the formal args entity.
             FormalArgs args = new FormalArgs();
@@ -61,6 +61,8 @@ namespace Ion.Parsing
             {
                 stream.Skip(TokenType.SymbolParenthesesR);
             }
+
+            stream.Skip();
 
             // Finish process.
             return args;

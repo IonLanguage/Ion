@@ -8,6 +8,7 @@ namespace Ion.Parsing
     {
         public Expr Parse(TokenStream stream)
         {
+            // Peek next token.
             Token nextToken = stream.Peek();
 
             // Ensure captured token is an identifier.

@@ -29,48 +29,22 @@ namespace Ion.Tests.CodeGeneration
         }
 
         [Test]
-        public void CallWithoutArguments()
+        public void HasNext()
         {
             // Create the token stream.
-            TokenStream stream = new TokenStream(new Token[]
-            {
-                // Program starting point token.
-                new Token {
-                    Type = TokenType.Unknown
-                },
+            TokenStream stream = TestUtil.CreateStreamFromInputDataFile("DriverHasNext");
 
-                new Token {
-                    Type = TokenType.Identifier,
-                    Value = "main"
-                },
+            // Create the driver.
+            Driver driver = new Driver(stream);
 
-                new Token {
-                    Type = TokenType.SymbolParenthesesL,
-                    Value = "("
-                },
+            // Expect driver to have next.
+            Assert.True(driver.HasNext);
 
-                new Token {
-                    Type = TokenType.SymbolParenthesesR,
-                    Value = ")"
-                },
+            // Invoke the driver.
+            driver.Next();
 
-                new Token {
-                    Type = TokenType.SymbolSemiColon,
-                    Value = ";"
-                }
-            });
-
-            // Read the expected output IR code.
-            string expected = TestUtil.ReadOutputDataFile("CallWithoutArguments");
-
-            // Emit the main function.
-            this.module.EmitMainFunction();
-
-            // Emit the module.
-            string output = this.module.ToString();
-
-            // Compare stored IR code with the actual, emitted output.
-            Assert.AreEqual(expected, output);
+            // Expect driver to not have next.
+            Assert.False(driver.HasNext);
         }
     }
 }

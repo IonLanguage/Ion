@@ -28,10 +28,7 @@ namespace Ion.Parsing
         {
             get
             {
-                TokenType currentType = this.stream.Get().Type;
-                TokenType nextType = this.stream.Peek().Type;
-
-                return currentType != TokenType.ProgramEnd && nextType != TokenType.ProgramEnd;
+                return !this.stream.IsLastItem;
             }
         }
 
@@ -43,19 +40,13 @@ namespace Ion.Parsing
         {
             // TODO: What if EOF token has not been processed itself?
             // End reached.
-            if (this.stream.LastItem) return false;
+            if (this.stream.IsLastItem)
+            {
+                return false;
+            }
 
             // TODO: Finish fixing this, parsers overflowing (+1) because of this issue with the Program start (05/02/2019).
             TokenType type = this.stream.Get().Type;
-
-            // Skip program start token.
-            if (type == TokenType.ProgramStart)
-            {
-                this.stream.Skip();
-
-                // Assign type as next token type, continue execution.
-                type = this.stream.Get().Type;
-            }
 
             // Skip unknown tokens for error recovery.
             if (type == TokenType.Unknown)
@@ -65,8 +56,8 @@ namespace Ion.Parsing
 
                 return false;
             }
-            // Function definition or global variable.
 
+            // Function definition or global variable.
             if (TokenIdentifier.IsType(type))
             {
                 // Peek the token after identifier.

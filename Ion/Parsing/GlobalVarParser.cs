@@ -8,7 +8,7 @@ namespace Ion.Parsing
         public GlobalVar Parse(TokenStream stream)
         {
             // Consume type.
-            string typeValue = stream.Next().Value;
+            string typeValue = stream.Get().Value;
 
             // Create type.
             Type type = new Type(typeValue);
@@ -19,12 +19,16 @@ namespace Ion.Parsing
             // Consume name.
             string name = stream.Next(TokenType.Identifier).Value;
 
+            // Skip name.
+            stream.Skip();
+
             // Create the global variable.
             GlobalVar globalVar = new GlobalVar(type);
 
             // Assign name.
             globalVar.SetName(name);
 
+            // Return the global variable.
             return globalVar;
         }
     }

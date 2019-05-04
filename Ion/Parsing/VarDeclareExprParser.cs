@@ -10,7 +10,7 @@ namespace Ion.Parsing
         public VarDeclareExpr Parse(TokenStream stream)
         {
             // Consume the type string.
-            string typeValue = stream.Next().Value;
+            string typeValue = stream.Get().Value;
 
             // Create the type.
             Type type = new Type(typeValue);

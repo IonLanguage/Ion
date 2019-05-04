@@ -9,8 +9,8 @@ namespace Ion.Parsing
     {
         public Block Parse(TokenStream stream)
         {
-            // Consume next token. Either '{' or '=>' for anonymous functions.
-            Token begin = stream.Next();
+            // Consume current token. Either '{' or '=>' for anonymous functions.
+            Token begin = stream.Get();
 
             // Create the block.
             var block = new Block();

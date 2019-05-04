@@ -29,6 +29,7 @@ namespace Ion.Parsing
             // Consume semi-colon after the expression.
             stream.Skip(TokenType.SymbolSemiColon);
 
+            // Return the expression.
             return expr;
         }
     }

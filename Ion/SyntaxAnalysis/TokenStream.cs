@@ -36,7 +36,7 @@ namespace Ion.SyntaxAnalysis
             }
 
             // Skip current token.
-            var result = this.Skip();
+            bool result = this.Skip();
 
             // Ensure next token matches.
             TokenType nextType = this.Get().Type;
@@ -63,6 +63,22 @@ namespace Ion.SyntaxAnalysis
         }
 
         /// <summary>
+        /// Ensure that the current token's type
+        /// matches the token type provided, otherwise
+        /// throw an error.
+        /// </summary>
+        public void EnsureCurrent(TokenType type)
+        {
+            Token current = this.Get();
+
+            // Ensure current token's type matches provided token type.
+            if (current.Type != type)
+            {
+                throw new Exception($"Expected current token to be of type '{type}' but got '{current.Type}'");
+            }
+        }
+
+        /// <summary>
         /// Retrieve the current token and
         /// ensure that its type matches the
         /// provided token type.
@@ -72,10 +88,7 @@ namespace Ion.SyntaxAnalysis
             Token token = this.Get();
 
             // Ensure current token's type matches provided token type.
-            if (token.Type != type)
-            {
-                throw new Exception($"Expected current token to be of type '{type}' but got '{token.Type}'");
-            }
+            this.EnsureCurrent(type);
 
             return token;
         }

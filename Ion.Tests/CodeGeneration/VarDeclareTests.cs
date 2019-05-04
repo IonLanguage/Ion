@@ -34,9 +34,6 @@ namespace Ion.Tests.CodeGeneration
             // Ensure correct token stream length.
             Assert.AreEqual(2, stream.Count);
 
-            // Insert stream bounds.
-            stream.InsertBounds();
-
             // Create and emit the main function.
             Function mainFunction = this.module.EmitMainFunction();
 

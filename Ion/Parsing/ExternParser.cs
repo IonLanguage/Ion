@@ -7,14 +7,14 @@ namespace Ion.Parsing
     {
         public Extern Parse(TokenStream stream)
         {
-            // Consume extern keyword.
-            stream.Skip(TokenType.KeywordExternal);
+            // Skip current extern keyword onto identifier.
+            stream.Skip(TokenType.Identifier, TokenType.KeywordExternal);
 
             // Invoke the prototype parser.
             Prototype prototype = new PrototypeParser().Parse(stream);
 
             // Create the external definition entity using the parsed prototype.
-            var external = new Extern(prototype);
+            Extern external = new Extern(prototype);
 
             // Return the external definition entity.
             return external;

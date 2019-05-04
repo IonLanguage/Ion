@@ -25,7 +25,10 @@ namespace Ion.Misc
 
         public int Index => this.index;
 
-        public bool LastItem => this.index == this.Count - 1;
+        /// <summary>
+        /// Whether the index currently points to the last item.
+        /// </summary>
+        public bool IsLastItem => this.index == this.Count - 1;
 
         /// <summary>
         /// Set the peek pivot relative to the current
@@ -41,8 +44,13 @@ namespace Ion.Misc
         /// </summary>
         public void SetPivot(int at)
         {
-            if (at < 1) throw new ArgumentException("Unexpected index to be less than one");
+            // Index must be 1 or larger.
+            if (at < 1)
+            {
+                throw new ArgumentException("Unexpected index to be less than one");
+            }
 
+            // Set the pivot.
             this.pivotIndex = at;
         }
 
@@ -66,7 +74,7 @@ namespace Ion.Misc
         public bool Skip()
         {
             // Ensure not overflowing.
-            if (this.LastItem) return false;
+            if (this.IsLastItem) return false;
 
             this.index++;
 

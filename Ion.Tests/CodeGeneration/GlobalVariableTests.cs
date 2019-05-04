@@ -27,11 +27,6 @@ namespace Ion.Tests.CodeGeneration
             // Create the sequence.
             Token[] sequence = new Token[]
             {
-                // Program starting point token.
-                new Token {
-                    Type = TokenType.Unknown
-                },
-
                 new Token {
                     Type = TokenType.Identifier,
                     Value = "bool"

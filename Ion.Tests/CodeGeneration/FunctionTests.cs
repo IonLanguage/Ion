@@ -34,11 +34,6 @@ namespace Ion.Tests.CodeGeneration
             // Create the token stream.
             TokenStream stream = new TokenStream(new Token[]
             {
-                // Program starting point token.
-                new Token {
-                    Type = TokenType.Unknown
-                },
-
                 new Token {
                     Type = TokenType.TypeInt,
                     Value = "int"
@@ -116,11 +111,6 @@ namespace Ion.Tests.CodeGeneration
             // Create the token stream.
             TokenStream stream = new TokenStream(new Token[]
             {
-                // Program starting point token.
-                new Token {
-                    Type = TokenType.Unknown
-                },
-
                 new Token {
                     Type = TokenType.TypeInt,
                     Value = "int"
@@ -163,8 +153,6 @@ namespace Ion.Tests.CodeGeneration
 
             // Emit the module.
             string output = this.module.ToString();
-
-            System.Console.WriteLine(output);
 
             // Compare stored IR code with the actual, emitted output.
             Assert.AreEqual(expected, output);

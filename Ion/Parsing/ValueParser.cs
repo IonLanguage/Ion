@@ -10,7 +10,7 @@ namespace Ion.Parsing
         public Value Parse(TokenStream stream)
         {
             // Consume the value string.
-            string value = stream.Next().Value;
+            string value = stream.Get().Value;
 
             // Attempt to identify value string type.
             TokenType? type = TokenIdentifier.IdentifyComplex(value);

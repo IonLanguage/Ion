@@ -9,8 +9,11 @@ namespace Ion.Parsing
     {
         public Type Parse(TokenStream stream)
         {
-            // Consume type token.
-            Token type = stream.Next();
+            // Consume current type token.
+            Token type = stream.Get();
+
+            // Skip type.
+            stream.Skip();
 
             // Ensure type value is a type.
             if (!TokenIdentifier.IsType(type))

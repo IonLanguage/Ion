@@ -34,11 +34,6 @@ namespace Ion.Tests.CodeGeneration
             // Create the token stream.
             TokenStream stream = new TokenStream(new Token[]
             {
-                // Program starting point token.
-                new Token {
-                    Type = TokenType.Unknown
-                },
-
                 new Token {
                     Type = TokenType.Identifier,
                     Value = "main"

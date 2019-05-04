@@ -11,7 +11,10 @@ namespace Ion.Parsing
             Type returnType = new TypeParser().Parse(stream);
 
             // Capture identifier.
-            string identifier = stream.Next(TokenType.Identifier).Value;
+            string identifier = stream.Get(TokenType.Identifier).Value;
+
+            // Skip identifier.
+            stream.Skip();
 
             // Invoke the formal argument parser.
             FormalArgs args = new FormalArgsParser().Parse(stream);

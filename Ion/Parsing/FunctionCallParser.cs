@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Ion.CodeGeneration;
 using Ion.Core;
 using Ion.SyntaxAnalysis;
@@ -11,7 +12,7 @@ namespace Ion.Parsing
         public FunctionCallExpr Parse(TokenStream stream)
         {
             // Capture identifier.
-            string identifier = stream.Next(TokenType.Identifier).Value;
+            string identifier = stream.Get(TokenType.Identifier).Value;
 
             // Ensure the function has been emitted.
             if (!SymbolTable.functions.ContainsKey(identifier))
@@ -23,12 +24,13 @@ namespace Ion.Parsing
             LLVMValueRef target = SymbolTable.functions[identifier];
 
             // Invoke the function call argument parser.
-            var args = new CallArgsParser().Parse(stream);
+            List<Expr> args = new CallArgsParser().Parse(stream);
 
             // TODO: Callee.
             // Create the function call expression entity.
-            var functionCall = new FunctionCallExpr(target, "TestCallee", args);
+            FunctionCallExpr functionCall = new FunctionCallExpr(target, "TestCallee", args);
 
+            // Return the function call expression.
             return functionCall;
         }
     }
