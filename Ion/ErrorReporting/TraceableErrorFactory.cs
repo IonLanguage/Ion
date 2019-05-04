@@ -13,7 +13,7 @@ namespace Ion.ErrorReporting
 
         public TraceableError Create(string message, string name = InternalErrorNames.Generic)
         {
-            return new TraceableError(stream, message, name);
+            return new TraceableError(this.stream, message, name);
         }
     }
 }

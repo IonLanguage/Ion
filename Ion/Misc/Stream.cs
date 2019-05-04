@@ -14,18 +14,18 @@ namespace Ion.Misc
         public Stream()
         {
             // Prepare the initial enumerator.
-            Reset();
+            this.Reset();
         }
 
         public Stream(T[] items) : base(items)
         {
             // Prepare the initial enumerator.
-            Reset();
+            this.Reset();
         }
 
-        public int Index => index;
+        public int Index => this.index;
 
-        public bool LastItem => index == Count - 1;
+        public bool LastItem => this.index == this.Count - 1;
 
         /// <summary>
         /// Set the peek pivot relative to the current
@@ -33,7 +33,7 @@ namespace Ion.Misc
         /// </summary>
         public void SetRelativePivot(int amount)
         {
-            SetPivot(index + amount);
+            this.SetPivot(this.index + amount);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Ion.Misc
         {
             if (at < 1) throw new ArgumentException("Unexpected index to be less than one");
 
-            pivotIndex = at;
+            this.pivotIndex = at;
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Ion.Misc
         /// </summary>
         public void ResetPivot()
         {
-            pivotIndex = -1;
+            this.pivotIndex = -1;
         }
 
         /// <summary>
@@ -60,51 +60,49 @@ namespace Ion.Misc
         /// </summary>
         public void Reset()
         {
-            index = 0;
+            this.index = 0;
         }
 
         public bool Skip()
         {
             // Ensure not overflowing.
-            if (LastItem) return false;
+            if (this.LastItem) return false;
 
-            index++;
+            this.index++;
 
             return true;
         }
 
         public T Next()
         {
-            Skip();
+            this.Skip();
 
-            return Get();
+            return this.Get();
         }
 
         public T Peek(int amount = 1)
         {
-            var newIndex = index;
+            var newIndex = this.index;
 
             // Apply pivot if applicable.
-            if (pivotIndex != -1) newIndex += pivotIndex;
+            if (this.pivotIndex != -1) newIndex += this.pivotIndex;
 
             // Amount cannot be zero.
             if (amount == 0) throw new ArgumentException("Amount cannot be zero");
 
             // Return first or last item if index overflows.
-            if (DoesIndexOverflow(newIndex + amount))
+            if (this.DoesIndexOverflow(newIndex + amount))
             {
                 // Return program end token.
                 if (amount > 0)
-                {
                     // TODO
                     return this[this.Count - 1];
-                }
 
                 // Otherwise, return first item.
                 return this[0];
             }
 
-            return this[index + amount];
+            return this[this.index + amount];
         }
 
         /// <summary>
@@ -114,12 +112,12 @@ namespace Ion.Misc
         /// </summary>
         public bool DoesIndexOverflow(int at)
         {
-            return at < 0 || Count - 1 < at;
+            return at < 0 || this.Count - 1 < at;
         }
 
         public T Get()
         {
-            return this[index];
+            return this[this.index];
         }
 
         public override string ToString()

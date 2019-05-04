@@ -1,7 +1,7 @@
 using System;
-using LLVMSharp;
 using Ion.CodeGeneration.Structure;
 using Ion.Misc;
+using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
@@ -30,14 +30,11 @@ namespace Ion.CodeGeneration
 
     public abstract class Expr : Named, IEntity<LLVMValueRef, LLVMBuilderRef>
     {
+        public static Action<LLVMBuilderRef> Void = builder => { LLVM.BuildRetVoid(builder); };
+
         public abstract ExprType Type { get; }
 
         public string FunctionCallTarget { get; set; }
-
-        public static Action<LLVMBuilderRef> Void = (builder) =>
-        {
-            LLVM.BuildRetVoid(builder);
-        };
 
         public abstract LLVMValueRef Emit(LLVMBuilderRef context);
     }

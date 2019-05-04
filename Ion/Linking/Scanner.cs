@@ -8,10 +8,10 @@ namespace Ion.Linking
     {
         public Scanner(ScannerOptions options)
         {
-            Options = options;
+            this.Options = options;
 
             // Initialize options.
-            Options.Init();
+            this.Options.Init();
         }
 
         public Scanner(string root)
@@ -19,10 +19,10 @@ namespace Ion.Linking
             ScannerOptions options = DefaultOptions;
 
             options.Root = root;
-            Options = options;
+            this.Options = options;
 
             // Initialize options.
-            Options.Init();
+            this.Options.Init();
         }
 
         public static ScannerOptions DefaultOptions => new ScannerOptions
@@ -46,7 +46,7 @@ namespace Ion.Linking
         /// </summary>
         public bool VerifyRoot()
         {
-            return Directory.Exists(Options.Root);
+            return Directory.Exists(this.Options.Root);
         }
 
         /// <summary>
@@ -58,19 +58,19 @@ namespace Ion.Linking
             var entries = new List<string>();
 
             // Join the path with the root path.
-            var targetPath = Path.Join(Options.Root, path);
+            var targetPath = Path.Join(this.Options.Root, path);
 
             // Set the target path to the root path.
-            if (string.IsNullOrEmpty(path)) targetPath = Options.Root;
+            if (string.IsNullOrEmpty(path)) targetPath = this.Options.Root;
 
             // Loop through all entries.
             foreach (var entry in Directory.GetFiles(targetPath))
             {
                 // Continue if entry is excluded.
-                if (Options.IsExcluded(entry))
+                if (this.Options.IsExcluded(entry))
                     continue;
                 // Continue if entry is not matched.
-                else if (!Options.IsMatch(entry)) continue;
+                if (!this.Options.IsMatch(entry)) continue;
 
                 // Register entry in results.
                 entries.Add(entry);
@@ -82,7 +82,7 @@ namespace Ion.Linking
                     var nextTarget = Path.Join(path, entry);
 
                     // Register recursive result.
-                    entries.AddRange(Scan(nextTarget));
+                    entries.AddRange(this.Scan(nextTarget));
                 }
             }
 
@@ -92,7 +92,7 @@ namespace Ion.Linking
 
         public string[] Scan(bool recursive = true)
         {
-            return Scan(null, recursive);
+            return this.Scan(null, recursive);
         }
     }
 }

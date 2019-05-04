@@ -1,6 +1,6 @@
-using LLVMSharp;
 using Ion.CodeGeneration.Structure;
 using Ion.Misc;
+using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {

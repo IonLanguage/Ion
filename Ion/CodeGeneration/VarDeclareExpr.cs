@@ -8,8 +8,8 @@ namespace Ion.CodeGeneration
     {
         public VarDeclareExpr(Type valueType, Expr value)
         {
-            ValueType = valueType;
-            Value = value;
+            this.ValueType = valueType;
+            this.Value = value;
         }
 
         public override ExprType Type => ExprType.VariableDeclaration;
@@ -21,13 +21,13 @@ namespace Ion.CodeGeneration
         public override LLVMValueRef Emit(LLVMBuilderRef context)
         {
             // Create the variable.
-            LLVMValueRef variable = LLVM.BuildAlloca(context, ValueType.Emit(), Name);
+            LLVMValueRef variable = LLVM.BuildAlloca(context, this.ValueType.Emit(), this.Name);
 
             // Assign value if applicable.
-            if (Value != null)
+            if (this.Value != null)
             {
-                LLVM.BuildStore(context, Value.Emit(context), variable);
-                SymbolTable.localScope.Add(Name, variable);
+                LLVM.BuildStore(context, this.Value.Emit(context), variable);
+                SymbolTable.localScope.Add(this.Name, variable);
             }
 
             return variable;

@@ -8,7 +8,7 @@ namespace Ion.Misc
     {
         protected Named()
         {
-            Name = SpecialName.Anonymous;
+            this.Name = SpecialName.Anonymous;
         }
 
         public string Name { get; protected set; }
@@ -22,8 +22,8 @@ namespace Ion.Misc
             if (string.IsNullOrEmpty(name))
                 throw new Exception("Unexpected name to be null or empty");
             // Ensure identifier pattern matches provided name.
-            else if (Pattern.identifier.IsMatch(name))
-                Name = name;
+            if (Pattern.identifier.IsMatch(name))
+                this.Name = name;
             // Otherwise, throw an error.
             else
                 throw new Exception($"Invalid name: {name}");
@@ -35,7 +35,7 @@ namespace Ion.Misc
         /// </summary>
         public void SetNameAnonymous()
         {
-            SetName(SpecialName.Anonymous);
+            this.SetName(SpecialName.Anonymous);
         }
     }
 }

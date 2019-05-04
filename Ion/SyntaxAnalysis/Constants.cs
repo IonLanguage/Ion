@@ -78,9 +78,9 @@ namespace Ion.SyntaxAnalysis
                 operators,
                 types
             }
-            .SelectMany((dictionary) => dictionary)
-            .ToLookup((pair) => pair.Key, (pair) => pair.Value)
-            .ToDictionary((group) => group.Key, (group) => group.First())
+            .SelectMany(dictionary => dictionary)
+            .ToLookup(pair => pair.Key, pair => pair.Value)
+            .ToDictionary(group => group.Key, group => group.First())
             .SortByKeyLength();
 
         public static readonly ComplexTokenTypeMap complexTokenTypes = new ComplexTokenTypeMap

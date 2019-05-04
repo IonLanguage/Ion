@@ -28,7 +28,7 @@ namespace Ion.Parsing
                     if (currentTokenType == TokenType.SymbolParenthesesR)
                         break;
                     // Otherwise, expect a comma.
-                    else if (currentTokenType != TokenType.SymbolComma)
+                    if (currentTokenType != TokenType.SymbolComma)
                         throw new Exception("Unexpected token in function call argument list");
 
                     // Skip token.

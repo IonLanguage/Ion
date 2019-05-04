@@ -10,8 +10,8 @@ namespace Ion.Parsing
     {
         public ParserContext(TokenStream stream)
         {
-            ErrorStack = new Stack<Error>();
-            Stream = stream;
+            this.ErrorStack = new Stack<Error>();
+            this.Stream = stream;
         }
 
         public Stack<Error> ErrorStack { get; }
@@ -24,7 +24,7 @@ namespace Ion.Parsing
         /// </summary>
         public int GetCurrentPrecedence()
         {
-            return Precedence.Get(Stream.Get().Type);
+            return Precedence.Get(this.Stream.Get().Type);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Ion.Parsing
         /// </summary>
         public void AppendError(Error error)
         {
-            ErrorStack.Push(error);
+            this.ErrorStack.Push(error);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Ion.Parsing
         /// </summary>
         public void BeginErrorStack()
         {
-            ErrorStack.Clear();
+            this.ErrorStack.Clear();
         }
     }
 }

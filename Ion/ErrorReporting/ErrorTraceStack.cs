@@ -6,9 +6,6 @@ namespace Ion.ErrorReporting
 
         public int Position { get; set; }
 
-        public string TraceString
-        {
-            get => $"at {this.SourceFile} : {this.Position}";
-        }
+        public string TraceString => $"at {this.SourceFile} : {this.Position}";
     }
 }

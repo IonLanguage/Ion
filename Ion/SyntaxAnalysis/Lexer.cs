@@ -31,15 +31,15 @@ namespace Ion.SyntaxAnalysis
 
         public Lexer(string input, LexerOptions options = LexerOptions.IgnoreComments | LexerOptions.IgnoreWhitespace)
         {
-            Input = input.Trim();
-            Options = options;
+            this.Input = input.Trim();
+            this.Options = options;
         }
 
         /// <summary>
         /// The character located at the current
         /// position in the input string.
         /// </summary>
-        public char Char => Input[Position];
+        public char Char => this.Input[this.Position];
 
         public int Position { get; set; }
 
@@ -57,7 +57,7 @@ namespace Ion.SyntaxAnalysis
         public List<Token> Tokenize()
         {
             var tokens = new List<Token>();
-            var nextToken = GetNextToken();
+            var nextToken = this.GetNextToken();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
 
@@ -73,7 +73,7 @@ namespace Ion.SyntaxAnalysis
                 tokens.Add(nextToken.Value);
 
                 // Continue enumeration.
-                nextToken = GetNextToken();
+                nextToken = this.GetNextToken();
             }
 
             Console.ResetColor();
@@ -88,38 +88,38 @@ namespace Ion.SyntaxAnalysis
         public Token? GetNextToken()
         {
             // Return immediatly if position overflows.
-            if (Position > Input.Length - 1) return null;
+            if (this.Position > this.Input.Length - 1) return null;
 
             // Begin capturing the token. Identify the token as unknown initially.
             var token = new Token
             {
-                StartPos = Position,
+                StartPos = this.Position,
                 Type = TokenType.Unknown,
 
                 // Default to current character to avoid infinite loop.
-                Value = Char.ToString()
+                Value = this.Char.ToString()
             };
 
             // Skip whitespace characters if applicable.
-            if (Options.HasFlag(LexerOptions.IgnoreWhitespace))
+            if (this.Options.HasFlag(LexerOptions.IgnoreWhitespace))
                 // While the current character is whitespace.
-                while (char.IsWhiteSpace(Char))
+                while (char.IsWhiteSpace(this.Char))
                     // Skip over the character.
-                    Skip();
+                    this.Skip();
             // If ignore whitespace isn't enabled, then we can save it as a token.
-            else if (char.IsWhiteSpace(Char))
+            else if (char.IsWhiteSpace(this.Char))
                 // Match all whitespace characters until we hit a normal character.
-                if (MatchExpression(ref token, TokenType.Whitespace, Util.CreateRegex(@"[\s]+")))
+                if (this.MatchExpression(ref token, TokenType.Whitespace, Util.CreateRegex(@"[\s]+")))
                     // Return the token
                     return token;
 
             // Comments have highest priority because the division operator will catch the beginning of any comments.
             // If it starts with '/', it's a candidate.
             foreach (var pair in Constants.commentTokenTypes)
-                if (MatchExpression(ref token, pair.Value, pair.Key))
+                if (this.MatchExpression(ref token, pair.Value, pair.Key))
                 {
                     // If the lexer should ignore comments, return the next comment.
-                    if (Options.HasFlag(LexerOptions.IgnoreComments)) return GetNextToken();
+                    if (this.Options.HasFlag(LexerOptions.IgnoreComments)) return this.GetNextToken();
 
                     return token;
                 }
@@ -127,7 +127,7 @@ namespace Ion.SyntaxAnalysis
             // Test string against simple token type values.
             foreach (var pair in Constants.simpleTokenTypes)
                 // Possible candidate.
-                if (pair.Key.StartsWith(Char))
+                if (pair.Key.StartsWith(this.Char))
                 {
                     // Create initial regex.
                     Regex pattern = Util.CreateRegex(Regex.Escape(pair.Key));
@@ -146,13 +146,13 @@ namespace Ion.SyntaxAnalysis
                     }
 
                     // If the symbol is next in the input.
-                    if (MatchExpression(ref token, pair.Value, pattern))
+                    if (this.MatchExpression(ref token, pair.Value, pattern))
                     {
                         // If skimming is required, remove the last character from the token value.
                         if (skim)
                         {
                             // Reduce the position
-                            Position -= token.Value.Length - pair.Key.Length;
+                            this.Position -= token.Value.Length - pair.Key.Length;
 
                             // Skim the last character off.
                             token.Value = pair.Key;
@@ -167,12 +167,12 @@ namespace Ion.SyntaxAnalysis
             // Complex types support.
             foreach (var pair in Constants.complexTokenTypes)
                 // If it matches, return the token (already modified by the function).
-                if (MatchExpression(ref token, pair.Value, pair.Key))
+                if (this.MatchExpression(ref token, pair.Value, pair.Key))
                     // Return the token.
                     return token;
 
             // At this point the token was not identified. Skip over any captured value.
-            Skip(token.Value != null ? token.Value.Length : 0);
+            this.Skip(token.Value != null ? token.Value.Length : 0);
 
             // Return the default token. The token type defaults to unknown.
             return token;
@@ -186,7 +186,7 @@ namespace Ion.SyntaxAnalysis
         public bool MatchExpression(ref Token token, TokenType type, Regex regex, bool modifyToken = true)
         {
             // Substrings from the current position to get the viable matching string.
-            var input = Input.Substring(Position).TrimStart();
+            var input = this.Input.Substring(this.Position).TrimStart();
             Match match = regex.Match(input);
 
             // If the match is success, update the token to reflect this.
@@ -197,7 +197,7 @@ namespace Ion.SyntaxAnalysis
                     token.Value = match.Value;
                     token.Type = type;
 
-                    Skip(match.Value.Length);
+                    this.Skip(match.Value.Length);
                 }
 
                 return true;
@@ -219,7 +219,7 @@ namespace Ion.SyntaxAnalysis
             //     return;
             // }
 
-            Position += amount;
+            this.Position += amount;
         }
     }
 }

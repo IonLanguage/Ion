@@ -16,12 +16,12 @@ namespace Ion.Optimization
         public List<Expr> Optimize()
         {
             // Loop through all expressions.
-            foreach (Expr expr in expressions)
+            foreach (Expr expr in this.expressions)
             {
                 // TODO
             }
 
-            return expressions;
+            return this.expressions;
         }
     }
 }

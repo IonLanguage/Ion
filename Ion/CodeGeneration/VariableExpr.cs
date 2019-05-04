@@ -8,7 +8,7 @@ namespace Ion.CodeGeneration
     {
         public VariableExpr(string name)
         {
-            SetName(name);
+            this.SetName(name);
         }
 
         public override ExprType Type => ExprType.VariableReference;
@@ -16,11 +16,11 @@ namespace Ion.CodeGeneration
         public override LLVMValueRef Emit(LLVMBuilderRef context)
         {
             // Ensure the variable exists in the local scope.
-            if (!SymbolTable.localScope.ContainsKey(Name))
-                throw new Exception($"Reference to undefined variable named '{Name}'");
+            if (!SymbolTable.localScope.ContainsKey(this.Name))
+                throw new Exception($"Reference to undefined variable named '{this.Name}'");
 
             // Retrieve the value.
-            LLVMValueRef value = SymbolTable.localScope[Name];
+            LLVMValueRef value = SymbolTable.localScope[this.Name];
 
             // Return the retrieved value.
             return value;

@@ -13,7 +13,7 @@ namespace Ion.Parsing
         public Driver(TokenStream stream)
         {
             this.stream = stream;
-            Module = new Module();
+            this.Module = new Module();
         }
 
         public Driver(Token[] tokens) : this(new TokenStream(tokens))
@@ -28,8 +28,8 @@ namespace Ion.Parsing
         {
             get
             {
-                TokenType currentType = stream.Get().Type;
-                TokenType nextType = stream.Peek().Type;
+                TokenType currentType = this.stream.Get().Type;
+                TokenType nextType = this.stream.Peek().Type;
 
                 return currentType != TokenType.ProgramEnd && nextType != TokenType.ProgramEnd;
             }
@@ -43,18 +43,18 @@ namespace Ion.Parsing
         {
             // TODO: What if EOF token has not been processed itself?
             // End reached.
-            if (stream.LastItem) return false;
+            if (this.stream.LastItem) return false;
 
             // TODO: Finish fixing this, parsers overflowing (+1) because of this issue with the Program start (05/02/2019).
-            TokenType type = stream.Get().Type;
+            TokenType type = this.stream.Get().Type;
 
             // Skip program start token.
             if (type == TokenType.ProgramStart)
             {
-                stream.Skip();
+                this.stream.Skip();
 
                 // Assign type as next token type, continue execution.
-                type = stream.Get().Type;
+                type = this.stream.Get().Type;
             }
 
             // Skip unknown tokens for error recovery.
@@ -66,47 +66,48 @@ namespace Ion.Parsing
                 return false;
             }
             // Function definition or global variable.
-            else if (TokenIdentifier.IsType(type))
+
+            if (TokenIdentifier.IsType(type))
             {
                 // Peek the token after identifier.
-                Token afterIdentifier = stream.Peek(2);
+                Token afterIdentifier = this.stream.Peek(2);
 
                 // Function definition.
                 if (afterIdentifier.Type == TokenType.SymbolParenthesesL)
                 {
                     // Invoke the function parser.
-                    Function function = new FunctionParser().Parse(stream);
+                    Function function = new FunctionParser().Parse(this.stream);
 
                     // Emit the function.
-                    function.Emit(Module.Source);
+                    function.Emit(this.Module.Source);
                 }
                 // Otherwise, global variable declaration.
                 else
                 {
                     // Invoke the global variable parser.
-                    GlobalVar globalVariable = new GlobalVarParser().Parse(stream);
+                    GlobalVar globalVariable = new GlobalVarParser().Parse(this.stream);
 
                     // Emit the global variable.
-                    globalVariable.Emit(Module.Source);
+                    globalVariable.Emit(this.Module.Source);
                 }
             }
             // External definition.
             else if (type == TokenType.KeywordExternal)
             {
                 // Invoke the external definition parser.
-                Extern external = new ExternParser().Parse(stream);
+                Extern external = new ExternParser().Parse(this.stream);
 
                 // Emit the external definition.
-                external.Emit(Module.Source);
+                external.Emit(this.Module.Source);
             }
             // Otherwise, top-level expression.
             else
             {
                 // Invoke the top-level expression parser.
-                Function exprDelegate = new TopLevelExprParser().Parse(stream);
+                Function exprDelegate = new TopLevelExprParser().Parse(this.stream);
 
                 // Emit the top-level expression.
-                exprDelegate.Emit(Module.Source);
+                exprDelegate.Emit(this.Module.Source);
             }
 
             // At this point, an entity was processed.

@@ -71,10 +71,10 @@ namespace Ion.CognitiveServices
             if (tokenType == TokenType.LiteralInteger)
                 return LLVM.ConstInt(type.Emit(), ulong.Parse(value), false);
             // Token value is a decimal.
-            else if (tokenType == TokenType.LiteralDecimal)
+            if (tokenType == TokenType.LiteralDecimal)
                 return LLVM.ConstReal(type.Emit(), double.Parse(value));
             // Token value is a string.
-            else if (tokenType == TokenType.LiteralString) return LLVM.ConstString(value, (uint) value.Length, false);
+            if (tokenType == TokenType.LiteralString) return LLVM.ConstString(value, (uint) value.Length, false);
 
             throw new Exception("Cannot resolve unsupported type");
         }

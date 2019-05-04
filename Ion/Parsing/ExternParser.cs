@@ -14,7 +14,7 @@ namespace Ion.Parsing
             Prototype prototype = new PrototypeParser().Parse(stream);
 
             // Create the external definition entity using the parsed prototype.
-            Extern external = new Extern(prototype);
+            var external = new Extern(prototype);
 
             // Return the external definition entity.
             return external;

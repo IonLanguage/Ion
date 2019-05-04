@@ -12,22 +12,22 @@ namespace Ion.SyntaxAnalysis
         Unknown,
 
         /// <summary>
-        /// Represents whitespace
+        /// Represents whitespace.
         /// </summary>
         Whitespace,
 
         /// <summary>
-        /// Represents a single line comment (// text)
+        /// Represents a single line comment.
         /// </summary>
         SingleLineComment,
 
         /// <summary>
-        /// Represents a multi line comment (/* text */)
+        /// Represents a multi line comment.
         /// </summary>
         MultiLineComment,
 
         /// <summary>
-        /// Represents an entity identifier. (text)
+        /// Represents an entity identifier.
         /// </summary>
         Identifier,
 
@@ -52,55 +52,55 @@ namespace Ion.SyntaxAnalysis
 
         /// <summary>
         /// Represents the variable
-        /// assignment operator. (=)
+        /// assignment operator.
         /// </summary>
         OperatorAssignment,
 
         /// <summary>
         /// Represents the mathematical
-        /// addition operator. (+)
+        /// addition operator.
         /// </summary>
         OperatorAddition,
 
         /// <summary>
         /// Represents the mathematical
-        /// subtraction operator. (-)
+        /// subtraction operator.
         /// </summary>
         OperatorSubtraction,
 
         /// <summary>
         /// Represents the mathematical
-        /// multiplication operator. (*)
+        /// multiplication operator.
         /// </summary>
         OperatorMultiplication,
 
         /// <summary>
         /// Represents the mathematical
-        /// division operator. (/)
+        /// division operator.
         /// </summary>
         OperatorDivision,
 
         /// <summary>
         /// Represents the mathematical
-        /// exponential operator. (^)
+        /// exponential operator.
         /// </summary>
         OperatorExponent,
 
         /// <summary>
         /// Represents the mathematical
-        /// unsigned remainder operator. (%)
+        /// unsigned remainder operator.
         /// </summary>
         OperatorModulo,
 
         /// <summary>
         /// Represents the escape sequence
-        /// to represent special entities. (\)
+        /// to represent special entities.
         /// </summary>
         OperatorEscape,
 
         /// <summary>
         /// Represents the equality comparison
-        /// operator. (==)
+        /// operator.
         /// </summary>
         OperatorEquality,
 

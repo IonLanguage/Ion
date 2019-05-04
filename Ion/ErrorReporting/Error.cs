@@ -28,12 +28,12 @@ namespace Ion.ErrorReporting
 
         public void Write()
         {
-            Write(message, name);
+            Write(this.message, this.name);
         }
 
         public override string ToString()
         {
-            return Create(message, name);
+            return Create(this.message, this.name);
         }
     }
 }

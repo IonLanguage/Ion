@@ -8,7 +8,7 @@ namespace Ion.CodeGeneration
     {
         public Extern(Prototype prototype)
         {
-            Prototype = prototype;
+            this.Prototype = prototype;
         }
 
         private Prototype Prototype { get; }
@@ -16,19 +16,19 @@ namespace Ion.CodeGeneration
         public LLVMValueRef Emit(LLVMModuleRef context)
         {
             // Ensure prototype is set.
-            if (Prototype == null) throw new Exception("Unexpected external definition's prototype to be null");
+            if (this.Prototype == null) throw new Exception("Unexpected external definition's prototype to be null");
 
             // Emit the formal arguments.
-            var args = Prototype.Args.Emit();
+            var args = this.Prototype.Args.Emit();
 
             // Emit the return type.
-            LLVMTypeRef returnType = Prototype.ReturnType.Emit();
+            LLVMTypeRef returnType = this.Prototype.ReturnType.Emit();
 
             // Emit the function type.
-            LLVMTypeRef type = LLVM.FunctionType(returnType, args, Prototype.Args.Continuous);
+            LLVMTypeRef type = LLVM.FunctionType(returnType, args, this.Prototype.Args.Continuous);
 
             // Emit the external definition to context and capture the LLVM value reference.
-            LLVMValueRef external = LLVM.AddFunction(context, Prototype.Name, type);
+            LLVMValueRef external = LLVM.AddFunction(context, this.Prototype.Name, type);
 
             // Return the resulting LLVM value reference.
             return external;

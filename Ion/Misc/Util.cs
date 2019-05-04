@@ -6,9 +6,9 @@ namespace Ion.Misc
     public static class Util
     {
         /// <summary>
-        /// Create a Regex class with the provided pattern
-        /// string along with the IgnoreCase and Compiled regex
-        /// options.
+        ///     Create a Regex class with the provided pattern
+        ///     string along with the IgnoreCase and Compiled regex
+        ///     options.
         /// </summary>
         public static Regex CreateRegex(string pattern)
         {
@@ -16,7 +16,7 @@ namespace Ion.Misc
         }
 
         /// <summary>
-        /// Determine whether a path is a directory.
+        ///     Determine whether a path is a directory.
         /// </summary>
         public static bool IsDirectory(string path)
         {
@@ -28,4 +28,3 @@ namespace Ion.Misc
         }
     }
 }
-
