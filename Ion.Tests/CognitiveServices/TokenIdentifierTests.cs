@@ -31,5 +31,27 @@ namespace Ion.Tests.Core
         {
             Assert.False(TokenIdentifier.IsType(input));
         }
+
+        [Test]
+        [TestCase(TokenType.OperatorAddition)]
+        [TestCase(TokenType.OperatorAddressOf)]
+        [TestCase(TokenType.OperatorAnd)]
+        [TestCase(TokenType.OperatorAssignment)]
+        [TestCase(TokenType.OperatorDivision)]
+        [TestCase(TokenType.OperatorEquality)]
+        [TestCase(TokenType.OperatorEscape)]
+        [TestCase(TokenType.OperatorExponent)]
+        [TestCase(TokenType.OperatorGreaterThan)]
+        [TestCase(TokenType.OperatorLessThan)]
+        [TestCase(TokenType.OperatorModulo)]
+        [TestCase(TokenType.OperatorMultiplication)]
+        [TestCase(TokenType.OperatorNot)]
+        [TestCase(TokenType.OperatorOr)]
+        [TestCase(TokenType.OperatorPipe)]
+        [TestCase(TokenType.OperatorSubtraction)]
+        public void IsOperator(TokenType input)
+        {
+            Assert.True(TokenIdentifier.IsOperator(input));
+        }
     }
 }
