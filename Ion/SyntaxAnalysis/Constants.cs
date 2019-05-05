@@ -66,7 +66,8 @@ namespace Ion.SyntaxAnalysis
             {TypeName.Boolean, TokenType.TypeBool},
             {TypeName.Void, TokenType.TypeVoid},
             {TypeName.Float, TokenType.TypeFloat},
-            {TypeName.Character, TokenType.TypeChar}
+            {TypeName.Character, TokenType.TypeChar},
+            {TypeName.String, TokenType.TypeString}
         };
 
         /// <summary>
