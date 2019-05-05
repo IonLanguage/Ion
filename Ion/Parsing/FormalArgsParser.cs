@@ -33,8 +33,10 @@ namespace Ion.Parsing
                     continue;
                 }
                 // Continuous arguments must be final.
-
-                if (args.Continuous) throw new Exception("Unexpected token after continuous arguments");
+                else if (args.Continuous)
+                {
+                    throw new Exception("Unexpected token after continuous arguments");
+                }
 
                 // Invoke the arg parser.
                 FormalArg arg = new FormalArgParser().Parse(stream);
@@ -48,7 +50,7 @@ namespace Ion.Parsing
                     throw new Exception($"Unexpected token of type '{peekBuffer.Type}'; Expected comma or parentheses end in argument list");
                 }
                 // Skip comma.
-                if (peekBuffer.Type == TokenType.SymbolComma)
+                else if (peekBuffer.Type == TokenType.SymbolComma)
                 {
                     stream.Skip();
                 }
