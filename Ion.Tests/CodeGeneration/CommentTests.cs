@@ -13,7 +13,7 @@ using Ion.Core;
 namespace Ion.Tests.CodeGeneration
 {
     [TestFixture]
-    internal sealed class ExprTests
+    internal sealed class CommentTests
     {
         [SetUp]
         public void Setup()
@@ -23,32 +23,30 @@ namespace Ion.Tests.CodeGeneration
         }
 
         [Test]
-        public void Expr()
+        public void Comments()
         {
             // Create the token stream.
-            TokenStream stream = TestUtil.CreateStreamFromInputDataFile("Expr");
+            TokenStream stream = TestUtil.CreateStreamFromInputDataFile("Comments");
 
             // Create the driver.
             Driver driver = new Driver(stream);
 
-            // Expect driver to have next.
+            // Expect the driver to have next.
             Assert.True(driver.HasNext);
 
             // Invoke the driver.
             driver.Next();
 
-            // Expect driver to not have next.
+            // Expect the driver to not have next.
             Assert.False(driver.HasNext);
 
-            // Read the expected output.
-            string expected = TestUtil.ReadOutputDataFile("Expr");
+            // Read expected output.
+            string expected = TestUtil.ReadOutputDataFile("EmptyMainFunction");
 
             // Emit the driver's module.
             string output = driver.Module.ToString();
 
-            System.Console.WriteLine(output);
-
-            // Assert results.
+            // Compare results.
             Assert.AreEqual(expected, output);
         }
     }

@@ -1,5 +1,10 @@
 void main()
 {
     int three = 1 + 2;
-    double pi = 3.0 + 0.14;
+    double pi = 3.00 + 0.14;
+    int zero = 1 - 1;
+    float fraction = 1 / 5;
+    int product = 5 * 6;
+    int quotient = 20 / 4;
+    int mod = 5 % 2;
 }
