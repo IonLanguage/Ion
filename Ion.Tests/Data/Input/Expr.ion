@@ -1,4 +1,5 @@
 void main()
 {
     int three = 1 + 2;
+    double pi = 3.0 + 0.14;
 }
