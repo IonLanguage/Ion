@@ -13,7 +13,10 @@ namespace Ion.CognitiveServices
         public static int Get(TokenType tokenType)
         {
             // Return the precedence linked to the provided token type if applicable.
-            if (Constants.operatorPrecedence.ContainsKey(tokenType)) return Constants.operatorPrecedence[tokenType];
+            if (Constants.operatorPrecedence.ContainsKey(tokenType))
+            {
+                return Constants.operatorPrecedence[tokenType];
+            }
 
             // Otherwise, return the default value.
             return -1;
@@ -21,7 +24,7 @@ namespace Ion.CognitiveServices
 
         public static int Get(Token token)
         {
-            return Get(token.Type);
+            return Precedence.Get(token.Type);
         }
     }
 }

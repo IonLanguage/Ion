@@ -8,6 +8,7 @@ namespace Ion.Parsing
     {
         public Expr Parse(TokenStream stream)
         {
+            // Capture current token type.
             TokenType tokenType = stream.Get().Type;
 
             // Variable declaration expression.

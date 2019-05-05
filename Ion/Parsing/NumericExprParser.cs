@@ -12,6 +12,9 @@ namespace Ion.Parsing
             // Consume numeric literal token.
             Token token = stream.Get();
 
+            // Skip numeric literal token.
+            stream.Skip();
+
             // Ensure captured token is numeric.
             if (!TokenIdentifier.IsNumeric(token))
             {

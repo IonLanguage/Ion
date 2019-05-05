@@ -26,7 +26,11 @@ namespace Ion.Parsing
             // If this is a binary operation, find it's precedence.
             while (true)
             {
-                int firstPrecedence = Precedence.Get(stream.Get());
+                // Capture the current token.
+                Token token = stream.Get();
+
+                // Calculate precedence for the current token.
+                int firstPrecedence = Precedence.Get(token);
 
                 /*
                 If this is a binary operation that binds at least as tightly
@@ -35,11 +39,12 @@ namespace Ion.Parsing
                 */
                 if (firstPrecedence < this.minimalPrecedence)
                 {
+                    // TODO: This should throw error? Research.
                     return this.leftSide;
                 }
 
                 // At this point, it's a binary operation.
-                TokenType binaryOperator = stream.Get().Type;
+                TokenType binaryOperator = token.Type;
 
                 // TODO: Should check if it's a BINARY operator, not just an operator.
                 // Ensure the captured operator is validated.
@@ -61,7 +66,7 @@ namespace Ion.Parsing
                 }
 
                 // Determine the token precedence of the current token.
-                int secondPrecedence = Precedence.Get(stream.Get());
+                int secondPrecedence = Precedence.Get(token);
 
                 /*
                 If binary operator binds less tightly with the right-side than

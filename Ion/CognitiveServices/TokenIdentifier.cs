@@ -12,7 +12,10 @@ namespace Ion.CognitiveServices
         public static TokenType? IdentifySimple(string value)
         {
             // Attempt to identify and return token type.
-            if (Constants.simpleTokenTypes.ContainsKey(value)) return Constants.simpleTokenTypes[value];
+            if (Constants.simpleTokenTypes.ContainsKey(value))
+            {
+                return Constants.simpleTokenTypes[value];
+            }
 
             return null;
         }
@@ -25,9 +28,13 @@ namespace Ion.CognitiveServices
         {
             // Loop through all complex token types.
             foreach (var complexTokenType in Constants.complexTokenTypes)
+            {
                 // Attempt to match the complex token type's regex pattern.
                 if (complexTokenType.Key.IsMatch(value))
+                {
                     return complexTokenType.Value;
+                }
+            }
 
             // No match found, return null.
             return null;
@@ -77,12 +84,6 @@ namespace Ion.CognitiveServices
         public static bool IsType(Token token)
         {
             return IsType(token.Type);
-        }
-
-        public static bool IsNumeric(Type type)
-        {
-            // TODO: Implement.
-            return true;
         }
 
         /// <summary>
