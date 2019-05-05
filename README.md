@@ -30,7 +30,7 @@ Inspired by React.js' JSX syntax, the language will have built-in DOM and HTML s
 ```rust
 int Main() 
 {
-    Web.mount(<div>Built-in HTML syntax is awesome!</div>);
+    Web.Mount(<div>Built-in HTML syntax is awesome!</div>);
 
     return 0;
 }
@@ -41,7 +41,7 @@ This feature, along with decorators & anonymous functions, will come super handy
 ```rust
 str @name = "John Doe";
 
-@Web.route("/") {
+@Web.Route("/") {
     return <p>Hello, {@name}.</p>; // Hello, John Doe.
 }
 ```
