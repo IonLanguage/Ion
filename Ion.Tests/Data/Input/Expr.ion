@@ -7,4 +7,5 @@ void main()
     int product = 5 * 6;
     int quotient = 20 / 4;
     int mod = 5 % 2;
+    int one = (3 - 3) + (0 + 1) - 2 + (3 - 1);
 }

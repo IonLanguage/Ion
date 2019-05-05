@@ -17,5 +17,7 @@ entry:
   store i32 5, i32* %quotient
   %mod = alloca i32
   store i32 1, i32* %mod
+  %one = alloca i32
+  store i32 1, i32* %one
   ret void
 }
