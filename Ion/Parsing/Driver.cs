@@ -91,14 +91,10 @@ namespace Ion.Parsing
                 // Emit the external definition.
                 external.Emit(this.Module.Source);
             }
-            // Otherwise, top-level expression.
+            // Otherwise, throw an error.
             else
             {
-                // Invoke the top-level expression parser.
-                Function exprDelegate = new TopLevelExprParser().Parse(this.stream);
-
-                // Emit the top-level expression.
-                exprDelegate.Emit(this.Module.Source);
+                throw new Exception("Unexpected top-level entity");
             }
 
             // At this point, an entity was processed.

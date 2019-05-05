@@ -7,8 +7,11 @@ namespace Ion.Parsing
     {
         public Extern Parse(TokenStream stream)
         {
-            // Skip current extern keyword onto identifier.
-            stream.Skip(TokenType.Identifier, TokenType.KeywordExternal);
+            // Ensure current token is extern keyword.
+            stream.EnsureCurrent(TokenType.KeywordExternal);
+
+            // Skip extern keyword.
+            stream.Skip();
 
             // Invoke the prototype parser.
             Prototype prototype = new PrototypeParser().Parse(stream);
