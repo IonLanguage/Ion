@@ -37,14 +37,14 @@ namespace Ion.Parsing
                 throw new Exception("Unexpected block type");
             }
 
-            // Look at the next token.
-            Token nextToken = stream.Peek();
+            // Look at the current token.
+            Token token = stream.Get();
 
             // While next token is not a block-closing token.
-            while (nextToken.Type != TokenType.SymbolBlockR && block.Type != BlockType.Short)
+            while (token.Type != TokenType.SymbolBlockR && block.Type != BlockType.Short)
             {
                 // Returning a value.
-                if (nextToken.Type == TokenType.KeywordReturn)
+                if (token.Type == TokenType.KeywordReturn)
                 {
                     // Invoke the return parser. It's okay if it returns null, as it will be emitted as void.
                     Expr returnExpr = new FunctionReturnParser().Parse(stream);
@@ -72,7 +72,7 @@ namespace Ion.Parsing
                 stream.Skip();
 
                 // Peek the new token for next parse.
-                nextToken = stream.Peek();
+                token = stream.Peek();
             }
 
             // Skip onto default block end '}' or short block end ';'.
