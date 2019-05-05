@@ -39,6 +39,15 @@ namespace Ion.Tests.CodeGeneration
 
             // Expect driver to not have next.
             Assert.False(driver.HasNext);
+
+            // Read the expected output.
+            string expected = TestUtil.ReadOutputDataFile("Expr");
+
+            // Emit the driver's module.
+            string output = driver.Module.ToString();
+
+            // Assert results.
+            Assert.AreEqual(expected, output);
         }
     }
 }
