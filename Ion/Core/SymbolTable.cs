@@ -30,5 +30,10 @@ namespace Ion.Core
             localScope.Clear();
             activeBlock = null;
         }
+
+        /// <summary>
+        /// Incremental anonymous name counter.
+        /// </summary>
+        public static int anonymousCounter = 0;
     }
 }

@@ -34,7 +34,7 @@ namespace Ion.Linking
 
             Match = new[]
             {
-                @"\.xl$"
+                @"\.ion$"
             }
         };
 

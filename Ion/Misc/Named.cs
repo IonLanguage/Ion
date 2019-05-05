@@ -1,6 +1,7 @@
 using System;
 using Ion.CodeGeneration.Structure;
 using Ion.CognitiveServices;
+using Ion.Core;
 
 namespace Ion.Misc
 {
@@ -20,13 +21,19 @@ namespace Ion.Misc
         {
             // Ensure name is not null nor empty.
             if (string.IsNullOrEmpty(name))
+            {
                 throw new Exception("Unexpected name to be null or empty");
+            }
             // Ensure identifier pattern matches provided name.
-            if (Pattern.identifier.IsMatch(name))
+            else if (Pattern.identifier.IsMatch(name))
+            {
                 this.Name = name;
+            }
             // Otherwise, throw an error.
             else
+            {
                 throw new Exception($"Invalid name: {name}");
+            }
         }
 
         /// <summary>
@@ -35,7 +42,10 @@ namespace Ion.Misc
         /// </summary>
         public void SetNameAnonymous()
         {
-            this.SetName(SpecialName.Anonymous);
+            this.SetName($"{SpecialName.Anonymous}_{SymbolTable.anonymousCounter}");
+
+            // Increment anonymous counter.
+            SymbolTable.anonymousCounter++;
         }
     }
 }

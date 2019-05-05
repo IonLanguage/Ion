@@ -71,9 +71,13 @@ namespace Ion.Parsing
                 nextToken = stream.Peek();
             }
 
-            // Skip default block end '}' or short block end ';'.
+            // Skip onto default block end '}' or short block end ';'.
             stream.Skip();
 
+            // Then skip it to the next token.
+            stream.Skip();
+
+            // Return the resulting block.
             return block;
         }
     }
