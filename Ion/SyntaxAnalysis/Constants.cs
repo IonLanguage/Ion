@@ -14,6 +14,8 @@ namespace Ion.SyntaxAnalysis
     {
         public delegate LLVMValueRef ConstantResolver();
 
+        public delegate LLVMValueRef SimpleMathBuilderInvoker(LLVMBuilderRef builder, LLVMValueRef leftSide, LLVMValueRef rightSide, string name);
+
         public static readonly TokenTypeMap keywords = new TokenTypeMap
         {
             {"exit", TokenType.KeywordExit},
@@ -114,6 +116,15 @@ namespace Ion.SyntaxAnalysis
             {ErrorType.Error, "Error"},
             {ErrorType.Fatal, "Fatal"},
             {ErrorType.Warning, "Warning"}
+        };
+
+        public static Dictionary<TokenType, SimpleMathBuilderInvoker> operatorBuilderMap = new Dictionary<TokenType, SimpleMathBuilderInvoker>
+        {
+            {TokenType.OperatorAddition, LLVM.BuildAdd},
+            {TokenType.OperatorSubtraction, LLVM.BuildSub},
+            {TokenType.OperatorMultiplication, LLVM.BuildMul},
+            {TokenType.OperatorDivision, LLVM.BuildUDiv},
+            {TokenType.OperatorModulo, LLVM.BuildURem}
         };
     }
 }

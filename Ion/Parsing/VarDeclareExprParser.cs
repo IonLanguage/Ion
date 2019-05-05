@@ -9,17 +9,14 @@ namespace Ion.Parsing
     {
         public VarDeclareExpr Parse(TokenStream stream)
         {
-            // Consume the type string.
-            string typeValue = stream.Get().Value;
-
-            // Create the type.
-            Type type = new Type(typeValue);
+            // Parse the type.
+            Type type = new TypeParser().Parse(stream);
 
             // Create the variable declaration & link the type.
             VarDeclareExpr declaration = new VarDeclareExpr(type, null);
 
             // Consume the variable name.
-            string name = stream.Next().Value;
+            string name = stream.Get().Value;
 
             // Ensure captured name is not null nor empty.
             if (string.IsNullOrEmpty(name))
@@ -36,7 +33,10 @@ namespace Ion.Parsing
             // Value is being assigned.
             if (nextToken.Type == TokenType.OperatorAssignment)
             {
-                // Skip over the Assignment operator
+                // Skip onto the assignment operator
+                stream.Skip();
+
+                // Skip the assignment operator.
                 stream.Skip();
 
                 // Parse value.
@@ -45,6 +45,7 @@ namespace Ion.Parsing
                 // Assign value.
                 declaration.Value = value;
             }
+            // TODO: Expect semi-colon at this point?
 
             return declaration;
         }

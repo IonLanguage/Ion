@@ -9,8 +9,11 @@ namespace Ion.Parsing
     {
         public Block Parse(TokenStream stream)
         {
-            // Consume current token. Either '{' or '=>' for anonymous functions.
+            // Capture current token. Either '{' or '=>' for anonymous functions.
             Token begin = stream.Get();
+
+            // Skip begin token.
+            stream.Skip();
 
             // Create the block.
             Block block = new Block();
@@ -56,15 +59,16 @@ namespace Ion.Parsing
                 // Token must be an expression.
                 Expr expr = new PrimaryExprParser().Parse(stream);
 
-                block.Expressions.Add(expr);
-
                 // Ensure expression was successfully parsed.
                 if (expr == null)
                 {
                     throw new Exception("Unexpected expression to be null");
                 }
 
-                // SKip over the semi colon.
+                // Append the parsed expression to the block's expression list.
+                block.Expressions.Add(expr);
+
+                // Skip over the semi colon.
                 stream.Skip();
 
                 // Peek the new token for next parse.

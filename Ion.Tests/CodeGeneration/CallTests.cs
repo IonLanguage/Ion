@@ -23,9 +23,8 @@ namespace Ion.Tests.CodeGeneration
             // Create a new LLVM module instance.
             this.module = new Ion.Abstraction.Module();
 
-            // Reset symbol table along with its functions.
-            SymbolTable.Reset();
-            SymbolTable.functions.Clear();
+            // Reset symbol table completely.
+            SymbolTable.HardReset();
         }
 
         [Test]

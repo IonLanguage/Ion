@@ -31,6 +31,13 @@ namespace Ion.Core
             activeBlock = null;
         }
 
+        public static void HardReset()
+        {
+            SymbolTable.Reset();
+            SymbolTable.anonymousCounter = 0;
+            SymbolTable.functions.Clear();
+        }
+
         /// <summary>
         /// Incremental anonymous name counter.
         /// </summary>

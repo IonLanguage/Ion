@@ -17,7 +17,9 @@ namespace Ion.CodeGeneration
         {
             // Ensure the variable exists in the local scope.
             if (!SymbolTable.localScope.ContainsKey(this.Name))
+            {
                 throw new Exception($"Reference to undefined variable named '{this.Name}'");
+            }
 
             // Retrieve the value.
             LLVMValueRef value = SymbolTable.localScope[this.Name];

@@ -8,6 +8,7 @@ using Ion.Abstraction;
 using Ion.Tests.Core;
 using Ion.Parsing;
 using Ion.CodeGeneration;
+using Ion.Core;
 
 namespace Ion.Tests.CodeGeneration
 {
@@ -23,6 +24,9 @@ namespace Ion.Tests.CodeGeneration
         {
             // Create a new LLVM module instance.
             this.module = new Ion.Abstraction.Module();
+
+            // Reset symbol table completely.
+            SymbolTable.HardReset();
 
             // Create the sequence.
             Token[] sequence = new Token[]

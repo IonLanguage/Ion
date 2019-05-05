@@ -1,0 +1,4 @@
+void main()
+{
+    int three = 1 + 2;
+}

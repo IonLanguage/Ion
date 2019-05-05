@@ -38,14 +38,21 @@ namespace Ion.CodeGeneration
             LLVM.PositionBuilderAtEnd(builder, block);
 
             // Emit the expressions.
-            this.Expressions.ForEach(expression => { expression.Emit(builder); });
+            foreach (var expr in this.Expressions)
+            {
+                expr.Emit(builder);
+            }
 
             // No value was returned.
             if (this.ReturnExpr == null)
+            {
                 LLVM.BuildRetVoid(builder);
+            }
             // Otherwise, emit the set return value.
             else
+            {
                 LLVM.BuildRet(builder, this.ReturnExpr.Emit(builder));
+            }
 
             // Cache emitted block.
             this.Current = block;

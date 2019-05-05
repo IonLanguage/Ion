@@ -8,25 +8,25 @@ namespace Ion.Parsing
     {
         public Expr Parse(TokenStream stream)
         {
-            TokenType nextTokenType = stream.Peek().Type;
+            TokenType tokenType = stream.Get().Type;
 
             // Variable declaration expression.
-            if (TokenIdentifier.IsType(nextTokenType))
+            if (TokenIdentifier.IsType(tokenType))
             {
                 return new VarDeclareExprParser().Parse(stream);
             }
             // Numeric expression.
-            if (TokenIdentifier.IsNumeric(nextTokenType))
+            else if (TokenIdentifier.IsNumeric(tokenType))
             {
                 return new NumericExprParser().Parse(stream);
             }
             // Identifier expression.
-            if (nextTokenType == TokenType.Identifier)
+            else if (tokenType == TokenType.Identifier)
             {
                 return new IdentifierExprParser().Parse(stream);
             }
             // Parentheses expression.
-            if (nextTokenType == TokenType.SymbolParenthesesL)
+            else if (tokenType == TokenType.SymbolParenthesesL)
             {
                 return new ParenthesesExprParser().Parse(stream);
             }

@@ -10,7 +10,7 @@ namespace Ion.Parsing
         public NumericExpr Parse(TokenStream stream)
         {
             // Consume numeric literal token.
-            Token token = stream.Next();
+            Token token = stream.Get();
 
             // Ensure captured token is numeric.
             if (!TokenIdentifier.IsNumeric(token))
