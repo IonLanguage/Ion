@@ -7,14 +7,20 @@ namespace Ion.Parsing
     {
         public Expr Parse(TokenStream stream)
         {
-            // Skip to parentheses start token.
-            stream.Skip(TokenType.SymbolParenthesesL);
+            // Ensure current token is parentheses start.
+            stream.EnsureCurrent(TokenType.SymbolParenthesesL);
+
+            // Skip the parentheses start token.
+            stream.Skip();
 
             // Parse the expression.
             Expr expr = new ExprParser().Parse(stream);
 
-            // Skip to parentheses end token.
-            stream.Skip(TokenType.SymbolParenthesesR);
+            // Ensure current token is parentheses end.
+            stream.EnsureCurrent(TokenType.SymbolParenthesesR);
+
+            // Skip the parentheses end token.
+            stream.Skip();
 
             // Return the expression.
             return expr;
