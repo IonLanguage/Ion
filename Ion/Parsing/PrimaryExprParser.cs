@@ -31,6 +31,10 @@ namespace Ion.Parsing
             {
                 return new ParenthesesExprParser().Parse(stream);
             }
+            else if (tokenType == TokenType.LiteralString)
+            {
+                return new StringExprParser().Parse(stream);
+            }
 
             // At this point, return null.
             return null;

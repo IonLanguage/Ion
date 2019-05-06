@@ -25,6 +25,8 @@ namespace Ion.CodeGeneration
 
         Numeric,
 
+        String,
+
         ExternalDefinition
     }
 
