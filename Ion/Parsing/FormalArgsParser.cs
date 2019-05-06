@@ -11,23 +11,26 @@ namespace Ion.Parsing
             // Ensure position.
             stream.EnsureCurrent(TokenType.SymbolParenthesesL);
 
+            // Skip parentheses start.
+            stream.Skip();
+
             // Create the formal args entity.
             FormalArgs args = new FormalArgs();
 
             // Create the loop buffer token.
-            Token peekBuffer = stream.Peek();
+            Token buffer = stream.Get();
 
             // Loop until parentheses end.
-            while (peekBuffer.Type != TokenType.SymbolParenthesesR)
+            while (buffer.Type != TokenType.SymbolParenthesesR)
             {
                 // Continuous arguments.
-                if (!args.Continuous && peekBuffer.Type == TokenType.SymbolContinuous)
+                if (!args.Continuous && buffer.Type == TokenType.SymbolContinuous)
                 {
                     // Set the continuous flag.
                     args.Continuous = true;
 
                     // Advance stream immediatly.
-                    peekBuffer = stream.Next(TokenType.SymbolParenthesesR);
+                    buffer = stream.Next(TokenType.SymbolParenthesesR);
 
                     // Continue loop.
                     continue;
@@ -42,29 +45,30 @@ namespace Ion.Parsing
                 FormalArg arg = new FormalArgParser().Parse(stream);
 
                 // Update the buffer.
-                peekBuffer = stream.Peek();
+                buffer = stream.Get();
 
                 // Ensure next token is valid.
-                if (peekBuffer.Type != TokenType.SymbolComma && peekBuffer.Type != TokenType.SymbolParenthesesR)
+                if (buffer.Type != TokenType.SymbolComma && buffer.Type != TokenType.SymbolParenthesesR)
                 {
-                    throw new Exception($"Unexpected token of type '{peekBuffer.Type}'; Expected comma or parentheses end in argument list");
+                    throw new Exception($"Unexpected token of type '{buffer.Type}'; Expected comma or parentheses end in argument list");
                 }
-                // Skip comma.
-                else if (peekBuffer.Type == TokenType.SymbolComma)
+                // Skip the comma token.
+                else if (buffer.Type == TokenType.SymbolComma)
                 {
                     stream.Skip();
+
+                    // Make sure to update the buffer after skipping the comma token.
+                    buffer = stream.Get();
                 }
 
                 // Append the parsed argument.
                 args.Values.Add(arg);
             }
 
-            // Skip parentheses end if applicable.
-            if (peekBuffer.Type == TokenType.SymbolParenthesesR)
-            {
-                stream.Skip(TokenType.SymbolParenthesesR);
-            }
+            // Ensure current token is parentheses end.
+            stream.EnsureCurrent(TokenType.SymbolParenthesesR);
 
+            // Skip parentheses end token.
             stream.Skip();
 
             // Finish process.

@@ -10,33 +10,22 @@ namespace Ion.Parsing
     {
         public FormalArg Parse(TokenStream stream)
         {
-            // Initialize the type value.
-            string typeValue;
-
-            // Check if the next token is a type.
-            if (TokenIdentifier.IsType(stream.Peek()))
-            {
-                // Capture argument type value.
-                typeValue = stream.Next().Value;
-            }
-            else
-            {
-                // TODO: Better error lol.
-                throw new Exception("Oops you need a type!");
-            }
-
-            // Create the argument's type.
-            Type type = new Type(typeValue);
+            // Parse the type.
+            Type type = new TypeParser().Parse(stream);
 
             // Create the formal argument entity.
             FormalArg arg = new FormalArg(type);
 
             // Capture the argument's name.
-            string name = stream.Next(TokenType.Identifier).Value;
+            string name = stream.Get(TokenType.Identifier).Value;
+
+            // Skip the identifier token.
+            stream.Skip();
 
             // Assign the argument's name.
             arg.SetName(name);
 
+            // Return the argument.
             return arg;
         }
     }
