@@ -37,7 +37,7 @@ namespace Ion.Parsing
                 throw new Exception("Unexpected block type");
             }
 
-            // Look at the current token.
+            // Capture the current token.
             Token token = stream.Get();
 
             // While next token is not a block-closing token.
@@ -68,7 +68,7 @@ namespace Ion.Parsing
                 // Append the parsed expression to the block's expression list.
                 block.Expressions.Add(expr);
 
-                // Skip over the semi colon.
+                // Skip over the semi-colon.
                 stream.Skip();
 
                 // Peek the new token for next parse.
@@ -76,9 +76,6 @@ namespace Ion.Parsing
             }
 
             // Skip onto default block end '}' or short block end ';'.
-            stream.Skip();
-
-            // Then skip it to the next token.
             stream.Skip();
 
             // Return the resulting block.

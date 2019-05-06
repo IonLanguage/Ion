@@ -31,37 +31,31 @@ namespace Ion.Tests.CodeGeneration
         public void CallWithoutArguments()
         {
             // Create the token stream.
-            TokenStream stream = new TokenStream(new Token[]
-            {
-                new Token {
-                    Type = TokenType.Identifier,
-                    Value = "main"
-                },
-
-                new Token {
-                    Type = TokenType.SymbolParenthesesL,
-                    Value = "("
-                },
-
-                new Token {
-                    Type = TokenType.SymbolParenthesesR,
-                    Value = ")"
-                },
-
-                new Token {
-                    Type = TokenType.SymbolSemiColon,
-                    Value = ";"
-                }
-            });
+            TokenStream stream = TestUtil.CreateStreamFromInputDataFile("CallWithoutArguments");
 
             // Read the expected output IR code.
             string expected = TestUtil.ReadOutputDataFile("CallWithoutArguments");
 
-            // Emit the main function.
-            this.module.EmitMainFunction();
+            // Create the driver.
+            Driver driver = new Driver(stream);
 
-            // Emit the module.
-            string output = this.module.ToString();
+            // Expect driver to have next.
+            Assert.True(driver.HasNext);
+
+            // Invoke the driver.
+            driver.Next();
+
+            // Expect driver to have next.
+            Assert.True(driver.HasNext);
+
+            // Invoke the driver once more.
+            driver.Next();
+
+            // Finally, expect the driver to not have next.
+            Assert.False(driver.HasNext);
+
+            // Emit the driver's module.
+            string output = driver.Module.ToString();
 
             // Compare stored IR code with the actual, emitted output.
             Assert.AreEqual(expected, output);

@@ -12,8 +12,14 @@ namespace Ion.Parsing
             // Create the argument list result.
             List<Expr> args = new List<Expr>();
 
+            // Ensure current token is parentheses start.
+            stream.EnsureCurrent(TokenType.SymbolParenthesesL);
+
+            // Skip parentheses start.
+            stream.Skip();
+
             // Contains at least one argument.
-            if (stream.Get().Type != TokenType.SymbolParenthesesL)
+            if (stream.Get().Type != TokenType.SymbolParenthesesR)
             {
                 while (true)
                 {
@@ -40,6 +46,12 @@ namespace Ion.Parsing
                     stream.Skip();
                 }
             }
+
+            // Ensure current token is parentheses end.
+            stream.EnsureCurrent(TokenType.SymbolParenthesesR);
+
+            // Skip parentheses end.
+            stream.Skip();
 
             return args;
         }

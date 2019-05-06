@@ -14,6 +14,10 @@ namespace Ion.Parsing
             // Capture identifier.
             string identifier = stream.Get(TokenType.Identifier).Value;
 
+            // Skip the identifier token onto the parentheses start token.
+            stream.Skip(TokenType.SymbolParenthesesL);
+
+            // TODO: This should be performed as the last thing, to allow recursive calls (and yet to be parsed functions).
             // Ensure the function has been emitted.
             if (!SymbolTable.functions.ContainsKey(identifier))
             {

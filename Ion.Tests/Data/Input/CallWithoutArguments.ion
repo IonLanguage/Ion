@@ -1,0 +1,6 @@
+void test() { }
+
+void main()
+{
+    test();
+}

@@ -8,24 +8,21 @@ namespace Ion.Parsing
     {
         public Expr Parse(TokenStream stream)
         {
-            // Peek next token.
-            Token nextToken = stream.Peek();
+            // Capture current token.
+            Token token = stream.Get();
 
             // Ensure captured token is an identifier.
-            if (nextToken.Type != TokenType.Identifier)
-            {
-                throw new Exception("Expected token to be an identifier");
-            }
+            stream.EnsureCurrent(TokenType.Identifier);
 
             // Capture identifier token value.
-            string identifier = nextToken.Value;
+            string identifier = token.Value;
 
             // Variable reference.
-            if (stream.Peek(2).Type != TokenType.SymbolParenthesesL)
+            if (stream.Peek().Type != TokenType.SymbolParenthesesL)
             {
-                // TODO: Should be done by an independent parser (VariableExprParser).
+                // TODO: Should be done by an independent parser (VariableExprParser)?
                 // Skip identifier.
-                stream.Skip(TokenType.Identifier);
+                stream.Skip();
 
                 // Create and return the variable expression.
                 return new VariableExpr(identifier);
