@@ -71,8 +71,8 @@ namespace Ion.Parsing
                 // Skip over the semi-colon.
                 stream.Skip();
 
-                // Peek the new token for next parse.
-                token = stream.Peek();
+                // Get the new token for next parse.
+                token = stream.Get();
             }
 
             // Skip onto default block end '}' or short block end ';'.
