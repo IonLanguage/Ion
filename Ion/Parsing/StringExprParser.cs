@@ -21,8 +21,10 @@ namespace Ion.Parsing
                 throw new Exception($"Expected token type to be string, but got '{token.Type}'");
             }
 
+            string value = token.Value.Substring(1, token.Value.Length - 2);
+
             // Create the numeric expression entity.
-            StringExpr numericExpr = new StringExpr(token.Type, Resolvers.TypeFromToken(token), token.Value);
+            StringExpr numericExpr = new StringExpr(token.Type, Resolvers.TypeFromToken(token), value);
 
             // Return the numeric expression entity.
             return numericExpr;
