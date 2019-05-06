@@ -12,8 +12,6 @@ namespace Ion.Tests.SyntaxAnalysis
     {
         private TokenType[] sequence;
 
-        private TokenType[] fileSequence;
-
         [SetUp]
         public void Setup()
         {
