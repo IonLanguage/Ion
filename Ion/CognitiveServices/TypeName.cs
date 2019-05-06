@@ -16,6 +16,6 @@ namespace Ion.CognitiveServices
 
         public const string Void = "void";
 
-        public const string String = "str";
+        public const string String = "string";
     }
 }

@@ -22,8 +22,6 @@ namespace Ion.CognitiveServices
                 {TypeName.Double, LLVMTypeRef.DoubleType},
                 {TypeName.Boolean, LLVMTypeRef.Int1Type},
                 {TypeName.Void, LLVMTypeRef.VoidType},
-
-                // TODO: Should it be *int8? Is this correct?
                 {TypeName.Character, LLVMTypeRef.Int8Type}
             };
 
@@ -36,21 +34,37 @@ namespace Ion.CognitiveServices
                 {TokenType.LiteralDecimal, TypeFactory.Double},
 
                 // TODO: What about Int64?
-                {TokenType.LiteralInteger, TypeFactory.Int32}
+                {TokenType.LiteralInteger, TypeFactory.Int32},
+
+                {TokenType.LiteralString, TypeFactory.String}
 
                 // TODO: Missing string.
             };
 
         public static LLVMTypeRef LlvmTypeFromName(string name)
         {
-            if (LlvmTypeMap.ContainsKey(name)) return LlvmTypeMap[name]();
+            // TODO: Implement functionality for pointer types.
+            // Special case for string type.
+            if (name == TypeName.String)
+            {
+                return LLVMTypeRef.PointerType(LLVMTypeRef.Int8Type(), 0);
+            }
+            // Otherwise, use LLVM type map.
+            else if (LlvmTypeMap.ContainsKey(name))
+            {
+                return LlvmTypeMap[name]();
+            }
 
+            // Throw an exception.
             throw new Exception($"Non-registered type resolver for type '{name}'");
         }
 
         public static Type TypeFromTokenType(TokenType tokenType)
         {
-            if (LiteralTypeMap.ContainsKey(tokenType)) return LiteralTypeMap[tokenType]();
+            if (LiteralTypeMap.ContainsKey(tokenType))
+            {
+                return LiteralTypeMap[tokenType]();
+            }
 
             throw new Exception($"Non-registered type resolver for token type '{tokenType}'");
         }
@@ -74,7 +88,7 @@ namespace Ion.CognitiveServices
             if (tokenType == TokenType.LiteralDecimal)
                 return LLVM.ConstReal(type.Emit(), double.Parse(value));
             // Token value is a string.
-            if (tokenType == TokenType.LiteralString) return LLVM.ConstString(value, (uint) value.Length, false);
+            if (tokenType == TokenType.LiteralString) return LLVM.ConstString(value, (uint)value.Length, false);
 
             throw new Exception("Cannot resolve unsupported type");
         }

@@ -1,1 +1,1 @@
-extern void test();
+extern void printf(string message, ...);

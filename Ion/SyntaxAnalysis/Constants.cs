@@ -34,7 +34,7 @@ namespace Ion.SyntaxAnalysis
             {":", TokenType.SymbolColon},
             {";", TokenType.SymbolSemiColon},
             {"=>", TokenType.SymbolArrow},
-            {"..", TokenType.SymbolContinuous},
+            {"...", TokenType.SymbolContinuous},
             {",", TokenType.SymbolComma}
         }.SortByKeyLength();
 

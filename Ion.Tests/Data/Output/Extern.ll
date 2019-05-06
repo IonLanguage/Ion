@@ -1,4 +1,4 @@
 ; ModuleID = 'entry'
 source_filename = "entry"
 
-declare void @test()
+declare void @printf(i8*, ...)

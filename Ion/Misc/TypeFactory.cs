@@ -39,5 +39,10 @@ namespace Ion.Misc
         {
             return new Type(TypeName.Void);
         }
+
+        public static Type String()
+        {
+            return new Type(TypeName.String);
+        }
     }
 }
