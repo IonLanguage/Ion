@@ -1,5 +1,7 @@
 void main()
 {
+    int explicitOne = 1;
+    float explicitPi = 3.14;
     int three = 1 + 2;
     double pi = 3.00 + 0.14;
     int zero = 1 - 1;

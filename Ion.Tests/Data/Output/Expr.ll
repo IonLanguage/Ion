@@ -3,6 +3,10 @@ source_filename = "entry"
 
 define void @main() {
 entry:
+  %explicitOne = alloca i32
+  store i32 1, i32* %explicitOne
+  %explicitPi = alloca float
+  store double 3.140000e+00, float* %explicitPi
   %three = alloca i32
   store i32 3, i32* %three
   %pi = alloca double

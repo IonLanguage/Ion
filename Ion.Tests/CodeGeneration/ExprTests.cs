@@ -46,6 +46,8 @@ namespace Ion.Tests.CodeGeneration
             // Emit the driver's module.
             string output = driver.Module.ToString();
 
+            System.Console.WriteLine(output);
+
             // Assert results.
             Assert.AreEqual(expected, output);
         }
