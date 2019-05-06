@@ -1,5 +1,6 @@
 using System;
 using Ion.CodeGeneration.Structure;
+using Ion.Core;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
@@ -16,7 +17,10 @@ namespace Ion.CodeGeneration
         public LLVMValueRef Emit(LLVMModuleRef context)
         {
             // Ensure prototype is set.
-            if (this.Prototype == null) throw new Exception("Unexpected external definition's prototype to be null");
+            if (this.Prototype == null)
+            {
+                throw new Exception("Unexpected external definition's prototype to be null");
+            }
 
             // Emit the formal arguments.
             LLVMTypeRef[] args = this.Prototype.Args.Emit();
@@ -29,6 +33,9 @@ namespace Ion.CodeGeneration
 
             // Emit the external definition to context and capture the LLVM value reference.
             LLVMValueRef external = LLVM.AddFunction(context, this.Prototype.Name, type);
+
+            // Register the external definition as a function in the symbol table.
+            SymbolTable.functions.Add(this.Prototype.Name, external);
 
             // Return the resulting LLVM value reference.
             return external;
