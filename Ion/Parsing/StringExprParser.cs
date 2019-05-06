@@ -23,11 +23,11 @@ namespace Ion.Parsing
 
             string value = token.Value.Substring(1, token.Value.Length - 2);
 
-            // Create the numeric expression entity.
-            StringExpr numericExpr = new StringExpr(token.Type, Resolvers.TypeFromToken(token), value);
+            // Create the string expression entity.
+            StringExpr stringExpr = new StringExpr(token.Type, Resolvers.TypeFromToken(token), value);
 
-            // Return the numeric expression entity.
-            return numericExpr;
+            // Return the string expression entity.
+            return stringExpr;
         }
     }
 }
