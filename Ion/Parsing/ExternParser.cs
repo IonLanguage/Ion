@@ -16,6 +16,12 @@ namespace Ion.Parsing
             // Invoke the prototype parser.
             Prototype prototype = new PrototypeParser().Parse(stream);
 
+            // Ensure current token is a semi-colon.
+            stream.EnsureCurrent(TokenType.SymbolSemiColon);
+
+            // Skip semi-colon.
+            stream.Skip();
+
             // Create the external definition entity using the parsed prototype.
             Extern external = new Extern(prototype);
 
