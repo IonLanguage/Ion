@@ -22,6 +22,8 @@ namespace Ion.Core
         /// </summary>
         public static Block activeBlock;
 
+        public static Dictionary<string, LLVMValueRef> strings = new Dictionary<string, LLVMValueRef>();
+
         /// <summary>
         /// Reset all temporary stored values.
         /// </summary>
@@ -36,6 +38,7 @@ namespace Ion.Core
             SymbolTable.Reset();
             SymbolTable.anonymousCounter = 0;
             SymbolTable.functions.Clear();
+            SymbolTable.strings.Clear();
         }
 
         /// <summary>
