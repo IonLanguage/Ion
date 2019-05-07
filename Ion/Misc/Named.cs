@@ -42,10 +42,11 @@ namespace Ion.Misc
         /// </summary>
         public void SetNameAnonymous()
         {
-            this.SetName($"{SpecialName.Anonymous}_{SymbolTable.anonymousCounter}");
+            // Retrieve name from the name counter.
+            string name = NameCounter.GetString();
 
-            // Increment anonymous counter.
-            SymbolTable.anonymousCounter++;
+            // Assign the name.
+            this.SetName(name);
         }
     }
 }

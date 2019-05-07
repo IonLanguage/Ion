@@ -36,14 +36,8 @@ namespace Ion.Core
         public static void HardReset()
         {
             SymbolTable.Reset();
-            SymbolTable.anonymousCounter = 0;
             SymbolTable.functions.Clear();
             SymbolTable.strings.Clear();
         }
-
-        /// <summary>
-        /// Incremental anonymous name counter.
-        /// </summary>
-        public static int anonymousCounter = 0;
     }
 }
