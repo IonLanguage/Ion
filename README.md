@@ -1,4 +1,4 @@
-#### Ion language
+### Ion language
 
 A language implemented in C# using LLVM 5.0 bindings.
 
@@ -6,7 +6,7 @@ File extension: `.ion`
 
 Syntax examples coming soon.
 
-#### Core principles
+### Core principles
 
 1. **Simplicity**. The language should be simple, or as powerful as the programmer wishes. This means that some symbols and patterns are optional and infered by the compiler.
 
@@ -48,37 +48,9 @@ str @name = "John Doe";
 
 4. **Portable**.
 
-#### Development roadmap
+### Naming convention
 
-- [ ] Basic control flow (if, else)
-- [ ] Pipes
-- [X] Expressions
-- [X] Functions
-- [ ] Entity visibility
-- [ ] Classes
-- [ ] Interfaces
-- [ ] Structures
-- [ ] Decorators
-- [ ] Anonymous functions
-- [ ] Object blueprints
-- [ ] Async support
-- [ ] Delegates
-- [ ] JSON integration + support
-- [ ] External definitions
-- [ ] Import functionality
-- [ ] Advanced flow control (switch, etc.)
-- [ ] Package manager
-- [ ] Package definition (package manager)
-- [ ] Web API
-- [ ] Built-in DOM support
-- [ ] Compilation to JavaScript
-- [ ] Syntax highlighting (Visual Studio Code)
-- [ ] Cross-platform installer utility
-- [ ] Self-hosted codebase
-
-#### Naming convention
-
-1. **Functions**.
+#### Functions
 
 All functions should be in PascalCase.
 
@@ -89,7 +61,7 @@ void Main()
 }
 ```
 
-2. **Classes**.
+#### Classes
 
 Class names should be in PascalCase, and members in camelCase.
 
@@ -107,15 +79,55 @@ class Example
 }
 ```
 
-3. **Attributes**.
+#### Attributes
 
 Attributes are considered proxy functions, thus they should be treated as functions and be named in PascalCase.
 
 ```rust
-@Transform(0)
+[Transform(0)]
 int Main()
 {
     // Return value will be transformed to '0'.
     return 1;
 }
 ```
+
+### Local installation
+
+If you'd like to try out the language at its current, early state, follow the short guide for your platform below.
+
+#### Windows
+
+First, you will need the LLVM toolchain installed on your machine.
+
+[Click here to download the LLVM toolchain](https://releases.llvm.org/5.0.0/LLVM-5.0.0-win64.exe)
+
+After downloading the installer, run and follow the installation steps, it should be pretty simple.
+
+You will now need the CLI utility of the compiler. This will serve as the compilation tool for your input source code. Since it is written in C#, you will need .NET Core Runtime installed on your machine.
+
+[Click here to download the .NET Core Runtime](https://dotnet.microsoft.com/download/thank-you/dotnet-runtime-2.2.4-windows-hosting-bundle-installer)
+
+Follow the installation steps, it should also be a simple installation.
+
+You now require the CLI utility to invoke the compiler.
+
+[Click here to view IonCLI's releases](https://github.com/IonLanguage/Ion.CLI/releases)
+
+Download the latest release, and follow the installation instructions contained within the `README.md` file (they're pretty straight forward!).
+
+You can now invoke the CLI utility and compile source files using:
+
+```shell
+$ ion --ir
+```
+
+Finally, you'd want to run your programs. You can use `lli`, a command included in the LLVM toolchain to run IR code, for this. After compilation, you may issue the following command to run your program:
+
+```shell
+$ lli l.bin/program.ll
+```
+
+Congratulations! You've installed all requirements to use the Ion language on your machine.
+
+The installation process is somewhat complicated currently, however we are working on making this much, much more simple.
