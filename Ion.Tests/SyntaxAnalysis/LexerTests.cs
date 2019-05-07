@@ -76,14 +76,40 @@ namespace Ion.Tests.SyntaxAnalysis
         [TestCase("`")]
         public void NotTokenizeInvalidInput(string input)
         {
+            // Create the lexer.
             Lexer lexer = new Lexer(input);
+
+            // Tokenize the input.
             List<Token> tokens = lexer.Tokenize();
 
-            // Ensure tokens length.
+            // Ensure token's length.
             Assert.AreEqual(tokens.Count, 1);
 
             // Ensure token is unknown.
             Assert.AreEqual(tokens[0].Type, TokenType.Unknown);
+        }
+
+        [Test]
+        [TestCase("andor", TokenType.Identifier)]
+        [TestCase("and{", TokenType.OperatorAnd, TokenType.SymbolBlockL)]
+        [TestCase("and(", TokenType.OperatorAnd, TokenType.SymbolParenthesesL)]
+        public void PossibleConflictingTokens(string input, params TokenType[] expected)
+        {
+            // Create the lexer.
+            Lexer lexer = new Lexer(input);
+
+            // Tokenize the input.
+            List<Token> tokens = lexer.Tokenize();
+
+            // Compare lengths.
+            Assert.AreEqual(tokens.Count, expected.Length);
+
+            // Compare results.
+            for (int i = 0; i < tokens.Count; i++)
+            {
+                // Compare token types.
+                Assert.AreEqual(expected[i], tokens[i].Type);
+            }
         }
     }
 }

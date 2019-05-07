@@ -113,7 +113,7 @@ namespace Ion.SyntaxAnalysis
             else if (char.IsWhiteSpace(this.Char))
             {
                 // Match all whitespace characters until we hit a normal character.
-                if (this.MatchExpression(ref token, TokenType.Whitespace, Util.CreateRegex(@"[\s]+")))
+                if (this.MatchExpression(ref token, TokenType.Whitespace, Pattern.ContinuousWhitespace))
                 {
                     // Return the token
                     return token;
@@ -148,7 +148,7 @@ namespace Ion.SyntaxAnalysis
                     if (Pattern.Identifier.IsMatch(pair.Key))
                     {
                         // Modify the regex to include whitespace at the end.
-                        pattern = Util.CreateRegex($"{Regex.Escape(pair.Key)}(\\s|$|;)");
+                        pattern = Util.CreateRegex($@"{Regex.Escape(pair.Key)}(\s|$|;)");
                     }
 
                     // If the symbol is next in the input.

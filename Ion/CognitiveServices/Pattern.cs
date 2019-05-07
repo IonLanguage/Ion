@@ -14,5 +14,7 @@ namespace Ion.CognitiveServices
         public static readonly Regex Integer = Util.CreateRegex(@"-?[0-9]+");
 
         public static readonly Regex Character = Util.CreateRegex(@"'([^'\\\n]|\\.)'");
+
+        public static readonly Regex ContinuousWhitespace = Util.CreateRegex(@"[\s]+");
     }
 }
