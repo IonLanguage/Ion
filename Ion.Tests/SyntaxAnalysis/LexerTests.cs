@@ -22,6 +22,8 @@ namespace Ion.Tests.SyntaxAnalysis
                 TokenType.SymbolParenthesesR,
                 TokenType.SymbolColon,
                 TokenType.SymbolBlockL,
+                TokenType.KeywordTrue,
+                TokenType.KeywordFalse,
                 TokenType.LiteralInteger,
                 TokenType.LiteralDecimal,
                 TokenType.LiteralString,
@@ -45,10 +47,10 @@ namespace Ion.Tests.SyntaxAnalysis
         [Test]
 
         // Normal.
-        [TestCase("id ( , ) : { 123 1.23 \"hello world\" 'a' => = == < > ! and or andor; } /*a*/ // abc")]
+        [TestCase("id ( , ) : { true false 123 1.23 \"hello world\" 'a' => = == < > ! and or andor; } /*a*/ // abc")]
 
         // Dense.
-        [TestCase("id(,):{123 1.23\"hello world\"'a'=>= ==<>!and or andor;}/*a*///abc")]
+        [TestCase("id(,):{true false 123 1.23\"hello world\"'a'=>= ==<>!and or andor;}/*a*///abc")]
         public void Tokenize(string input)
         {
             // Create lexer and tokenize the input.

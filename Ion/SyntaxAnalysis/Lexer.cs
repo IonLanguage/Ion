@@ -123,6 +123,7 @@ namespace Ion.SyntaxAnalysis
             // Comments have highest priority because the division operator will catch the beginning of any comments.
             // If it starts with '/', it's a candidate.
             foreach (var pair in Constants.commentTokenTypes)
+            {
                 if (this.MatchExpression(ref token, pair.Value, pair.Key))
                 {
                     // If the lexer should ignore comments, return the next comment.
@@ -133,6 +134,7 @@ namespace Ion.SyntaxAnalysis
 
                     return token;
                 }
+            }
 
             // Test string against simple token type values.
             foreach (var pair in Constants.simpleTokenTypes)
@@ -146,7 +148,7 @@ namespace Ion.SyntaxAnalysis
                     if (Pattern.Identifier.IsMatch(pair.Key))
                     {
                         // Modify the regex to include whitespace at the end.
-                        pattern = Util.CreateRegex($"{Regex.Escape(pair.Key)}(\\s)*");
+                        pattern = Util.CreateRegex($"{Regex.Escape(pair.Key)}(\\s|$|;)");
                     }
 
                     // If the symbol is next in the input.
