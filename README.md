@@ -102,11 +102,17 @@ Please install [Linux sub-system for Windows](https://docs.microsoft.com/en-us/w
 
 #### Linux
 
-1. Since the required CLI utility to compile source code is written in C#, you will need .NET Core Runtime installed on your machine.
+1. Since the required CLI utility to compile source code is written in C#, you will need .NET Core SDK installed on your machine.
 
-    [Click here to view how to install .NET Core](https://dotnet.microsoft.com/download/linux-package-manager/ubuntu16-04/runtime-current)
+    [Click here to view how to install .NET Core SDK](https://dotnet.microsoft.com/download/linux-package-manager/ubuntu16-04/sdk-current)
 
     Select your Linux distribution and follow the steps provided.
+
+    Ensure you've correctly installed .NET Core by running:
+
+    ```shell
+    $ dotnet --version
+    ```
 
 2. Now, you require the CLI utility to invoke the compiler.
 
