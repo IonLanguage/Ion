@@ -182,6 +182,10 @@ namespace Ion.SyntaxAnalysis
 
         SymbolMultiLineCommentL,
 
-        SymbolMultiLineCommentR
+        SymbolMultiLineCommentR,
+
+        SymbolBracketL,
+
+        SymbolBracketR
     }
 }
