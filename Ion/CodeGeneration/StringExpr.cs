@@ -24,17 +24,17 @@ namespace Ion.CodeGeneration
 
         public override LLVMValueRef Emit(LLVMBuilderRef context)
         {
-            // Emit the value.
-            LLVMValueRef valueRef = Resolvers.Literal(this.tokenType, this.value, this.type);
-
             // Retrieve a string name.
             string name = NameCounter.GetString();
 
-            // Register the value on the symbol table.
-            SymbolTable.strings.Add(name, valueRef);
+            // Create the global string pointer.
+            LLVMValueRef stringPtr = LLVM.BuildGlobalStringPtr(context, this.value, name);
 
-            // Return the emitted value.
-            return valueRef;
+            // Register the value on the symbol table.
+            SymbolTable.strings.Add(name, stringPtr);
+
+            // Return the string pointer value.
+            return stringPtr;
         }
     }
 }
