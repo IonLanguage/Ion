@@ -5,13 +5,6 @@ namespace Ion.CodeGeneration
 {
     public class FunctionCallExpr : Expr
     {
-        public FunctionCallExpr(LLVMValueRef target, string callee, List<Expr> args)
-        {
-            this.Target = target;
-            this.Callee = callee;
-            this.Args = args;
-        }
-
         public override ExprType Type => ExprType.FunctionCall;
 
         public LLVMValueRef Target { get; }
@@ -19,6 +12,13 @@ namespace Ion.CodeGeneration
         public string Callee { get; }
 
         public List<Expr> Args { get; }
+
+        public FunctionCallExpr(LLVMValueRef target, string callee, List<Expr> args)
+        {
+            this.Target = target;
+            this.Callee = callee;
+            this.Args = args;
+        }
 
         public override LLVMValueRef Emit(LLVMBuilderRef context)
         {

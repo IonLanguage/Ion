@@ -22,6 +22,9 @@ namespace Ion.Core
         /// </summary>
         public static Block activeBlock;
 
+        /// <summary>
+        /// Contains emitted global string pointers.
+        /// </summary>
         public static Dictionary<string, LLVMValueRef> strings = new Dictionary<string, LLVMValueRef>();
 
         /// <summary>
