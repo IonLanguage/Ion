@@ -21,6 +21,7 @@ namespace Ion.SyntaxAnalysis
             {"exit", TokenType.KeywordExit},
             {"return", TokenType.KeywordReturn},
             {"if", TokenType.KeywordIf},
+            {"else", TokenType.KeywordElse},
             {"extern", TokenType.KeywordExternal},
             {"true", TokenType.KeywordTrue},
             {"false", TokenType.KeywordFalse}
