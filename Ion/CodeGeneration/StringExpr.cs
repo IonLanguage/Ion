@@ -6,6 +6,8 @@ namespace Ion.CodeGeneration
 {
     public class StringExpr : Expr
     {
+        public override ExprType Type => ExprType.StringLiteral;
+
         public readonly TokenType tokenType;
 
         public readonly Type type;
@@ -18,8 +20,6 @@ namespace Ion.CodeGeneration
             this.type = type;
             this.value = value;
         }
-
-        public override ExprType Type => ExprType.String;
 
         public override LLVMValueRef Emit(LLVMBuilderRef context)
         {
