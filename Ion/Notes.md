@@ -1,10 +1,10 @@
-#### SDK/Dotnet package
+### SDK/Dotnet package
 
 ```shell
 $ sudo apt install dotnet-sdk-2.2=2.2.105-1
 ```
 
-#### SDK Path for "Invalid SDK" error
+### SDK Path for "Invalid SDK" error
 
 ```shell
 $ sudo nano /etc/profile.d/dotnet.sh
@@ -34,7 +34,7 @@ Also, ignore upgrades to the dotnet package (for now, until this issue is fixed)
 
 Keep track of this issue [here](https://github.com/OmniSharp/omnisharp-vscode/issues/2965).
 
-#### Testing out IR code
+### Testing out IR code
 
 If you'd like to run your emitted IR code, you can either:
 

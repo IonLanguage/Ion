@@ -7,12 +7,13 @@ namespace Ion.Misc
 {
     public abstract class Named
     {
+        public string Name { get; protected set; }
+
         protected Named()
         {
-            this.Name = SpecialName.Anonymous;
+            // Set anonymous name as default.
+            this.SetNameAnonymous();
         }
-
-        public string Name { get; protected set; }
 
         /// <summary>
         /// Sets the name and validates it.
@@ -43,7 +44,7 @@ namespace Ion.Misc
         public void SetNameAnonymous()
         {
             // Retrieve name from the name counter.
-            string name = NameCounter.GetString();
+            string name = NameCounter.GetAnonymous();
 
             // Assign the name.
             this.SetName(name);

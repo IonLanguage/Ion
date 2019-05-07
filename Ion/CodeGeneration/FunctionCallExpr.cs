@@ -48,8 +48,8 @@ namespace Ion.CodeGeneration
                 args.Add(argValue.Value);
             }
 
-            // Create the function call. Do not provide a name.
-            LLVMValueRef functionCall = LLVM.BuildCall(context, this.Target, args.ToArray(), null);
+            // Create the function call.
+            LLVMValueRef functionCall = LLVM.BuildCall(context, this.Target, args.ToArray(), this.Name);
 
             // Return the emitted function call.
             return functionCall;
