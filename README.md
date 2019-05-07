@@ -98,31 +98,29 @@ If you'd like to try out the language at its current, early state, follow the sh
 
 #### Windows
 
-1. First, you will need the LLVM toolchain installed on your machine.
+Please install [Linux sub-system for Windows](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and follow the Linux installation steps.
 
-    [Click here to download the LLVM toolchain](https://releases.llvm.org/5.0.0/LLVM-5.0.0-win64.exe)
+#### Linux
 
-    After downloading the installer, run and follow the installation steps, it should be pretty simple.
+1. Since the required CLI utility to compile source code is written in C#, you will need .NET Core Runtime installed on your machine.
 
-2. Since the required CLI utility to compile source code is written in C#, you will need .NET Core Runtime installed on your machine.
+    [Click here to view how to install .NET Core](https://dotnet.microsoft.com/download/linux-package-manager/ubuntu16-04/runtime-current)
 
-    [Click here to download the .NET Core Runtime](https://dotnet.microsoft.com/download/thank-you/dotnet-runtime-2.2.4-windows-hosting-bundle-installer)
+    Select your Linux distribution and follow the steps provided.
 
-    Follow the installation steps, it should also be a simple installation.
-
-3. You now require the CLI utility to invoke the compiler.
+2. Now, you require the CLI utility to invoke the compiler.
 
     [Click here to view IonCLI's releases](https://github.com/IonLanguage/Ion.CLI/releases)
 
     Download the latest release, and follow the installation instructions contained within the `README.md` file (they're pretty straight forward!).
 
-4. You can now invoke the CLI utility and compile source files using:
+3. You may now invoke the CLI utility and compile source files using:
 
     ```shell
     $ ion --ir
     ```
 
-5. Finally, you'd want to run your programs. You can use `lli`, a command included in the LLVM toolchain to run IR code, for this. After compilation, you may issue the following command to run your program:
+4. Finally, you'd want to run your programs. You can use `lli`, a command included in the LLVM toolchain to directly execute IR code, for this. After compilation using the IonCLI, you may issue the following command to run your program:
 
     ```shell
     $ lli l.bin/program.ll
@@ -130,4 +128,4 @@ If you'd like to try out the language at its current, early state, follow the sh
 
 Congratulations! You've installed all requirements to use the Ion language on your machine.
 
-The installation process is somewhat complicated currently, however we are working on making this much, much more simple.
+The installation process is currently somewhat complicated, however we are working on making this much, much simpler.
