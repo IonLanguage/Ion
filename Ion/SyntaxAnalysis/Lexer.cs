@@ -40,7 +40,19 @@ namespace Ion.SyntaxAnalysis
         /// The character located at the current
         /// position in the input string.
         /// </summary>
-        public char Char => this.Input[this.Position];
+        public char Char
+        {
+            get
+            {
+                if (this.Position < this.Input.Length)
+                {
+                    return this.Input[this.Position];
+                }
+
+                return null;
+
+            }
+        }
 
         public int Position { get; set; }
 
@@ -87,7 +99,7 @@ namespace Ion.SyntaxAnalysis
         public Token? GetNextToken()
         {
             // Return immediatly if position overflows.
-            if (this.Position > this.Input.Length - 1)
+            if (this.Position >= this.Input.Length)
             {
                 return null;
             }
