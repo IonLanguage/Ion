@@ -34,8 +34,17 @@ namespace Ion.CodeGeneration
             // Emit the external definition to context and capture the LLVM value reference.
             LLVMValueRef external = LLVM.AddFunction(context, this.Prototype.Name, type);
 
-            // Register the external definition as a function in the symbol table.
-            SymbolTable.functions.Add(this.Prototype.Name, external);
+            // Determine if should be registered on the symbol table.
+            if (SymbolTable.functions.ContainsKey(this.Prototype.Name))
+            {
+                // Register the external definition as a function in the symbol table.
+                SymbolTable.functions.Add(this.Prototype.Name, external);
+            }
+            // Otherwise, issue a warning.
+            else
+            {
+                System.Console.WriteLine($"Warning: Extern definition '{this.Prototype.Name}' being re-defined");
+            }
 
             // Return the resulting LLVM value reference.
             return external;
