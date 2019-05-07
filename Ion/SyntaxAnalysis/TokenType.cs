@@ -151,6 +151,8 @@ namespace Ion.SyntaxAnalysis
 
         KeywordIf,
 
+        KeywordElse,
+
         KeywordExternal,
 
         // Symbols.
