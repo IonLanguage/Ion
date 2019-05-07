@@ -32,7 +32,7 @@ namespace Ion.SyntaxAnalysis
 
         public Lexer(string input, LexerOptions options = LexerOptions.IgnoreComments | LexerOptions.IgnoreWhitespace)
         {
-            this.Input = input.Trim();
+            this.Input = input;
             this.Options = options;
         }
 
@@ -87,7 +87,10 @@ namespace Ion.SyntaxAnalysis
         public Token? GetNextToken()
         {
             // Return immediatly if position overflows.
-            if (this.Position > this.Input.Length - 1) return null;
+            if (this.Position > this.Input.Length - 1)
+            {
+                return null;
+            }
 
             // Begin capturing the token. Identify the token as unknown initially.
             Token token = new Token
@@ -138,6 +141,7 @@ namespace Ion.SyntaxAnalysis
 
             // Test string against simple token type values.
             foreach (var pair in Constants.simpleTokenTypes)
+            {
                 // Possible candidate.
                 if (pair.Key.StartsWith(this.Char))
                 {
@@ -147,8 +151,8 @@ namespace Ion.SyntaxAnalysis
                     // If the match starts with a letter, modify the regex to force either whitespace or EOF at the end.
                     if (Pattern.Identifier.IsMatch(pair.Key))
                     {
-                        // Modify the regex to include whitespace at the end.
-                        pattern = Util.CreateRegex($@"{Regex.Escape(pair.Key)}(\s|$|;)");
+                        // Modify the regex to include whitespace/EOF/semi-colon at the end.
+                        pattern = Util.CreateRegex($@"{Regex.Escape(pair.Key)}([^a-zA-Z])");
                     }
 
                     // If the symbol is next in the input.
@@ -164,6 +168,7 @@ namespace Ion.SyntaxAnalysis
                         return token;
                     }
                 }
+            }
 
             // TODO: Add comment literal support.
             // Complex types support.
@@ -192,7 +197,7 @@ namespace Ion.SyntaxAnalysis
         public bool MatchExpression(ref Token token, TokenType type, Regex regex, bool modifyToken = true)
         {
             // Substrings from the current position to get the viable matching string.
-            string input = this.Input.Substring(this.Position).TrimStart();
+            string input = this.Input.Substring(this.Position);
             Match match = regex.Match(input);
 
             // If the match is success, update the token to reflect this.

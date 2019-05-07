@@ -91,18 +91,20 @@ namespace Ion.Tests.SyntaxAnalysis
 
         [Test]
         [TestCase("andor", TokenType.Identifier)]
+        [TestCase("anda", TokenType.Identifier)]
+        [TestCase("and ", TokenType.OperatorAnd, TokenType.Whitespace)]
         [TestCase("and{", TokenType.OperatorAnd, TokenType.SymbolBlockL)]
         [TestCase("and(", TokenType.OperatorAnd, TokenType.SymbolParenthesesL)]
         public void PossibleConflictingTokens(string input, params TokenType[] expected)
         {
-            // Create the lexer.
-            Lexer lexer = new Lexer(input);
+            // Create the lexer without any options.
+            Lexer lexer = new Lexer(input, LexerOptions.None);
 
             // Tokenize the input.
             List<Token> tokens = lexer.Tokenize();
 
             // Compare lengths.
-            Assert.AreEqual(tokens.Count, expected.Length);
+            Assert.AreEqual(expected.Length, tokens.Count);
 
             // Compare results.
             for (int i = 0; i < tokens.Count; i++)
