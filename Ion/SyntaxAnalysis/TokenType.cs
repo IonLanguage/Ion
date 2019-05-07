@@ -145,6 +145,10 @@ namespace Ion.SyntaxAnalysis
 
         KeywordExit,
 
+        KeywordTrue,
+
+        KeywordFalse,
+
         KeywordIf,
 
         KeywordExternal,
