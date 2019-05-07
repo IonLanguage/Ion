@@ -100,6 +100,7 @@ namespace Ion.CognitiveServices
             {
                 return LLVM.ConstString(value, (uint)value.Length, false);
             }
+            // Token value is a boolean.
             else if (TokenIdentifier.IsBoolean(tokenType))
             {
                 // Create the boolean value.
