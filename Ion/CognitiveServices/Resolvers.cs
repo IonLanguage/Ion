@@ -102,7 +102,26 @@ namespace Ion.CognitiveServices
             }
             else if (TokenIdentifier.IsBoolean(tokenType))
             {
-                uint boolValue = (uint)(tokenType == TokenType.KeywordTrue ? 1 : 0);
+                // Create the boolean value.
+                uint boolValue;
+
+                // True.
+                if (tokenType == TokenType.KeywordTrue)
+                {
+                    boolValue = 1;
+                }
+                // False.
+                else if (tokenType == TokenType.KeywordFalse)
+                {
+                    boolValue = 0;
+                }
+                // Ensure token type is a boolean representative.
+                else
+                {
+                    throw new Exception($"Unexpected boolean value; Expected true or false token type but got {tokenType}");
+                }
+
+                // Create and return the resulting constant.
                 return LLVM.ConstInt(type.Emit(), boolValue, false);
             }
 
