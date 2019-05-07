@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Ion.Misc;
+using Ion.CognitiveServices;
 
 namespace Ion.SyntaxAnalysis
 {
@@ -141,31 +142,21 @@ namespace Ion.SyntaxAnalysis
                     // Create initial regex.
                     Regex pattern = Util.CreateRegex(Regex.Escape(pair.Key));
 
-                    // Skimming involves removing the last character.
-                    bool skim = false;
-
                     // If the match starts with a letter, modify the regex to force either whitespace or EOF at the end.
-                    if (char.IsLetter(pair.Key[0]))
+                    if (Pattern.Identifier.IsMatch(pair.Key))
                     {
                         // Modify the regex to include whitespace at the end.
-                        pattern = Util.CreateRegex($"{Regex.Escape(pair.Key)}(\\s|$|;)");
-
-                        // Since the new regex will also pickup a whitespace along the way, we must skim it off.
-                        skim = true;
+                        pattern = Util.CreateRegex($"{Regex.Escape(pair.Key)}(\\s)*");
                     }
 
                     // If the symbol is next in the input.
                     if (this.MatchExpression(ref token, pair.Value, pattern))
                     {
-                        // If skimming is required, remove the last character from the token value.
-                        if (skim)
-                        {
-                            // Reduce the position
-                            this.Position -= token.Value.Length - pair.Key.Length;
+                        // Reduce the position
+                        this.Position -= token.Value.Length - pair.Key.Length;
 
-                            // Skim the last character off.
-                            token.Value = pair.Key;
-                        }
+                        // Skim the last character off.
+                        token.Value = pair.Key;
 
                         // Return the token.
                         return token;
