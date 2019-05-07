@@ -158,7 +158,7 @@ namespace Ion.SyntaxAnalysis
                     // If the symbol is next in the input.
                     if (this.MatchExpression(ref token, pair.Value, pattern))
                     {
-                        // Reduce the position
+                        // Reduce the position.
                         this.Position -= token.Value.Length - pair.Key.Length;
 
                         // Skim the last character off.
