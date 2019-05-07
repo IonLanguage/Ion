@@ -40,7 +40,7 @@ namespace Ion.SyntaxAnalysis
         /// The character located at the current
         /// position in the input string.
         /// </summary>
-        public char Char
+        public char? Char
         {
             get
             {
@@ -50,7 +50,6 @@ namespace Ion.SyntaxAnalysis
                 }
 
                 return null;
-
             }
         }
 
@@ -111,21 +110,28 @@ namespace Ion.SyntaxAnalysis
                 Type = TokenType.Unknown,
 
                 // Default to current character to avoid infinite loop.
-                Value = this.Char.ToString()
+                Value = this.Char.Value.ToString()
             };
 
             // Skip whitespace characters if applicable.
             if (this.Options.HasFlag(LexerOptions.IgnoreWhitespace))
             {
                 // While the current character is whitespace.
-                while (char.IsWhiteSpace(this.Char))
+                while (this.Char.HasValue && char.IsWhiteSpace(this.Char.Value))
                 {
                     // Skip over the character.
                     this.Skip();
                 }
+
+                // Input terminated.
+                if (!this.Char.HasValue)
+                {
+                    // Return null immediatly.
+                    return null;
+                }
             }
             // If ignore whitespace isn't enabled, then we can save it as a token.
-            else if (char.IsWhiteSpace(this.Char))
+            else if (char.IsWhiteSpace(this.Char.Value))
             {
                 // Match all whitespace characters until we hit a normal character.
                 if (this.MatchExpression(ref token, TokenType.Whitespace, Pattern.ContinuousWhitespace))
@@ -155,7 +161,7 @@ namespace Ion.SyntaxAnalysis
             foreach (var pair in Constants.simpleTokenTypes)
             {
                 // Possible candidate.
-                if (pair.Key.StartsWith(this.Char))
+                if (pair.Key.StartsWith(this.Char.Value))
                 {
                     // Create initial regex.
                     Regex pattern = Util.CreateRegex(Regex.Escape(pair.Key));
