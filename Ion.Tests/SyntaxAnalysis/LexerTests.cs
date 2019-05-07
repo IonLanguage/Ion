@@ -95,6 +95,9 @@ namespace Ion.Tests.SyntaxAnalysis
         [TestCase("and ", TokenType.OperatorAnd, TokenType.Whitespace)]
         [TestCase("and{", TokenType.OperatorAnd, TokenType.SymbolBlockL)]
         [TestCase("and(", TokenType.OperatorAnd, TokenType.SymbolParenthesesL)]
+        [TestCase("and123", TokenType.Identifier)]
+        [TestCase("and_", TokenType.Identifier)]
+        [TestCase("and123_", TokenType.Identifier)]
         public void PossibleConflictingTokens(string input, params TokenType[] expected)
         {
             // Create the lexer without any options.

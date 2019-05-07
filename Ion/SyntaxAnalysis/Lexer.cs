@@ -152,7 +152,7 @@ namespace Ion.SyntaxAnalysis
                     if (Pattern.Identifier.IsMatch(pair.Key))
                     {
                         // Modify the regex to include whitespace/EOF/semi-colon at the end.
-                        pattern = Util.CreateRegex($@"{Regex.Escape(pair.Key)}([^a-zA-Z])");
+                        pattern = Util.CreateRegex($@"{Regex.Escape(pair.Key)}([^a-zA-Z_0-9])");
                     }
 
                     // If the symbol is next in the input.
