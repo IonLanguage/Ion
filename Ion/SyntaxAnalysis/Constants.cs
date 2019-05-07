@@ -24,7 +24,8 @@ namespace Ion.SyntaxAnalysis
             {"else", TokenType.KeywordElse},
             {"extern", TokenType.KeywordExternal},
             {"true", TokenType.KeywordTrue},
-            {"false", TokenType.KeywordFalse}
+            {"false", TokenType.KeywordFalse},
+            {"for", TokenType.KeywordFor}
         };
 
         public static readonly TokenTypeMap symbols = new TokenTypeMap
