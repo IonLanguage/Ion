@@ -25,7 +25,7 @@ namespace Ion.Misc
                 throw new Exception("Unexpected name to be null or empty");
             }
             // Ensure identifier pattern matches provided name.
-            else if (Pattern.identifier.IsMatch(name))
+            else if (Pattern.Identifier.IsMatch(name))
             {
                 this.Name = name;
             }

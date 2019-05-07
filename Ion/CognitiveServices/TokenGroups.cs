@@ -10,5 +10,10 @@ namespace Ion.CognitiveServices
             TokenType.LiteralDecimal,
             TokenType.LiteralInteger
         };
+
+        public static readonly List<TokenType> boolean = new List<TokenType> {
+            TokenType.KeywordTrue,
+            TokenType.KeywordFalse
+        };
     }
 }

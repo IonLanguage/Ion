@@ -68,6 +68,16 @@ namespace Ion.CognitiveServices
             return IsNumeric(token.Type);
         }
 
+        public static bool IsBoolean(TokenType tokenType)
+        {
+            return TokenGroups.boolean.Contains(tokenType);
+        }
+
+        public static bool IsBoolean(Token token)
+        {
+            return IsBoolean(token.Type);
+        }
+
         /// <summary>
         /// Determine if the provided token type
         /// is representing a type

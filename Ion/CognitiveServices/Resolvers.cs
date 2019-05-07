@@ -36,7 +36,11 @@ namespace Ion.CognitiveServices
                 // TODO: What about Int64?
                 {TokenType.LiteralInteger, TypeFactory.Int32},
 
-                {TokenType.LiteralString, TypeFactory.String}
+                {TokenType.LiteralString, TypeFactory.String},
+
+                {TokenType.KeywordTrue, TypeFactory.Boolean},
+
+                {TokenType.KeywordFalse, TypeFactory.Boolean}
 
                 // TODO: Missing string.
             };
@@ -95,6 +99,11 @@ namespace Ion.CognitiveServices
             else if (tokenType == TokenType.LiteralString)
             {
                 return LLVM.ConstString(value, (uint)value.Length, false);
+            }
+            else if (TokenIdentifier.IsBoolean(tokenType))
+            {
+                uint boolValue = (uint)(tokenType == TokenType.KeywordTrue ? 1 : 0);
+                return LLVM.ConstInt(type.Emit(), boolValue, false);
             }
 
             throw new Exception("Cannot resolve unsupported type");

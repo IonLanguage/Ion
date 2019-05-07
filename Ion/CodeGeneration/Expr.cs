@@ -27,6 +27,8 @@ namespace Ion.CodeGeneration
 
         String,
 
+        Boolean,
+
         ExternalDefinition
     }
 

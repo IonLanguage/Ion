@@ -21,7 +21,9 @@ namespace Ion.SyntaxAnalysis
             {"exit", TokenType.KeywordExit},
             {"return", TokenType.KeywordReturn},
             {"if", TokenType.KeywordIf},
-            {"extern", TokenType.KeywordExternal}
+            {"extern", TokenType.KeywordExternal},
+            {"true", TokenType.KeywordTrue},
+            {"false", TokenType.KeywordFalse}
         };
 
         public static readonly TokenTypeMap symbols = new TokenTypeMap
@@ -88,11 +90,11 @@ namespace Ion.SyntaxAnalysis
 
         public static readonly ComplexTokenTypeMap complexTokenTypes = new ComplexTokenTypeMap
         {
-            {Pattern.identifier, TokenType.Identifier},
+            {Pattern.Identifier, TokenType.Identifier},
             {Pattern.String, TokenType.LiteralString},
             {Pattern.Decimal, TokenType.LiteralDecimal},
-            {Pattern.integer, TokenType.LiteralInteger},
-            {Pattern.character, TokenType.LiteralCharacter}
+            {Pattern.Integer, TokenType.LiteralInteger},
+            {Pattern.Character, TokenType.LiteralCharacter}
         };
 
         public static readonly ComplexTokenTypeMap commentTokenTypes = new ComplexTokenTypeMap

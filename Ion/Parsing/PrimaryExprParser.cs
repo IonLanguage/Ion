@@ -35,6 +35,10 @@ namespace Ion.Parsing
             {
                 return new StringExprParser().Parse(stream);
             }
+            else if (TokenIdentifier.IsBoolean(tokenType))
+            {
+                return new BooleanExprParser().Parse(stream);
+            }
 
             // At this point, return null.
             return null;
