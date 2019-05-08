@@ -6,6 +6,21 @@ namespace Ion.Linking
 {
     public class Scanner
     {
+        public static ScannerOptions DefaultOptions => new ScannerOptions
+        {
+            Exclude = new[]
+            {
+                @"^\."
+            },
+
+            Match = new[]
+            {
+                @"\.ion$"
+            }
+        };
+
+        public ScannerOptions Options { get; }
+
         public Scanner(ScannerOptions options)
         {
             this.Options = options;
@@ -24,21 +39,6 @@ namespace Ion.Linking
             // Initialize options.
             this.Options.Init();
         }
-
-        public static ScannerOptions DefaultOptions => new ScannerOptions
-        {
-            Exclude = new[]
-            {
-                @"^\."
-            },
-
-            Match = new[]
-            {
-                @"\.ion$"
-            }
-        };
-
-        public ScannerOptions Options { get; }
 
         /// <summary>
         /// Determine whether the root path folder
@@ -71,9 +71,14 @@ namespace Ion.Linking
             {
                 // Continue if entry is excluded.
                 if (this.Options.IsExcluded(entry))
+                {
                     continue;
+                }
                 // Continue if entry is not matched.
-                if (!this.Options.IsMatch(entry)) continue;
+                else if (!this.Options.IsMatch(entry))
+                {
+                    continue;
+                }
 
                 // Register entry in results.
                 entries.Add(entry);
