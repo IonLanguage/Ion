@@ -10,14 +10,22 @@ namespace Ion.Abstraction
     {
         public LLVMModuleRef Source { get; }
 
+        public string Name { get; }
+
         public Module(LLVMModuleRef source)
         {
             this.Source = source;
         }
 
-        public Module()
+        public Module(string name)
         {
-            this.Source = LLVM.ModuleCreateWithName(SpecialName.Entry);
+            this.Name = name;
+            this.Source = LLVM.ModuleCreateWithName(this.Name);
+        }
+
+        public Module() : this(SpecialName.Entry)
+        {
+            //
         }
 
         public object Clone()

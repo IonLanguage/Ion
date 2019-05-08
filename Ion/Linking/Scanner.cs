@@ -55,6 +55,7 @@ namespace Ion.Linking
         /// </summary>
         public string[] Scan(string path, bool recursive = true)
         {
+            // Create the entries list.
             List<string> entries = new List<string>();
 
             // Join the path with the root path.

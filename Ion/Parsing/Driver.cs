@@ -21,6 +21,12 @@ namespace Ion.Parsing
             }
         }
 
+        public Driver(TokenStream stream, string name)
+        {
+            this.stream = stream;
+            this.Module = new Module(name);
+        }
+
         public Driver(TokenStream stream)
         {
             this.stream = stream;
