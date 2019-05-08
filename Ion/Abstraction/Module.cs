@@ -108,6 +108,9 @@ namespace Ion.Abstraction
             // Convert buffer to a string.
             string outputString = Marshal.PtrToStringAnsi(output);
 
+            // Dispose message.
+            LLVM.DisposeMessage(output);
+
             // Trim whitespace.
             outputString = outputString.Trim();
 

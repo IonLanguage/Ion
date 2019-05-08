@@ -97,6 +97,16 @@ namespace Ion.Parsing
                 // Emit the external definition.
                 external.Emit(this.Module.Source);
             }
+            // TODO: Enforce a single namespace definition per-file.
+            // Namespace definition.
+            else if (type == TokenType.KeywordNamespace)
+            {
+                // Invoke the namespace definition parser.
+                Namespace namespaceEntity = new NamespaceParser().Parse(this.stream);
+
+                // Emit the namespace definition entity.
+                namespaceEntity.Emit(this.Module.Source);
+            }
             // Otherwise, throw an error.
             else
             {

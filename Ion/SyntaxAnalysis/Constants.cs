@@ -25,7 +25,8 @@ namespace Ion.SyntaxAnalysis
             {"extern", TokenType.KeywordExternal},
             {"true", TokenType.KeywordTrue},
             {"false", TokenType.KeywordFalse},
-            {"for", TokenType.KeywordFor}
+            {"for", TokenType.KeywordFor},
+            {"namespace", TokenType.KeywordNamespace}
         };
 
         public static readonly TokenTypeMap symbols = new TokenTypeMap
@@ -39,7 +40,8 @@ namespace Ion.SyntaxAnalysis
             {";", TokenType.SymbolSemiColon},
             {"=>", TokenType.SymbolArrow},
             {"...", TokenType.SymbolContinuous},
-            {",", TokenType.SymbolComma}
+            {",", TokenType.SymbolComma},
+            {".", TokenType.SymbolDot}
         }.SortByKeyLength();
 
         public static readonly TokenTypeMap operators = new TokenTypeMap

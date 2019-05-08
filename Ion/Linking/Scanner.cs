@@ -31,9 +31,13 @@ namespace Ion.Linking
 
         public Scanner(string root)
         {
+            // Load default options.
             ScannerOptions options = DefaultOptions;
 
+            // Specify the root path.
             options.Root = root;
+
+            // Assign options.
             this.Options = options;
 
             // Initialize options.
