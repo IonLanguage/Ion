@@ -1,5 +1,6 @@
 using Ion.SyntaxAnalysis;
 using Ion.CodeGeneration;
+using System.Collections.Generic;
 
 namespace Ion.Parsing
 {

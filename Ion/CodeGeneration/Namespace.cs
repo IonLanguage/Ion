@@ -13,10 +13,10 @@ namespace Ion.CodeGeneration
             this.path = path;
         }
 
-        public void Emit(LLVMModuleRef context)
+        public LLVMValueRef Emit(LLVMModuleRef context)
         {
             // TODO
-            LLVM.
+
         }
     }
 }

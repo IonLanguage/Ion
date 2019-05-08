@@ -11,7 +11,7 @@ namespace Ion.Parsing
             List<string> path = new List<string>();
 
             // Capture identifier to serve as path node.
-            string node = stream.Get(TokenType.Identifier);
+            string node = stream.Get(TokenType.Identifier).Value;
 
             // Append node to path.
             path.Add(node);
@@ -23,7 +23,7 @@ namespace Ion.Parsing
             if (stream.Get().Type == TokenType.SymbolDot)
             {
                 // Create the parser instance.
-                PathParser childParser = new PathParser().Parse(stream);
+                PathParser childParser = new PathParser();
 
                 // Invoke the parser.
                 List<string> childParserPath = childParser.Parse(stream);

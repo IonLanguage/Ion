@@ -157,6 +157,8 @@ namespace Ion.SyntaxAnalysis
 
         KeywordFor,
 
+        KeywordNamespace,
+
         // Symbols.
         SymbolBlockL,
 
