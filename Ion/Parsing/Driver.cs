@@ -13,18 +13,19 @@ namespace Ion.Parsing
         public Module Module { get; }
 
         // TODO: What if EOF token has not been processed itself?
-        public bool HasNext
-        {
-            get
-            {
-                return !this.stream.IsLastItem;
-            }
-        }
+        public bool HasNext => !this.stream.IsLastItem;
+
+        public ParserContext ParserContext { get; }
 
         public Driver(TokenStream stream, string name)
         {
             this.stream = stream;
+
+            // Create a new module instance.
             this.Module = new Module(name);
+
+            // Create a new parser context instance.
+            this.ParserContext = new ParserContext(this, this.stream);
         }
 
         public Driver(TokenStream stream)
@@ -73,7 +74,7 @@ namespace Ion.Parsing
                 if (afterIdentifier.Type == TokenType.SymbolParenthesesL)
                 {
                     // Invoke the function parser.
-                    Function function = new FunctionParser().Parse(this.stream);
+                    Function function = new FunctionParser().Parse(this.ParserContext);
 
                     // Emit the function.
                     function.Emit(this.Module.Source);
@@ -82,7 +83,7 @@ namespace Ion.Parsing
                 else
                 {
                     // Invoke the global variable parser.
-                    GlobalVar globalVariable = new GlobalVarParser().Parse(this.stream);
+                    GlobalVar globalVariable = new GlobalVarParser().Parse(this.ParserContext);
 
                     // Emit the global variable.
                     globalVariable.Emit(this.Module.Source);
@@ -92,7 +93,7 @@ namespace Ion.Parsing
             else if (type == TokenType.KeywordExternal)
             {
                 // Invoke the external definition parser.
-                Extern external = new ExternParser().Parse(this.stream);
+                Extern external = new ExternParser().Parse(this.ParserContext);
 
                 // Emit the external definition.
                 external.Emit(this.Module.Source);
@@ -102,7 +103,7 @@ namespace Ion.Parsing
             else if (type == TokenType.KeywordNamespace)
             {
                 // Invoke the namespace definition parser.
-                Namespace namespaceEntity = new NamespaceParser().Parse(this.stream);
+                Namespace namespaceEntity = new NamespaceParser().Parse(this.ParserContext);
 
                 // Process the namespace definition reaction.
                 namespaceEntity.React(this.Module.Source);

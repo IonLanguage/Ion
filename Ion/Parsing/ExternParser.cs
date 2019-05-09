@@ -5,22 +5,22 @@ namespace Ion.Parsing
 {
     public class ExternParser : IParser<Extern>
     {
-        public Extern Parse(TokenStream stream)
+        public Extern Parse(ParserContext context)
         {
             // Ensure current token is extern keyword.
-            stream.EnsureCurrent(TokenType.KeywordExternal);
+            context.Stream.EnsureCurrent(TokenType.KeywordExternal);
 
             // Skip extern keyword.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Invoke the prototype parser.
-            Prototype prototype = new PrototypeParser().Parse(stream);
+            Prototype prototype = new PrototypeParser().Parse(context);
 
             // Ensure current token is a semi-colon.
-            stream.EnsureCurrent(TokenType.SymbolSemiColon);
+            context.Stream.EnsureCurrent(TokenType.SymbolSemiColon);
 
             // Skip semi-colon.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Create the external definition entity using the parsed prototype.
             Extern external = new Extern(prototype);

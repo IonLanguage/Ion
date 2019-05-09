@@ -7,13 +7,13 @@ namespace Ion.Parsing
 {
     public class BooleanExprParser : IParser<BooleanExpr>
     {
-        public BooleanExpr Parse(TokenStream stream)
+        public BooleanExpr Parse(ParserContext context)
         {
             // Consume boolean literal token.
-            Token token = stream.Get();
+            Token token = context.Stream.Get();
 
             // Skip boolean literal token.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Ensure captured token is a boolean.
             if (!TokenIdentifier.IsBoolean(token.Type))

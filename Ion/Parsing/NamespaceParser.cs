@@ -6,22 +6,22 @@ namespace Ion.Parsing
 {
     public class NamespaceParser : IParser<Namespace>
     {
-        public Namespace Parse(TokenStream stream)
+        public Namespace Parse(ParserContext context)
         {
             // Ensure current token is namespace keyword.
-            stream.EnsureCurrent(TokenType.KeywordNamespace);
+            context.Stream.EnsureCurrent(TokenType.KeywordNamespace);
 
             // Skip namespace keyword.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Invoke the path parser.
-            List<string> path = new PathParser().Parse(stream);
+            List<string> path = new PathParser().Parse(context);
 
             // Ensure current token is semi-colon.
-            stream.EnsureCurrent(TokenType.SymbolSemiColon);
+            context.Stream.EnsureCurrent(TokenType.SymbolSemiColon);
 
             // Skip semi-colon.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Create the namespace entity.
             Namespace namespaceEntity = new Namespace(path);

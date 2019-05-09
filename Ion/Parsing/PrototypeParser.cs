@@ -5,19 +5,19 @@ namespace Ion.Parsing
 {
     public class PrototypeParser : IParser<Prototype>
     {
-        public Prototype Parse(TokenStream stream)
+        public Prototype Parse(ParserContext context)
         {
             // Parse the return type.
-            Type returnType = new TypeParser().Parse(stream);
+            Type returnType = new TypeParser().Parse(context);
 
             // Capture identifier.
-            string identifier = stream.Get(TokenType.Identifier).Value;
+            string identifier = context.Stream.Get(TokenType.Identifier).Value;
 
             // Skip identifier.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Invoke the formal argument parser.
-            FormalArgs args = new FormalArgsParser().Parse(stream);
+            FormalArgs args = new FormalArgsParser().Parse(context);
 
             // Create the resulting prototype entity.
             Prototype prototype = new Prototype(identifier, args, returnType);

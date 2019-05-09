@@ -21,13 +21,13 @@ namespace Ion.Parsing
             this.minimalPrecedence = minimalPrecedence;
         }
 
-        public Expr Parse(TokenStream stream)
+        public Expr Parse(ParserContext context)
         {
             // If this is a binary operation, find it's precedence.
             while (true)
             {
                 // Capture the current token.
-                Token token = stream.Get();
+                Token token = context.Stream.Get();
 
                 // Calculate precedence for the current token.
                 int firstPrecedence = Precedence.Get(token);
@@ -54,10 +54,10 @@ namespace Ion.Parsing
                 }
 
                 // Skip operator.
-                stream.Skip();
+                context.Stream.Skip();
 
                 // Parse the right-side.
-                Expr rightSide = new PrimaryExprParser().Parse(stream);
+                Expr rightSide = new PrimaryExprParser().Parse(context);
 
                 // Ensure that the right-side was successfully parsed.
                 if (rightSide == null)
@@ -76,7 +76,7 @@ namespace Ion.Parsing
                 if (firstPrecedence < secondPrecedence)
                 {
                     // Invoke the right-side parser.
-                    rightSide = new BinaryOpRightSideParser(rightSide, firstPrecedence + 1).Parse(stream);
+                    rightSide = new BinaryOpRightSideParser(rightSide, firstPrecedence + 1).Parse(context);
 
                     // Ensure the right-side was successfully parsed.
                     if (rightSide == null)

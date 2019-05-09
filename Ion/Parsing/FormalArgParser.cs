@@ -8,19 +8,19 @@ namespace Ion.Parsing
 {
     public class FormalArgParser : IParser<FormalArg>
     {
-        public FormalArg Parse(TokenStream stream)
+        public FormalArg Parse(ParserContext context)
         {
             // Parse the type.
-            Type type = new TypeParser().Parse(stream);
+            Type type = new TypeParser().Parse(context);
 
             // Create the formal argument entity.
             FormalArg arg = new FormalArg(type);
 
             // Capture the argument's name.
-            string name = stream.Get(TokenType.Identifier).Value;
+            string name = context.Stream.Get(TokenType.Identifier).Value;
 
             // Skip the identifier token.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Assign the argument's name.
             arg.SetName(name);

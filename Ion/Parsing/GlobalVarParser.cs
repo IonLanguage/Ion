@@ -5,22 +5,22 @@ namespace Ion.Parsing
 {
     public class GlobalVarParser : IParser<GlobalVar>
     {
-        public GlobalVar Parse(TokenStream stream)
+        public GlobalVar Parse(ParserContext context)
         {
             // Consume type.
-            string typeValue = stream.Get().Value;
+            string typeValue = context.Stream.Get().Value;
 
             // Create type.
             Type type = new Type(typeValue);
 
             // Skip global variable prefix.
-            stream.Skip(TokenType.SymbolAt);
+            context.Stream.Skip(TokenType.SymbolAt);
 
             // Consume name.
-            string name = stream.Next(TokenType.Identifier).Value;
+            string name = context.Stream.Next(TokenType.Identifier).Value;
 
             // Skip name.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Create the global variable.
             GlobalVar globalVar = new GlobalVar(type);

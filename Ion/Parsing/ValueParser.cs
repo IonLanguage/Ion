@@ -7,10 +7,10 @@ namespace Ion.Parsing
 {
     public class ValueParser : IParser<Value>
     {
-        public Value Parse(TokenStream stream)
+        public Value Parse(ParserContext context)
         {
             // Consume the value string.
-            string value = stream.Get().Value;
+            string value = context.Stream.Get().Value;
 
             // Attempt to identify value string type.
             TokenType? type = TokenIdentifier.IdentifyComplex(value);

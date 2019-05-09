@@ -7,29 +7,29 @@ namespace Ion.Parsing
 {
     public class CallArgsParser : IParser<List<Expr>>
     {
-        public List<Expr> Parse(TokenStream stream)
+        public List<Expr> Parse(ParserContext context)
         {
             // Create the argument list result.
             List<Expr> args = new List<Expr>();
 
             // Ensure current token is parentheses start.
-            stream.EnsureCurrent(TokenType.SymbolParenthesesL);
+            context.Stream.EnsureCurrent(TokenType.SymbolParenthesesL);
 
             // Skip parentheses start.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Contains at least one argument.
-            if (stream.Get().Type != TokenType.SymbolParenthesesR)
+            if (context.Stream.Get().Type != TokenType.SymbolParenthesesR)
             {
                 while (true)
                 {
                     // Invoke the expression parser to parse the argument.
-                    Expr arg = new ExprParser().Parse(stream);
+                    Expr arg = new ExprParser().Parse(context);
 
                     // Append the parsed argument.
                     args.Add(arg);
 
-                    TokenType currentTokenType = stream.Get().Type;
+                    TokenType currentTokenType = context.Stream.Get().Type;
 
                     // Arguments ended.
                     if (currentTokenType == TokenType.SymbolParenthesesR)
@@ -43,15 +43,15 @@ namespace Ion.Parsing
                     }
 
                     // Skip token.
-                    stream.Skip();
+                    context.Stream.Skip();
                 }
             }
 
             // Ensure current token is parentheses end.
-            stream.EnsureCurrent(TokenType.SymbolParenthesesR);
+            context.Stream.EnsureCurrent(TokenType.SymbolParenthesesR);
 
             // Skip parentheses end.
-            stream.Skip();
+            context.Stream.Skip();
 
             return args;
         }

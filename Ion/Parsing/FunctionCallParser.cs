@@ -9,26 +9,26 @@ namespace Ion.Parsing
 {
     public class FunctionCallExprParser : IParser<FunctionCallExpr>
     {
-        public FunctionCallExpr Parse(TokenStream stream)
+        public FunctionCallExpr Parse(ParserContext context)
         {
             // Capture identifier.
-            string identifier = stream.Get(TokenType.Identifier).Value;
+            string identifier = context.Stream.Get(TokenType.Identifier).Value;
 
             // Skip the identifier token onto the parentheses start token.
-            stream.Skip(TokenType.SymbolParenthesesL);
+            context.Stream.Skip(TokenType.SymbolParenthesesL);
 
             // TODO: This should be performed as the last thing, to allow recursive calls (and yet to be parsed functions).
             // Ensure the function has been emitted.
-            if (!SymbolTable.functions.ContainsKey(identifier))
+            if (!context.SymbolTable.functions.ContainsKey(identifier))
             {
                 throw new Exception($"Call to a non-existent function named '{identifier}' performed");
             }
 
             // Retrieve the target.
-            LLVMValueRef target = SymbolTable.functions[identifier];
+            LLVMValueRef target = context.SymbolTable.functions[identifier];
 
             // Invoke the function call argument parser.
-            List<Expr> args = new CallArgsParser().Parse(stream);
+            List<Expr> args = new CallArgsParser().Parse(context);
 
             // TODO: Callee.
             // Create the function call expression entity.

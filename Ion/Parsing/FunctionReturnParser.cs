@@ -5,22 +5,22 @@ namespace Ion.Parsing
 {
     public class FunctionReturnParser : IParser<Expr>
     {
-        public Expr Parse(TokenStream stream)
+        public Expr Parse(ParserContext context)
         {
             // Ensure current return keyword.
-            stream.EnsureCurrent(TokenType.KeywordReturn);
+            context.Stream.EnsureCurrent(TokenType.KeywordReturn);
 
             // Skip over the return keyword.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Capture the current token.
-            Token token = stream.Get();
+            Token token = context.Stream.Get();
 
             // There is no return expression.
             if (token.Type == TokenType.SymbolSemiColon)
             {
                 // Skip the semi-colon.
-                stream.Skip();
+                context.Stream.Skip();
 
                 // TODO: Should return void? Investigate.
                 // Return null as no expression/return value was captured.
@@ -28,13 +28,13 @@ namespace Ion.Parsing
             }
 
             // Otherwise, invoke the expression parser.
-            Expr expr = new ExprParser().Parse(stream);
+            Expr expr = new ExprParser().Parse(context);
 
             // Ensure current is a semi-colon.
-            stream.EnsureCurrent(TokenType.SymbolSemiColon);
+            context.Stream.EnsureCurrent(TokenType.SymbolSemiColon);
 
             // Skip the semi-colon.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Return the expression.
             return expr;

@@ -6,19 +6,19 @@ namespace Ion.Parsing
 {
     public class FormalArgsParser : IParser<FormalArgs>
     {
-        public FormalArgs Parse(TokenStream stream)
+        public FormalArgs Parse(ParserContext context)
         {
             // Ensure position.
-            stream.EnsureCurrent(TokenType.SymbolParenthesesL);
+            context.Stream.EnsureCurrent(TokenType.SymbolParenthesesL);
 
             // Skip parentheses start.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Create the formal args entity.
             FormalArgs args = new FormalArgs();
 
             // Create the loop buffer token.
-            Token buffer = stream.Get();
+            Token buffer = context.Stream.Get();
 
             // Loop until parentheses end.
             while (buffer.Type != TokenType.SymbolParenthesesR)
@@ -30,7 +30,7 @@ namespace Ion.Parsing
                     args.Continuous = true;
 
                     // Advance stream immediatly.
-                    buffer = stream.Next(TokenType.SymbolParenthesesR);
+                    buffer = context.Stream.Next(TokenType.SymbolParenthesesR);
 
                     // Continue loop.
                     continue;
@@ -42,10 +42,10 @@ namespace Ion.Parsing
                 }
 
                 // Invoke the arg parser.
-                FormalArg arg = new FormalArgParser().Parse(stream);
+                FormalArg arg = new FormalArgParser().Parse(context);
 
                 // Update the buffer.
-                buffer = stream.Get();
+                buffer = context.Stream.Get();
 
                 // Ensure next token is valid.
                 if (buffer.Type != TokenType.SymbolComma && buffer.Type != TokenType.SymbolParenthesesR)
@@ -55,10 +55,10 @@ namespace Ion.Parsing
                 // Skip the comma token.
                 else if (buffer.Type == TokenType.SymbolComma)
                 {
-                    stream.Skip();
+                    context.Stream.Skip();
 
                     // Make sure to update the buffer after skipping the comma token.
-                    buffer = stream.Get();
+                    buffer = context.Stream.Get();
                 }
 
                 // Append the parsed argument.
@@ -66,10 +66,10 @@ namespace Ion.Parsing
             }
 
             // Ensure current token is parentheses end.
-            stream.EnsureCurrent(TokenType.SymbolParenthesesR);
+            context.Stream.EnsureCurrent(TokenType.SymbolParenthesesR);
 
             // Skip parentheses end token.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Finish process.
             return args;

@@ -6,38 +6,38 @@ namespace Ion.Parsing
 {
     public class PrimaryExprParser : IParser<Expr>
     {
-        public Expr Parse(TokenStream stream)
+        public Expr Parse(ParserContext context)
         {
             // Capture current token type.
-            TokenType tokenType = stream.Get().Type;
+            TokenType tokenType = context.Stream.Get().Type;
 
             // Variable declaration expression.
             if (TokenIdentifier.IsType(tokenType))
             {
-                return new VarDeclareExprParser().Parse(stream);
+                return new VarDeclareExprParser().Parse(context);
             }
             // Numeric expression.
             else if (TokenIdentifier.IsNumeric(tokenType))
             {
-                return new NumericExprParser().Parse(stream);
+                return new NumericExprParser().Parse(context);
             }
             // Identifier expression.
             else if (tokenType == TokenType.Identifier)
             {
-                return new IdentifierExprParser().Parse(stream);
+                return new IdentifierExprParser().Parse(context);
             }
             // Parentheses expression.
             else if (tokenType == TokenType.SymbolParenthesesL)
             {
-                return new ParenthesesExprParser().Parse(stream);
+                return new ParenthesesExprParser().Parse(context);
             }
             else if (tokenType == TokenType.LiteralString)
             {
-                return new StringExprParser().Parse(stream);
+                return new StringExprParser().Parse(context);
             }
             else if (TokenIdentifier.IsBoolean(tokenType))
             {
-                return new BooleanExprParser().Parse(stream);
+                return new BooleanExprParser().Parse(context);
             }
 
             // At this point, return null.

@@ -5,10 +5,10 @@ namespace Ion.Parsing
 {
     public class FunctionParser : IParser<Function>
     {
-        public Function Parse(TokenStream stream)
+        public Function Parse(ParserContext context)
         {
             // Parse the prototype from the stream, this captures the name, arguments and return type.
-            Prototype prototype = new PrototypeParser().Parse(stream);
+            Prototype prototype = new PrototypeParser().Parse(context);
 
             // Create the function.
             Function function = new Function();
@@ -17,7 +17,7 @@ namespace Ion.Parsing
             function.Prototype = prototype;
 
             // Parse the body.
-            Block body = new BlockParser().Parse(stream);
+            Block body = new BlockParser().Parse(context);
 
             // Set the name of the body block.
             body.SetNameEntry();

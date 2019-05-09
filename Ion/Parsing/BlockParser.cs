@@ -7,19 +7,19 @@ namespace Ion.Parsing
 {
     public class BlockParser : IParser<Block>
     {
-        public Block Parse(TokenStream stream)
+        public Block Parse(ParserContext context)
         {
             // Capture current token. Either '{' or '=>' for anonymous functions.
-            Token begin = stream.Get();
+            Token begin = context.Stream.Get();
 
             // Skip begin token.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Create the block.
             Block block = new Block();
 
             // Set the block as active in the symbol table.
-            SymbolTable.activeBlock = block;
+            context.SymbolTable.activeBlock = block;
 
             // Mark the block as default.
             if (begin.Type == TokenType.SymbolBlockL)
@@ -38,7 +38,7 @@ namespace Ion.Parsing
             }
 
             // Capture the current token.
-            Token token = stream.Get();
+            Token token = context.Stream.Get();
 
             // While next token is not a block-closing token.
             while (token.Type != TokenType.SymbolBlockR && block.Type != BlockType.Short)
@@ -47,7 +47,7 @@ namespace Ion.Parsing
                 if (token.Type == TokenType.KeywordReturn)
                 {
                     // Invoke the return parser. It's okay if it returns null, as it will be emitted as void.
-                    Expr returnExpr = new FunctionReturnParser().Parse(stream);
+                    Expr returnExpr = new FunctionReturnParser().Parse(context);
 
                     // Assign the return expression to the block.
                     block.ReturnExpr = returnExpr;
@@ -57,7 +57,7 @@ namespace Ion.Parsing
                 }
 
                 // Token must be an expression.
-                Expr expr = new PrimaryExprParser().Parse(stream);
+                Expr expr = new PrimaryExprParser().Parse(context);
 
                 // Ensure expression was successfully parsed.
                 if (expr == null)
@@ -69,14 +69,14 @@ namespace Ion.Parsing
                 block.Expressions.Add(expr);
 
                 // Skip over the semi-colon.
-                stream.Skip();
+                context.Stream.Skip();
 
                 // Get the new token for next parse.
-                token = stream.Get();
+                token = context.Stream.Get();
             }
 
             // Skip onto default block end '}' or short block end ';'.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Return the resulting block.
             return block;

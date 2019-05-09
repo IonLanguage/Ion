@@ -5,19 +5,19 @@ namespace Ion.Parsing
 {
     public class AttributeParser : IParser<Attribute>
     {
-        public Attribute Parse(TokenStream stream)
+        public Attribute Parse(ParserContext context)
         {
             // Ensure current token is bracket start.
-            stream.EnsureCurrent(TokenType.SymbolBracketL);
+            context.Stream.EnsureCurrent(TokenType.SymbolBracketL);
 
             // Skip bracket start.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Capture the attribute name.
-            string name = stream.Get(TokenType.Identifier).Value;
+            string name = context.Stream.Get(TokenType.Identifier).Value;
 
             // Skip identifier token.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Create the attribute entity.
             Attribute attribute = new Attribute();
@@ -26,10 +26,10 @@ namespace Ion.Parsing
             attribute.SetName(name);
 
             // Ensure current token is bracket end.
-            stream.EnsureCurrent(TokenType.SymbolBracketR);
+            context.Stream.EnsureCurrent(TokenType.SymbolBracketR);
 
             // Skip bracket end.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Return the attribute entity.
             return attribute;

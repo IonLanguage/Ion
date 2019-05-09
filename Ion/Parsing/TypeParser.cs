@@ -7,13 +7,13 @@ namespace Ion.Parsing
 {
     public class TypeParser : IParser<Type>
     {
-        public Type Parse(TokenStream stream)
+        public Type Parse(ParserContext context)
         {
             // Consume current type token.
-            Token type = stream.Get();
+            Token type = context.Stream.Get();
 
             // Skip type.
-            stream.Skip();
+            context.Stream.Skip();
 
             // Ensure type value is a type.
             if (!TokenIdentifier.IsType(type))

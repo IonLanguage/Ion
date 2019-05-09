@@ -7,16 +7,16 @@ namespace Ion.Parsing
 {
     public class StringExprParser : IParser<StringExpr>
     {
-        public StringExpr Parse(TokenStream stream)
+        public StringExpr Parse(ParserContext context)
         {
             // Ensure current token is string literal.
-            stream.EnsureCurrent(TokenType.LiteralString);
+            context.Stream.EnsureCurrent(TokenType.LiteralString);
 
             // Capture string literal token.
-            Token token = stream.Get();
+            Token token = context.Stream.Get();
 
             // Skip string literal token.
-            stream.Skip();
+            context.Stream.Skip();
 
             // TODO: Hard-coded.
             // Remove string quotes.

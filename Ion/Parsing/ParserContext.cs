@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Ion.CognitiveServices;
+using Ion.Core;
 using Ion.ErrorReporting;
 using Ion.SyntaxAnalysis;
 
@@ -8,15 +9,25 @@ namespace Ion.Parsing
     // TODO: Finish implementing.
     public class ParserContext
     {
-        public ParserContext(TokenStream stream)
-        {
-            this.ErrorStack = new Stack<Error>();
-            this.Stream = stream;
-        }
-
         public Stack<Error> ErrorStack { get; }
 
         public TokenStream Stream { get; }
+
+        public Driver Driver { get; }
+
+        public SymbolTable SymbolTable { get; }
+
+        public ParserContext(Driver driver, TokenStream stream)
+        {
+            this.Driver = driver;
+            this.Stream = stream;
+
+            // Create a new error stack.
+            this.ErrorStack = new Stack<Error>();
+
+            // Create a new symbol table instance.
+            this.SymbolTable = new SymbolTable();
+        }
 
         /// <summary>
         /// Retrieve the precedence of the current
