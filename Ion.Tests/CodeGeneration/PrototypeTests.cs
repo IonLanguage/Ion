@@ -15,14 +15,6 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class PrototypeTests
     {
-        private Abstraction.Module module;
-
-        [SetUp]
-        public void Setup()
-        {
-            // Reset symbol table completely.
-            SymbolTable.HardReset();
-        }
 
         [Test]
         public void Complex()

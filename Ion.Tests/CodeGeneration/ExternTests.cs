@@ -15,12 +15,6 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class ExternTests
     {
-        [SetUp]
-        public void Setup()
-        {
-            // Reset symbol table completely.
-            SymbolTable.HardReset();
-        }
 
         [Test]
         public void Extern()

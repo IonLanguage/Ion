@@ -15,17 +15,6 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class CallTests
     {
-        private Abstraction.Module module;
-
-        [SetUp]
-        public void Setup()
-        {
-            // Create a new LLVM module instance.
-            this.module = new Ion.Abstraction.Module();
-
-            // Reset symbol table completely.
-            SymbolTable.HardReset();
-        }
 
         [Test]
         public void CallWithoutArguments()

@@ -39,7 +39,7 @@ namespace Ion.CodeGeneration
 
             // TODO: Side expressions emitting to context.
             // Invoke the operation generator.
-            LLVMValueRef result = invoker(context, this.leftSide.Emit(context), this.rightSide.Emit(context), this.Name);
+            LLVMValueRef result = invoker(context.Target, this.leftSide.Emit(context), this.rightSide.Emit(context), this.Name);
 
             // Return resulting operation.
             return result;

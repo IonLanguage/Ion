@@ -15,13 +15,6 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class DriverTests
     {
-        [SetUp]
-        public static void Setup()
-        {
-            // Reset symbol table along with its functions.
-            SymbolTable.Reset();
-            SymbolTable.functions.Clear();
-        }
 
         [Test]
         public void HasNext()

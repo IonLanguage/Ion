@@ -70,7 +70,6 @@ namespace Ion.Tests.SyntaxAnalysis
 
         [Test]
         [TestCase("~")]
-        [TestCase(".")]
         [TestCase("$")]
         [TestCase("#")]
         [TestCase("`")]
