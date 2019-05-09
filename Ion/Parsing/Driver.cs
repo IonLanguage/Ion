@@ -104,8 +104,8 @@ namespace Ion.Parsing
                 // Invoke the namespace definition parser.
                 Namespace namespaceEntity = new NamespaceParser().Parse(this.stream);
 
-                // Emit the namespace definition entity.
-                namespaceEntity.Emit(this.Module.Source);
+                // Process the namespace definition reaction.
+                namespaceEntity.React(this.Module.Source);
             }
             // Otherwise, throw an error.
             else
