@@ -1,3 +1,4 @@
+using System;
 using Ion.CodeGeneration.Structure;
 using System.Collections.Generic;
 using LLVMSharp;
@@ -15,8 +16,8 @@ namespace Ion.CodeGeneration
 
         public LLVMValueRef Emit(LLVMModuleRef context)
         {
-            // TODO
-
+            // TODO: Finish implementing, change the name of the module.
+            throw new NotImplementedException();
         }
     }
 }
