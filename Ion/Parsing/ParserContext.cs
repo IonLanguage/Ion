@@ -15,7 +15,7 @@ namespace Ion.Parsing
 
         public Driver Driver { get; }
 
-        public SymbolTable SymbolTable { get; }
+        public SymbolTable SymbolTable => this.Driver.Module.SymbolTable;
 
         public ParserContext(Driver driver, TokenStream stream)
         {
@@ -24,9 +24,6 @@ namespace Ion.Parsing
 
             // Create a new error stack.
             this.ErrorStack = new Stack<Error>();
-
-            // Create a new symbol table instance.
-            this.SymbolTable = new SymbolTable();
         }
 
         /// <summary>

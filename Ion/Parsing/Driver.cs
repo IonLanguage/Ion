@@ -1,42 +1,60 @@
 using System;
 using Ion.Abstraction;
 using Ion.CodeGeneration;
+using Ion.CodeGeneration.Structure;
 using Ion.CognitiveServices;
 using Ion.SyntaxAnalysis;
+using LLVMSharp;
 
 namespace Ion.Parsing
 {
     public class Driver
     {
-        protected readonly TokenStream stream;
+        protected TokenStream stream;
 
-        public Module Module { get; }
+        public Abstraction.Module Module { get; protected set; }
 
         // TODO: What if EOF token has not been processed itself?
         public bool HasNext => !this.stream.IsLastItem;
 
-        public ParserContext ParserContext { get; }
+        public ParserContext ParserContext { get; protected set; }
+
+        public PipeContext<LLVMModuleRef> ModulePipeContext { get; protected set; }
 
         public Driver(TokenStream stream, string name)
         {
-            this.stream = stream;
-
-            // Create a new module instance.
-            this.Module = new Module(name);
-
-            // Create a new parser context instance.
-            this.ParserContext = new ParserContext(this, this.stream);
+            // Invoke the initializer method.
+            this.Init(stream, name);
         }
 
         public Driver(TokenStream stream)
         {
-            this.stream = stream;
-            this.Module = new Module();
+            // Invoke the initializer method.
+            this.Init(stream, SpecialName.Entry);
         }
 
         public Driver(Token[] tokens) : this(new TokenStream(tokens))
         {
             //
+        }
+
+        /// <summary>
+        /// Initialize the values and properties of this class
+        /// instance.
+        /// </summary>
+        protected void Init(TokenStream stream, string name)
+        {
+            // Assign the provided stream.
+            this.stream = stream;
+
+            // Create a new module instance.
+            this.Module = new Abstraction.Module(name);
+
+            // Create a new parser context instance.
+            this.ParserContext = new ParserContext(this, this.stream);
+
+            // Create a generic pipe context for potential use.
+            this.ModulePipeContext = PipeContextFactory.CreateFromModule(this.Module);
         }
 
         /// <summary>
@@ -52,7 +70,6 @@ namespace Ion.Parsing
                 return false;
             }
 
-            // TODO: Finish fixing this, parsers overflowing (+1) because of this issue with the Program start (05/02/2019).
             TokenType type = this.stream.Get().Type;
 
             // Skip unknown tokens for error recovery.
@@ -77,7 +94,7 @@ namespace Ion.Parsing
                     Function function = new FunctionParser().Parse(this.ParserContext);
 
                     // Emit the function.
-                    function.Emit(this.Module.Source);
+                    function.Emit(this.ModulePipeContext);
                 }
                 // Otherwise, global variable declaration.
                 else
@@ -86,7 +103,7 @@ namespace Ion.Parsing
                     GlobalVar globalVariable = new GlobalVarParser().Parse(this.ParserContext);
 
                     // Emit the global variable.
-                    globalVariable.Emit(this.Module.Source);
+                    globalVariable.Emit(this.ModulePipeContext);
                 }
             }
             // External definition.
@@ -96,7 +113,7 @@ namespace Ion.Parsing
                 Extern external = new ExternParser().Parse(this.ParserContext);
 
                 // Emit the external definition.
-                external.Emit(this.Module.Source);
+                external.Emit(this.ModulePipeContext);
             }
             // TODO: Enforce a single namespace definition per-file.
             // Namespace definition.

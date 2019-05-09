@@ -1,4 +1,6 @@
+using Ion.Abstraction;
 using Ion.Core;
+using LLVMSharp;
 
 namespace Ion.CodeGeneration.Structure
 {

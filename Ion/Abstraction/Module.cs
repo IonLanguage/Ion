@@ -2,6 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using Ion.CodeGeneration;
 using Ion.CodeGeneration.Structure;
+using Ion.Core;
 using LLVMSharp;
 
 namespace Ion.Abstraction
@@ -12,15 +13,23 @@ namespace Ion.Abstraction
 
         public string Name { get; }
 
+        public SymbolTable SymbolTable { get; }
+
         public Module(LLVMModuleRef source)
         {
             this.Source = source;
+
+            // Create a new symbol table instance.
+            this.SymbolTable = new SymbolTable();
         }
 
         public Module(string name)
         {
             this.Name = name;
             this.Source = LLVM.ModuleCreateWithName(this.Name);
+
+            // Create a new symbol table instance.
+            this.SymbolTable = new SymbolTable();
         }
 
         public Module() : this(SpecialName.Entry)
@@ -74,8 +83,11 @@ namespace Ion.Abstraction
             // Create the function.
             Function function = CreateMainFunction();
 
+            // Create pipe context for the function.
+            PipeContext<LLVMModuleRef> context = new PipeContext<LLVMModuleRef>(this.Source, this.SymbolTable);
+
             // Emit the function.
-            function.Emit(this.Source);
+            function.Emit(context);
 
             // Return the previously created function.
             return function;
