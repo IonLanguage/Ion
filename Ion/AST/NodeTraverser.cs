@@ -13,8 +13,8 @@ namespace Ion.AST
         }
 
         /// <summary>
-        ///     Traverse a node and its children, visiting all
-        ///     the nodes of a level before moving to the next level.
+        ///  Traverse a node and its children, visiting all
+        ///  the nodes of a level before moving to the next level.
         /// </summary>
         public void BreadthFirst(Action<Node<T>> callback)
         {
