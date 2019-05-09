@@ -1,4 +1,5 @@
 using System;
+using Ion.CodeGeneration.Structure;
 using Ion.Core;
 using LLVMSharp;
 
@@ -13,16 +14,16 @@ namespace Ion.CodeGeneration
             this.SetName(name);
         }
 
-        public override LLVMValueRef Emit(LLVMBuilderRef context)
+        public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
             // Ensure the variable exists in the local scope.
-            if (!SymbolTable.localScope.ContainsKey(this.Name))
+            if (!context.SymbolTable.localScope.ContainsKey(this.Name))
             {
                 throw new Exception($"Reference to undefined variable named '{this.Name}'");
             }
 
             // Retrieve the value.
-            LLVMValueRef value = SymbolTable.localScope[this.Name];
+            LLVMValueRef value = context.SymbolTable.localScope[this.Name];
 
             // Return the retrieved value.
             return value;

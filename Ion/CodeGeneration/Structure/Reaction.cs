@@ -2,6 +2,6 @@ namespace Ion.CodeGeneration.Structure
 {
     public interface IReaction<T>
     {
-        void React(T context);
+        void Invoke(T context);
     }
 }

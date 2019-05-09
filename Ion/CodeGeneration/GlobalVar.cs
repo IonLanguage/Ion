@@ -4,7 +4,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class GlobalVar : Named, IPipe<LLVMValueRef, LLVMModuleRef>
+    public class GlobalVar : Named, IPipe<LLVMModuleRef, LLVMValueRef>
     {
         public Type Type { get; }
 
@@ -15,16 +15,19 @@ namespace Ion.CodeGeneration
             this.Type = type;
         }
 
-        public LLVMValueRef Emit(LLVMModuleRef context)
+        public LLVMValueRef Emit(PipeContext<LLVMModuleRef> context)
         {
             // Create the global variable.
-            LLVMValueRef globalVar = LLVM.AddGlobal(context, this.Type.Emit(), this.Name);
+            LLVMValueRef globalVar = LLVM.AddGlobal(context.Target, this.Type.Emit(), this.Name);
 
             // Set the linkage to common.
             globalVar.SetLinkage(LLVMLinkage.LLVMCommonLinkage);
 
             // Assign value if applicable.
-            if (this.Value != null) globalVar.SetInitializer(this.Value.Emit());
+            if (this.Value != null)
+            {
+                globalVar.SetInitializer(this.Value.Emit());
+            }
 
             return globalVar;
         }

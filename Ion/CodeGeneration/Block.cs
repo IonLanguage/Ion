@@ -12,7 +12,7 @@ namespace Ion.CodeGeneration
         Short
     }
 
-    public class Block : Named, IPipe<LLVMBasicBlockRef, LLVMValueRef>
+    public class Block : Named, IPipe<LLVMValueRef, LLVMBasicBlockRef>
     {
         public readonly List<Expr> Expressions;
 
@@ -29,11 +29,14 @@ namespace Ion.CodeGeneration
             this.Expressions = new List<Expr>();
         }
 
-        public LLVMBasicBlockRef Emit(LLVMValueRef context)
+        public LLVMBasicBlockRef Emit(PipeContext<LLVMValueRef> context)
         {
             // Create the block and its corresponding builder.
-            LLVMBasicBlockRef block = LLVM.AppendBasicBlock(context, this.Name);
+            LLVMBasicBlockRef block = LLVM.AppendBasicBlock(context.Target, this.Name);
             LLVMBuilderRef builder = LLVM.CreateBuilder();
+
+            // Derive a context for the builder.
+            PipeContext<LLVMBuilderRef> builderContext = context.Derive<LLVMBuilderRef>(builder);
 
             // Position and link the builder.
             LLVM.PositionBuilderAtEnd(builder, block);
@@ -41,7 +44,7 @@ namespace Ion.CodeGeneration
             // Emit the expressions.
             foreach (var expr in this.Expressions)
             {
-                expr.Emit(builder);
+                expr.Emit(builderContext);
             }
 
             // No value was returned.
@@ -52,7 +55,8 @@ namespace Ion.CodeGeneration
             // Otherwise, emit the set return value.
             else
             {
-                LLVM.BuildRet(builder, this.ReturnExpr.Emit(builder));
+                // Emit the return expression.
+                LLVM.BuildRet(builder, this.ReturnExpr.Emit(builderContext));
             }
 
             // Cache emitted block.

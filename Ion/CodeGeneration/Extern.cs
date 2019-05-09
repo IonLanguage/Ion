@@ -5,7 +5,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Extern : IPipe<LLVMValueRef, LLVMModuleRef>
+    public class Extern : IPipe<LLVMModuleRef, LLVMValueRef>
     {
         private Prototype Prototype { get; }
 
@@ -14,7 +14,7 @@ namespace Ion.CodeGeneration
             this.Prototype = prototype;
         }
 
-        public LLVMValueRef Emit(LLVMModuleRef context)
+        public LLVMValueRef Emit(PipeContext<LLVMModuleRef> context)
         {
             // Ensure prototype is set.
             if (this.Prototype == null)
@@ -32,13 +32,13 @@ namespace Ion.CodeGeneration
             LLVMTypeRef type = LLVM.FunctionType(returnType, args, this.Prototype.Args.Continuous);
 
             // Emit the external definition to context and capture the LLVM value reference.
-            LLVMValueRef external = LLVM.AddFunction(context, this.Prototype.Name, type);
+            LLVMValueRef external = LLVM.AddFunction(context.Target, this.Prototype.Name, type);
 
             // Determine if should be registered on the symbol table.
-            if (!SymbolTable.functions.ContainsKey(this.Prototype.Name))
+            if (!context.SymbolTable.functions.ContainsKey(this.Prototype.Name))
             {
                 // Register the external definition as a function in the symbol table.
-                SymbolTable.functions.Add(this.Prototype.Name, external);
+                context.SymbolTable.functions.Add(this.Prototype.Name, external);
             }
             // Otherwise, issue a warning.
             else

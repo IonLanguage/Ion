@@ -1,7 +1,7 @@
 namespace Ion.CodeGeneration.Structure
 {
-    public interface IPipe<TResult, TContext>
+    public interface IPipe<TInput, TOutput>
     {
-        TResult Emit(TContext context);
+        TOutput Emit(PipeContext<TInput> context);
     }
 }

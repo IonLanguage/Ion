@@ -6,13 +6,13 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Function : Named, IPipe<LLVMValueRef, LLVMModuleRef>
+    public class Function : Named, IPipe<LLVMModuleRef, LLVMValueRef>
     {
         public Prototype Prototype { get; set; }
 
         public Block Body { get; set; }
 
-        public LLVMValueRef Emit(LLVMModuleRef context)
+        public LLVMValueRef Emit(PipeContext<LLVMModuleRef> context)
         {
             // Ensure body was provided or created.
             if (this.Body == null)
@@ -35,33 +35,25 @@ namespace Ion.CodeGeneration
             LLVMTypeRef type = LLVM.FunctionType(returnType, args, this.Prototype.Args.Continuous);
 
             // Create the function.
-            LLVMValueRef function = LLVM.AddFunction(context, this.Prototype.Name, type);
+            LLVMValueRef function = LLVM.AddFunction(context.Target, this.Prototype.Name, type);
 
-            // Apply the body.
-            this.Body.Emit(function);
+            // Create the body context.
+            PipeContext<LLVMValueRef> bodyContext = context.Derive<LLVMValueRef>(function);
+
+            // Emit the body to its corresponding context.
+            this.Body.Emit(bodyContext);
 
             // Ensures the function does not already exist
-            if (SymbolTable.functions.ContainsKey(this.Prototype.Name))
+            if (context.SymbolTable.functions.ContainsKey(this.Prototype.Name))
             {
-                throw new Exception($@"Function with that name ""{this.Prototype.Name}"" already exists.");
+                throw new Exception($"Function with that name \"{this.Prototype.Name}\" already exists.");
             }
 
             // Register the function on the symbol table.
-            SymbolTable.functions.Add(this.Prototype.Name, function);
+            context.SymbolTable.functions.Add(this.Prototype.Name, function);
 
             // Return the function entity.
             return function;
-        }
-
-        /// <summary>
-        /// Attempt to retrieve the function LLVM value
-        /// reference from the symbol table. Returns null
-        /// if the function does not exist or was not
-        /// previously emitted.
-        /// </summary>
-        public LLVMValueRef Retrieve()
-        {
-            return SymbolTable.functions[this.Name];
         }
 
         /// <summary>

@@ -32,14 +32,15 @@ namespace Ion.CodeGeneration
         ExternalDefinition
     }
 
-    public abstract class Expr : Named, IPipe<LLVMValueRef, LLVMBuilderRef>
+    public abstract class Expr : Named, IPipe<LLVMBuilderRef, LLVMValueRef>
     {
+        // TODO: Expand this.
         public static Action<LLVMBuilderRef> Void = builder => { LLVM.BuildRetVoid(builder); };
 
         public abstract ExprType Type { get; }
 
         public string FunctionCallTarget { get; set; }
 
-        public abstract LLVMValueRef Emit(LLVMBuilderRef context);
+        public abstract LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context);
     }
 }

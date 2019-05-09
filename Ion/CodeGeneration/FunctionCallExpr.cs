@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ion.CodeGeneration.Structure;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
@@ -20,7 +21,7 @@ namespace Ion.CodeGeneration
             this.Args = args;
         }
 
-        public override LLVMValueRef Emit(LLVMBuilderRef context)
+        public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
             // Create the resulting arguments.
             List<LLVMValueRef> args = new List<LLVMValueRef>();
@@ -49,7 +50,7 @@ namespace Ion.CodeGeneration
             }
 
             // Create the function call.
-            LLVMValueRef functionCall = LLVM.BuildCall(context, this.Target, args.ToArray(), this.Name);
+            LLVMValueRef functionCall = LLVM.BuildCall(context.Target, this.Target, args.ToArray(), this.Name);
 
             // Return the emitted function call.
             return functionCall;

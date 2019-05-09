@@ -1,4 +1,5 @@
 using System;
+using Ion.CodeGeneration.Structure;
 using Ion.SyntaxAnalysis;
 using LLVMSharp;
 using static Ion.SyntaxAnalysis.Constants;
@@ -25,7 +26,7 @@ namespace Ion.CodeGeneration
 
         public override ExprType Type => ExprType.BinaryExpression;
 
-        public override LLVMValueRef Emit(LLVMBuilderRef context)
+        public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
             // Ensure operation is registered.
             if (!Constants.operatorBuilderMap.ContainsKey(this.operation))

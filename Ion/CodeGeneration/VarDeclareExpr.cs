@@ -4,7 +4,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class VarDeclareExpr : Expr, IStatement, IPipe<LLVMValueRef, LLVMBuilderRef>
+    public class VarDeclareExpr : Expr, IStatement, IPipe<LLVMBuilderRef, LLVMValueRef>
     {
         public override ExprType Type => ExprType.VariableDeclaration;
 
@@ -18,16 +18,16 @@ namespace Ion.CodeGeneration
             this.Value = value;
         }
 
-        public override LLVMValueRef Emit(LLVMBuilderRef context)
+        public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
             // Create the variable.
-            LLVMValueRef variable = LLVM.BuildAlloca(context, this.ValueType.Emit(), this.Name);
+            LLVMValueRef variable = LLVM.BuildAlloca(context.Target, this.ValueType.Emit(), this.Name);
 
             // Assign value if applicable.
             if (this.Value != null)
             {
-                LLVM.BuildStore(context, this.Value.Emit(context), variable);
-                SymbolTable.localScope.Add(this.Name, variable);
+                LLVM.BuildStore(context.Target, this.Value.Emit(context), variable);
+                context.SymbolTable.localScope.Add(this.Name, variable);
             }
 
             return variable;

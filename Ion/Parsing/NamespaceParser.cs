@@ -15,7 +15,7 @@ namespace Ion.Parsing
             context.Stream.Skip();
 
             // Invoke the path parser.
-            List<string> path = new PathParser().Parse(context);
+            PathResult path = new PathParser().Parse(context);
 
             // Ensure current token is semi-colon.
             context.Stream.EnsureCurrent(TokenType.SymbolSemiColon);
