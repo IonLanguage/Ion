@@ -7,12 +7,12 @@ namespace Ion.CodeGeneration
 {
     public class Extern : IPipe<LLVMValueRef, LLVMModuleRef>
     {
+        private Prototype Prototype { get; }
+
         public Extern(Prototype prototype)
         {
             this.Prototype = prototype;
         }
-
-        private Prototype Prototype { get; }
 
         public LLVMValueRef Emit(LLVMModuleRef context)
         {

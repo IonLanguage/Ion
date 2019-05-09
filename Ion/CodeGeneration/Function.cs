@@ -16,9 +16,14 @@ namespace Ion.CodeGeneration
         {
             // Ensure body was provided or created.
             if (this.Body == null)
+            {
                 throw new Exception("Unexpected function body to be null");
+            }
             // Ensure prototype is set.
-            if (this.Prototype == null) throw new Exception("Unexpected function prototype to be null");
+            else if (this.Prototype == null)
+            {
+                throw new Exception("Unexpected function prototype to be null");
+            }
 
             // Emit the argument types.
             LLVMTypeRef[] args = this.Prototype.Args.Emit();
@@ -37,9 +42,14 @@ namespace Ion.CodeGeneration
 
             // Ensures the function does not already exist
             if (SymbolTable.functions.ContainsKey(this.Prototype.Name))
+            {
                 throw new Exception($@"Function with that name ""{this.Prototype.Name}"" already exists.");
+            }
+
+            // Register the function on the symbol table.
             SymbolTable.functions.Add(this.Prototype.Name, function);
 
+            // Return the function entity.
             return function;
         }
 

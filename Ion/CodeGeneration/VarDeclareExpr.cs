@@ -6,17 +6,17 @@ namespace Ion.CodeGeneration
 {
     public class VarDeclareExpr : Expr, IStatement, IPipe<LLVMValueRef, LLVMBuilderRef>
     {
-        public VarDeclareExpr(Type valueType, Expr value)
-        {
-            this.ValueType = valueType;
-            this.Value = value;
-        }
-
         public override ExprType Type => ExprType.VariableDeclaration;
 
         public Type ValueType { get; protected set; }
 
         public Expr Value { get; set; }
+
+        public VarDeclareExpr(Type valueType, Expr value)
+        {
+            this.ValueType = valueType;
+            this.Value = value;
+        }
 
         public override LLVMValueRef Emit(LLVMBuilderRef context)
         {

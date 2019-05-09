@@ -16,17 +16,18 @@ namespace Ion.CodeGeneration
     {
         public readonly List<Expr> Expressions;
 
-        public Block()
-        {
-            this.Expressions = new List<Expr>();
-        }
-
         public Expr ReturnExpr { get; set; }
 
         public BlockType Type { get; set; }
 
         // TODO: Find a better way to cache emitted values.
         public LLVMBasicBlockRef Current { get; protected set; }
+
+
+        public Block()
+        {
+            this.Expressions = new List<Expr>();
+        }
 
         public LLVMBasicBlockRef Emit(LLVMValueRef context)
         {

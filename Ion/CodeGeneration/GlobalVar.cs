@@ -6,14 +6,14 @@ namespace Ion.CodeGeneration
 {
     public class GlobalVar : Named, IPipe<LLVMValueRef, LLVMModuleRef>
     {
+        public Type Type { get; }
+
+        public Value Value { get; set; }
+
         public GlobalVar(Type type)
         {
             this.Type = type;
         }
-
-        public Type Type { get; }
-
-        public Value Value { get; set; }
 
         public LLVMValueRef Emit(LLVMModuleRef context)
         {

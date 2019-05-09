@@ -9,18 +9,18 @@ namespace Ion.CodeGeneration
 
     public class Value : IUncontextedEntity<LLVMValueRef>
     {
+        public string ValueString { get; }
+
+        public Type Type { get; }
+
+        public TokenType TokenType { get; }
+
         public Value(Type type, TokenType tokenType, string valueString)
         {
             this.Type = type;
             this.TokenType = tokenType;
             this.ValueString = valueString;
         }
-
-        public string ValueString { get; }
-
-        public Type Type { get; }
-
-        public TokenType TokenType { get; }
 
         public LLVMValueRef Emit()
         {

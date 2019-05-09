@@ -6,12 +6,12 @@ namespace Ion.CodeGeneration
 {
     public class VariableExpr : Expr
     {
+        public override ExprType Type => ExprType.VariableReference;
+
         public VariableExpr(string name)
         {
             this.SetName(name);
         }
-
-        public override ExprType Type => ExprType.VariableReference;
 
         public override LLVMValueRef Emit(LLVMBuilderRef context)
         {
