@@ -3,10 +3,10 @@ using Ion.SyntaxAnalysis;
 
 namespace Ion.AST
 {
-    public class EntityNode<TResult, TContext> : Node<IEntity<TResult, TContext>>
+    public class EntityNode<TResult, TContext> : Node<IPipe<TResult, TContext>>
     {
         // TODO: Instead of .GetHashCode(), entities should be associated with an unique index.
-        public EntityNode(IEntity<TResult, TContext> value) : base(value.GetHashCode(), value)
+        public EntityNode(IPipe<TResult, TContext> value) : base(value.GetHashCode(), value)
         {
             //
         }

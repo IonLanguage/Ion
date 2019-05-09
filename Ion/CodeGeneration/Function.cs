@@ -6,7 +6,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Function : Named, IEntity<LLVMValueRef, LLVMModuleRef>
+    public class Function : Named, IPipe<LLVMValueRef, LLVMModuleRef>
     {
         public Prototype Prototype { get; set; }
 

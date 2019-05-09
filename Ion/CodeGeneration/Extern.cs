@@ -5,7 +5,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Extern : IEntity<LLVMValueRef, LLVMModuleRef>
+    public class Extern : IPipe<LLVMValueRef, LLVMModuleRef>
     {
         public Extern(Prototype prototype)
         {

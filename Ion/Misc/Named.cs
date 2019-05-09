@@ -49,5 +49,14 @@ namespace Ion.Misc
             // Assign the name.
             this.SetName(name);
         }
+
+        public void EnsureNameOrThrow()
+        {
+            // Ensure name is not null nor empty.
+            if (String.IsNullOrEmpty(this.Name))
+            {
+                throw new Exception("Unexpected name property to be null or empty");
+            }
+        }
     }
 }

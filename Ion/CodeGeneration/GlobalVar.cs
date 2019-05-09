@@ -4,7 +4,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class GlobalVar : Named, IEntity<LLVMValueRef, LLVMModuleRef>
+    public class GlobalVar : Named, IPipe<LLVMValueRef, LLVMModuleRef>
     {
         public GlobalVar(Type type)
         {

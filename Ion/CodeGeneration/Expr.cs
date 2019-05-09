@@ -32,7 +32,7 @@ namespace Ion.CodeGeneration
         ExternalDefinition
     }
 
-    public abstract class Expr : Named, IEntity<LLVMValueRef, LLVMBuilderRef>
+    public abstract class Expr : Named, IPipe<LLVMValueRef, LLVMBuilderRef>
     {
         public static Action<LLVMBuilderRef> Void = builder => { LLVM.BuildRetVoid(builder); };
 

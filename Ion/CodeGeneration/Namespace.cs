@@ -2,10 +2,11 @@ using System;
 using Ion.CodeGeneration.Structure;
 using System.Collections.Generic;
 using LLVMSharp;
+using Ion.Misc;
 
 namespace Ion.CodeGeneration
 {
-    public class Namespace : IEntity<LLVMValueRef, LLVMModuleRef>
+    public class Namespace : Named, IReaction<LLVMModuleRef>
     {
         public readonly List<string> path;
 
@@ -14,10 +15,13 @@ namespace Ion.CodeGeneration
             this.path = path;
         }
 
-        public LLVMValueRef Emit(LLVMModuleRef context)
+        public void React(LLVMModuleRef context)
         {
-            // TODO: Finish implementing, change the name of the module.
-            throw new NotImplementedException();
+            // Ensure name is set.
+            this.EnsureNameOrThrow();
+
+            // Set the module's name.
+            LLVM.SetModuleIdentifier(context, this.Name, this.Name.Length);
         }
     }
 }
