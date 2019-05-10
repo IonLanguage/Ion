@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Ion.CodeGeneration;
 using LLVMSharp;
@@ -26,6 +27,22 @@ namespace Ion.Core
         /// Contains emitted global string pointers.
         /// </summary>
         public Dictionary<string, LLVMValueRef> strings = new Dictionary<string, LLVMValueRef>();
+
+        /// <summary>
+        /// Retrieve a stored function, otherwise throw an error
+        /// if the requested function does not exist.
+        /// </summary>
+        public LLVMValueRef RetrieveFunctionOrThrow(string name)
+        {
+            // Ensure function with provided name exists.
+            if (!this.functions.ContainsKey(name))
+            {
+                throw new Exception($"Attempted to retrieve a non-existent function with name '{name}'");
+            }
+
+            // Return the function's LLVM value reference.
+            return this.functions[name];
+        }
 
         /// <summary>
         /// Reset all temporary stored values.

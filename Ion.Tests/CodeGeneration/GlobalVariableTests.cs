@@ -9,6 +9,7 @@ using Ion.Tests.Core;
 using Ion.Parsing;
 using Ion.CodeGeneration;
 using Ion.Core;
+using Ion.CodeGeneration.Structure;
 
 namespace Ion.Tests.CodeGeneration
 {
@@ -16,6 +17,8 @@ namespace Ion.Tests.CodeGeneration
     internal sealed class GlobalVariableTests
     {
         private Abstraction.Module module;
+
+        private PipeContext<LLVMModuleRef> modulePipeContext;
 
         private TokenStream stream;
 
@@ -25,8 +28,8 @@ namespace Ion.Tests.CodeGeneration
             // Create a new LLVM module instance.
             this.module = new Ion.Abstraction.Module();
 
-            // Reset symbol table completely.
-            SymbolTable.HardReset();
+            // Create a pipe context for the module.
+            this.modulePipeContext = PipeContextFactory.CreateFromModule(this.module);
 
             // Create the sequence.
             Token[] sequence = new Token[]
@@ -54,18 +57,22 @@ namespace Ion.Tests.CodeGeneration
         [Test]
         public void MatchStoredIr()
         {
+            // Read the expected output.
             string expected = TestUtil.ReadOutputDataFile("GlobalVariable");
 
+            // Create a driver instance.
+            Driver driver = new Driver(this.stream);
+
             // Invoke the global variable parser.
-            GlobalVar globalVariable = new GlobalVarParser().Parse(stream);
+            GlobalVar globalVariable = new GlobalVarParser().Parse(driver.ParserContext);
 
             // Emit the global variable.
-            globalVariable.Emit(this.module.Source);
+            globalVariable.Emit(this.modulePipeContext);
 
             // Emit the module.
             string output = this.module.ToString();
 
-            // Compare stored IR code with the actual, emitted output.
+            // Compare results.
             Assert.AreEqual(expected, output);
         }
     }

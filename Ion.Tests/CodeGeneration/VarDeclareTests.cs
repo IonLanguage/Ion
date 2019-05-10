@@ -1,4 +1,5 @@
 using Ion.CodeGeneration;
+using Ion.CodeGeneration.Structure;
 using Ion.Core;
 using Ion.Misc;
 using Ion.Parsing;
@@ -12,44 +13,41 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class VarDeclareTests
     {
-        private Abstraction.Module module;
-
-        [SetUp]
-        public void Setup()
-        {
-            // Create a new LLVM module instance.
-            this.module = new Ion.Abstraction.Module();
-
-            // Reset symbol table completely.
-            SymbolTable.HardReset();
-        }
-
         [Test]
         public void VarDeclare()
         {
             // Create the token stream.
             TokenStream stream = TestUtil.CreateStreamFromInputDataFile("VariableDeclaration");
 
+            // Create a new driver instance from the token stream.
+            Driver driver = new Driver(stream);
+
             // Ensure correct token stream length.
             Assert.AreEqual(2, stream.Count);
 
             // Create and emit the main function.
-            Function mainFunction = this.module.EmitMainFunction();
+            Function mainFunction = driver.Module.EmitMainFunction();
 
             // Retrieve the main function.
-            LLVMValueRef mainFunctionRef = mainFunction.Retrieve();
+            LLVMValueRef mainFunctionRef = driver.Module.SymbolTable.RetrieveFunctionOrThrow(mainFunction.Name);
 
             // Ensure main function reference is not null.
             Assert.That(mainFunctionRef, Is.Not.Null);
 
             // Invoke the variable declaration parser.
-            VarDeclareExpr declaration = new VarDeclareExprParser().Parse(stream);
+            VarDeclareExpr declaration = new VarDeclareExprParser().Parse(driver.ParserContext);
+
+            // Create the LLVM builder reference.
+            LLVMBuilderRef builder = mainFunction.Body.Current.CreateBuilder();
+
+            // Derive the pipe context from the driver's module to emit the declaration.
+            PipeContext<LLVMBuilderRef> context = driver.ModulePipeContext.Derive<LLVMBuilderRef>(builder);
 
             // Emit the declaration.
-            declaration.Emit(mainFunction.Body.Current.CreateBuilder());
+            declaration.Emit(context);
 
             // Emit the module and trim whitespace.
-            string output = this.module.ToString().Trim();
+            string output = driver.ToString().Trim();
 
             // Read data to be compared.
             string expected = TestUtil.ReadOutputDataFile("VariableDeclaration");

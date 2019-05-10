@@ -9,6 +9,7 @@ using Ion.Tests.Core;
 using Ion.CodeGeneration;
 using Ion.Parsing;
 using Ion.Core;
+using Ion.CodeGeneration.Structure;
 
 namespace Ion.Tests.CodeGeneration
 {
@@ -17,14 +18,16 @@ namespace Ion.Tests.CodeGeneration
     {
         private Abstraction.Module module;
 
+        private PipeContext<LLVMModuleRef> modulePipeContext;
+
         [SetUp]
         public void Setup()
         {
             // Create a new LLVM module instance.
             this.module = new Ion.Abstraction.Module();
 
-            // Reset symbol table completely.
-            SymbolTable.HardReset();
+            // Create a pipe context for the module.
+            this.modulePipeContext = PipeContextFactory.CreateFromModule(this.module);
         }
 
         [Test]
@@ -91,16 +94,19 @@ namespace Ion.Tests.CodeGeneration
             // Read the expected output IR code.
             string expected = TestUtil.ReadOutputDataFile("FunctionWithArguments");
 
+            // Create a new driver instance.
+            Driver driver = new Driver(stream);
+
             // Invoke the function parser.
-            Function function = new FunctionParser().Parse(stream);
+            Function function = new FunctionParser().Parse(driver.ParserContext);
 
             // Emit the function.
-            function.Emit(this.module.Source);
+            function.Emit(driver.ModulePipeContext);
 
             // Emit the module.
             string output = this.module.ToString();
 
-            // Compare stored IR code with the actual, emitted output.
+            // Compare results.
             Assert.AreEqual(expected, output);
         }
 
@@ -144,11 +150,14 @@ namespace Ion.Tests.CodeGeneration
             // Read the expected output IR code.
             string expected = TestUtil.ReadOutputDataFile("FunctionWithoutArguments");
 
+            // Create a new driver instance.
+            Driver driver = new Driver(stream);
+
             // Invoke the function parser.
-            Function function = new FunctionParser().Parse(stream);
+            Function function = new FunctionParser().Parse(driver.ParserContext);
 
             // Emit the function.
-            function.Emit(this.module.Source);
+            function.Emit(driver.ModulePipeContext);
 
             // Emit the module.
             string output = this.module.ToString();

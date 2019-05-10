@@ -57,6 +57,12 @@ namespace Ion.Parsing
             this.ModulePipeContext = PipeContextFactory.CreateFromModule(this.Module);
         }
 
+        public T InvokeParser<T>(IParser<T> parser) where T : IParser<T>, new()
+        {
+            // Create and invoke the parser.
+            return new T().Parse(this.ParserContext);
+        }
+
         /// <summary>
         /// Process the next sequence. Returns true
         /// if the sequence was successfully processed.
