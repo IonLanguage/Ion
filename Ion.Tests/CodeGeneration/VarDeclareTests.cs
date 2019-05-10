@@ -47,7 +47,7 @@ namespace Ion.Tests.CodeGeneration
             declaration.Emit(context);
 
             // Emit the module and trim whitespace.
-            string output = driver.ToString().Trim();
+            string output = driver.Module.ToString().Trim();
 
             // Read data to be compared.
             string expected = TestUtil.ReadOutputDataFile("VariableDeclaration");

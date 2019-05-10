@@ -16,20 +16,6 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class FunctionTests
     {
-        private Abstraction.Module module;
-
-        private PipeContext<LLVMModuleRef> modulePipeContext;
-
-        [SetUp]
-        public void Setup()
-        {
-            // Create a new LLVM module instance.
-            this.module = new Ion.Abstraction.Module();
-
-            // Create a pipe context for the module.
-            this.modulePipeContext = PipeContextFactory.CreateFromModule(this.module);
-        }
-
         [Test]
         public void FunctionWithArguments()
         {
@@ -104,7 +90,7 @@ namespace Ion.Tests.CodeGeneration
             function.Emit(driver.ModulePipeContext);
 
             // Emit the module.
-            string output = this.module.ToString();
+            string output = driver.Module.ToString();
 
             // Compare results.
             Assert.AreEqual(expected, output);
@@ -160,7 +146,7 @@ namespace Ion.Tests.CodeGeneration
             function.Emit(driver.ModulePipeContext);
 
             // Emit the module.
-            string output = this.module.ToString();
+            string output = driver.Module.ToString();
 
             // Compare stored IR code with the actual, emitted output.
             Assert.AreEqual(expected, output);
@@ -169,14 +155,17 @@ namespace Ion.Tests.CodeGeneration
         [Test]
         public void CreateMainFunction()
         {
+            // Create a new module instance.
+            Abstraction.Module module = new Abstraction.Module();
+
             // Read the expected output IR code.
             string expected = TestUtil.ReadOutputDataFile("EmptyMainFunction");
 
             // Emit the main function.
-            this.module.EmitMainFunction();
+            module.EmitMainFunction();
 
             // Emit the module.
-            string output = this.module.ToString();
+            string output = module.ToString();
 
             // Compare stored IR code with the actual, emitted output.
             Assert.AreEqual(expected, output);
