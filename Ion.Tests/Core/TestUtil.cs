@@ -24,6 +24,7 @@ namespace Ion.Tests.Core
             // Remove platform-specific encoding.
             content = content.Replace("\r", "");
 
+            // Return the processed content string.
             return content;
         }
 

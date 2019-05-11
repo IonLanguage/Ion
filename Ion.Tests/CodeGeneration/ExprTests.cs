@@ -15,7 +15,6 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class ExprTests
     {
-
         [Test]
         public void Expr()
         {

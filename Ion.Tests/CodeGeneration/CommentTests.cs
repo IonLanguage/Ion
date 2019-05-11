@@ -15,7 +15,6 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class CommentTests
     {
-
         [Test]
         public void Comments()
         {

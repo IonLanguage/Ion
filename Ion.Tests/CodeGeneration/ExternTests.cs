@@ -15,7 +15,6 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class ExternTests
     {
-
         [Test]
         public void Extern()
         {
