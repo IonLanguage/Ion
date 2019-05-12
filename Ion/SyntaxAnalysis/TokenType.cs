@@ -2,8 +2,15 @@ namespace Ion.SyntaxAnalysis
 {
     public enum TokenType
     {
+
+        /// <summary>
+        /// Represents the start of the program.
+        /// </summary>
         ProgramStart,
 
+        /// <summary>
+        /// Represents the end of the program.
+        /// </summary>
         ProgramEnd,
 
         /// <summary>
@@ -36,18 +43,44 @@ namespace Ion.SyntaxAnalysis
         /// </summary>
         TypeDouble,
 
+        /// <summary>
+        /// Represents an integer type.
+        /// </summary>
         TypeInt,
 
+        /// <summary>
+        /// Represents a floating point type.
+        /// </summary>
         TypeFloat,
 
+
+        /// <summary>
+        /// Represents a string type.
+        /// </summary>
         TypeString,
 
+
+        /// <summary>
+        /// Represents a character type.
+        /// </summary>
         TypeChar,
 
+
+        /// <summary>
+        /// Represents a boolean type.
+        /// </summary>
         TypeBool,
 
+
+        /// <summary>
+        /// Represents a long type.
+        /// </summary>
         TypeLong,
 
+
+        /// <summary>
+        /// Represents a void type.
+        /// </summary>
         TypeVoid,
 
         /// <summary>
@@ -104,8 +137,16 @@ namespace Ion.SyntaxAnalysis
         /// </summary>
         OperatorEquality,
 
+        /// <summary>
+        /// Represents the equality less than
+        /// operator.
+        /// </summary>
         OperatorLessThan,
 
+        /// <summary>
+        /// Represents the equality greater than
+        /// operator.
+        /// </summary>
         OperatorGreaterThan,
 
         OperatorNot,
