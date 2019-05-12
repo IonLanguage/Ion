@@ -1,13 +1,13 @@
 ; ModuleID = 'entry'
 source_filename = "entry"
 
-define void @Test(i8*) {
+define void @Test1(i8*) {
 entry:
   ret void
 }
 
 define void @main() {
 entry:
-  %anonymous_171 = call void @Test()
+  %anonymous_157 = call void @Test1()
   ret void
 }

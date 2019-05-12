@@ -48,5 +48,41 @@ namespace Ion.Tests.CodeGeneration
             // Assert results.
             Assert.AreEqual(expected, output);
         }
+
+        [Test]
+        public void PipeColumn()
+        {
+            // Create the token stream.
+            TokenStream stream = TestUtil.CreateStreamFromInputDataFile("PipeColumn");
+
+            // Create the driver.
+            Driver driver = new Driver(stream);
+
+            // Expect driver to have next.
+            Assert.True(driver.HasNext);
+
+            // Invoke the driver to capture the test function.
+            driver.Next();
+
+            // Expect driver to have next.
+            Assert.True(driver.HasNext);
+
+            // Invoke the driver to capture the main function.
+            driver.Next();
+
+            // Expect driver to not have next.
+            Assert.False(driver.HasNext);
+
+            // Read the expected output.
+            string expected = TestUtil.ReadOutputDataFile("PipeColumn");
+
+            // Emit the driver's module.
+            string output = driver.Module.ToString();
+
+            System.Console.WriteLine(output);
+
+            // Assert results.
+            Assert.AreEqual(expected, output);
+        }
     }
 }
