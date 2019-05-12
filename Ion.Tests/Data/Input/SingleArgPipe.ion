@@ -1,0 +1,9 @@
+void Test(string input)
+{
+    //
+}
+
+void Main()
+{
+    "Test string" | Test;
+}

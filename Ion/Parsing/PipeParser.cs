@@ -18,6 +18,12 @@ namespace Ion.Parsing
             // Capture the target identifier.
             string identifier = context.Stream.Next(TokenType.Identifier).Value;
 
+            // Skip identifier onto semi-colon.
+            context.Stream.Skip(TokenType.SymbolSemiColon);
+
+            // Skip semi-colon.
+            context.Stream.Skip();
+
             // Create the resulting pipe entity.
             Pipe pipe = new Pipe(arguments.ToArray(), identifier);
 
