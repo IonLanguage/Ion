@@ -10,8 +10,6 @@ namespace Ion.Parsing
 {
     public class Driver
     {
-        protected TokenStream stream;
-
         public Abstraction.Module Module { get; protected set; }
 
         // TODO: What if EOF token has not been processed itself?
@@ -20,6 +18,8 @@ namespace Ion.Parsing
         public ParserContext ParserContext { get; protected set; }
 
         public PipeContext<LLVMModuleRef> ModulePipeContext { get; protected set; }
+
+        protected TokenStream stream;
 
         public Driver(TokenStream stream, string name)
         {
@@ -70,6 +70,7 @@ namespace Ion.Parsing
                 return false;
             }
 
+            // Retrieve the current token.
             TokenType type = this.stream.Get().Type;
 
             // Skip unknown tokens for error recovery.
