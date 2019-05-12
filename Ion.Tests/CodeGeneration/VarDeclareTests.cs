@@ -13,6 +13,13 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class VarDeclareTests
     {
+        [SetUp]
+        public static void Setup()
+        {
+            // Reset the name counter before every test.
+            NameCounter.ResetAll();
+        }
+
         [Test]
         public void VarDeclare()
         {

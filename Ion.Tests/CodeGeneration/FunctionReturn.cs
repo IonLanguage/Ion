@@ -15,6 +15,13 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class FunctionReturn
     {
+        [SetUp]
+        public static void Setup()
+        {
+            // Reset the name counter before every test.
+            NameCounter.ResetAll();
+        }
+
         [Test]
         public void MainWithReturn()
         {

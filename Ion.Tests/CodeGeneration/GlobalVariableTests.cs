@@ -52,6 +52,9 @@ namespace Ion.Tests.CodeGeneration
 
             // Create the stream.
             this.stream = new TokenStream(sequence);
+
+            // Reset the name counter before every test.
+            NameCounter.ResetAll();
         }
 
         [Test]
