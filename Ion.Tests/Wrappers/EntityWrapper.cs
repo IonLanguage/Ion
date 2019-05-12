@@ -12,13 +12,23 @@ namespace Ion.Tests.Core
 
         protected string inputFilename;
 
-        public void Prepare(string inputFilename)
+        protected string outputFilename;
+
+        public void Prepare(string inputFilename, string outputFilename)
         {
-            // Save input file name for future use.
+            // Apply input filename.
             this.inputFilename = inputFilename;
+
+            // Apply output file name.
+            this.outputFilename = outputFilename;
 
             // Create and attach the driver.
             this.Driver = TestUtil.CreateDriverFromInputDataFile(this.inputFilename);
+        }
+
+        public void Prepare(string inputFilename)
+        {
+            this.Prepare(inputFilename, inputFilename);
         }
 
         protected void EnsurePreparedOrThrow()
@@ -69,7 +79,7 @@ namespace Ion.Tests.Core
             string actual = this.Driver.Module.ToString();
 
             // Load expected result.
-            string expected = TestUtil.ReadOutputDataFile(this.inputFilename);
+            string expected = TestUtil.ReadOutputDataFile(this.outputFilename);
 
             // Compare results.
             Assert.AreEqual(expected, actual);
