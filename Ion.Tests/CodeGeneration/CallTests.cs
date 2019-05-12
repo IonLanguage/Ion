@@ -9,85 +9,37 @@ using Ion.Tests.Core;
 using Ion.CodeGeneration;
 using Ion.Parsing;
 using Ion.Core;
+using Ion.Tests.Wrappers;
 
 namespace Ion.Tests.CodeGeneration
 {
     [TestFixture]
-    internal sealed class CallTests
+    internal sealed class CallTests : EntityTest
     {
-        [SetUp]
-        public static void Setup()
-        {
-            // Reset the name counter before every test.
-            NameCounter.ResetAll();
-        }
-
         [Test]
         public void CallWithoutArguments()
         {
-            // Create the token stream.
-            TokenStream stream = TestUtil.CreateStreamFromInputDataFile("CallWithoutArguments");
-
-            // Read the expected output IR code.
-            string expected = TestUtil.ReadOutputDataFile("CallWithoutArguments");
-
-            // Create the driver.
-            Driver driver = new Driver(stream);
-
-            // Expect driver to have next.
-            Assert.True(driver.HasNext);
+            // Prepare the wrapper.
+            this.Wrapper.Prepare("CallWithoutArguments");
 
             // Invoke the driver.
-            driver.Next();
+            this.Wrapper.InvokeDriver(2);
 
-            // Expect driver to have next.
-            Assert.True(driver.HasNext);
-
-            // Invoke the driver once more.
-            driver.Next();
-
-            // Finally, expect the driver to not have next.
-            Assert.False(driver.HasNext);
-
-            // Emit the driver's module.
-            string output = driver.Module.ToString();
-
-            // Compare stored IR code with the actual, emitted output.
-            Assert.AreEqual(expected, output);
+            // Compare results.
+            this.Wrapper.Compare();
         }
 
         [Test]
         public void CallWithSingleArg()
         {
-            // Create the token stream.
-            TokenStream stream = TestUtil.CreateStreamFromInputDataFile("CallWithSingleArg");
+            // Prepare the wrapper.
+            this.Wrapper.Prepare("CallWithSingleArg");
 
-            // Read the expected output IR code.
-            string expected = TestUtil.ReadOutputDataFile("CallWithSingleArg");
-
-            // Create the driver.
-            Driver driver = new Driver(stream);
-
-            // Expect driver to have next.
-            Assert.True(driver.HasNext);
-
-            // Invoke the driver to process the test function.
-            driver.Next();
-
-            // Expect driver to have next.
-            Assert.True(driver.HasNext);
-
-            // Invoke the driver once more to process the main function.
-            driver.Next();
-
-            // Finally, expect the driver to not have next.
-            Assert.False(driver.HasNext);
-
-            // Emit the driver's module.
-            string output = driver.Module.ToString();
+            // Invoke the driver.
+            this.Wrapper.InvokeDriver(2);
 
             // Compare results.
-            Assert.AreEqual(expected, output);
+            this.Wrapper.Compare();
         }
     }
 }
