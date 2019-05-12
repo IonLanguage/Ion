@@ -15,6 +15,9 @@ namespace Ion.Parsing
             // Parse the next value.
             Expr value = new ExprParser().Parse(context);
 
+            // Append value to the argument list.
+            arguments.Add(value);
+
             // Capture the current token.
             Token token = context.Stream.Get();
 
