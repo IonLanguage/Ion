@@ -1,0 +1,11 @@
+/*
+    The entry point of the program.
+*/
+int main()
+{
+    // Prepare the return value.
+    int returnValue = 0;
+
+    // Finish program.
+    return returnValue;
+}

@@ -99,6 +99,9 @@ namespace Ion.Tests.SyntaxAnalysis
         [TestCase("and123_", TokenType.Identifier)]
         [TestCase("//", TokenType.CommentSingleLine)]
         [TestCase("/**/", TokenType.CommentMultiLine)]
+        [TestCase("/** */", TokenType.CommentMultiLine)]
+        [TestCase("/** **/", TokenType.CommentMultiLine)]
+        [TestCase("/****/", TokenType.CommentMultiLine)]
         public void PossibleConflictingTokens(string input, params TokenType[] expected)
         {
             // Create the lexer without any options.

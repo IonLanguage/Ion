@@ -10,6 +10,6 @@ entry:
 
 define void @main() {
 entry:
-  %anonymous_170 = call void @Test1(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @str_1, i32 0, i32 0))
+  %anonymous_179 = call void @Test1(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @str_1, i32 0, i32 0))
   ret void
 }
