@@ -9,45 +9,24 @@ using Ion.Tests.Core;
 using Ion.CodeGeneration;
 using Ion.Parsing;
 using Ion.Core;
+using Ion.Tests.Wrappers;
 
 namespace Ion.Tests.CodeGeneration
 {
     [TestFixture]
-    internal sealed class ComplexTests
+    internal sealed class ComplexTests : EntityTest
     {
-        [SetUp]
-        public static void Setup()
-        {
-            // Reset the name counter before every test.
-            NameCounter.ResetAll();
-        }
-
         [Test]
         public void Complex()
         {
-            // Create the token stream.
-            TokenStream stream = TestUtil.CreateStreamFromInputDataFile("Complex");
+            // Prepare the wrapper.
+            this.Wrapper.Prepare("Complex");
 
-            // Read the expected output IR code.
-            string expected = TestUtil.ReadOutputDataFile("Complex");
-
-            // Create the driver.
-            Driver driver = new Driver(stream);
-
-            // Expect driver to have next.
-            Assert.True(driver.HasNext);
-
-            // Invoke the driver once more.
-            driver.Next();
-
-            // Finally, expect the driver to not have next.
-            Assert.False(driver.HasNext);
-
-            // Emit the driver's module.
-            string output = driver.Module.ToString();
+            // Invoke the driver.
+            this.Wrapper.InvokeDriver();
 
             // Compare results.
-            Assert.AreEqual(expected, output);
+            this.Wrapper.Compare();
         }
     }
 }
