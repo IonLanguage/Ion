@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using Ion.Parsing;
 using Ion.SyntaxAnalysis;
 
 namespace Ion.Tests.Core
@@ -66,6 +67,18 @@ namespace Ion.Tests.Core
 
             // Return the stream.
             return stream;
+        }
+
+        public static Driver CreateDriverFromInputDataFile(string path)
+        {
+            // Create the token stream.
+            TokenStream stream = TestUtil.CreateStreamFromInputDataFile(path);
+
+            // Create the new driver instance.
+            Driver driver = new Driver(stream);
+
+            // Return the created driver.
+            return driver;
         }
     }
 }
