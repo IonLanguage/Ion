@@ -44,7 +44,7 @@ namespace Ion.Tests.Core
         /// ensuring that the driver has next on each iteration,
         /// and does not on the last one.
         /// </summary>
-        public void InvokeDriver(int times)
+        public void InvokeDriver(int times = 1)
         {
             // Ensure instance has been prepared.
             this.EnsurePreparedOrThrow();

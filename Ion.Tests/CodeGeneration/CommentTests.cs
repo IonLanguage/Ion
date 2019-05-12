@@ -9,45 +9,24 @@ using Ion.Tests.Core;
 using Ion.CodeGeneration;
 using Ion.Parsing;
 using Ion.Core;
+using Ion.Tests.Wrappers;
 
 namespace Ion.Tests.CodeGeneration
 {
     [TestFixture]
-    internal sealed class CommentTests
+    internal sealed class CommentTests : EntityTest
     {
-        [SetUp]
-        public static void Setup()
-        {
-            // Reset the name counter before every test.
-            NameCounter.ResetAll();
-        }
-
         [Test]
         public void Comments()
         {
-            // Create the token stream.
-            TokenStream stream = TestUtil.CreateStreamFromInputDataFile("Comments");
-
-            // Create the driver.
-            Driver driver = new Driver(stream);
-
-            // Expect the driver to have next.
-            Assert.True(driver.HasNext);
+            // Prepare the wrapper.
+            this.Wrapper.Prepare("Comments", "EmptyMainFunction");
 
             // Invoke the driver.
-            driver.Next();
-
-            // Expect the driver to not have next.
-            Assert.False(driver.HasNext);
-
-            // Read expected output.
-            string expected = TestUtil.ReadOutputDataFile("EmptyMainFunction");
-
-            // Emit the driver's module.
-            string output = driver.Module.ToString();
+            this.Wrapper.InvokeDriver();
 
             // Compare results.
-            Assert.AreEqual(expected, output);
+            this.Wrapper.Compare();
         }
     }
 }
