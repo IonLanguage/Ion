@@ -45,6 +45,7 @@ namespace Ion.Parsing
                 // Assign value.
                 declaration.Value = value;
             }
+            // TODO: Expect semi-colon at this point?
 
             return declaration;
         }
