@@ -52,7 +52,7 @@ int Main()
 This feature, along with decorators & anonymous functions, will come super handy when building APIs!
 
 ```rust
-str @name = "John Doe";
+string @name = "John Doe";
 
 @Web.Route("/") {
     return <p>Hello, {@name}.</p>; // Hello, John Doe.
