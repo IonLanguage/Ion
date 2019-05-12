@@ -30,9 +30,8 @@ namespace Ion.Parsing
             // Invoke the function call argument parser.
             List<Expr> args = new CallArgsParser().Parse(context);
 
-            // TODO: Callee.
             // Create the function call expression entity.
-            FunctionCallExpr functionCall = new FunctionCallExpr(target, "TestCallee", args);
+            FunctionCallExpr functionCall = new FunctionCallExpr(target, args);
 
             // Return the function call expression.
             return functionCall;

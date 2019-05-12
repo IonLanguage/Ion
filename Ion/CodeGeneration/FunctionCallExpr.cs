@@ -10,14 +10,11 @@ namespace Ion.CodeGeneration
 
         public LLVMValueRef Target { get; }
 
-        public string Callee { get; }
-
         public List<Expr> Args { get; }
 
-        public FunctionCallExpr(LLVMValueRef target, string callee, List<Expr> args)
+        public FunctionCallExpr(LLVMValueRef target, List<Expr> args)
         {
             this.Target = target;
-            this.Callee = callee;
             this.Args = args;
         }
 
