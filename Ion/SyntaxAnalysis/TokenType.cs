@@ -26,12 +26,12 @@ namespace Ion.SyntaxAnalysis
         /// <summary>
         /// Represents a single line comment.
         /// </summary>
-        SingleLineComment,
+        CommentSingleLine,
 
         /// <summary>
         /// Represents a multi line comment.
         /// </summary>
-        MultiLineComment,
+        CommentMultiLine,
 
         /// <summary>
         /// Represents an entity identifier.

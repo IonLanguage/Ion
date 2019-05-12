@@ -103,8 +103,8 @@ namespace Ion.SyntaxAnalysis
 
         public static readonly ComplexTokenTypeMap commentTokenTypes = new ComplexTokenTypeMap
         {
-            {Util.CreateRegex(@"//[^\r\n]+"), TokenType.SingleLineComment},
-            {Util.CreateRegex(@"\/\*[^*/]+\*\/"), TokenType.MultiLineComment}
+            {Util.CreateRegex(@"//[^\r\n]*"), TokenType.CommentSingleLine},
+            {Util.CreateRegex(@"\/\*[^*/]*\*\/"), TokenType.CommentMultiLine}
         };
 
         public static readonly Dictionary<TokenType, int> operatorPrecedence = new Dictionary<TokenType, int>

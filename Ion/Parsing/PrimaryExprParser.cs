@@ -9,33 +9,40 @@ namespace Ion.Parsing
         public Expr Parse(ParserContext context)
         {
             // Capture current token type.
-            TokenType tokenType = context.Stream.Get().Type;
+            TokenType currentTokenType = context.Stream.Get().Type;
 
+            // Pipe operation.
+            if (currentTokenType == TokenType.SymbolColon)
+            {
+                return new PipeParser().Parse(context);
+            }
             // Variable declaration expression.
-            if (TokenIdentifier.IsType(tokenType))
+            else if (TokenIdentifier.IsType(currentTokenType))
             {
                 return new VarDeclareExprParser().Parse(context);
             }
             // Numeric expression.
-            else if (TokenIdentifier.IsNumeric(tokenType))
+            else if (TokenIdentifier.IsNumeric(currentTokenType))
             {
                 return new NumericExprParser().Parse(context);
             }
             // Identifier expression.
-            else if (tokenType == TokenType.Identifier)
+            else if (currentTokenType == TokenType.Identifier)
             {
                 return new IdentifierExprParser().Parse(context);
             }
             // Parentheses expression.
-            else if (tokenType == TokenType.SymbolParenthesesL)
+            else if (currentTokenType == TokenType.SymbolParenthesesL)
             {
                 return new ParenthesesExprParser().Parse(context);
             }
-            else if (tokenType == TokenType.LiteralString)
+            // String expression.
+            else if (currentTokenType == TokenType.LiteralString)
             {
                 return new StringExprParser().Parse(context);
             }
-            else if (TokenIdentifier.IsBoolean(tokenType))
+            // Boolean expression.
+            else if (TokenIdentifier.IsBoolean(currentTokenType))
             {
                 return new BooleanExprParser().Parse(context);
             }

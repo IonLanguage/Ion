@@ -39,8 +39,8 @@ namespace Ion.Tests.SyntaxAnalysis
                 TokenType.Identifier,
                 TokenType.SymbolSemiColon,
                 TokenType.SymbolBlockR,
-                TokenType.MultiLineComment,
-                TokenType.SingleLineComment
+                TokenType.CommentMultiLine,
+                TokenType.CommentSingleLine
             };
         }
 
@@ -97,6 +97,8 @@ namespace Ion.Tests.SyntaxAnalysis
         [TestCase("and123", TokenType.Identifier)]
         [TestCase("and_", TokenType.Identifier)]
         [TestCase("and123_", TokenType.Identifier)]
+        [TestCase("//", TokenType.CommentSingleLine)]
+        [TestCase("/**/", TokenType.CommentMultiLine)]
         public void PossibleConflictingTokens(string input, params TokenType[] expected)
         {
             // Create the lexer without any options.

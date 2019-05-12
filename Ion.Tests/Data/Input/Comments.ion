@@ -3,4 +3,12 @@
     Multi-line
     comment.
 */
-void main() { }
+void main() {
+    // Single-line comment inside function.
+    /*
+        Multi-line comment
+        inside function.
+    */
+    //
+    /**/
+}

@@ -9,6 +9,12 @@ namespace Ion.Parsing
     {
         public Pipe Parse(ParserContext context)
         {
+            // Expect current token to be symbol colon.
+            context.Stream.EnsureCurrent(TokenType.SymbolColon);
+
+            // Skip colon symbol.
+            context.Stream.Skip();
+
             // Invoke the pipe arguments parser.
             List<Expr> arguments = new PipeArgsParser().Parse(context);
 

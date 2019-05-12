@@ -5,8 +5,10 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Pipe : IPipe<LLVMBuilderRef, LLVMValueRef>
+    public class Pipe : Expr
     {
+        public override ExprType Type => ExprType.Pipe;
+
         public Expr[] Arguments { get; }
 
         /// <summary>
@@ -20,7 +22,7 @@ namespace Ion.CodeGeneration
             this.TargetName = targetName;
         }
 
-        public LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
+        public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
             // Retrieve target function.
             LLVMValueRef target = context.SymbolTable.RetrieveFunctionOrThrow(this.TargetName);
