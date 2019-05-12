@@ -1,0 +1,9 @@
+void Test(string input)
+{
+    //
+}
+
+void main()
+{
+    Test("Test string");
+}
