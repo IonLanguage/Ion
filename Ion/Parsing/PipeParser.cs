@@ -1,0 +1,28 @@
+using System.Collections.Generic;
+using Ion.CodeGeneration;
+using Ion.SyntaxAnalysis;
+using LLVMSharp;
+
+namespace Ion.Parsing
+{
+    public class PipeParser : IParser<Pipe>
+    {
+        public Pipe Parse(ParserContext context)
+        {
+            // Invoke the pipe arguments parser.
+            List<Expr> arguments = new PipeArgsParser().Parse(context);
+
+            // Expect current token to be pipe operator.
+            context.Stream.EnsureCurrent(TokenType.OperatorPipe);
+
+            // Capture the target identifier.
+            string identifier = context.Stream.Next(TokenType.Identifier).Value;
+
+            // Create the resulting pipe entity.
+            Pipe pipe = new Pipe(arguments.ToArray(), identifier);
+
+            // Return the resulting pipe entity.
+            return pipe;
+        }
+    }
+}
