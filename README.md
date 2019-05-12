@@ -6,6 +6,19 @@ File extension: `.ion`
 
 Syntax examples coming soon.
 
+### Syntax
+
+Hello world application:
+
+```cpp
+extern int printf(string format, ...);
+
+void Main()
+{
+    printf("Hello world!");
+}
+```
+
 ### Core principles
 
 1. **Simplicity**. The language should be simple, or as powerful as the programmer wishes. This means that some symbols and patterns are optional and infered by the compiler.
@@ -65,12 +78,12 @@ void Main()
 
 Class names should be in PascalCase, and members in camelCase.
 
-```rust
+```cpp
 import Core.Console;
 
 class Example
 {
-    pub str name = "John Doe";
+    pub string name = "John Doe";
 
     void SayHello()
     {
@@ -83,7 +96,7 @@ class Example
 
 Attributes are considered proxy functions, thus they should be treated as functions and be named in PascalCase.
 
-```rust
+```c
 [Transform(0)]
 int Main()
 {
