@@ -5,9 +5,9 @@ using NUnit.Framework;
 namespace Ion.Tests.Wrappers
 {
     [TestFixture]
-    public class ParserTest
+    public class EntityTest
     {
-        public ParserTestWrapper Wrapper { get; private set; }
+        public EntityWrapper Wrapper { get; private set; }
 
         [SetUp]
         public void Setup()
@@ -16,7 +16,7 @@ namespace Ion.Tests.Wrappers
             NameCounter.ResetAll();
 
             // Prepare a new parser test wrapper instance.
-            this.Wrapper = new ParserTestWrapper();
+            this.Wrapper = new EntityWrapper();
         }
     }
 }
