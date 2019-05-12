@@ -13,18 +13,18 @@ namespace Ion.Parsing
             List<Expr> arguments = new List<Expr>();
 
             // Parse the next value.
-            Expr value = new PrimaryExprParser().Parse(context);
+            Expr value = new ExprParser().Parse(context);
 
-            // Peek next token.
-            Token nextToken = context.Stream.Peek();
+            // Capture the current token.
+            Token token = context.Stream.Get();
 
             // Expect either a comma or pipe symbol.
-            if (nextToken.Type != TokenType.OperatorPipe && nextToken.Type != TokenType.SymbolComma)
+            if (token.Type != TokenType.OperatorPipe && token.Type != TokenType.SymbolComma)
             {
-                throw new Exception($"Expected next token to be of type either comma symbol or pipe operator, but got '{nextToken.Type}'");
+                throw new Exception($"Expected next token to be of type either comma symbol or pipe operator, but got '{token.Type}'");
             }
             // There is another value.
-            else if (nextToken.Type == TokenType.SymbolComma)
+            else if (token.Type == TokenType.SymbolComma)
             {
                 // Skip onto the comma token.
                 context.Stream.Skip(TokenType.SymbolComma);
