@@ -200,6 +200,8 @@ namespace Ion.SyntaxAnalysis
 
         KeywordNamespace,
 
+        KeywordImport,
+
         // Symbols.
         SymbolBlockL,
 
