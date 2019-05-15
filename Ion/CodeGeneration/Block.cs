@@ -23,7 +23,6 @@ namespace Ion.CodeGeneration
         // TODO: Find a better way to cache emitted values.
         public LLVMBasicBlockRef Current { get; protected set; }
 
-
         public Block()
         {
             this.Expressions = new List<Expr>();
