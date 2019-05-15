@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Ion.CodeGeneration;
 using Ion.CodeGeneration.Structure;
 using Ion.Core;
+using Ion.SyntaxAnalysis;
 using LLVMSharp;
 
 namespace Ion.Abstraction
@@ -15,12 +17,21 @@ namespace Ion.Abstraction
 
         public SymbolTable SymbolTable { get; }
 
+        public List<string> Imports { get; }
+
+        // TODO
+        protected bool isImportsProcessed = false;
+
+        // TODO: Merge these two constructors.
         public Module(LLVMModuleRef source)
         {
             this.Source = source;
 
             // Create a new symbol table instance.
             this.SymbolTable = new SymbolTable();
+
+            // Create imports.
+            this.Imports = new List<string>();
         }
 
         public Module(string name)
@@ -30,6 +41,9 @@ namespace Ion.Abstraction
 
             // Create a new symbol table instance.
             this.SymbolTable = new SymbolTable();
+
+            // Create imports.
+            this.Imports = new List<string>();
         }
 
         public Module() : this(SpecialName.Entry)
@@ -109,10 +123,10 @@ namespace Ion.Abstraction
         }
 
         /// <summary>
-        /// Obtain the corresponding IR code from this
+        /// Obtain the corresponding IR code string from this
         /// module.
         /// </summary>
-        public override string ToString()
+        public string Emit()
         {
             // Print IR code to a buffer.
             IntPtr output = LLVM.PrintModuleToString(this.Source);
@@ -125,6 +139,8 @@ namespace Ion.Abstraction
 
             // Trim whitespace.
             outputString = outputString.Trim();
+
+            // Register self on the symbol table.
 
             // Return resulting output string.
             return outputString;

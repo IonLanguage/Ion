@@ -59,8 +59,7 @@ namespace Ion.SyntaxAnalysis
 
         public LexerOptions Options { get; }
 
-        // Defaults to ignoring whitespace unless other specified.
-
+        // TODO: Should return Token[].
         /// <summary>
         /// Begin the tokenization process, obtaining/extracting all
         /// possible tokens from the input string. Tokens which are

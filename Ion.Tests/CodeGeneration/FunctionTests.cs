@@ -97,7 +97,7 @@ namespace Ion.Tests.CodeGeneration
             function.Emit(driver.ModulePipeContext);
 
             // Emit the module.
-            string output = driver.Module.ToString();
+            string output = driver.Module.Emit();
 
             // Compare results.
             Assert.AreEqual(expected, output);
@@ -153,7 +153,7 @@ namespace Ion.Tests.CodeGeneration
             function.Emit(driver.ModulePipeContext);
 
             // Emit the module.
-            string output = driver.Module.ToString();
+            string output = driver.Module.Emit();
 
             // Compare stored IR code with the actual, emitted output.
             Assert.AreEqual(expected, output);
@@ -172,7 +172,7 @@ namespace Ion.Tests.CodeGeneration
             module.EmitMainFunction();
 
             // Emit the module.
-            string output = module.ToString();
+            string output = module.Emit();
 
             // Compare stored IR code with the actual, emitted output.
             Assert.AreEqual(expected, output);

@@ -12,6 +12,8 @@ namespace Ion.Core
     {
         public readonly Dictionary<string, LLVMValueRef> functions = new Dictionary<string, LLVMValueRef>();
 
+        public readonly Dictionary<string, Abstraction.Module> modules = new Dictionary<string, Abstraction.Module>();
+
         /// <summary>
         /// Contains locally-scoped emitted values.
         /// All values are reset once the scope changes.
@@ -57,6 +59,7 @@ namespace Ion.Core
         {
             this.Reset();
             this.functions.Clear();
+            this.modules.Clear();
             this.strings.Clear();
         }
     }

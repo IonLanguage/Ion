@@ -50,7 +50,7 @@ namespace Ion.Tests.CodeGeneration
             string expected = TestUtil.ReadOutputDataFile("SingleArgPipe");
 
             // Emit the driver's module.
-            string output = driver.Module.ToString();
+            string output = driver.Module.Emit();
 
             // Assert results.
             Assert.AreEqual(expected, output);
@@ -84,7 +84,7 @@ namespace Ion.Tests.CodeGeneration
             string expected = TestUtil.ReadOutputDataFile("PipeColumn");
 
             // Emit the driver's module.
-            string output = driver.Module.ToString();
+            string output = driver.Module.Emit();
 
             // Assert results.
             Assert.AreEqual(expected, output);

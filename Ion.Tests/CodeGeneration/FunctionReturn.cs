@@ -44,7 +44,7 @@ namespace Ion.Tests.CodeGeneration
             string expected = TestUtil.ReadOutputDataFile("MainWithReturn");
 
             // Emit the driver's module.
-            string output = driver.Module.ToString();
+            string output = driver.Module.Emit();
 
             // Compare results.
             Assert.AreEqual(expected, output);
@@ -72,7 +72,7 @@ namespace Ion.Tests.CodeGeneration
             string expected = TestUtil.ReadOutputDataFile("MainWithReturn");
 
             // Emit the driver's module.
-            string output = driver.Module.ToString();
+            string output = driver.Module.Emit();
 
             // Compare results.
             Assert.AreEqual(expected, output);

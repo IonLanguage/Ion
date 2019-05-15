@@ -1,10 +1,11 @@
+using System;
+using Ion.Abstraction;
 using Ion.CodeGeneration.Structure;
 using Ion.Parsing;
-using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Import : IReaction<LLVMContextRef>
+    public class Import : IReaction<Module>
     {
         public PathResult Path { get; }
 
@@ -13,7 +14,7 @@ namespace Ion.CodeGeneration
             this.Path = path;
         }
 
-        public void Invoke(LLVMContextRef context)
+        public void Invoke(Module context)
         {
             // TODO
         }

@@ -73,7 +73,7 @@ namespace Ion.Tests.CodeGeneration
             globalVariable.Emit(this.modulePipeContext);
 
             // Emit the module.
-            string output = this.module.ToString();
+            string output = this.module.Emit();
 
             // Compare results.
             Assert.AreEqual(expected, output);

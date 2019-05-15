@@ -60,7 +60,7 @@ namespace Ion.Tests.CodeGeneration
             string expected = TestUtil.ReadOutputDataFile("EmptyMainFunction");
 
             // Emit the driver's module.
-            string output = driver.Module.ToString();
+            string output = driver.Module.Emit();
 
             // Assert output module IR code.
             Assert.AreEqual(expected, output);

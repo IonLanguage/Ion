@@ -44,7 +44,7 @@ namespace Ion.Tests.CodeGeneration
             string expected = TestUtil.ReadOutputDataFile("ComplexPrototype");
 
             // Emit the driver's module.
-            string output = driver.Module.ToString();
+            string output = driver.Module.Emit();
 
             // Compare stored IR code with the actual, emitted output.
             Assert.AreEqual(expected, output);

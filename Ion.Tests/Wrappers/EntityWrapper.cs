@@ -76,7 +76,7 @@ namespace Ion.Tests.Core
         public void Compare()
         {
             // Emit the driver's module.
-            string actual = this.Driver.Module.ToString();
+            string actual = this.Driver.Module.Emit();
 
             // Load expected result.
             string expected = TestUtil.ReadOutputDataFile(this.outputFilename);
