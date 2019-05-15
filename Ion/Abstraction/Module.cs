@@ -19,9 +19,6 @@ namespace Ion.Abstraction
 
         public List<string> Imports { get; }
 
-        // TODO
-        protected bool isImportsProcessed = false;
-
         // TODO: Merge these two constructors.
         public Module(LLVMModuleRef source)
         {
@@ -139,8 +136,6 @@ namespace Ion.Abstraction
 
             // Trim whitespace.
             outputString = outputString.Trim();
-
-            // Register self on the symbol table.
 
             // Return resulting output string.
             return outputString;
