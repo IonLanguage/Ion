@@ -6,6 +6,6 @@ namespace Ion.CodeGeneration.Structure
 
         public const string Anonymous = "anonymous";
 
-        public const string Main = "main";
+        public const string Main = "Main";
     }
 }
