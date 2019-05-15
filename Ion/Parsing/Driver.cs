@@ -27,10 +27,9 @@ namespace Ion.Parsing
             this.Init(stream, name);
         }
 
-        public Driver(TokenStream stream)
+        public Driver(TokenStream stream) : this(stream, SpecialName.Entry)
         {
-            // Invoke the initializer method.
-            this.Init(stream, SpecialName.Entry);
+            //
         }
 
         public Driver(Token[] tokens) : this(new TokenStream(tokens))
@@ -124,7 +123,7 @@ namespace Ion.Parsing
                 Namespace namespaceEntity = new NamespaceParser().Parse(this.ParserContext);
 
                 // Process the namespace definition reaction.
-                namespaceEntity.Invoke(this.Module.Source);
+                namespaceEntity.Invoke(this.Module.Target);
             }
             // Otherwise, throw an error.
             else

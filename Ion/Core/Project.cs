@@ -19,7 +19,7 @@ namespace Ion.Core
         }
 
         // TODO: Split functionality locally.
-        public string[] Emit()
+        public Dictionary<string, string> Emit()
         {
             // Ensure at least one module exists.
             if (this.Modules.Count == 0)
@@ -34,7 +34,7 @@ namespace Ion.Core
             foreach (Module module in this.Modules)
             {
                 // Extract identifier from the module's source. Ignore out size parameter.
-                string identifier = LLVMSharp.LLVM.GetModuleIdentifier(module.Source, out _);
+                string identifier = LLVMSharp.LLVM.GetModuleIdentifier(module.Target, out _);
 
                 // Register module by its identifier.
                 modules.Add(identifier, module);
@@ -84,21 +84,21 @@ namespace Ion.Core
                 throw new Exception("No entry function was defined");
             }
 
-            // Create the resulting list.
-            List<string> result = new List<string>();
+            // Create the resulting dictionary.
+            Dictionary<string, string> result = new Dictionary<string, string>();
 
             // Emit all the modules onto the result.
-            foreach (Module module in modules.Values)
+            foreach ((string identifier, Module module) in modules)
             {
                 // Retrieve the emitted, string form.
                 string output = module.Emit();
 
                 // Append it to the result.
-                result.Add(output);
+                result.Add(identifier, output);
             }
 
-            // Return the output list as an array.
-            return result.ToArray();
+            // Return the output dictionary.
+            return result;
         }
     }
 }

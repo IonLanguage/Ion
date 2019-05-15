@@ -11,18 +11,20 @@ namespace Ion.Abstraction
 {
     public class Module : IDisposable, ICloneable
     {
-        public LLVMModuleRef Source { get; }
+        public LLVMModuleRef Target { get; }
 
-        public string Name { get; }
+        public string Identifier { get; }
+
+        public string FileName { get; }
 
         public SymbolTable SymbolTable { get; }
 
         public List<string> Imports { get; }
 
-        // TODO: Merge these two constructors.
-        public Module(LLVMModuleRef source)
+        public Module(string fileName, LLVMModuleRef target)
         {
-            this.Source = source;
+            this.Target = target;
+            this.FileName = fileName;
 
             // Create a new symbol table instance.
             this.SymbolTable = new SymbolTable();
@@ -31,31 +33,25 @@ namespace Ion.Abstraction
             this.Imports = new List<string>();
         }
 
-        public Module(string name)
+        public Module(string fileName, string identifier) : this(fileName, LLVM.ModuleCreateWithName(identifier))
         {
-            this.Name = name;
-            this.Source = LLVM.ModuleCreateWithName(this.Name);
-
-            // Create a new symbol table instance.
-            this.SymbolTable = new SymbolTable();
-
-            // Create imports.
-            this.Imports = new List<string>();
+            // TODO: Should identifier verification be applied?
+            this.Identifier = identifier;
         }
 
-        public Module() : this(SpecialName.Entry)
+        public Module(string fileName) : this(fileName, SpecialName.Entry)
         {
             //
         }
 
         public object Clone()
         {
-            return new Module(LLVM.CloneModule(this.Source));
+            return new Module(this.FileName, LLVM.CloneModule(this.Target));
         }
 
         public void Dispose()
         {
-            LLVM.DisposeModule(this.Source);
+            LLVM.DisposeModule(this.Target);
         }
 
         /// <summary>
@@ -95,7 +91,7 @@ namespace Ion.Abstraction
             Function function = CreateMainFunction();
 
             // Create pipe context for the function.
-            PipeContext<LLVMModuleRef> context = new PipeContext<LLVMModuleRef>(this.Source, this.SymbolTable);
+            PipeContext<LLVMModuleRef> context = new PipeContext<LLVMModuleRef>(this.Target, this.SymbolTable);
 
             // Emit the function.
             function.Emit(context);
@@ -106,7 +102,7 @@ namespace Ion.Abstraction
 
         public LLVMContextRef GetContext()
         {
-            return LLVM.GetModuleContext(this.Source);
+            return LLVM.GetModuleContext(this.Target);
         }
 
         /// <summary>
@@ -116,7 +112,7 @@ namespace Ion.Abstraction
         /// </summary>
         public void Dump()
         {
-            LLVM.DumpModule(this.Source);
+            LLVM.DumpModule(this.Target);
         }
 
         /// <summary>
@@ -125,8 +121,11 @@ namespace Ion.Abstraction
         /// </summary>
         public string Emit()
         {
+            // Apply the module's identifier.
+            LLVM.SetModuleIdentifier(this.Target, this.Identifier, this.Identifier.Length);
+
             // Print IR code to a buffer.
-            IntPtr output = LLVM.PrintModuleToString(this.Source);
+            IntPtr output = LLVM.PrintModuleToString(this.Target);
 
             // Convert buffer to a string.
             string outputString = Marshal.PtrToStringAnsi(output);
