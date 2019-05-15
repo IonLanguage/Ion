@@ -1,4 +1,4 @@
-void main()
+void Main()
 {
     int explicitOne = 1;
     float explicitPi = 3.14;

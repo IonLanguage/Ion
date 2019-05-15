@@ -3,7 +3,7 @@
     Multi-line
     comment.
 */
-void main() {
+void Main() {
     // Single-line comment inside function.
     /*
         Multi-line comment

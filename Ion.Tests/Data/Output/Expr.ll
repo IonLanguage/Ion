@@ -1,7 +1,7 @@
 ; ModuleID = 'entry'
 source_filename = "entry"
 
-define void @main() {
+define void @Main() {
 entry:
   %explicitOne = alloca i32
   store i32 1, i32* %explicitOne

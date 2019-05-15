@@ -6,7 +6,7 @@ entry:
   ret void
 }
 
-define void @main() {
+define void @Main() {
 entry:
   %anonymous_8 = call void @test()
   ret void

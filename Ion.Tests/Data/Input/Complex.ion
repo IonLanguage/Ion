@@ -1,7 +1,7 @@
 /*
     The entry point of the program.
 */
-int main()
+int Main()
 {
     // Prepare the return value.
     int returnValue = 0;

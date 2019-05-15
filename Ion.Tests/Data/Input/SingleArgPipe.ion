@@ -3,7 +3,7 @@ void Test(string input)
     //
 }
 
-void main()
+void Main()
 {
     : "Test string" | Test;
 }

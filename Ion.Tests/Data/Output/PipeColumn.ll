@@ -8,7 +8,7 @@ entry:
   ret void
 }
 
-define void @main() {
+define void @Main() {
 entry:
   %anonymous_13 = call void @Test1(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @str_0, i32 0, i32 0))
   ret void

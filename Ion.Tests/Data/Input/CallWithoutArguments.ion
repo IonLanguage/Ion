@@ -1,6 +1,6 @@
 void test() { }
 
-void main()
+void Main()
 {
     test();
 }
