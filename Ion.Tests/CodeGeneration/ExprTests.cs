@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 using LLVMSharp;
 using Ion.SyntaxAnalysis;
 using NUnit.Framework;
-using Ion.Abstraction;
 using Ion.Tests.Core;
 using Ion.CodeGeneration;
 using Ion.Parsing;

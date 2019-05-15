@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 using LLVMSharp;
 using Ion.SyntaxAnalysis;
 using NUnit.Framework;
-using Ion.Abstraction;
 using Ion.Tests.Core;
 using Ion.CodeGeneration;
 using Ion.Parsing;
@@ -163,7 +162,7 @@ namespace Ion.Tests.CodeGeneration
         public void CreateMainFunction()
         {
             // Create a new module instance.
-            Abstraction.Module module = new Abstraction.Module();
+            Ion.CodeGeneration.Module module = new Ion.CodeGeneration.Module("Test");
 
             // Read the expected output IR code.
             string expected = TestUtil.ReadOutputDataFile("EmptyMainFunction");
