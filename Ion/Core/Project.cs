@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Ion.Abstraction;
+using Ion.CodeGeneration;
+using Ion.CodeGeneration.Structure;
 
 namespace Ion.Core
 {
@@ -19,6 +20,11 @@ namespace Ion.Core
         }
 
         // TODO: Split functionality locally.
+        /// <summary>
+        /// Emit all registered modules, returning their
+        /// output IR code mapped by their corresponding
+        /// filenames.
+        /// </summary>
         public Dictionary<string, string> Emit()
         {
             // Ensure at least one module exists.
@@ -33,12 +39,11 @@ namespace Ion.Core
             // Map modules by their identifiers.
             foreach (Module module in this.Modules)
             {
-                // Extract identifier from the module's source. Ignore out size parameter.
-                string identifier = LLVMSharp.LLVM.GetModuleIdentifier(module.Target, out _);
-
                 // Register module by its identifier.
-                modules.Add(identifier, module);
+                modules.Add(module.Identifier, module);
             }
+
+            System.Console.WriteLine("pass2");
 
             // Create the main module mark.
             Module mainModule = null;
@@ -67,6 +72,27 @@ namespace Ion.Core
                         throw new Exception($"Duplicate reference to '{import}' within module '{identifier}'");
                     }
                 }
+
+                // If the main function exists, mark this module as the main module.
+                if (module.SymbolTable.functions.ContainsKey(SpecialName.Main))
+                {
+                    System.Console.WriteLine("pass44");
+
+                    // Ensure main module has not already been previously marked.
+                    if (mainModule != null)
+                    {
+                        throw new Exception("Duplicate entry point");
+                    }
+
+                    System.Console.WriteLine("pass45");
+
+                    // Mark module as the main module.
+                    mainModule = module;
+
+                    System.Console.WriteLine("pass46");
+                }
+
+                System.Console.WriteLine("checkpoint -- Pass23");
             }
 
             // Compute unreferenced modules.
@@ -88,13 +114,13 @@ namespace Ion.Core
             Dictionary<string, string> result = new Dictionary<string, string>();
 
             // Emit all the modules onto the result.
-            foreach ((string identifier, Module module) in modules)
+            foreach (Module module in modules.Values)
             {
                 // Retrieve the emitted, string form.
                 string output = module.Emit();
 
                 // Append it to the result.
-                result.Add(identifier, output);
+                result.Add(module.FileName, output);
             }
 
             // Return the output dictionary.

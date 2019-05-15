@@ -6,13 +6,13 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Function : Named, IPipe<LLVMModuleRef, LLVMValueRef>
+    public class Function : Named, IPipe<CodeGeneration.Module, LLVMValueRef>
     {
         public Prototype Prototype { get; set; }
 
         public Block Body { get; set; }
 
-        public LLVMValueRef Emit(PipeContext<LLVMModuleRef> context)
+        public LLVMValueRef Emit(PipeContext<CodeGeneration.Module> context)
         {
             // Ensure body was provided or created.
             if (this.Body == null)
@@ -35,7 +35,7 @@ namespace Ion.CodeGeneration
             LLVMTypeRef type = LLVM.FunctionType(returnType, args, this.Prototype.Args.Continuous);
 
             // Create the function.
-            LLVMValueRef function = LLVM.AddFunction(context.Target, this.Prototype.Name, type);
+            LLVMValueRef function = LLVM.AddFunction(context.Target.Target, this.Prototype.Name, type);
 
             // Create the body context.
             PipeContext<LLVMValueRef> bodyContext = context.Derive<LLVMValueRef>(function);

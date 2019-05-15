@@ -12,7 +12,7 @@ namespace Ion.Core
     {
         public readonly Dictionary<string, LLVMValueRef> functions = new Dictionary<string, LLVMValueRef>();
 
-        public readonly Dictionary<string, Abstraction.Module> modules = new Dictionary<string, Abstraction.Module>();
+        public readonly Dictionary<string, CodeGeneration.Module> modules = new Dictionary<string, CodeGeneration.Module>();
 
         /// <summary>
         /// Contains locally-scoped emitted values.

@@ -1,5 +1,4 @@
 using System;
-using Ion.Abstraction;
 using Ion.CodeGeneration.Structure;
 using Ion.Parsing;
 

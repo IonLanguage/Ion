@@ -1,23 +1,21 @@
 using System;
-using Ion.Abstraction;
 using Ion.CodeGeneration;
 using Ion.CodeGeneration.Structure;
 using Ion.CognitiveServices;
 using Ion.SyntaxAnalysis;
-using LLVMSharp;
 
 namespace Ion.Parsing
 {
     public class Driver
     {
-        public Abstraction.Module Module { get; protected set; }
+        public Module Module { get; protected set; }
 
         // TODO: What if EOF token has not been processed itself?
         public bool HasNext => !this.stream.IsLastItem;
 
         public ParserContext ParserContext { get; protected set; }
 
-        public PipeContext<LLVMModuleRef> ModulePipeContext { get; protected set; }
+        public PipeContext<CodeGeneration.Module> ModulePipeContext { get; protected set; }
 
         protected TokenStream stream;
 
@@ -47,7 +45,7 @@ namespace Ion.Parsing
             this.stream = stream;
 
             // Create a new module instance.
-            this.Module = new Abstraction.Module(name);
+            this.Module = new CodeGeneration.Module(name);
 
             // Create a new parser context instance.
             this.ParserContext = new ParserContext(this, this.stream);
@@ -123,7 +121,7 @@ namespace Ion.Parsing
                 Namespace namespaceEntity = new NamespaceParser().Parse(this.ParserContext);
 
                 // Process the namespace definition reaction.
-                namespaceEntity.Invoke(this.Module.Target);
+                namespaceEntity.Invoke(this.Module);
             }
             // Otherwise, throw an error.
             else

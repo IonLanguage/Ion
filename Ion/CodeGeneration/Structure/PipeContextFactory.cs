@@ -8,10 +8,10 @@ namespace Ion.CodeGeneration.Structure
         /// Create a pipe context with LLVM module reference
         /// as target from an abstracted module class instance.
         /// </summary>
-        public static PipeContext<LLVMModuleRef> CreateFromModule(Abstraction.Module module)
+        public static PipeContext<Module> CreateFromModule(Module module)
         {
             // Create the instance and fill parameters from the module.
-            return new PipeContext<LLVMModuleRef>(module.Target, module.SymbolTable);
+            return new PipeContext<Module>(module, module.SymbolTable);
         }
     }
 }

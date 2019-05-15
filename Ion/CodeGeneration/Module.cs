@@ -7,13 +7,13 @@ using Ion.Core;
 using Ion.SyntaxAnalysis;
 using LLVMSharp;
 
-namespace Ion.Abstraction
+namespace Ion.CodeGeneration
 {
-    public class Module : IDisposable, ICloneable
+    public class Module : IOneWayPipe<string>, IDisposable, ICloneable
     {
         public LLVMModuleRef Target { get; }
 
-        public string Identifier { get; }
+        public string Identifier { get; set; }
 
         public string FileName { get; }
 
@@ -80,6 +80,18 @@ namespace Ion.Abstraction
             return function;
         }
 
+        // TODO: Throws "AccessViolationException" (uncatchable) exception if function does not exist.
+        // TODO: ... determine a way to see if the function exists first. LLVM.IsNull() and LLVMValueRef.IsNull()
+        // TODO: ... all trigger the exception too.
+        public LLVMValueRef GetFunction(string name)
+        {
+            // Retrieve the function.
+            LLVMValueRef function = LLVM.GetNamedFunction(this.Target, name);
+
+            // Return the retrieved function.
+            return function;
+        }
+
         /// <summary>
         /// Create and emit an empty main function
         /// with a body, empty arguments and void return
@@ -91,7 +103,7 @@ namespace Ion.Abstraction
             Function function = CreateMainFunction();
 
             // Create pipe context for the function.
-            PipeContext<LLVMModuleRef> context = new PipeContext<LLVMModuleRef>(this.Target, this.SymbolTable);
+            PipeContext<Module> context = new PipeContext<Module>(this, this.SymbolTable);
 
             // Emit the function.
             function.Emit(context);
