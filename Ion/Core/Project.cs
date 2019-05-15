@@ -43,8 +43,6 @@ namespace Ion.Core
                 modules.Add(module.Identifier, module);
             }
 
-            System.Console.WriteLine("pass2");
-
             // Create the main module mark.
             Module mainModule = null;
 
@@ -76,23 +74,15 @@ namespace Ion.Core
                 // If the main function exists, mark this module as the main module.
                 if (module.SymbolTable.functions.ContainsKey(SpecialName.Main))
                 {
-                    System.Console.WriteLine("pass44");
-
                     // Ensure main module has not already been previously marked.
                     if (mainModule != null)
                     {
                         throw new Exception("Duplicate entry point");
                     }
 
-                    System.Console.WriteLine("pass45");
-
                     // Mark module as the main module.
                     mainModule = module;
-
-                    System.Console.WriteLine("pass46");
                 }
-
-                System.Console.WriteLine("checkpoint -- Pass23");
             }
 
             // Compute unreferenced modules.
