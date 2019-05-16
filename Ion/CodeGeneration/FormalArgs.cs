@@ -30,9 +30,11 @@ namespace Ion.CodeGeneration
             // Emit all arguments.
             foreach (FormalArg arg in this.Values)
             {
+                // Emit and append each argument.
                 args.Add(arg.Emit());
             }
 
+            // Return the resulting argument array.
             return args.ToArray();
         }
     }

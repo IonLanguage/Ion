@@ -6,7 +6,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Function : Named, IPipe<CodeGeneration.Module, LLVMValueRef>
+    public class Function : Named, ITopLevelPipe
     {
         public Prototype Prototype { get; set; }
 
@@ -46,7 +46,7 @@ namespace Ion.CodeGeneration
             // Ensures the function does not already exist
             if (context.SymbolTable.functions.ContainsKey(this.Prototype.Name))
             {
-                throw new Exception($"Function with that name \"{this.Prototype.Name}\" already exists.");
+                throw new Exception($"A function with the name \"{this.Prototype.Name}\" already exists");
             }
 
             // Register the function on the symbol table.

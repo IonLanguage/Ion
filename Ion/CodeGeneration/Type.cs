@@ -5,7 +5,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Type : Named, IUncontextedEntity<LLVMTypeRef>
+    public class Type : IUncontextedEntity<LLVMTypeRef>
     {
         protected readonly string value;
 

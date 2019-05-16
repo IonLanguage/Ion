@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Ion.CodeGeneration.Structure;
 using LLVMSharp;
@@ -8,13 +9,13 @@ namespace Ion.CodeGeneration
     {
         public override ExprType Type => ExprType.FunctionCall;
 
-        public LLVMValueRef Target { get; }
+        public string TargetName { get; }
 
         public List<Expr> Args { get; }
 
-        public FunctionCallExpr(LLVMValueRef target, List<Expr> args)
+        public FunctionCallExpr(string targetName, List<Expr> args)
         {
-            this.Target = target;
+            this.TargetName = targetName;
             this.Args = args;
         }
 
@@ -46,8 +47,17 @@ namespace Ion.CodeGeneration
                 args.Add(argValue.Value);
             }
 
+            // Ensure the function has been emitted.
+            if (!context.SymbolTable.functions.ContainsKey(this.TargetName))
+            {
+                throw new Exception($"Call to a non-existent function named '{this.TargetName}' performed");
+            }
+
+            // Retrieve the target function.
+            LLVMValueRef target = context.SymbolTable.functions[this.TargetName];
+
             // Create the function call.
-            LLVMValueRef functionCall = LLVM.BuildCall(context.Target, this.Target, args.ToArray(), this.Name);
+            LLVMValueRef functionCall = LLVM.BuildCall(context.Target, target, args.ToArray(), this.Name);
 
             // Return the emitted function call.
             return functionCall;

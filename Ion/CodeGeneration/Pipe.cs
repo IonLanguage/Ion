@@ -24,15 +24,12 @@ namespace Ion.CodeGeneration
 
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
-            // Retrieve target function.
-            LLVMValueRef target = context.SymbolTable.RetrieveFunctionOrThrow(this.TargetName);
-
             // Create the argument list.
             List<Expr> arguments = new List<Expr>(this.Arguments);
 
             // TODO: Callee is hard-coded.
             // Create the function call expression.
-            FunctionCallExpr functionCall = new FunctionCallExpr(target, arguments);
+            FunctionCallExpr functionCall = new FunctionCallExpr(this.TargetName, arguments);
 
             // Emit and return the function call expression.
             return functionCall.Emit(context);

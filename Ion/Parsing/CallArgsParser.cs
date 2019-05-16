@@ -29,6 +29,7 @@ namespace Ion.Parsing
                     // Append the parsed argument.
                     args.Add(arg);
 
+                    // Capture the current token's type.
                     TokenType currentTokenType = context.Stream.Get().Type;
 
                     // Arguments ended.

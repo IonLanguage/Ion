@@ -5,7 +5,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Extern : IPipe<Module, LLVMValueRef>
+    public class Extern : ITopLevelPipe
     {
         private Prototype Prototype { get; }
 

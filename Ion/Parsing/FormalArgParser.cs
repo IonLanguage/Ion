@@ -19,11 +19,11 @@ namespace Ion.Parsing
             // Capture the argument's name.
             string name = context.Stream.Get(TokenType.Identifier).Value;
 
-            // Skip the identifier token.
-            context.Stream.Skip();
-
             // Assign the argument's name.
             arg.SetName(name);
+
+            // Skip the identifier token.
+            context.Stream.Skip();
 
             // Return the argument.
             return arg;

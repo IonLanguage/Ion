@@ -15,7 +15,11 @@ namespace Ion.CodeGeneration
 
         public LLVMTypeRef Emit()
         {
-            return this.type.Emit();
+            // Emit the type.
+            LLVMTypeRef type = this.type.Emit();
+
+            // Return the emitted type.
+            return type;
         }
     }
 }
