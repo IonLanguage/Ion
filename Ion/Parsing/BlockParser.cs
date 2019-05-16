@@ -68,6 +68,9 @@ namespace Ion.Parsing
                 // Append the parsed expression to the block's expression list.
                 block.Expressions.Add(expr);
 
+                // Ensure current token is a semi-colon.
+                context.Stream.EnsureCurrent(TokenType.SymbolSemiColon);
+
                 // Skip over the semi-colon.
                 context.Stream.Skip();
 

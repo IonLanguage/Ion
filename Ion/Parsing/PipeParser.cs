@@ -27,9 +27,6 @@ namespace Ion.Parsing
             // Skip identifier onto semi-colon.
             context.Stream.Skip(TokenType.SymbolSemiColon);
 
-            // Skip semi-colon.
-            context.Stream.Skip();
-
             // Create the resulting pipe entity.
             Pipe pipe = new Pipe(arguments.ToArray(), identifier);
 
