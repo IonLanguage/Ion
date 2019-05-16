@@ -1,12 +1,11 @@
+using System;
 using Ion.CodeGeneration.Structure;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-
     public class LambdaExpr : Expr
     {
-
         public override ExprType Type => ExprType.Lambda;
 
         public FormalArgs Args;
@@ -17,9 +16,8 @@ namespace Ion.CodeGeneration
 
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
-            // TODO: Implement
+            // TODO: Implement.
+            throw new NotImplementedException();
         }
-
     }
-
 }

@@ -1,7 +1,7 @@
 ; ModuleID = 'entry'
 source_filename = "entry"
 
-define void @Main() {
+define void @main() {
 entry:
   ret void
 }

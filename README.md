@@ -13,7 +13,7 @@ Hello world application:
 ```cpp
 extern int printf(string format, ...);
 
-void Main()
+void main()
 {
     printf("Hello world!");
 }
@@ -41,7 +41,7 @@ printf("Hello %s", "world!");
 Inspired by React.js' JSX syntax, the language will have built-in DOM and HTML support.
 
 ```rust
-int Main() 
+int main() 
 {
     Web.Mount(<div>Built-in HTML syntax is awesome!</div>);
 
@@ -68,7 +68,7 @@ string @name = "John Doe";
 All functions should be in PascalCase.
 
 ```rust
-void Main()
+void main()
 {
     //
 }
@@ -98,7 +98,7 @@ Attributes are considered proxy functions, thus they should be treated as functi
 
 ```c
 [Transform(0)]
-int Main()
+int main()
 {
     // Return value will be transformed to '0'.
     return 1;
