@@ -29,9 +29,6 @@ namespace Ion.Parsing
             // There is another value.
             else if (token.Type == TokenType.SymbolComma)
             {
-                // Skip onto the comma token.
-                context.Stream.Skip(TokenType.SymbolComma);
-
                 // Skip comma token.
                 context.Stream.Skip();
 
