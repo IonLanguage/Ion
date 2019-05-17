@@ -9,7 +9,7 @@ namespace Ion.Parsing
     {
         public Block Parse(ParserContext context)
         {
-            // Capture current token. Either '{' or '=>' for anonymous functions.
+            // Capture current token. Either block start or arrow for anonymous functions.
             Token begin = context.Stream.Get();
 
             // Skip begin token.
@@ -56,17 +56,17 @@ namespace Ion.Parsing
                     break;
                 }
 
-                // Token must be an expression.
-                Expr expr = new PrimaryExprParser().Parse(context);
+                // Token must be a statement.
+                Expr statement = new StatementParser().Parse(context);
 
-                // Ensure expression was successfully parsed.
-                if (expr == null)
+                // Ensure statement was successfully parsed.
+                if (statement == null)
                 {
                     throw new Exception("Unexpected expression to be null");
                 }
 
-                // Append the parsed expression to the block's expression list.
-                block.Expressions.Add(expr);
+                // Append the parsed statement to the block's expression list.
+                block.Expressions.Add(statement);
 
                 // Ensure current token is a semi-colon.
                 context.Stream.EnsureCurrent(TokenType.SymbolSemiColon);
@@ -78,7 +78,7 @@ namespace Ion.Parsing
                 token = context.Stream.Get();
             }
 
-            // Skip onto default block end '}' or short block end ';'.
+            // Skip onto default block end or short block end.
             context.Stream.Skip();
 
             // Return the resulting block.

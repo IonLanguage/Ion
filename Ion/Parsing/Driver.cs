@@ -79,6 +79,7 @@ namespace Ion.Parsing
                 return false;
             }
 
+            // TODO: Implement a TopLevelParser for this.
             // Function definition or global variable.
             if (TokenIdentifier.IsType(type))
             {
