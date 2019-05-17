@@ -16,11 +16,6 @@ namespace Ion.Parsing
             {
                 return new PipeParser().Parse(context);
             }
-            // Variable declaration expression.
-            else if (TokenIdentifier.IsType(currentTokenType))
-            {
-                return new VarDeclareExprParser().Parse(context);
-            }
             // Numeric expression.
             else if (TokenIdentifier.IsNumeric(currentTokenType))
             {
