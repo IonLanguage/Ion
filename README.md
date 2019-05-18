@@ -10,7 +10,7 @@ A language implemented in C# using LLVM 5.0 bindings.
 
 **How can I learn compiler design?** We strongly recommend you start your journey into the mysterious and complex world of compiler design through [this book](http://www.informatik.uni-bremen.de/agbkb/lehre/ccfl/Material/ALSUdragonbook.pdf). Wikipedia is also your best friend.
 
-**What is the technology stack used for this project?** The C# language is the main language used to implement 
+**What is the technology stack used for this project?** The C# language is the main language used to implement both the core compiler library (this repository) and the CLI utility. LLVM (using C# bindings) is used for code generation. NUnit is used for both compiler and CLI tests, although a partial custom testing framework (based upon NUnit) is currently being implemented in order to satisfy the specific unit testing needs of the projects.
 
 File extension: `.ion`
 
