@@ -15,15 +15,15 @@ namespace Ion.Parsing
 
         public SymbolTable SymbolTable => this.Driver.Module.SymbolTable;
 
-        public ErrorRepository ErrorRepository;
+        public NoticeRepository NoticeRepository;
 
         public ParserContext(Driver driver, TokenStream stream)
         {
             this.Driver = driver;
             this.Stream = stream;
 
-            // Create a new error repository.
-            this.ErrorRepository = new ErrorRepository(this.Stream, driver.Module.FileName);
+            // Create a new notice repository instance.
+            this.NoticeRepository = new NoticeRepository(this.Stream, driver.Module.FileName);
         }
 
         /// <summary>

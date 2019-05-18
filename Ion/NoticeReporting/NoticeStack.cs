@@ -4,22 +4,22 @@ using Ion.SyntaxAnalysis;
 
 namespace Ion.NoticeReporting
 {
-    public class ErrorStack
+    public class NoticeStack
     {
         protected readonly TokenStream stream;
 
-        protected readonly List<ErrorStackItem> items;
+        protected readonly List<NoticeStackItem> items;
 
-        public ErrorStack(TokenStream stream)
+        public NoticeStack(TokenStream stream)
         {
             this.stream = stream;
-            this.items = new List<ErrorStackItem>();
+            this.items = new List<NoticeStackItem>();
         }
 
         public void Append(Error error)
         {
             // Create and populate the item.
-            ErrorStackItem item = new ErrorStackItem
+            NoticeStackItem item = new NoticeStackItem
             {
                 Position = this.stream.Index,
                 SourceFile = error.sourceFileName
@@ -36,7 +36,7 @@ namespace Ion.NoticeReporting
 
             traceBuilder.AppendLine(base.ToString());
 
-            foreach (ErrorStackItem stackItem in this.items)
+            foreach (NoticeStackItem stackItem in this.items)
             {
                 traceBuilder.AppendLine($"\t{stackItem.TraceString}");
             }

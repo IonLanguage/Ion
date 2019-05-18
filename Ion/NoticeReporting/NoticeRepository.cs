@@ -2,18 +2,18 @@ using Ion.SyntaxAnalysis;
 
 namespace Ion.NoticeReporting
 {
-    public class ErrorRepository
+    public class NoticeRepository
     {
         protected readonly TokenStream stream;
 
-        protected readonly ErrorStack stack;
+        protected readonly NoticeStack stack;
 
         protected readonly string sourceFileName;
 
-        public ErrorRepository(TokenStream stream, string sourceFileName)
+        public NoticeRepository(TokenStream stream, string sourceFileName)
         {
             this.stream = stream;
-            this.stack = new ErrorStack(this.stream);
+            this.stack = new NoticeStack(this.stream);
             this.sourceFileName = sourceFileName;
         }
 

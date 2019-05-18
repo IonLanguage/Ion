@@ -1,6 +1,6 @@
 namespace Ion.NoticeReporting
 {
-    public struct ErrorStackItem
+    public struct NoticeStackItem
     {
         public string SourceFile { get; set; }
 
