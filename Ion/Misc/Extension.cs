@@ -9,6 +9,8 @@ namespace Ion.Misc
 {
     public static class Extension
     {
+        public const string CutDelimiter = "...";
+
         public static string Capitalize(this string input)
         {
             switch (input)
@@ -76,6 +78,53 @@ namespace Ion.Misc
             }
 
             return updated;
+        }
+
+        // TODO: Beginning no-cut (input is at the beginning) is not implemented, may need a starting index arg.
+        /// <summary>
+        /// Cut an input string to a maximum length and apply
+        /// provided delimiters at the beginning and the end
+        /// if applicable.
+        /// </summary>
+        public static string Cut(this string input, int maxLength, string delimiter = Extension.CutDelimiter)
+        {
+            // Copy the input string.
+            string result = input;
+
+            // Trim the result.
+            result = result.Trim();
+
+            // Determine if the result's length is larger than the max length.
+            if (result.Length > maxLength)
+            {
+                // Cut and apply delimiter at the start. Remove an extra character for a space.
+                result = result.Remove(0, delimiter.Length + 1);
+
+                // Insert delimiter at the beginning of the result, along with a space.
+                result = result.Insert(0, delimiter + " ");
+
+                // Determine whether created string contains ending tokens.
+                bool atEnd = result.Length == input.Length;
+
+                // Determine if max length is met, otherwise proceed to cut the end.
+                if (atEnd && result.Length > maxLength)
+                {
+                    // Compute the starting point of the remove range.
+                    int removeStart = result.Length - delimiter.Length + 1;
+
+                    // Compute the amount of characters to remove.
+                    int removeCount = delimiter.Length + 1;
+
+                    // Cut the end of the resulting string.
+                    result = result.Remove(removeStart, removeCount);
+
+                    // Insert delimiter, along with a space at the end.
+                    result += " " + delimiter;
+                }
+            }
+
+            // Return the resulting string.
+            return result;
         }
     }
 }

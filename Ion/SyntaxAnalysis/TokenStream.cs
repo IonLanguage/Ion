@@ -1,4 +1,6 @@
 using System;
+using System.Text;
+using Ion.Core;
 using Ion.Misc;
 
 namespace Ion.SyntaxAnalysis
@@ -14,6 +16,48 @@ namespace Ion.SyntaxAnalysis
         public TokenStream(Token[] tokens) : base(tokens)
         {
             //
+        }
+
+        /// <summary>
+        /// Create a string with the values of the
+        /// the tokens within the provided range.
+        /// </summary>
+        public string Join(int from, int to)
+        {
+            // Ensure list contains at least one item.
+            if (this.Count == 0)
+            {
+                throw new IndexOutOfRangeException("List contains no items");
+            }
+            // Validate from range.
+            else if (from < 0)
+            {
+                throw new IndexOutOfRangeException("From index argument must be zero or higher");
+            }
+            // Validate to range.
+            else if (to > this.Count - 1)
+            {
+                throw new IndexOutOfRangeException("To index is larger than the total amount of items in the list");
+            }
+
+            // Create a new string builder class instance.
+            StringBuilder builder = new StringBuilder();
+
+            // Create the for loop with the provided range.
+            for (int i = from; i < to; i++)
+            {
+                // Append only all the values of the tokens, along with a leading space.
+                builder.Append(" " + this[i].Value);
+            }
+
+            // Retrieve the builder's resulting string.
+            string result = builder.ToString();
+
+            // Trim the result.
+            result.Trim();
+
+            // Return the resulting string.
+            return result;
         }
 
         /// <summary>
