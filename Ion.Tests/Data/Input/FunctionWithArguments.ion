@@ -1,0 +1,1 @@
+void main(char arg0, string arg1, int arg2, float arg3, double arg3, bool arg4) { }
