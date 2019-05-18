@@ -50,7 +50,7 @@ namespace Ion.Parsing
                 // Ensure the captured operator is validated.
                 if (!TokenIdentifier.IsOperator(binaryOperator))
                 {
-                    throw new Exception($"Expected token to be a binary operator but got token type '{binaryOperator}'");
+                    throw context.NoticeRepository.CreateException($"Expected token to be a binary operator but got token type '{binaryOperator}'");
                 }
 
                 // Skip operator.

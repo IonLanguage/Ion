@@ -62,7 +62,7 @@ namespace Ion.Parsing
                 // Ensure statement was successfully parsed.
                 if (statement == null)
                 {
-                    throw new Exception("Unexpected expression to be null");
+                    throw new Exception("Unexpected statement to be null");
                 }
 
                 // Append the parsed statement to the block's expression list.

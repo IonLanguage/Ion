@@ -1,3 +1,4 @@
+using System;
 using Ion.SyntaxAnalysis;
 
 namespace Ion.NoticeReporting
@@ -17,23 +18,34 @@ namespace Ion.NoticeReporting
             this.sourceFileName = sourceFileName;
         }
 
-        public void Append(string message, string name = InternalErrorNames.Generic)
+        public ParserException CreateException(string message, string name = InternalErrorNames.Generic)
         {
             // Create the error.
             Error error = new Error(message, this.sourceFileName, name);
 
             // Append the error onto the stack.
             this.stack.Append(error);
+
+            // Create a parser exception for the error.
+            ParserException exception = new ParserException(error.ToString());
+
+            // Return the parser exception.
+            return exception;
+        }
+
+        public ReadOnlyNoticeStack GetStack()
+        {
+            return this.stack.AsReadOnly();
         }
 
         public void UnexpectedToken(TokenType expected, TokenType actual)
         {
-            this.Append($"Unexpected token '{actual}'; Expected '{expected}'", InternalErrorNames.Syntax);
+            this.CreateException($"Unexpected token '{actual}'; Expected '{expected}'", InternalErrorNames.Syntax);
         }
 
         public void ArgumentMismatch(string functionName, int expected, int actual)
         {
-            this.Append($"Argument mismatch for function '{functionName}'; Expected '{expected}' arguments but got '{actual}'");
+            this.CreateException($"Argument mismatch for function '{functionName}'; Expected '{expected}' arguments but got '{actual}'");
         }
     }
 }

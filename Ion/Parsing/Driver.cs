@@ -35,6 +35,25 @@ namespace Ion.Parsing
             //
         }
 
+        // TODO: DriverResult should include the module?
+        public DriverResult Invoke()
+        {
+            // Invoke the driver.
+            while (this.HasNext)
+            {
+                this.Next();
+            }
+
+            // Create and populate the driver result.
+            DriverResult result = new DriverResult
+            {
+                Notices = this.ParserContext.NoticeRepository.GetStack()
+            };
+
+            // Return the result.
+            return result;
+        }
+
         /// <summary>
         /// Initialize the values and properties of this class
         /// instance.
