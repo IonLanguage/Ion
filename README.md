@@ -4,8 +4,6 @@ A language implemented in C# using LLVM 5.0 bindings.
 
 File extension: `.ion`
 
-Syntax examples coming soon.
-
 ### Syntax
 
 Hello world application:
@@ -54,18 +52,48 @@ This feature, along with decorators & anonymous functions, will come super handy
 ```rust
 string @name = "John Doe";
 
-@Web.Route("/") {
+[@Web.Route("/")]
+void GetRoot() {
     return <p>Hello, {@name}.</p>; // Hello, John Doe.
 }
 ```
 
 4. **Portable**.
 
+### Examples
+
+#### Hello world
+
+```c#
+extern int printf(string message, ...);
+
+int main()
+{
+    printf("Hello world!");
+
+    return 0;
+}
+```
+
+#### Fibonacci sequence algorithm implementation
+
+```c#
+int fibonacci(number)
+{
+    if (number <= 1)
+    {
+        return 1;
+    }
+
+    return fibonacci(number - 1) + fibonacci(number - 2);
+}
+```
+
 ### Naming convention
 
 #### Functions
 
-All functions should be in PascalCase.
+All function names should be in PascalCase.
 
 ```rust
 void main()
@@ -78,7 +106,7 @@ void main()
 
 Class names should be in PascalCase, and members in camelCase.
 
-```cpp
+```c#
 import Core.Console;
 
 class Example
@@ -105,46 +133,8 @@ int main()
 }
 ```
 
-### Local installation
+### Installation
 
-If you'd like to try out the language at its current, early state, follow the short guide for your platform below.
+Head over to the releases page on the CLI utility's repository to get your installer!
 
-#### Windows
-
-Please install [Linux sub-system for Windows](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and follow the Linux installation steps.
-
-#### Linux
-
-1. Since the required CLI utility to compile source code is written in C#, you will need .NET Core SDK installed on your machine.
-
-    [Click here to view how to install .NET Core SDK](https://dotnet.microsoft.com/download/linux-package-manager/ubuntu16-04/sdk-current)
-
-    Select your Linux distribution and follow the steps provided.
-
-    Ensure you've correctly installed .NET Core by running:
-
-    ```shell
-    $ dotnet --version
-    ```
-
-2. Now, you require the CLI utility to invoke the compiler.
-
-    [Click here to view IonCLI's releases](https://github.com/IonLanguage/Ion.CLI/releases)
-
-    Download the latest release, and follow the installation instructions contained within the `README.md` file (they're pretty straight forward!).
-
-3. You may now invoke the CLI utility and compile source files using:
-
-    ```shell
-    $ ion --ir
-    ```
-
-4. Finally, you'd want to run your programs. You can use `lli`, a command included in the LLVM toolchain to directly execute IR code, for this. After compilation using the IonCLI, you may issue the following command to run your program:
-
-    ```shell
-    $ lli l.bin/program.ll
-    ```
-
-Congratulations! You've installed all requirements to use the Ion language on your machine.
-
-The installation process is currently somewhat complicated, however we are working on making this much, much simpler.
+> [View releases](https://github.com/IonLanguage/Ion.CLI/releases)
