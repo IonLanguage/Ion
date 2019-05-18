@@ -2,19 +2,93 @@
 
 A language implemented in C# using LLVM 5.0 bindings.
 
+**What is Ion?** Ion is a high-level (and low-level), strongly-typed language implemented using the LLVM project, currently undergoing early development.
+
+**What is the purpose of this project?** A research project. The purpose of this language is to serve as the basis for learning, and experimenting with compiler design. However, the language is to be fully implemented and functional.
+
+**Why should I use Ion?** If you're a fan of fast development, and simply want your development workflow to be smooth, yet rigid when necessary, Ion is a language for you.
+
+**How can I learn compiler design?** We strongly recommend you start your journey into the mysterious and complex world of compiler design through [this book](http://www.informatik.uni-bremen.de/agbkb/lehre/ccfl/Material/ALSUdragonbook.pdf). Wikipedia is also your best friend.
+
+**What is the technology stack used for this project?** The C# language is the main language used to implement 
+
 File extension: `.ion`
 
-### Syntax
+### Installation
 
-Hello world application:
+Head over to the releases page on the CLI utility's repository to get your installer!
 
-```cpp
-extern int printf(string format, ...);
+> [View releases](https://github.com/IonLanguage/Ion.CLI/releases)
 
-void main()
+
+### Getting started
+
+Make sure you have Ion installed on your machine at this point.
+
+#### Windows
+
+Use the following instructions to initialize and run a project in Windows.
+
+```shell
+cmd> mkdir myproject
+cmd> cd myproject
+cmd> ion init
+cmd> mkdir Src
+cmd> notepad Src/main.ion
+```
+
+Paste the following source code:
+
+```c#
+extern int printf(string, ...);
+
+int main()
 {
     printf("Hello world!");
+
+    return 0;
 }
+```
+
+Now, save your file and close the Notepad editor.
+
+You're now ready to run your program! Use the following command to compile & run your program:
+
+```shell
+cmd> ion run
+```
+
+#### Linux
+
+Use the following instructions to initialize and run a project in Linux.
+
+```shell
+$ mkdir myproject
+$ cd myproject
+$ ion init
+$ mkdir Src
+$ nano Src/main.ion
+```
+
+Paste the following source code:
+
+```c#
+extern int printf(string, ...);
+
+int main()
+{
+    printf("Hello world!");
+
+    return 0;
+}
+```
+
+Now, save your file by pressing `CTRL + X`, then pressing `Y` and finally `ENTER`.
+
+You're now ready to run your program! Use the following command to compile & run your program:
+
+```shell
+$ ion run
 ```
 
 ### Core principles
@@ -131,81 +205,4 @@ int main()
     // Return value will be transformed to '0'.
     return 1;
 }
-```
-
-### Installation
-
-Head over to the releases page on the CLI utility's repository to get your installer!
-
-> [View releases](https://github.com/IonLanguage/Ion.CLI/releases)
-
-
-### Getting started
-
-Make sure you have Ion installed on your machine at this point.
-
-#### Windows
-
-Use the following instructions to initialize and run a project in Windows.
-
-```shell
-cmd> mkdir myproject
-cmd> cd myproject
-cmd> ion init
-cmd> mkdir Src
-cmd> notepad Src/main.ion
-```
-
-Paste the following source code:
-
-```c#
-extern int printf(string, ...);
-
-int main()
-{
-    printf("Hello world!");
-
-    return 0;
-}
-```
-
-Now, save your file and close the Notepad editor.
-
-You're now ready to run your program! Use the following command to compile & run your program:
-
-```shell
-cmd> ion run
-```
-
-#### Linux
-
-Use the following instructions to initialize and run a project in Linux.
-
-```shell
-$ mkdir myproject
-$ cd myproject
-$ ion init
-$ mkdir Src
-$ nano Src/main.ion
-```
-
-Paste the following source code:
-
-```c#
-extern int printf(string, ...);
-
-int main()
-{
-    printf("Hello world!");
-
-    return 0;
-}
-```
-
-Now, save your file by pressing `CTRL + X`, then pressing `Y` and finally `ENTER`.
-
-You're now ready to run your program! Use the following command to compile & run your program:
-
-```shell
-$ ion run
 ```
