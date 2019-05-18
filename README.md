@@ -138,3 +138,74 @@ int main()
 Head over to the releases page on the CLI utility's repository to get your installer!
 
 > [View releases](https://github.com/IonLanguage/Ion.CLI/releases)
+
+
+### Getting started
+
+Make sure you have Ion installed on your machine at this point.
+
+#### Windows
+
+Use the following instructions to initialize and run a project in Windows.
+
+```shell
+cmd> mkdir myproject
+cmd> cd myproject
+cmd> ion init
+cmd> mkdir Src
+cmd> notepad Src/main.ion
+```
+
+Paste the following source code:
+
+```c#
+extern int printf(string, ...);
+
+int main()
+{
+    printf("Hello world!");
+
+    return 0;
+}
+```
+
+Now, save your file and close the Notepad editor.
+
+You're now ready to run your program! Use the following command to compile & run your program:
+
+```shell
+cmd> ion run
+```
+
+#### Linux
+
+Use the following instructions to initialize and run a project in Linux.
+
+```shell
+$ mkdir myproject
+$ cd myproject
+$ ion init
+$ mkdir Src
+$ nano Src/main.ion
+```
+
+Paste the following source code:
+
+```c#
+extern int printf(string, ...);
+
+int main()
+{
+    printf("Hello world!");
+
+    return 0;
+}
+```
+
+Now, save your file by pressing `CTRL + X`, then pressing `Y` and finally `ENTER`.
+
+You're now ready to run your program! Use the following command to compile & run your program:
+
+```shell
+$ ion run
+```
