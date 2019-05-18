@@ -6,11 +6,14 @@ namespace Ion.ErrorReporting
     {
         public readonly string message;
 
+        public readonly string sourceFileName;
+
         public readonly string name;
 
-        public Error(string message, string name = InternalErrorNames.Generic)
+        public Error(string message, string sourceFileName, string name = InternalErrorNames.Generic)
         {
             this.message = message;
+            this.sourceFileName = sourceFileName;
             this.name = name;
         }
 
@@ -19,6 +22,7 @@ namespace Ion.ErrorReporting
             // Capitalize the error name.
             string capitalizedName = name.Capitalize();
 
+            // Forge and return the error string.
             return $"{capitalizedName}Error: {message}";
         }
 

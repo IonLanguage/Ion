@@ -1,6 +1,6 @@
 namespace Ion.ErrorReporting
 {
-    public struct ErrorTraceStackItem
+    public struct ErrorStackItem
     {
         public string SourceFile { get; set; }
 
