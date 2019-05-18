@@ -1,6 +1,6 @@
 using Ion.SyntaxAnalysis;
 
-namespace Ion.ErrorReporting
+namespace Ion.NoticeReporting
 {
     public class ErrorRepository
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Ion.CognitiveServices;
-using Ion.ErrorReporting;
+using Ion.NoticeReporting;
 using Ion.Misc;
 using LLVMSharp;
 using TokenTypeMap = System.Collections.Generic.Dictionary<string, Ion.SyntaxAnalysis.TokenType>;

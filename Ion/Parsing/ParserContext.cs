@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Ion.CognitiveServices;
 using Ion.Core;
-using Ion.ErrorReporting;
+using Ion.NoticeReporting;
 using Ion.SyntaxAnalysis;
 
 namespace Ion.Parsing

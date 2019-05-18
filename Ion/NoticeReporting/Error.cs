@@ -1,22 +1,9 @@
 using Ion.Misc;
 
-namespace Ion.ErrorReporting
+namespace Ion.NoticeReporting
 {
-    public class Error
+    public class Error : Notice
     {
-        public readonly string message;
-
-        public readonly string sourceFileName;
-
-        public readonly string name;
-
-        public Error(string message, string sourceFileName, string name = InternalErrorNames.Generic)
-        {
-            this.message = message;
-            this.sourceFileName = sourceFileName;
-            this.name = name;
-        }
-
         public static string Create(string message, string name = InternalErrorNames.Generic)
         {
             // Capitalize the error name.
@@ -28,17 +15,24 @@ namespace Ion.ErrorReporting
 
         public static void Write(string message, string name = InternalErrorNames.Generic)
         {
-            Create(message, name);
+            Error.Create(message, name);
+        }
+
+        public readonly string name;
+
+        public Error(string message, string sourceFileName, string name = InternalErrorNames.Generic) : base(NoticeTitles.Error, message, sourceFileName)
+        {
+            this.name = name;
         }
 
         public void Write()
         {
-            Write(this.message, this.name);
+            Error.Write(this.message, this.name);
         }
 
         public override string ToString()
         {
-            return Create(this.message, this.name);
+            return Error.Create(this.message, this.name);
         }
     }
 }

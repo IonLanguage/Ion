@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using Ion.Core;
-using Ion.ErrorReporting;
+using Ion.NoticeReporting;
 using Ion.CognitiveServices;
 using Ion.SyntaxAnalysis;
 

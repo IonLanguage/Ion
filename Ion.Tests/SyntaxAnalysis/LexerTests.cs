@@ -3,7 +3,7 @@ using System.IO;
 using NUnit.Framework;
 using Ion.Core;
 using Ion.SyntaxAnalysis;
-using Ion.ErrorReporting;
+using Ion.NoticeReporting;
 using Ion.Tests.Core;
 
 namespace Ion.Tests.SyntaxAnalysis

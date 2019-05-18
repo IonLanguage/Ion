@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 using Ion.SyntaxAnalysis;
 
-namespace Ion.ErrorReporting
+namespace Ion.NoticeReporting
 {
     public class ErrorStack
     {

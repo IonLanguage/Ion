@@ -1,4 +1,4 @@
-namespace Ion.ErrorReporting
+namespace Ion.NoticeReporting
 {
     public static class InternalErrorNames
     {
