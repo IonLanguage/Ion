@@ -9,21 +9,21 @@ namespace Ion.Parsing
     // TODO: Finish implementing.
     public class ParserContext
     {
-        public Stack<Error> ErrorStack { get; }
-
         public TokenStream Stream { get; }
 
         public Driver Driver { get; }
 
         public SymbolTable SymbolTable => this.Driver.Module.SymbolTable;
 
+        public ErrorRepository ErrorRepository;
+
         public ParserContext(Driver driver, TokenStream stream)
         {
             this.Driver = driver;
             this.Stream = stream;
 
-            // Create a new error stack.
-            this.ErrorStack = new Stack<Error>();
+            // Create a new error repository.
+            this.ErrorRepository = new ErrorRepository(this.Stream, driver.Module.FileName);
         }
 
         /// <summary>
@@ -33,22 +33,6 @@ namespace Ion.Parsing
         public int GetCurrentPrecedence()
         {
             return Precedence.Get(this.Stream.Get().Type);
-        }
-
-        /// <summary>
-        /// Append an error to the error stack.
-        /// </summary>
-        public void AppendError(Error error)
-        {
-            this.ErrorStack.Push(error);
-        }
-
-        /// <summary>
-        /// Clear and reset the error stack.
-        /// </summary>
-        public void BeginErrorStack()
-        {
-            this.ErrorStack.Clear();
         }
     }
 }
