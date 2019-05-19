@@ -59,13 +59,12 @@ namespace Ion.SyntaxAnalysis
 
         public LexerOptions Options { get; }
 
-        // TODO: Should return Token[].
         /// <summary>
         /// Begin the tokenization process, obtaining/extracting all
         /// possible tokens from the input string. Tokens which are
         /// unable to be identified will default to token type unknown.
         /// </summary>
-        public List<Token> Tokenize()
+        public Token[] Tokenize()
         {
             List<Token> tokens = new List<Token>();
             Token? nextToken = this.GetNextToken();
@@ -87,7 +86,7 @@ namespace Ion.SyntaxAnalysis
                 nextToken = this.GetNextToken();
             }
 
-            return tokens;
+            return tokens.ToArray();
         }
 
         /// <summary>
@@ -187,7 +186,6 @@ namespace Ion.SyntaxAnalysis
                 }
             }
 
-            // TODO: Add comment literal support.
             // Complex types support.
             foreach (var pair in Constants.complexTokenTypes)
             {
