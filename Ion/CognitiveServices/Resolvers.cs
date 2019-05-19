@@ -41,8 +41,6 @@ namespace Ion.CognitiveServices
                 {TokenType.KeywordTrue, TypeFactory.Boolean},
 
                 {TokenType.KeywordFalse, TypeFactory.Boolean}
-
-                // TODO: Missing string.
             };
 
         public static LLVMTypeRef LlvmTypeFromName(string name)
