@@ -8,12 +8,18 @@ namespace Ion.CodeGeneration
     {
         public Expr Parse(ParserContext context)
         {
+            // Capture the current token's type.
             TokenType currentTokenType = context.Stream.Get().Type;
 
             // Variable declaration expression.
             if (TokenIdentifier.IsType(currentTokenType))
             {
                 return new VarDeclareExprParser().Parse(context);
+            }
+            // If expression.
+            else if (currentTokenType == TokenType.KeywordIf)
+            {
+                return new IfExprParser().Parse(context);
             }
 
             // Otherwise, delegate to the primary expression parser.
