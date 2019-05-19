@@ -118,13 +118,6 @@ namespace Ion.SyntaxAnalysis
             {TokenType.OperatorExponent, 80}
         };
 
-        public static Dictionary<ErrorType, string> errorTypeStrings = new Dictionary<ErrorType, string>
-        {
-            {ErrorType.Error, "Error"},
-            {ErrorType.Fatal, "Fatal"},
-            {ErrorType.Warning, "Warning"}
-        };
-
         public static Dictionary<TokenType, SimpleMathBuilderInvoker> operatorBuilderMap = new Dictionary<TokenType, SimpleMathBuilderInvoker>
         {
             {TokenType.OperatorAddition, LLVM.BuildAdd},
