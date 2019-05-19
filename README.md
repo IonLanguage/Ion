@@ -14,6 +14,10 @@ A language implemented in C# using LLVM 5.0 bindings.
 
 File extension: `.ion`
 
+### Requirements
+
+> [Microsoft Visual C++ Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=48145) (**Windows only**)
+
 ### Installation
 
 Head over to the releases page on the CLI utility's repository to get your installer!
