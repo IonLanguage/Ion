@@ -28,6 +28,9 @@ namespace Ion.Parsing
             // If expression contains an alternative action.
             if (token.Type == TokenType.KeywordElse)
             {
+                // Skip else keyword token.
+                context.Stream.Skip();
+
                 // Invoke a new block parser to parse the alternative action.
                 otherwise = new BlockParser().Parse(context);
             }
