@@ -33,7 +33,9 @@ namespace Ion.CodeGeneration
 
         Pipe,
 
-        Lambda
+        Lambda,
+
+        If
     }
 
     public abstract class Expr : Named, IPipe<LLVMBuilderRef, LLVMValueRef>
