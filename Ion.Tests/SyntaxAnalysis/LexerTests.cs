@@ -55,13 +55,13 @@ namespace Ion.Tests.SyntaxAnalysis
         {
             // Create lexer and tokenize the input.
             Lexer lexer = new Lexer(input, (LexerOptions.IgnoreWhitespace));
-            List<Token> tokens = lexer.Tokenize();
+            Token[] tokens = lexer.Tokenize();
 
             // Ensure length is the same.
-            Assert.AreEqual(this.sequence.Length, tokens.Count);
+            Assert.AreEqual(this.sequence.Length, tokens.Length);
 
             // Verify sequence.
-            for (int i = 0; i < tokens.Count; i++)
+            for (int i = 0; i < tokens.Length; i++)
             {
                 // Compare tokenized token to corresponding token on the sequence.
                 Assert.AreEqual(sequence[i], tokens[i].Type);
@@ -79,10 +79,10 @@ namespace Ion.Tests.SyntaxAnalysis
             Lexer lexer = new Lexer(input);
 
             // Tokenize the input.
-            List<Token> tokens = lexer.Tokenize();
+            Token[] tokens = lexer.Tokenize();
 
             // Ensure token's length.
-            Assert.AreEqual(tokens.Count, 1);
+            Assert.AreEqual(tokens.Length, 1);
 
             // Ensure token is unknown.
             Assert.AreEqual(tokens[0].Type, TokenType.Unknown);
@@ -109,13 +109,13 @@ namespace Ion.Tests.SyntaxAnalysis
             Lexer lexer = new Lexer(input, LexerOptions.None);
 
             // Tokenize the input.
-            List<Token> tokens = lexer.Tokenize();
+            Token[] tokens = lexer.Tokenize();
 
             // Compare lengths.
-            Assert.AreEqual(expected.Length, tokens.Count);
+            Assert.AreEqual(expected.Length, tokens.Length);
 
             // Compare results.
-            for (int i = 0; i < tokens.Count; i++)
+            for (int i = 0; i < tokens.Length; i++)
             {
                 // Compare token types.
                 Assert.AreEqual(expected[i], tokens[i].Type);

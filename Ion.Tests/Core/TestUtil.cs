@@ -48,10 +48,10 @@ namespace Ion.Tests.Core
             Lexer lexer = new Lexer(input);
 
             // Tokenize the input.
-            List<Token> tokens = lexer.Tokenize();
+            Token[] tokens = lexer.Tokenize();
 
             // Create the resulting stream.
-            TokenStream stream = new TokenStream(tokens.ToArray());
+            TokenStream stream = new TokenStream(tokens);
 
             // Return the stream.
             return stream;
