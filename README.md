@@ -14,18 +14,29 @@ A language implemented in C# using LLVM 5.0 bindings.
 
 File extension: `.ion`
 
-### Requirements
+### 📋 Table of Contents
+
+* [Requirements](#)
+* [Installation](#)
+* [Getting started](#)
+    * [Windows](#)
+    * [Linux](#)
+* [Core principles](#)
+* [Examples](#)
+* [Naming convention](#)
+
+### 🧩 Requirements
 
 > [Microsoft Visual C++ Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=48145) (**Windows only**)
 
-### Installation
+### 📦 Installation
 
 Head over to the releases page on the CLI utility's repository to get your installer!
 
 > [View releases](https://github.com/IonLanguage/Ion.CLI/releases)
 
 
-### Getting started
+### 🚀 Getting started
 
 Make sure you have Ion installed on your machine at this point.
 
@@ -95,7 +106,7 @@ You're now ready to run your program! Use the following command to compile & run
 $ ion run
 ```
 
-### Core principles
+### 📜 Core principles
 
 1. **Simplicity**. The language should be simple, or as powerful as the programmer wishes. This means that some symbols and patterns are optional and infered by the compiler.
 
@@ -138,7 +149,7 @@ void GetRoot() {
 
 4. **Portable**.
 
-### Examples
+### 📚 Examples
 
 #### Hello world
 
@@ -167,7 +178,7 @@ int fibonacci(number)
 }
 ```
 
-### Naming convention
+### ⚖ Naming convention
 
 #### Functions
 
