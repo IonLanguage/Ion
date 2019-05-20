@@ -16,14 +16,14 @@ File extension: `.ion`
 
 ### 📋 Table of Contents
 
-* [Requirements](#)
-* [Installation](#)
-* [Getting started](#)
-    * [Windows](#)
-    * [Linux](#)
-* [Core principles](#)
-* [Examples](#)
-* [Naming convention](#)
+* [Requirements](#-requirements)
+* [Installation](#-installation)
+* [Getting started](#-getting-started)
+    * [Windows](#windows)
+    * [Linux](#linux)
+* [Core principles](#-core-principles)
+* [Examples](#-examples)
+* [Naming convention](#-naming-convention)
 
 ### 🧩 Requirements
 
