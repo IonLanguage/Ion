@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Ion.CodeGeneration;
 using Ion.CodeGeneration.Structure;
-using Ion.CognitiveServices;
 using Ion.Core;
 using Ion.SyntaxAnalysis;
 using LLVMSharp;

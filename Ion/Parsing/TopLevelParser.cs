@@ -8,7 +8,6 @@ namespace Ion.Parsing
 {
     public class TopLevelParser : IParser<bool>
     {
-
         public readonly Module Module;
         public readonly PipeContext<Module> ModulePipeContext;
 
@@ -86,7 +85,5 @@ namespace Ion.Parsing
             // TODO: Should return something else?
             return true;
         }
-
     }
-
 }
