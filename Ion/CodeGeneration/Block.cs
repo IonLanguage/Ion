@@ -30,9 +30,11 @@ namespace Ion.CodeGeneration
 
         public LLVMBasicBlockRef Emit(PipeContext<LLVMValueRef> context)
         {
-            // Create the block and its corresponding builder.
+            // Create the block.
             LLVMBasicBlockRef block = LLVM.AppendBasicBlock(context.Target, this.Name);
-            LLVMBuilderRef builder = LLVM.CreateBuilder();
+
+            // Create the block's builder.
+            LLVMBuilderRef builder = block.CreateBuilder();
 
             // Derive a context for the builder.
             PipeContext<LLVMBuilderRef> builderContext = context.Derive<LLVMBuilderRef>(builder);

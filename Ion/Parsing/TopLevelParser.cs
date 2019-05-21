@@ -60,6 +60,15 @@ namespace Ion.Parsing
                     globalVariable.Emit(this.ModulePipeContext);
                 }
             }
+            // Struct definition.
+            else if (type == TokenType.KeywordStruct)
+            {
+                // Invoke the struct parser.
+                Struct @struct = new StructParser().Parse(context);
+
+                // Emit the struct construct.
+                @struct.Emit(this.ModulePipeContext);
+            }
             // External definition.
             else if (type == TokenType.KeywordExternal)
             {

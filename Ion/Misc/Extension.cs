@@ -38,8 +38,8 @@ namespace Ion.Misc
         /// </summary>
         public static LLVMBuilderRef CreateBuilder(this LLVMBasicBlockRef block, bool positionAtStart = true)
         {
-            // Create a new builder.
-            LLVMBuilderRef builder = LLVM.CreateBuilder();
+            // Create a new builder and link it to the global context.
+            LLVMBuilderRef builder = LLVM.CreateBuilderInContext(LLVM.GetGlobalContext());
 
             // Position the builder at the beginning of the block.
             if (positionAtStart)

@@ -33,9 +33,9 @@ namespace Ion.CodeGeneration
             this.Imports = new List<string>();
         }
 
-        public Module(string fileName, string identifier) : this(fileName, LLVM.ModuleCreateWithName(identifier))
+        public Module(string fileName, string identifier) : this(fileName, LLVM.ModuleCreateWithNameInContext(identifier, LLVM.GetGlobalContext()))
         {
-            // TODO: Restrict to identifier pattern
+            // TODO: Restrict to identifier pattern (use Util.ValidateIdentifier()).
             this.Identifier = identifier;
         }
 

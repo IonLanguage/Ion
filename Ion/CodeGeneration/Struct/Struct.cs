@@ -5,7 +5,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Struct : Named, ITopLevelPipe
+    public class Struct : Named, IPipe<Module, LLVMTypeRef>
     {
         public StructPrototype Prototype { get; }
 
@@ -15,10 +15,14 @@ namespace Ion.CodeGeneration
             this.Prototype = prototype;
         }
 
-        public LLVMValueRef Emit(PipeContext<Module> context)
+        public LLVMTypeRef Emit(PipeContext<Module> context)
         {
-            // TODO: Implement.
-            throw new NotImplementedException();
+            // TODO: Finish implementing.
+            LLVMTypeRef @struct = LLVM.StructCreateNamed(LLVM.GetGlobalContext(), this.Name);
+
+            LLVM.StructSetBody(@struct, new LLVMTypeRef[] { }, false);
+
+            return @struct;
         }
     }
 }
