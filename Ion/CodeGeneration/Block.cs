@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Ion.CodeGeneration.Helpers;
 using Ion.Misc;

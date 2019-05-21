@@ -36,14 +36,15 @@ namespace Ion.Misc
         /// Create a new LLVM block builder and position
         /// it accordingly.
         /// </summary>
-        public static LLVMBuilderRef CreateBuilder(this LLVMBasicBlockRef block, bool positionAtStart = true)
+        public static LLVMBuilderRef CreateBuilder(this LLVMBasicBlockRef block, bool positionAtEnd = true)
         {
-            // Create a new builder and link it to the global context.
-            LLVMBuilderRef builder = LLVM.CreateBuilderInContext(LLVM.GetGlobalContext());
+            // Create a new builder.
+            LLVMBuilderRef builder = LLVM.CreateBuilder();
 
             // Position the builder at the beginning of the block.
-            if (positionAtStart)
+            if (!positionAtEnd)
             {
+                // TODO: This is causing a hang up.
                 LLVM.PositionBuilderBefore(builder, block.GetLastInstruction());
             }
             // Otherwise, at the end of the block.
