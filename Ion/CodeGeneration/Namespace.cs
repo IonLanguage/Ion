@@ -1,5 +1,5 @@
 using System;
-using Ion.CodeGeneration.Structure;
+using Ion.CodeGeneration.Helpers;
 using System.Collections.Generic;
 using Ion.Misc;
 using Ion.Parsing;

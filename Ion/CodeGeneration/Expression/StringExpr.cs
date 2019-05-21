@@ -1,4 +1,4 @@
-using Ion.CodeGeneration.Structure;
+using Ion.CodeGeneration.Helpers;
 using Ion.CognitiveServices;
 using Ion.Core;
 using Ion.SyntaxAnalysis;

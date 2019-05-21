@@ -1,4 +1,4 @@
-namespace Ion.CodeGeneration.Structure
+namespace Ion.CodeGeneration.Helpers
 {
     public interface IUncontextedEntity<T>
     {

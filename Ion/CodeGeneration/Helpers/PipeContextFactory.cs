@@ -1,6 +1,6 @@
 using LLVMSharp;
 
-namespace Ion.CodeGeneration.Structure
+namespace Ion.CodeGeneration.Helpers
 {
     public static class PipeContextFactory
     {

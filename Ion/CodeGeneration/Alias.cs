@@ -1,4 +1,4 @@
-using Ion.CodeGeneration.Structure;
+using Ion.CodeGeneration.Helpers;
 
 namespace Ion.CodeGeneration
 {

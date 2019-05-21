@@ -1,5 +1,5 @@
 using System;
-using Ion.CodeGeneration.Structure;
+using Ion.CodeGeneration.Helpers;
 using Ion.Misc;
 using LLVMSharp;
 

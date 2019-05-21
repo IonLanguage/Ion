@@ -1,7 +1,7 @@
 using Ion.Core;
 using LLVMSharp;
 
-namespace Ion.CodeGeneration.Structure
+namespace Ion.CodeGeneration.Helpers
 {
     /// <summary>
     /// Serves as a wrapper to provide direct access to

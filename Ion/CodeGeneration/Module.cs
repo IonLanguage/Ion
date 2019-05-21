@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Ion.CodeGeneration;
-using Ion.CodeGeneration.Structure;
+using Ion.CodeGeneration.Helpers;
 using Ion.Core;
 using Ion.SyntaxAnalysis;
 using LLVMSharp;

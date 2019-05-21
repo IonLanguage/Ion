@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Ion.CodeGeneration;
-using Ion.CodeGeneration.Structure;
+using Ion.CodeGeneration.Helpers;
 
 namespace Ion.Core
 {

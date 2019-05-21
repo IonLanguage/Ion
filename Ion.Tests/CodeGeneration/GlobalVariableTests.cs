@@ -8,7 +8,7 @@ using Ion.Tests.Core;
 using Ion.Parsing;
 using Ion.CodeGeneration;
 using Ion.Core;
-using Ion.CodeGeneration.Structure;
+using Ion.CodeGeneration.Helpers;
 
 namespace Ion.Tests.CodeGeneration
 {
