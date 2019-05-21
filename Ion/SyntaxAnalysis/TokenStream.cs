@@ -7,6 +7,8 @@ namespace Ion.SyntaxAnalysis
 {
     public class TokenStream : Stream<Token>
     {
+        public delegate void NextUntilCallback(Token token);
+
         public TokenStream()
         {
             // Prepare the initial enumerator.
@@ -147,6 +149,28 @@ namespace Ion.SyntaxAnalysis
             this.Skip(type);
 
             return this.Get();
+        }
+
+        public void NextUntil(TokenType type, NextUntilCallback callback)
+        {
+            // Create the buffer token.
+            Token buffer = this.Get();
+
+            // Initiate the loop.
+            while (buffer.Type != type)
+            {
+                // Invoke the callback.
+                callback(buffer);
+
+                // At this point, throw an error if EOF was reached.
+                if (this.IsLastItem)
+                {
+                    throw new IndexOutOfRangeException($"Expected '{type}' to be encountered, but got EOF");
+                }
+
+                // Update the buffer.
+                buffer = this.Next();
+            }
         }
     }
 }

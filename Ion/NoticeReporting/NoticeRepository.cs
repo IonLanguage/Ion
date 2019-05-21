@@ -33,19 +33,33 @@ namespace Ion.NoticeReporting
             return exception;
         }
 
+        public void CreateWarning(string message)
+        {
+            // Create the warning.
+            Warning warning = new Warning(message, this.sourceFileName);
+
+            // Append the warning onto the stack.
+            this.stack.Append(warning);
+        }
+
         public ReadOnlyNoticeStack GetStack()
         {
             return this.stack.AsReadOnly();
         }
 
-        public void UnexpectedToken(TokenType expected, TokenType actual)
+        public ParserException UnexpectedToken(TokenType expected, TokenType actual)
         {
-            this.CreateException($"Unexpected token '{actual}'; Expected '{expected}'", InternalErrorNames.Syntax);
+            return this.CreateException($"Unexpected token '{actual}'; Expected '{expected}'", InternalErrorNames.Syntax);
         }
 
-        public void ArgumentMismatch(string functionName, int expected, int actual)
+        public ParserException ArgumentMismatch(string functionName, int expected, int actual)
         {
-            this.CreateException($"Argument mismatch for function '{functionName}'; Expected '{expected}' arguments but got '{actual}'");
+            return this.CreateException($"Argument mismatch for function '{functionName}'; Expected '{expected}' arguments but got '{actual}'");
+        }
+
+        public void UnknownToken(string value)
+        {
+            this.CreateWarning($"Unknown token encountered: '{value}'");
         }
     }
 }

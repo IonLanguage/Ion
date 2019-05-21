@@ -9,13 +9,13 @@ namespace Ion.NoticeReporting
             //
         }
 
-        public void Append(Error error)
+        public void Append(Notice notice)
         {
             // Create and populate the item.
             NoticeStackItem item = new NoticeStackItem
             {
                 Position = this.stream.Index,
-                SourceFile = error.sourceFileName
+                SourceFile = notice.sourceFileName
             };
 
             // Add the item onto the stack.

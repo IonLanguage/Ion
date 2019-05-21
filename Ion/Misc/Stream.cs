@@ -86,13 +86,16 @@ namespace Ion.Misc
 
         public T Next()
         {
+            // Skip current item.
             this.Skip();
 
+            // Return the new item.
             return this.Get();
         }
 
         public T Peek(int amount = 1)
         {
+            // Create the new index buffer, default to the current index.
             int newIndex = this.index;
 
             // Apply pivot if applicable.

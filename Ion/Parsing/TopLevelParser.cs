@@ -6,34 +6,37 @@ using Ion.SyntaxAnalysis;
 
 namespace Ion.Parsing
 {
-    public class TopLevelParser : IParser<bool>
+    public class TopLevelHandler : IReaction<ParserContext>
     {
-        public readonly Module Module;
         public readonly PipeContext<Module> ModulePipeContext;
 
-        public TopLevelParser(Module module, PipeContext<Module> pipeContext)
+        public TopLevelHandler(PipeContext<Module> pipeContext)
         {
-            this.Module = module;
             this.ModulePipeContext = pipeContext;
         }
 
-        // TODO: Is returning bool fine?
-        public bool Parse(ParserContext context)
+        public void Invoke(ParserContext context)
         {
             // Retrieve the current token.
-            TokenType type = context.Stream.Get().Type;
+            Token token = context.Stream.Get();
+
+            // Abstract the token's type.
+            TokenType type = token.Type;
 
             // Skip unknown tokens for error recovery.
             if (type == TokenType.Unknown)
             {
-                // TODO: Use error reporting.
-                Console.WriteLine("Warning: Skipping unknown token");
+                // Create the warning.
+                context.NoticeRepository.UnknownToken(token.Value);
 
-                return false;
+                // Skip token.
+                context.Stream.Skip();
+
+                // Return immediately.
+                return;
             }
-
             // Function definition or global variable.
-            if (TokenIdentifier.IsType(type))
+            else if (TokenIdentifier.IsType(type))
             {
                 // Peek the token after identifier.
                 Token afterIdentifier = context.Stream.Peek(2);
@@ -61,29 +64,26 @@ namespace Ion.Parsing
             else if (type == TokenType.KeywordExternal)
             {
                 // Invoke the external definition parser.
-                Extern external = new ExternParser().Parse(context);
+                Extern @extern = new ExternParser().Parse(context);
 
                 // Emit the external definition.
-                external.Emit(this.ModulePipeContext);
+                @extern.Emit(this.ModulePipeContext);
             }
             // TODO: Enforce a single namespace definition per-file.
             // Namespace definition.
             else if (type == TokenType.KeywordNamespace)
             {
                 // Invoke the namespace definition parser.
-                Namespace namespaceEntity = new NamespaceParser().Parse(context);
+                Namespace @namespace = new NamespaceParser().Parse(context);
 
                 // Process the namespace definition reaction.
-                namespaceEntity.Invoke(this.Module);
+                @namespace.Invoke(this.ModulePipeContext.Target);
             }
             // Otherwise, throw an error.
             else
             {
                 throw new Exception("Unexpected top-level entity");
             }
-
-            // TODO: Should return something else?
-            return true;
         }
     }
 }

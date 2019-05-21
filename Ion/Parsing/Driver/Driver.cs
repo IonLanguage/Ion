@@ -87,8 +87,8 @@ namespace Ion.Parsing
                 return false;
             }
 
-            // Create and invoke the top level parser.
-            new TopLevelParser(this.Module, this.ModulePipeContext).Parse(this.ParserContext);
+            // Create and invoke the top level handler.
+            new TopLevelHandler(this.ModulePipeContext).Invoke(this.ParserContext);
 
             // At this point, an entity was processed.
             return true;

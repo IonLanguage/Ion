@@ -20,13 +20,8 @@ namespace Ion.Misc
         /// </summary>
         public void SetName(string name)
         {
-            // Ensure name is not null nor empty.
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new Exception("Unexpected name to be null or empty");
-            }
-            // Ensure identifier pattern matches provided name.
-            else if (Pattern.Identifier.IsMatch(name))
+            // Ensure name is valid.
+            if (Util.ValidateIdentifier(name))
             {
                 this.Name = name;
             }

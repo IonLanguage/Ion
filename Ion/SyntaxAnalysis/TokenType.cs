@@ -206,6 +206,8 @@ namespace Ion.SyntaxAnalysis
 
         KeywordAs,
 
+        KeywordStruct,
+
         // Symbols.
         SymbolBlockL,
 
