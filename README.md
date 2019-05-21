@@ -167,14 +167,14 @@ int main()
 #### Fibonacci sequence algorithm implementation
 
 ```c#
-int fibonacci(number)
+int Fibonacci(number)
 {
     if (number <= 1)
     {
         return 1;
     }
 
-    return fibonacci(number - 1) + fibonacci(number - 2);
+    return Fibonacci(number - 1) + Fibonacci(number - 2);
 }
 ```
 
