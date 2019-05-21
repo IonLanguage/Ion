@@ -35,7 +35,6 @@ namespace Ion.CodeGeneration
 
         public Module(string fileName, string identifier) : this(fileName, LLVM.ModuleCreateWithName(identifier))
         {
-            // TODO: Should identifier verification be applied?
             this.Identifier = identifier;
         }
 
