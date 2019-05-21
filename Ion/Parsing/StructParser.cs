@@ -24,7 +24,7 @@ namespace Ion.Parsing
             StructPrototype prototype = new StructPrototype();
 
             // Start iteration with callback.
-            context.Stream.NextUntil(TokenType.SymbolBlockL, (Token token) =>
+            context.Stream.NextUntil(TokenType.SymbolBlockR, (Token token) =>
             {
                 // Invoke type parser.
                 Type type = new TypeParser().Parse(context);
