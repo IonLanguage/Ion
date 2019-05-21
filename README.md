@@ -27,7 +27,7 @@ File extension: `.ion`
 
 ### 🧩 Requirements
 
-> [Microsoft Visual C++ Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=48145) (**Windows only**)
+> [Microsoft Visual C++ Redistributable 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48145) (**Windows only**)
 
 ### 📦 Installation
 
