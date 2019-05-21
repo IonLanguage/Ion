@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Ion.Tests.Core
 {
-    public class EntityWrapper
+    public class ConstructWrapper
     {
         public Driver Driver { get; protected set; }
 

@@ -13,7 +13,7 @@ using Ion.Tests.Wrappers;
 namespace Ion.Tests.CodeGeneration
 {
     [TestFixture]
-    internal sealed class CallTests : EntityTest
+    internal sealed class CallTests : ConstructTest
     {
         [Test]
         public void CallWithoutArguments()

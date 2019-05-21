@@ -14,7 +14,7 @@ using Ion.Tests.Wrappers;
 namespace Ion.Tests.CodeGeneration
 {
     [TestFixture]
-    internal sealed class FunctionTests : EntityTest
+    internal sealed class FunctionTests : ConstructTest
     {
         [Test]
         public void FunctionWithArguments()

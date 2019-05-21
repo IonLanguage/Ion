@@ -13,7 +13,7 @@ using Ion.Tests.Wrappers;
 namespace Ion.Tests.CodeGeneration
 {
     [TestFixture]
-    internal sealed class ExternTests : EntityTest
+    internal sealed class ExternTests : ConstructTest
     {
         [Test]
         public void Extern()

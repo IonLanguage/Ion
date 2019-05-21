@@ -13,7 +13,7 @@ using Ion.Tests.Wrappers;
 namespace Ion.Tests.CodeGeneration
 {
     [TestFixture]
-    internal sealed class ComplexTests : EntityTest
+    internal sealed class ComplexTests : ConstructTest
     {
         [Test]
         public void Complex()
