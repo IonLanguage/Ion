@@ -6,7 +6,6 @@ using Ion.SyntaxAnalysis;
 
 namespace Ion.Parsing
 {
-
     public class TopLevelParser : IParser<bool>
     {
 
