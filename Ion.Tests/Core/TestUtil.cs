@@ -39,31 +39,13 @@ namespace Ion.Tests.Core
             return TestUtil.ReadDataFile($"Input/{name}.ion");
         }
 
-        /// <summary>
-        /// Create token stream from an input string.
-        /// </summary>
-        public static TokenStream CreateStreamFromInput(string input)
-        {
-            // Create the lexer.
-            Lexer lexer = new Lexer(input);
-
-            // Tokenize the input.
-            Token[] tokens = lexer.Tokenize();
-
-            // Create the resulting stream.
-            TokenStream stream = new TokenStream(tokens);
-
-            // Return the stream.
-            return stream;
-        }
-
         public static TokenStream CreateStreamFromInputDataFile(string path)
         {
             // Read the input file's content.
             string input = TestUtil.ReadInputDataFile(path);
 
             // Create the stream.
-            TokenStream stream = TestUtil.CreateStreamFromInput(input);
+            TokenStream stream = TokenStreamFactory.CreateStreamFromInput(input);
 
             // Return the stream.
             return stream;
@@ -72,7 +54,7 @@ namespace Ion.Tests.Core
         public static Driver CreateDriverFromInputDataFile(string path)
         {
             // Create the token stream.
-            TokenStream stream = TestUtil.CreateStreamFromInputDataFile(path);
+            TokenStream stream = DriverFactory.CreateStreamFromInputDataFile(path);
 
             // Create the new driver instance.
             Driver driver = new Driver(stream);

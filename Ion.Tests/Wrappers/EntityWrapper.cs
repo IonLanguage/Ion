@@ -55,6 +55,7 @@ namespace Ion.Tests.Core
                 throw new ArgumentOutOfRangeException("The amount of times parameter must be one or higher");
             }
 
+            // Begin iteration.
             for (int i = 0; i < times; i++)
             {
                 // Expect the driver to have next.

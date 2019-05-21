@@ -47,7 +47,8 @@ namespace Ion.Parsing
             // Create and populate the driver result.
             DriverResult result = new DriverResult
             {
-                Notices = this.ParserContext.NoticeRepository.GetStack()
+                Notices = this.ParserContext.NoticeRepository.GetStack(),
+                OutputIr = this.ParserContext.Driver.Module.Emit()
             };
 
             // Return the result.
