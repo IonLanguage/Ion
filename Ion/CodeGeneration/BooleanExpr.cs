@@ -27,8 +27,6 @@ namespace Ion.CodeGeneration
             // Resolve the value.
             LLVMValueRef valueRef = Resolvers.Literal(this.tokenType, this.value, this.type);
 
-            // TODO: No value being emitted.
-
             // Return the emitted value.
             return valueRef;
         }
