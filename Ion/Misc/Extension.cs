@@ -43,10 +43,14 @@ namespace Ion.Misc
 
             // Position the builder at the beginning of the block.
             if (positionAtStart)
+            {
                 LLVM.PositionBuilderBefore(builder, block.GetLastInstruction());
+            }
             // Otherwise, at the end of the block.
             else
+            {
                 LLVM.PositionBuilderAtEnd(builder, block);
+            }
 
             // Return the linked builder.
             return builder;
