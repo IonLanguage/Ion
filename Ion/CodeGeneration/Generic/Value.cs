@@ -11,11 +11,11 @@ namespace Ion.CodeGeneration
     {
         public string ValueString { get; }
 
-        public Type Type { get; }
+        public PrimitiveType Type { get; }
 
         public TokenType TokenType { get; }
 
-        public Value(Type type, TokenType tokenType, string valueString)
+        public Value(PrimitiveType type, TokenType tokenType, string valueString)
         {
             this.Type = type;
             this.TokenType = tokenType;

@@ -22,7 +22,7 @@ namespace Ion.Parsing
             }
 
             // Create the boolean expression entity.
-            BooleanExpr booleanExpr = new BooleanExpr(token.Type, Resolvers.TypeFromToken(token), token.Value);
+            BooleanExpr booleanExpr = new BooleanExpr(token.Type, token.Value);
 
             // Return the boolean expression entity.
             return booleanExpr;

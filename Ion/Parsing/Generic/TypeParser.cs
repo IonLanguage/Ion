@@ -10,19 +10,19 @@ namespace Ion.Parsing
         public Type Parse(ParserContext context)
         {
             // Consume current type token.
-            Token type = context.Stream.Get();
+            Token token = context.Stream.Get();
 
             // Skip type.
             context.Stream.Skip();
 
             // Ensure type value is a type.
-            if (!TokenIdentifier.IsType(type))
+            if (!TokenIdentifier.IsType(token, context))
             {
-                throw new Exception($"Expected a type but got '{type.Type}'");
+                throw new Exception($"Expected a type but got '{token.Type}'");
             }
 
             // Create the type.
-            return new Type(type.Value);
+            return new Type(token);
         }
     }
 }

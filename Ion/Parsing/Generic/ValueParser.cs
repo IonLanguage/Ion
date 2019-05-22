@@ -22,7 +22,7 @@ namespace Ion.Parsing
             }
 
             // Create and return the value.
-            return new Value(Resolvers.TypeFromTokenType(type.Value), type.Value, value);
+            return new Value(Resolvers.PrimitiveType(type.Value), type.Value, value);
         }
     }
 }

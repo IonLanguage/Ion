@@ -1,5 +1,6 @@
 using Ion.CodeGeneration.Helpers;
 using Ion.CognitiveServices;
+using Ion.Misc;
 using Ion.SyntaxAnalysis;
 using LLVMSharp;
 
@@ -11,21 +12,18 @@ namespace Ion.CodeGeneration
 
         public readonly TokenType tokenType;
 
-        public readonly Type type;
-
         public readonly string value;
 
-        public BooleanExpr(TokenType tokenType, Type type, string value)
+        public BooleanExpr(TokenType tokenType, string value)
         {
             this.tokenType = tokenType;
-            this.type = type;
             this.value = value;
         }
 
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
             // Resolve the value.
-            LLVMValueRef valueRef = Resolvers.Literal(this.tokenType, this.value, this.type);
+            LLVMValueRef valueRef = Resolvers.Literal(this.tokenType, this.value, PrimitiveTypeFactory.Boolean());
 
             // Return the emitted value.
             return valueRef;

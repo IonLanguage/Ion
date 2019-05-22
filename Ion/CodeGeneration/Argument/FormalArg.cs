@@ -4,7 +4,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class FormalArg : Named, IUncontextedEntity<LLVMTypeRef>
+    public class FormalArg : Named, IGenericPipe<LLVMTypeRef>
     {
         protected readonly Type type;
 
@@ -13,10 +13,10 @@ namespace Ion.CodeGeneration
             this.type = type;
         }
 
-        public LLVMTypeRef Emit()
+        public LLVMTypeRef Emit(IGenericPipeContext context)
         {
             // Emit the type.
-            LLVMTypeRef type = this.type.Emit();
+            LLVMTypeRef type = this.type.Emit(context);
 
             // Return the emitted type.
             return type;

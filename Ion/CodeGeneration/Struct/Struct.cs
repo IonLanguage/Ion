@@ -25,7 +25,7 @@ namespace Ion.CodeGeneration
             context.SymbolTable.structs.Add(this.Name, @struct);
 
             // TODO: Finish implementing (heavy hard-coded debugging code below, a function must be registered beforehand this point or will hang).
-            LLVM.StructSetBody(@struct, new LLVMTypeRef[] { TypeFactory.Boolean().Emit() }, true);
+            LLVM.StructSetBody(@struct, new LLVMTypeRef[] { PrimitiveTypeFactory.Boolean().Emit() }, true);
 
             var b = LLVM.CreateBuilder();
 

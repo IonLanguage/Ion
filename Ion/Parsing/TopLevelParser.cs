@@ -36,7 +36,7 @@ namespace Ion.Parsing
                 return;
             }
             // Function definition or global variable.
-            else if (TokenIdentifier.IsType(type))
+            else if (TokenIdentifier.IsPrimitiveType(type))
             {
                 // Peek the token after identifier.
                 Token afterIdentifier = context.Stream.Peek(2);

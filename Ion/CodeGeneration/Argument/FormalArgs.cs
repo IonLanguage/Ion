@@ -4,7 +4,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class FormalArgs : IUncontextedEntity<LLVMTypeRef[]>
+    public class FormalArgs : IGenericPipe<LLVMTypeRef[]>
     {
         /// <summary>
         /// The list of arguments.
@@ -22,7 +22,7 @@ namespace Ion.CodeGeneration
             this.Continuous = false;
         }
 
-        public LLVMTypeRef[] Emit()
+        public LLVMTypeRef[] Emit(IGenericPipeContext context)
         {
             // Create the resulting argument list.
             List<LLVMTypeRef> args = new List<LLVMTypeRef>();
@@ -31,7 +31,7 @@ namespace Ion.CodeGeneration
             foreach (FormalArg arg in this.Values)
             {
                 // Emit and append each argument.
-                args.Add(arg.Emit());
+                args.Add(arg.Emit(context));
             }
 
             // Return the resulting argument array.

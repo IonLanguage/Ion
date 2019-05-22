@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Ion.CodeGeneration;
 using Ion.Misc;
 using Ion.SyntaxAnalysis;
 using LLVMSharp;
@@ -11,7 +12,7 @@ namespace Ion.CognitiveServices
     {
         public delegate LLVMTypeRef LlvmTypeResolver();
 
-        public delegate Type TypeResolver();
+        public delegate PrimitiveType PrimitiveTypeResolver();
 
         private static readonly Dictionary<string, LlvmTypeResolver> LlvmTypeMap =
             new Dictionary<string, LlvmTypeResolver>
@@ -25,22 +26,22 @@ namespace Ion.CognitiveServices
                 {TypeName.Character, LLVMTypeRef.Int8Type}
             };
 
-        private static readonly Dictionary<TokenType, TypeResolver> LiteralTypeMap =
-            new Dictionary<TokenType, TypeResolver>
+        private static readonly Dictionary<TokenType, PrimitiveTypeResolver> LiteralTypeMap =
+            new Dictionary<TokenType, PrimitiveTypeResolver>
             {
-                {TokenType.LiteralCharacter, TypeFactory.Character},
+                {TokenType.LiteralCharacter, PrimitiveTypeFactory.Character},
 
                 // TODO: What about float?
-                {TokenType.LiteralDecimal, TypeFactory.Double},
+                {TokenType.LiteralDecimal, PrimitiveTypeFactory.Double},
 
                 // TODO: What about Int64?
-                {TokenType.LiteralInteger, TypeFactory.Int32},
+                {TokenType.LiteralInteger, PrimitiveTypeFactory.Int32},
 
-                {TokenType.LiteralString, TypeFactory.String},
+                {TokenType.LiteralString, PrimitiveTypeFactory.String},
 
-                {TokenType.KeywordTrue, TypeFactory.Boolean},
+                {TokenType.KeywordTrue, PrimitiveTypeFactory.Boolean},
 
-                {TokenType.KeywordFalse, TypeFactory.Boolean}
+                {TokenType.KeywordFalse, PrimitiveTypeFactory.Boolean}
             };
 
         public static LLVMTypeRef LlvmTypeFromName(string name)
@@ -61,27 +62,27 @@ namespace Ion.CognitiveServices
             throw new Exception($"Non-registered type resolver for type '{name}'");
         }
 
-        public static Type TypeFromTokenType(TokenType tokenType)
+        public static PrimitiveType PrimitiveType(TokenType tokenType)
         {
-            if (LiteralTypeMap.ContainsKey(tokenType))
+            if (Resolvers.LiteralTypeMap.ContainsKey(tokenType))
             {
-                return LiteralTypeMap[tokenType]();
+                return Resolvers.LiteralTypeMap[tokenType]();
             }
 
             throw new Exception($"Non-registered type resolver for token type '{tokenType}'");
         }
 
-        public static Type TypeFromToken(Token token)
+        public static PrimitiveType PrimitiveType(Token token)
         {
-            return TypeFromTokenType(token.Type);
+            return Resolvers.PrimitiveType(token.Type);
         }
 
-        public static LLVMValueRef Literal(Token token, Type type)
+        public static LLVMValueRef Literal(Token token, PrimitiveType type)
         {
-            return Literal(token.Type, token.Value, type);
+            return Resolvers.Literal(token.Type, token.Value, type);
         }
 
-        public static LLVMValueRef Literal(TokenType tokenType, string value, Type type)
+        public static LLVMValueRef Literal(TokenType tokenType, string value, PrimitiveType type)
         {
             // Token value is an integer.
             if (tokenType == TokenType.LiteralInteger)
@@ -124,6 +125,7 @@ namespace Ion.CognitiveServices
                 return LLVM.ConstInt(type.Emit(), boolValue, false);
             }
 
+            // At this point, type is unsupported.
             throw new Exception("Cannot resolve unsupported type");
         }
     }

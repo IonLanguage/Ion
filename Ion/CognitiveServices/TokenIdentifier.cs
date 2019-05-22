@@ -1,4 +1,5 @@
 using Ion.CodeGeneration;
+using Ion.Parsing;
 using Ion.SyntaxAnalysis;
 
 namespace Ion.CognitiveServices
@@ -65,7 +66,7 @@ namespace Ion.CognitiveServices
 
         public static bool IsNumeric(Token token)
         {
-            return IsNumeric(token.Type);
+            return TokenIdentifier.IsNumeric(token.Type);
         }
 
         public static bool IsBoolean(TokenType tokenType)
@@ -75,25 +76,30 @@ namespace Ion.CognitiveServices
 
         public static bool IsBoolean(Token token)
         {
-            return IsBoolean(token.Type);
+            return TokenIdentifier.IsBoolean(token.Type);
         }
 
         /// <summary>
         /// Determine if the provided token type
         /// is representing a type
         /// </summary>
-        public static bool IsType(TokenType tokenType)
+        public static bool IsPrimitiveType(TokenType tokenType)
         {
-            return Constants.types.ContainsValue(tokenType);
+            return Constants.primitiveTypes.ContainsValue(tokenType);
         }
 
         /// <summary>
         /// Determine if the provided token is
         /// representing a type
         /// </summary>
-        public static bool IsType(Token token)
+        public static bool IsPrimitiveType(Token token)
         {
-            return IsType(token.Type);
+            return TokenIdentifier.IsPrimitiveType(token.Type);
+        }
+
+        public static bool IsType(Token token, ParserContext context)
+        {
+            return TokenIdentifier.IsPrimitiveType(token.Type) || context.SymbolTable.structs.ContainsKey(token.Value);
         }
 
         /// <summary>

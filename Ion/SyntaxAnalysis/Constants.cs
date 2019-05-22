@@ -67,7 +67,7 @@ namespace Ion.SyntaxAnalysis
             {"!", TokenType.OperatorNot}
         }.SortByKeyLength();
 
-        public static readonly TokenTypeMap types = new TokenTypeMap
+        public static readonly TokenTypeMap primitiveTypes = new TokenTypeMap
         {
             {TypeName.Double, TokenType.TypeDouble},
             {TypeName.Int32, TokenType.TypeInt},
@@ -88,7 +88,7 @@ namespace Ion.SyntaxAnalysis
                 keywords,
                 symbols,
                 operators,
-                types
+                primitiveTypes
             }
             .SelectMany(dictionary => dictionary)
             .ToLookup(pair => pair.Key, pair => pair.Value)

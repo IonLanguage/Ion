@@ -12,7 +12,7 @@ namespace Ion.CodeGeneration
             TokenType currentTokenType = context.Stream.Get().Type;
 
             // Variable declaration expression.
-            if (TokenIdentifier.IsType(currentTokenType))
+            if (TokenIdentifier.IsPrimitiveType(currentTokenType))
             {
                 return new VarDeclareExprParser().Parse(context);
             }

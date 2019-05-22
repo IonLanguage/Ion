@@ -8,7 +8,7 @@ namespace Ion.CodeGeneration.Helpers
     /// key class instances such as symbol table and of course
     /// the entity's target.
     /// </summary>
-    public class PipeContext<T>
+    public class PipeContext<T> : IGenericPipeContext
     {
         public T Target { get; }
 

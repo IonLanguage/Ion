@@ -36,7 +36,7 @@ namespace Ion.CodeGeneration
             LLVMValueRef conditionValue = this.Condition.Emit(context);
 
             // Create a zero-value double for the boolean comparison.
-            LLVMValueRef zero = LLVM.ConstReal(TypeFactory.Double().Emit(), 0.0);
+            LLVMValueRef zero = LLVM.ConstReal(PrimitiveTypeFactory.Double().Emit(), 0.0);
 
             // TODO: Hard-coded name.
             // Build the comparison, condition will be convered to a boolean for a 'ONE' (non-equal) comparison.

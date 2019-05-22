@@ -11,11 +11,11 @@ namespace Ion.CodeGeneration
 
         public readonly TokenType tokenType;
 
-        public readonly Type type;
+        public readonly PrimitiveType type;
 
         public readonly string value;
 
-        public NumericExpr(TokenType tokenType, Type type, string value)
+        public NumericExpr(TokenType tokenType, PrimitiveType type, string value)
         {
             this.tokenType = tokenType;
             this.type = type;

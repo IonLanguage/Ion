@@ -7,11 +7,8 @@ namespace Ion.Parsing
     {
         public GlobalVar Parse(ParserContext context)
         {
-            // Consume type.
-            string typeValue = context.Stream.Get().Value;
-
-            // Create type.
-            Type type = new Type(typeValue);
+            // Invoke type parser.
+            Type type = new TypeParser().Parse(context);
 
             // Skip global variable prefix.
             context.Stream.Skip(TokenType.SymbolAt);
