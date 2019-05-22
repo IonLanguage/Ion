@@ -14,6 +14,8 @@ namespace Ion.Core
 
         public readonly Dictionary<string, CodeGeneration.Module> modules = new Dictionary<string, CodeGeneration.Module>();
 
+        public readonly Dictionary<string, LLVMTypeRef> structs = new Dictionary<string, LLVMTypeRef>();
+
         /// <summary>
         /// Contains locally-scoped emitted values.
         /// All values are reset once the scope changes.
