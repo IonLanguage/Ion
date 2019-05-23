@@ -17,9 +17,9 @@ namespace Ion.Tests.Core
         [TestCase(TokenType.TypeLong)]
         [TestCase(TokenType.TypeString)]
         [TestCase(TokenType.TypeVoid)]
-        public void IsType(TokenType input)
+        public void IsPrimitiveType(TokenType input)
         {
-            Assert.True(TokenIdentifier.IsType(input));
+            Assert.True(TokenIdentifier.IsPrimitiveType(input));
         }
 
         [Test]
@@ -27,9 +27,9 @@ namespace Ion.Tests.Core
         [TestCase(TokenType.Unknown)]
         [TestCase(TokenType.Whitespace)]
         [TestCase(TokenType.Identifier)]
-        public void IsNotType(TokenType input)
+        public void IsNotPrimitiveType(TokenType input)
         {
-            Assert.False(TokenIdentifier.IsType(input));
+            Assert.False(TokenIdentifier.IsPrimitiveType(input));
         }
 
         [Test]

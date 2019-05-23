@@ -7,6 +7,7 @@ namespace Ion.Parsing
     {
         public GlobalVar Parse(ParserContext context)
         {
+            System.Console.WriteLine($"Current: {context.Stream.Get()}");
             // Invoke type parser.
             Type type = new TypeParser().Parse(context);
 

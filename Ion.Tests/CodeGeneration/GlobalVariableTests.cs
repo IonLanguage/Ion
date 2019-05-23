@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
-using LLVMSharp;
 using Ion.SyntaxAnalysis;
 using NUnit.Framework;
 using Ion.Tests.Core;
@@ -15,9 +14,9 @@ namespace Ion.Tests.CodeGeneration
     [TestFixture]
     internal sealed class GlobalVariableTests
     {
-        private Ion.CodeGeneration.Module module;
+        private Module module;
 
-        private PipeContext<Ion.CodeGeneration.Module> modulePipeContext;
+        private PipeContext<Module> modulePipeContext;
 
         private TokenStream stream;
 
@@ -25,7 +24,7 @@ namespace Ion.Tests.CodeGeneration
         public void Setup()
         {
             // Create a new LLVM module instance.
-            this.module = new Ion.CodeGeneration.Module("Test");
+            this.module = new Module("Test");
 
             // Create a pipe context for the module.
             this.modulePipeContext = PipeContextFactory.CreateFromModule(this.module);

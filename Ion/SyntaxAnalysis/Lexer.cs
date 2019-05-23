@@ -238,7 +238,7 @@ namespace Ion.SyntaxAnalysis
         /// </summary>
         public void Skip(int amount = 1)
         {
-            // TODO
+            // TODO: Ensure overflow does not occur, also verify amount?
             // if (this.character + characters >= this.program.Length)
             // {
             //     this.character = this.program.Length - 1;

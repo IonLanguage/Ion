@@ -2,6 +2,7 @@ using NUnit.Framework;
 using Ion.CodeGeneration;
 using System;
 using Ion.Core;
+using Ion.CodeGeneration;
 
 namespace Ion.Tests.CodeGeneration
 {
@@ -18,7 +19,7 @@ namespace Ion.Tests.CodeGeneration
         [Test]
         public void ThrowsOnInvalidParams()
         {
-            Assert.Throws<Exception>(() => new Ion.CodeGeneration.Type("test").Emit());
+            Assert.Throws<Exception>(() => new PrimitiveType("test").Emit());
         }
     }
 }

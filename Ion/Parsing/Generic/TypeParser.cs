@@ -9,17 +9,17 @@ namespace Ion.Parsing
     {
         public Type Parse(ParserContext context)
         {
-            // Consume current type token.
+            // Capture current type token.
             Token token = context.Stream.Get();
 
-            // Skip type.
-            context.Stream.Skip();
-
-            // Ensure type value is a type.
+            // Ensure current token is a type.
             if (!TokenIdentifier.IsType(token, context))
             {
                 throw new Exception($"Expected a type but got '{token.Type}'");
             }
+
+            // Skip current token.
+            context.Stream.Skip();
 
             // Create the type.
             return new Type(context.SymbolTable, token);
