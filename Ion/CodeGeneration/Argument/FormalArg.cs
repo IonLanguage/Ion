@@ -16,7 +16,7 @@ namespace Ion.CodeGeneration
         public LLVMTypeRef Emit(IGenericPipeContext context)
         {
             // Emit the type.
-            LLVMTypeRef type = this.type.Emit(context);
+            LLVMTypeRef type = this.type.Emit();
 
             // Return the emitted type.
             return type;

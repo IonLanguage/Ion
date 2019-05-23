@@ -22,7 +22,7 @@ namespace Ion.Parsing
             }
 
             // Create the type.
-            return new Type(token);
+            return new Type(context.SymbolTable, token);
         }
     }
 }

@@ -6,9 +6,9 @@ namespace Ion.CodeGeneration
     {
         public FormalArgs Args { get; set; }
 
-        public Type ReturnType { get; set; }
+        public ITypeEmitter ReturnType { get; set; }
 
-        public Prototype(string name, FormalArgs args, Type returnType)
+        public Prototype(string name, FormalArgs args, ITypeEmitter returnType)
         {
             this.SetName(name);
             this.Args = args;

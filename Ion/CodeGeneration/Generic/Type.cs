@@ -1,22 +1,26 @@
 using System;
 using Ion.CodeGeneration.Helpers;
 using Ion.CognitiveServices;
+using Ion.Core;
 using Ion.Misc;
 using Ion.SyntaxAnalysis;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Type : IGenericPipe<LLVMTypeRef>
+    public class Type : ITypeEmitter
     {
         protected readonly Token token;
 
-        public Type(Token token)
+        protected readonly SymbolTable symbolTable;
+
+        public Type(SymbolTable symbolTable, Token token)
         {
+            this.symbolTable = symbolTable;
             this.token = token;
         }
 
-        public LLVMTypeRef Emit(IGenericPipeContext context)
+        public LLVMTypeRef Emit()
         {
             // Use LLVM type resolver if token is a primitive type.
             if (TokenIdentifier.IsPrimitiveType(this.token))
@@ -25,9 +29,9 @@ namespace Ion.CodeGeneration
                 return new PrimitiveType(this.token.Value).Emit();
             }
             // Otherwise, look it up on the structs dictionary, on the symbol table.
-            else if (context.SymbolTable.structs.ContainsKey(this.token.Value))
+            else if (this.symbolTable.structs.ContainsKey(this.token.Value))
             {
-                return context.SymbolTable.structs[this.token.Value];
+                return this.symbolTable.structs[this.token.Value];
             }
 
             // At this point, provided token is not a valid type.

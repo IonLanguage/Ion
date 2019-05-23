@@ -29,7 +29,7 @@ namespace Ion.CodeGeneration
             LLVMTypeRef[] args = this.Prototype.Args.Emit(context);
 
             // Emit the return type
-            LLVMTypeRef returnType = this.Prototype.ReturnType.Emit(context);
+            LLVMTypeRef returnType = this.Prototype.ReturnType.Emit();
 
             // Emit the function type.
             LLVMTypeRef type = LLVM.FunctionType(returnType, args, this.Prototype.Args.Continuous);
@@ -98,7 +98,7 @@ namespace Ion.CodeGeneration
         public Prototype CreatePrototype()
         {
             // Default the return type to void.
-            Type returnType = PrimitiveTypeFactory.Void();
+            ITypeEmitter returnType = PrimitiveTypeFactory.Void();
 
             // Create a new prototype instance.
             this.Prototype = new Prototype(this.Name, null, returnType);

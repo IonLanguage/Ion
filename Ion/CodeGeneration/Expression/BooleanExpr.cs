@@ -22,8 +22,11 @@ namespace Ion.CodeGeneration
 
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
+            // Create a new primitive boolean type instance.
+            PrimitiveType type = (PrimitiveType)PrimitiveTypeFactory.Boolean();
+
             // Resolve the value.
-            LLVMValueRef valueRef = Resolvers.Literal(this.tokenType, this.value, PrimitiveTypeFactory.Boolean());
+            LLVMValueRef valueRef = Resolvers.Literal(this.tokenType, this.value, type);
 
             // Return the emitted value.
             return valueRef;

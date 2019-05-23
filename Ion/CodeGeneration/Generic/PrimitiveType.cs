@@ -6,7 +6,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class PrimitiveType : IOneWayPipe<LLVMTypeRef>
+    public class PrimitiveType : ITypeEmitter
     {
         public string TokenValue { get; }
 

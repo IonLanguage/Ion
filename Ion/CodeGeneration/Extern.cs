@@ -26,7 +26,7 @@ namespace Ion.CodeGeneration
             LLVMTypeRef[] args = this.Prototype.Args.Emit(context);
 
             // Emit the return type.
-            LLVMTypeRef returnType = this.Prototype.ReturnType.Emit(context);
+            LLVMTypeRef returnType = this.Prototype.ReturnType.Emit();
 
             // Emit the function type.
             LLVMTypeRef type = LLVM.FunctionType(returnType, args, this.Prototype.Args.Continuous);
