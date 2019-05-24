@@ -5,62 +5,28 @@ using Ion.Misc;
 using Ion.Parsing;
 using Ion.SyntaxAnalysis;
 using Ion.Tests.Core;
+using Ion.Tests.Wrappers;
 using LLVMSharp;
 using NUnit.Framework;
 
 namespace Ion.Tests.CodeGeneration
 {
     [TestFixture]
-    internal sealed class VarDeclareTests
+    internal sealed class VarDeclareTests : ConstructTest
     {
-        [SetUp]
-        public static void Setup()
-        {
-            // Reset the name counter before every test.
-            NameCounter.ResetAll();
-        }
-
         [Test]
         public void VarDeclare()
         {
-            // Create the token stream.
-            TokenStream stream = TestUtil.CreateStreamFromInputDataFile("VariableDeclaration");
+            // Prepare the wrapper.
+            this.Wrapper.Prepare("VariableDeclaration");
 
-            // Create a new driver instance from the token stream.
-            Driver driver = new Driver(stream);
+            // Invoke the driver.
+            this.Wrapper.InvokeDriver();
 
-            // Ensure correct token stream length.
-            Assert.AreEqual(2, stream.Count);
-
-            // Create and emit the main function.
-            Function mainFunction = driver.Module.EmitMainFunction();
-
-            // Retrieve the main function.
-            LLVMValueRef mainFunctionRef = driver.Module.SymbolTable.RetrieveFunctionOrThrow(mainFunction.Name);
-
-            // Ensure main function reference is not null.
-            Assert.That(mainFunctionRef, Is.Not.Null);
-
-            // Invoke the variable declaration parser.
-            VarDeclareExpr declaration = new VarDeclareExprParser().Parse(driver.ParserContext);
-
-            // Create the LLVM builder reference.
-            LLVMBuilderRef builder = mainFunction.Body.Current.CreateBuilder();
-
-            // Derive the pipe context from the driver's module to emit the declaration.
-            PipeContext<LLVMBuilderRef> context = driver.ModulePipeContext.Derive<LLVMBuilderRef>(builder);
-
-            // Emit the declaration.
-            declaration.Emit(context);
-
-            // Emit the module and trim whitespace.
-            string output = driver.Module.Emit().Trim();
-
-            // Read data to be compared.
-            string expected = TestUtil.ReadOutputDataFile("VariableDeclaration");
+            System.Console.WriteLine(this.Wrapper.Driver.Module.Emit());
 
             // Compare results.
-            Assert.AreEqual(expected, output);
+            this.Wrapper.Compare();
         }
     }
 }

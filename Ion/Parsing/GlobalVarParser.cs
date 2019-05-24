@@ -7,24 +7,26 @@ namespace Ion.Parsing
     {
         public GlobalVar Parse(ParserContext context)
         {
-            System.Console.WriteLine($"Current: {context.Stream.Get()}");
             // Invoke type parser.
             Type type = new TypeParser().Parse(context);
 
-            // Skip global variable prefix.
-            context.Stream.Skip(TokenType.SymbolAt);
+            // Expect current token to be symbol at.
+            context.Stream.EnsureCurrent(TokenType.SymbolAt);
 
-            // Consume name.
-            string name = context.Stream.Next(TokenType.Identifier).Value;
+            // Skip symbol at token.
+            context.Stream.Skip();
 
-            // Skip name.
+            // Invoke identifier parser.
+            string identifier = new IdentifierParser().Parse(context);
+
+            // Ensure current token is identifier.
+            context.Stream.EnsureCurrent(TokenType.Identifier);
+
+            // Skip identifier.
             context.Stream.Skip();
 
             // Create the global variable.
-            GlobalVar globalVar = new GlobalVar(type);
-
-            // Assign name.
-            globalVar.SetName(name);
+            GlobalVar globalVar = new GlobalVar(identifier, type);
 
             // Return the global variable.
             return globalVar;

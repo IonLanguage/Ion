@@ -26,7 +26,10 @@ namespace Ion.CodeGeneration
             // Assign value if applicable.
             if (this.Value != null)
             {
+                // Create the store instruction.
                 LLVM.BuildStore(context.Target, this.Value.Emit(context), variable);
+
+                // Register on symbol table.
                 context.SymbolTable.localScope.Add(this.Name, variable);
             }
 

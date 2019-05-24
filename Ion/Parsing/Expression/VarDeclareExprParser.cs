@@ -15,17 +15,11 @@ namespace Ion.Parsing
             // Create the variable declaration & link the type.
             VarDeclareExpr declaration = new VarDeclareExpr(type, null);
 
-            // Consume the variable name.
-            string name = context.Stream.Get().Value;
-
-            // Ensure captured name is not null nor empty.
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new Exception("Unexpected variable declaration identifier to be null or empty");
-            }
+            // Invoke identifier parser.
+            string identifier = new IdentifierParser().Parse(context);
 
             // Assign the name.
-            declaration.SetName(name);
+            declaration.SetName(identifier);
 
             // Peek next token for value.
             Token nextToken = context.Stream.Peek();
@@ -34,7 +28,7 @@ namespace Ion.Parsing
             if (nextToken.Type == TokenType.OperatorAssignment)
             {
                 // Skip onto the assignment operator
-                context.Stream.Skip();
+                context.Stream.Skip(TokenType.OperatorAssignment);
 
                 // Skip the assignment operator.
                 context.Stream.Skip();
@@ -45,8 +39,8 @@ namespace Ion.Parsing
                 // Assign value.
                 declaration.Value = value;
             }
-            // TODO: Expect semi-colon at this point?
 
+            // Return the resulting declaration construct.
             return declaration;
         }
     }

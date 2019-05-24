@@ -1,8 +1,9 @@
 ; ModuleID = 'entry'
 source_filename = "entry"
 
-define void @main() {
+define void @test() {
 entry:
-  %localVariable = alloca i32
+  %variable = alloca i32
+  store i32 5, i32* %variable
   ret void
 }

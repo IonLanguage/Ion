@@ -10,8 +10,9 @@ namespace Ion.CodeGeneration
 
         public Value Value { get; set; }
 
-        public GlobalVar(Type type)
+        public GlobalVar(string identifier, Type type)
         {
+            this.SetName(identifier);
             this.Type = type;
         }
 

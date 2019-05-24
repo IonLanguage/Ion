@@ -1,1 +1,3 @@
-int localVariable
+void test() {
+    int variable = 5;
+}
