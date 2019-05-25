@@ -143,6 +143,7 @@ int main()
 ### ✨ Syntax highlighting
 
 > [Notepad++](Notepad%2B%2B%20Ion.xml)
+
 > [Visual Studio Code](https://github.com/IonLanguage/Ion.VSCode) (**Undergoing early development**)
 
 ### 📚 Examples
