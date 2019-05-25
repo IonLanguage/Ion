@@ -5,6 +5,7 @@ using Ion.CodeGeneration;
 using Ion.CodeGeneration.Helpers;
 using Ion.Core;
 using Ion.SyntaxAnalysis;
+using Ion.Tracking;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
@@ -17,7 +18,7 @@ namespace Ion.CodeGeneration
 
         public string FileName { get; }
 
-        public SymbolTable SymbolTable { get; }
+        public ContextSymbolTable SymbolTable { get; }
 
         public List<string> Imports { get; }
 
@@ -27,7 +28,7 @@ namespace Ion.CodeGeneration
             this.FileName = fileName;
 
             // Create a new symbol table instance.
-            this.SymbolTable = new SymbolTable();
+            this.SymbolTable = new ContextSymbolTable();
 
             // Create imports.
             this.Imports = new List<string>();

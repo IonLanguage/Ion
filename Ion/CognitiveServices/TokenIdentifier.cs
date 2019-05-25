@@ -100,7 +100,7 @@ namespace Ion.CognitiveServices
         public static bool IsType(Token token, ParserContext context)
         {
             return TokenIdentifier.IsPrimitiveType(token.Type)
-            || context.SymbolTable.structs.ContainsKey(token.Value);
+            || context.SymbolTable.structs.Contains(token.Value);
         }
 
         /// <summary>

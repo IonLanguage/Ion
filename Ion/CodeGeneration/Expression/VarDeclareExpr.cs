@@ -33,6 +33,7 @@ namespace Ion.CodeGeneration
                 context.SymbolTable.localScope.Add(this.Name, variable);
             }
 
+            // Return the resulting variable.
             return variable;
         }
 

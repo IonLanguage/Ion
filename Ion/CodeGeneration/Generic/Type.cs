@@ -4,6 +4,7 @@ using Ion.CognitiveServices;
 using Ion.Core;
 using Ion.Misc;
 using Ion.SyntaxAnalysis;
+using Ion.Tracking;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
@@ -12,9 +13,9 @@ namespace Ion.CodeGeneration
     {
         protected readonly Token token;
 
-        protected readonly SymbolTable symbolTable;
+        protected readonly ContextSymbolTable symbolTable;
 
-        public Type(SymbolTable symbolTable, Token token)
+        public Type(ContextSymbolTable symbolTable, Token token)
         {
             this.symbolTable = symbolTable;
             this.token = token;
@@ -29,9 +30,9 @@ namespace Ion.CodeGeneration
                 return new PrimitiveType(this.token.Value).Emit();
             }
             // Otherwise, look it up on the structs dictionary, on the symbol table.
-            else if (this.symbolTable.structs.ContainsKey(this.token.Value))
+            else if (this.symbolTable.structs.Contains(this.token.Value))
             {
-                return this.symbolTable.structs[this.token.Value];
+                return this.symbolTable.structs[this.token.Value].Value;
             }
 
             // At this point, provided token is not a valid type.

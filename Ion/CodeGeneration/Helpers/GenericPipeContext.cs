@@ -1,9 +1,10 @@
 using Ion.Core;
+using Ion.Tracking;
 
 namespace Ion.CodeGeneration.Helpers
 {
     public interface IGenericPipeContext
     {
-        SymbolTable SymbolTable { get; }
+        ContextSymbolTable SymbolTable { get; }
     }
 }

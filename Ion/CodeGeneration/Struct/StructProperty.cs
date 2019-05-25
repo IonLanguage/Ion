@@ -4,12 +4,12 @@ namespace Ion.CodeGeneration
 {
     public class StructProperty : Named
     {
-        public Type Type { get; }
+        public Expr Value { get; }
 
-        public StructProperty(Type type, string name)
+        public StructProperty(string identifier, Expr value)
         {
-            this.Type = type;
-            this.SetName(name);
+            this.SetName(identifier);
+            this.Value = value;
         }
     }
 }

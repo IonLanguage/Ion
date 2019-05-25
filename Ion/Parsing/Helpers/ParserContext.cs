@@ -3,6 +3,7 @@ using Ion.CognitiveServices;
 using Ion.Core;
 using Ion.NoticeReporting;
 using Ion.SyntaxAnalysis;
+using Ion.Tracking;
 
 namespace Ion.Parsing
 {
@@ -13,7 +14,7 @@ namespace Ion.Parsing
 
         public Driver Driver { get; }
 
-        public SymbolTable SymbolTable => this.Driver.Module.SymbolTable;
+        public ContextSymbolTable SymbolTable => this.Driver.Module.SymbolTable;
 
         public NoticeRepository NoticeRepository;
 

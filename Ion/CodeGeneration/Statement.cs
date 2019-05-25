@@ -10,7 +10,9 @@ namespace Ion.CodeGeneration
 
         Expression,
 
-        FunctionCall
+        FunctionCall,
+
+        Struct
     }
 
     public interface IStatement

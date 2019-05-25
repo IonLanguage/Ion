@@ -208,6 +208,8 @@ namespace Ion.SyntaxAnalysis
 
         KeywordStruct,
 
+        KeywordNew,
+
         // Symbols.
         SymbolBlockL,
 

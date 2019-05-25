@@ -1,43 +1,39 @@
 using System;
 using Ion.CodeGeneration.Helpers;
-using Ion.Misc;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Struct : Named, IPipe<Module, LLVMTypeRef>
+    public class Struct : Expr, IStatement
     {
-        public StructPrototype Prototype { get; }
+        public StatementType StatementType => StatementType.Struct;
 
-        public Struct(string name, StructPrototype prototype)
+        public override ExprType Type => ExprType.Struct;
+
+        public string TargetIdentifier { get; }
+
+        // TODO: Inline-property definitions support missing.
+        public Struct(string targetIdentifier)
         {
-            this.SetName(name);
-            this.Prototype = prototype;
+            this.TargetIdentifier = targetIdentifier;
         }
 
-        public LLVMTypeRef Emit(PipeContext<Module> context)
+        public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
-            // Create the struct construct.
-            LLVMTypeRef @struct = LLVM.StructCreateNamed(context.Target.GetContext(), this.Name);
+            // Ensure target struct exists on the symbol table.
+            if (!context.SymbolTable.structs.Contains(this.TargetIdentifier))
+            {
+                throw new Exception($"Reference to undefined struct named '${this.TargetIdentifier}'");
+            }
 
-            // TODO: Ensure it does not already exist on the symbol table.
-            // Register struct in the symbol table.
-            context.SymbolTable.structs.Add(this.Name, @struct);
+            // Otherwise, retrieve the target struct.
+            LLVMTypeRef @struct = context.SymbolTable.structs[this.TargetIdentifier].Value;
 
-            // TODO: Finish implementing (heavy hard-coded debugging code below, a function must be registered beforehand this point or will hang).
-            LLVM.StructSetBody(@struct, new LLVMTypeRef[] { PrimitiveTypeFactory.Boolean().Emit() }, true);
+            // Build the struct allocation instruction.
+            LLVMValueRef value = LLVM.BuildAlloca(context.Target, @struct, this.Name);
 
-            var b = LLVM.CreateBuilder();
-
-            var f = LLVM.GetLastFunction(context.Target.Target);
-
-            var bb = LLVM.GetEntryBasicBlock(f);
-
-            LLVM.PositionBuilderAtEnd(b, bb);
-
-            LLVM.BuildAlloca(b, @struct, "teststruct_a");
-
-            return @struct;
+            // Return the resulting value reference instruction.
+            return value;
         }
     }
 }

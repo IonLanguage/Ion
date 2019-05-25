@@ -1,4 +1,5 @@
 using Ion.Core;
+using Ion.Tracking;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration.Helpers
@@ -12,9 +13,9 @@ namespace Ion.CodeGeneration.Helpers
     {
         public T Target { get; }
 
-        public SymbolTable SymbolTable { get; }
+        public ContextSymbolTable SymbolTable { get; }
 
-        public PipeContext(T target, SymbolTable symbolTable)
+        public PipeContext(T target, ContextSymbolTable symbolTable)
         {
             this.Target = target;
             this.SymbolTable = symbolTable;

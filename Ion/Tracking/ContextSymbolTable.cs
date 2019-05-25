@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using Ion.CodeGeneration;
 using LLVMSharp;
 
-namespace Ion.Core
+namespace Ion.Tracking
 {
     /// <summary>
     /// Keeps track of emitted entities.
     /// </summary>
-    public class SymbolTable
+    public class ContextSymbolTable
     {
         public readonly Dictionary<string, LLVMValueRef> functions = new Dictionary<string, LLVMValueRef>();
 
         public readonly Dictionary<string, CodeGeneration.Module> modules = new Dictionary<string, CodeGeneration.Module>();
 
-        public readonly Dictionary<string, LLVMTypeRef> structs = new Dictionary<string, LLVMTypeRef>();
+        public readonly StructTable structs = new StructTable();
 
         /// <summary>
         /// Contains locally-scoped emitted values.

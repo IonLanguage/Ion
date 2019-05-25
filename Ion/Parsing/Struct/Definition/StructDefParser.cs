@@ -1,18 +1,22 @@
+using System.Collections.Generic;
 using Ion.CodeGeneration;
 using Ion.CognitiveServices;
 using Ion.SyntaxAnalysis;
 
 namespace Ion.Parsing
 {
-    public class StructParser : IParser<Struct>
+    public class StructDefParser : IParser<StructDef>
     {
-        public Struct Parse(ParserContext context)
+        public StructDef Parse(ParserContext context)
         {
             // Ensure current token is struct keyword.
             context.Stream.EnsureCurrent(TokenType.KeywordStruct);
 
-            // Skip struct keyword, capture struct identifier.
-            string identifier = context.Stream.Next(TokenType.Identifier).Value;
+            // Skip struct keyword token.
+            context.Stream.Skip();
+
+            // Invoke identifier parser.
+            string identifier = new IdentifierParser().Parse(context);
 
             // Skip identifier token onto block start.
             context.Stream.Skip(TokenType.SymbolBlockL);
@@ -20,8 +24,8 @@ namespace Ion.Parsing
             // Skip block start token.
             context.Stream.Skip();
 
-            // Create the prototype.
-            StructPrototype prototype = new StructPrototype();
+            // Create the properties buffer list.
+            List<StructDefProperty> properties = new List<StructDefProperty>();
 
             // Start iteration with callback.
             context.Stream.NextUntil(TokenType.SymbolBlockR, (Token token) =>
@@ -32,12 +36,21 @@ namespace Ion.Parsing
                 // Invoke identifier parser.
                 string name = new IdentifierParser().Parse(context);
 
+                // Ensure current token is symbol semi-colon.
+                context.Stream.EnsureCurrent(TokenType.SymbolSemiColon);
+
+                // Skip semi-colon symbol token.
+                context.Stream.Skip();
+
                 // Create property.
-                StructProperty property = new StructProperty(type, name);
+                StructDefProperty property = new StructDefProperty(type, name);
 
                 // Attach property to the prototype.
-                prototype.Properties.Add(property);
+                properties.Add(property);
             });
+
+            // Create the body construct.
+            StructDefBody body = new StructDefBody(properties);
 
             // Ensure current token type is block end.
             context.Stream.EnsureCurrent(TokenType.SymbolBlockR);
@@ -46,7 +59,7 @@ namespace Ion.Parsing
             context.Stream.Skip();
 
             // Create the struct construct.
-            Struct @struct = new Struct(identifier, prototype);
+            StructDef @struct = new StructDef(identifier, body);
 
             // Return the resulting struct construct.
             return @struct;

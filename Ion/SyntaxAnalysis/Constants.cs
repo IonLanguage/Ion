@@ -29,7 +29,8 @@ namespace Ion.SyntaxAnalysis
             {"namespace", TokenType.KeywordNamespace},
             {"alias", TokenType.KeywordAlias},
             {"as", TokenType.KeywordAs},
-            {"struct", TokenType.KeywordStruct}
+            {"struct", TokenType.KeywordStruct},
+            {"new", TokenType.KeywordNew}
         };
 
         public static readonly TokenTypeMap symbols = new TokenTypeMap

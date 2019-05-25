@@ -64,7 +64,7 @@ namespace Ion.Parsing
             else if (type == TokenType.KeywordStruct)
             {
                 // Invoke the struct parser.
-                Struct @struct = new StructParser().Parse(context);
+                StructDef @struct = new StructDefParser().Parse(context);
 
                 // Emit the struct construct.
                 @struct.Emit(this.ModulePipeContext);
