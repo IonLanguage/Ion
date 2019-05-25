@@ -55,7 +55,7 @@ cmd> notepad Src/main.ion
 Paste the following source code:
 
 ```c#
-extern int printf(string, ...);
+extern int printf(string message, ...);
 
 int main()
 {
@@ -88,7 +88,7 @@ $ nano Src/main.ion
 Paste the following source code:
 
 ```c#
-extern int printf(string, ...);
+extern int printf(string message, ...);
 
 int main()
 {
@@ -136,18 +136,14 @@ int main()
 }
 ```
 
-This feature, along with decorators & anonymous functions, will come super handy when building APIs!
-
-```rust
-string @name = "John Doe";
-
-[@Web.Route("/")]
-void GetRoot() {
-    return <p>Hello, {@name}.</p>; // Hello, John Doe.
-}
-```
-
 4. **Portable**.
+
+*Description coming soon*
+
+### ✨ Syntax highlighting
+
+> [Notepad++](Notepad%2B%2B%20Ion.xml)
+> [Visual Studio Code](https://github.com/IonLanguage/Ion.VSCode) (**Undergoing early development**)
 
 ### 📚 Examples
 
