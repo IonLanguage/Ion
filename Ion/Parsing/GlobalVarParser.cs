@@ -19,12 +19,6 @@ namespace Ion.Parsing
             // Invoke identifier parser.
             string identifier = new IdentifierParser().Parse(context);
 
-            // Ensure current token is identifier.
-            context.Stream.EnsureCurrent(TokenType.Identifier);
-
-            // Skip identifier.
-            context.Stream.Skip();
-
             // Create the global variable.
             GlobalVar globalVar = new GlobalVar(identifier, type);
 

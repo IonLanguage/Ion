@@ -13,7 +13,7 @@ using Ion.Tests.Wrappers;
 namespace Ion.Tests.CodeGeneration
 {
     [TestFixture]
-    internal sealed class FunctionReturn : ConstructTest
+    internal sealed class FunctionReturnTests : ConstructTest
     {
         [Test]
         public void MainWithReturn()

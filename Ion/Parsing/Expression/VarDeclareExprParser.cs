@@ -21,15 +21,12 @@ namespace Ion.Parsing
             // Assign the name.
             declaration.SetName(identifier);
 
-            // Peek next token for value.
-            Token nextToken = context.Stream.Peek();
+            // Capture current token.
+            Token token = context.Stream.Get();
 
-            // Value is being assigned.
-            if (nextToken.Type == TokenType.OperatorAssignment)
+            // A value is being assigned.
+            if (token.Type == SyntaxAnalysis.TokenType.OperatorAssignment)
             {
-                // Skip onto the assignment operator
-                context.Stream.Skip(TokenType.OperatorAssignment);
-
                 // Skip the assignment operator.
                 context.Stream.Skip();
 

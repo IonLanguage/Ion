@@ -17,6 +17,9 @@ namespace Ion.Parsing
                 throw new Exception($"Invalid identifier: {identifier}");
             }
 
+            // Skip identifier token.
+            context.Stream.Skip();
+
             // Return the resulting identifier.
             return identifier;
         }

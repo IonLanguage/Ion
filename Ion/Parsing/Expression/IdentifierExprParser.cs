@@ -12,13 +12,13 @@ namespace Ion.Parsing
             Token token = context.Stream.Get();
 
             // Ensure captured token is an identifier.
-            context.Stream.EnsureCurrent(TokenType.Identifier);
+            context.Stream.EnsureCurrent(SyntaxAnalysis.TokenType.Identifier);
 
             // Capture identifier token value.
             string identifier = token.Value;
 
             // Variable reference.
-            if (context.Stream.Peek().Type != TokenType.SymbolParenthesesL)
+            if (context.Stream.Peek().Type != SyntaxAnalysis.TokenType.SymbolParenthesesL)
             {
                 // TODO: Should be done by an independent parser (VariableExprParser)?
                 // Skip identifier.

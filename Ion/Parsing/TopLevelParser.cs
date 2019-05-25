@@ -24,7 +24,7 @@ namespace Ion.Parsing
             TokenType type = token.Type;
 
             // Skip unknown tokens for error recovery.
-            if (type == TokenType.Unknown)
+            if (type == SyntaxAnalysis.TokenType.Unknown)
             {
                 // Create the warning.
                 context.NoticeRepository.UnknownToken(token.Value);
@@ -42,7 +42,7 @@ namespace Ion.Parsing
                 Token afterIdentifier = context.Stream.Peek(2);
 
                 // Function definition.
-                if (afterIdentifier.Type == TokenType.SymbolParenthesesL)
+                if (afterIdentifier.Type == SyntaxAnalysis.TokenType.SymbolParenthesesL)
                 {
                     // Invoke the function parser.
                     Function function = new FunctionParser().Parse(context);
@@ -61,7 +61,7 @@ namespace Ion.Parsing
                 }
             }
             // Struct definition.
-            else if (type == TokenType.KeywordStruct)
+            else if (type == SyntaxAnalysis.TokenType.KeywordStruct)
             {
                 // Invoke the struct parser.
                 StructDef @struct = new StructDefParser().Parse(context);
@@ -70,7 +70,7 @@ namespace Ion.Parsing
                 @struct.Emit(this.ModulePipeContext);
             }
             // External definition.
-            else if (type == TokenType.KeywordExternal)
+            else if (type == SyntaxAnalysis.TokenType.KeywordExternal)
             {
                 // Invoke the external definition parser.
                 Extern @extern = new ExternParser().Parse(context);
@@ -80,7 +80,7 @@ namespace Ion.Parsing
             }
             // TODO: Enforce a single namespace definition per-file.
             // Namespace definition.
-            else if (type == TokenType.KeywordNamespace)
+            else if (type == SyntaxAnalysis.TokenType.KeywordNamespace)
             {
                 // Invoke the namespace definition parser.
                 Namespace @namespace = new NamespaceParser().Parse(context);

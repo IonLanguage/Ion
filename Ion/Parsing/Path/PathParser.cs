@@ -10,14 +10,11 @@ namespace Ion.Parsing
             // Create the resulting path's nodes.
             List<string> nodes = new List<string>();
 
-            // Capture identifier to serve as path node.
-            string node = context.Stream.Get(TokenType.Identifier).Value;
+            // Invoke identifier parser to capture the node.
+            string node = new IdentifierParser().Parse(context);
 
             // Append node to path.
             nodes.Add(node);
-
-            // Skip identifier token.
-            context.Stream.Skip();
 
             // Use recursion if symbol dot is present.
             if (context.Stream.Get().Type == TokenType.SymbolDot)

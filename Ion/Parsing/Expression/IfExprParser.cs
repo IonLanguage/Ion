@@ -8,7 +8,7 @@ namespace Ion.Parsing
         public IfExpr Parse(ParserContext context)
         {
             // Ensure current token type is keyword if.
-            context.Stream.EnsureCurrent(TokenType.KeywordIf);
+            context.Stream.EnsureCurrent(SyntaxAnalysis.TokenType.KeywordIf);
 
             // Skip if keyword token.
             context.Stream.Skip();
@@ -26,7 +26,7 @@ namespace Ion.Parsing
             Token token = context.Stream.Get();
 
             // If expression contains an alternative action.
-            if (token.Type == TokenType.KeywordElse)
+            if (token.Type == SyntaxAnalysis.TokenType.KeywordElse)
             {
                 // Skip else keyword token.
                 context.Stream.Skip();

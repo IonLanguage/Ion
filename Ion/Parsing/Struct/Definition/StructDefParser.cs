@@ -18,8 +18,8 @@ namespace Ion.Parsing
             // Invoke identifier parser.
             string identifier = new IdentifierParser().Parse(context);
 
-            // Skip identifier token onto block start.
-            context.Stream.Skip(TokenType.SymbolBlockL);
+            // Ensure current token is block start.
+            context.Stream.EnsureCurrent(TokenType.SymbolBlockL);
 
             // Skip block start token.
             context.Stream.Skip();
@@ -37,16 +37,16 @@ namespace Ion.Parsing
                 string name = new IdentifierParser().Parse(context);
 
                 // Ensure current token is symbol semi-colon.
-                context.Stream.EnsureCurrent(TokenType.SymbolSemiColon);
-
-                // Skip semi-colon symbol token.
-                context.Stream.Skip();
+                context.Stream.EnsureCurrent(SyntaxAnalysis.TokenType.SymbolSemiColon);
 
                 // Create property.
                 StructDefProperty property = new StructDefProperty(type, name);
 
                 // Attach property to the prototype.
                 properties.Add(property);
+
+                // Continue normal iteration.
+                return false;
             });
 
             // Create the body construct.

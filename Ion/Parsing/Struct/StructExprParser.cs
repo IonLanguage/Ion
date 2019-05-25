@@ -1,11 +1,12 @@
+using System.Collections.Generic;
 using Ion.CodeGeneration;
 using Ion.SyntaxAnalysis;
 
 namespace Ion.Parsing
 {
-    public class StructParser : IParser<Struct>
+    public class StructExprParser : IParser<StructExpr>
     {
-        public Struct Parse(ParserContext context)
+        public StructExpr Parse(ParserContext context)
         {
             // Ensure current token is keyword new.
             context.Stream.EnsureCurrent(TokenType.KeywordNew);
@@ -16,9 +17,13 @@ namespace Ion.Parsing
             // Invoke identifier parser.
             string identifier = new IdentifierParser().Parse(context);
 
-            // TODO: Inline-property definitions support missing.
+            // Invoke struct body parser.
+            List<StructProperty> body = new StructBodyParser().Parse(context);
+
+            // TODO: Assignment of body's properties not yet implemented.
+
             // Create the resulting struct.
-            Struct @struct = new Struct(identifier);
+            StructExpr @struct = new StructExpr(identifier);
 
             // Return the resulting struct.
             return @struct;

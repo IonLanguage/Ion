@@ -18,8 +18,8 @@ namespace Ion.Parsing
             // Skip colon symbol token.
             context.Stream.Skip();
 
-            // Invoke primary expression parser to capture the value.
-            Expr value = new PrimaryExprParser().Parse(context);
+            // Invoke expression parser to capture the value.
+            Expr value = new ExprParser().Parse(context);
 
             // Create the resulting property construct.
             StructProperty property = new StructProperty(identifier, value);

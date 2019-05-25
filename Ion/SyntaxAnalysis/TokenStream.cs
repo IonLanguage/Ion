@@ -7,7 +7,13 @@ namespace Ion.SyntaxAnalysis
 {
     public class TokenStream : Stream<Token>
     {
-        public delegate void NextUntilCallback(Token token);
+        /// <summary>
+        /// The callback to be invoked upon every iteration.
+        /// Should return false if the buffer should be updated
+        /// with the current token, not skipped. Otherwise, should
+        /// return true.
+        /// </summary>
+        public delegate bool NextUntilCallback(Token token);
 
         public TokenStream()
         {
@@ -115,12 +121,13 @@ namespace Ion.SyntaxAnalysis
         /// </summary>
         public void EnsureCurrent(TokenType type)
         {
-            Token current = this.Get();
+            // Capture the current token.
+            Token token = this.Get();
 
             // Ensure current token's type matches provided token type.
-            if (current.Type != type)
+            if (token.Type != type)
             {
-                throw new Exception($"Expected current token to be of type '{type}' but got '{current.Type}'");
+                throw new Exception($"Expected current token to be of type '{type}' but got '{token.Type}'");
             }
         }
 
@@ -131,6 +138,7 @@ namespace Ion.SyntaxAnalysis
         /// </summary>
         public Token Get(TokenType type)
         {
+            // Capture the current token.
             Token token = this.Get();
 
             // Ensure current token's type matches provided token type.
@@ -159,8 +167,8 @@ namespace Ion.SyntaxAnalysis
             // Initiate the loop.
             while (buffer.Type != type)
             {
-                // Invoke the callback.
-                callback(buffer);
+                // Invoke the callback and capture the result.
+                bool updateToCurrent = callback(buffer);
 
                 // At this point, throw an error if EOF was reached.
                 if (this.IsLastItem)
@@ -168,8 +176,16 @@ namespace Ion.SyntaxAnalysis
                     throw new IndexOutOfRangeException($"Expected '{type}' to be encountered, but got EOF");
                 }
 
-                // Update the buffer.
-                buffer = this.Next();
+                if (updateToCurrent)
+                {
+                    // Update the buffer with the current token.
+                    buffer = this.Get();
+                }
+                else
+                {
+                    // Update the buffer with the next token.
+                    buffer = this.Next();
+                }
             }
         }
     }

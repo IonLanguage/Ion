@@ -22,12 +22,12 @@ namespace Ion.Parsing
             context.SymbolTable.activeBlock = block;
 
             // Mark the block as default.
-            if (begin.Type == TokenType.SymbolBlockL)
+            if (begin.Type == SyntaxAnalysis.TokenType.SymbolBlockL)
             {
                 block.Type = BlockType.Default;
             }
             // Mark the block as short.
-            else if (begin.Type == TokenType.SymbolArrow)
+            else if (begin.Type == SyntaxAnalysis.TokenType.SymbolArrow)
             {
                 block.Type = BlockType.Short;
             }
@@ -41,10 +41,10 @@ namespace Ion.Parsing
             Token token = context.Stream.Get();
 
             // While next token is not a block-closing token.
-            while (token.Type != TokenType.SymbolBlockR && block.Type != BlockType.Short)
+            while (token.Type != SyntaxAnalysis.TokenType.SymbolBlockR && block.Type != BlockType.Short)
             {
                 // Returning a value.
-                if (token.Type == TokenType.KeywordReturn)
+                if (token.Type == SyntaxAnalysis.TokenType.KeywordReturn)
                 {
                     // Invoke the return parser. It's okay if it returns null, as it will be emitted as void.
                     Expr returnExpr = new FunctionReturnParser().Parse(context);
@@ -69,7 +69,7 @@ namespace Ion.Parsing
                 block.Expressions.Add(statement);
 
                 // Ensure current token is a semi-colon.
-                context.Stream.EnsureCurrent(TokenType.SymbolSemiColon);
+                context.Stream.EnsureCurrent(SyntaxAnalysis.TokenType.SymbolSemiColon);
 
                 // Skip over the semi-colon.
                 context.Stream.Skip();

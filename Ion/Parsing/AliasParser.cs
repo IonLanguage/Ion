@@ -16,11 +16,14 @@ namespace Ion.Parsing
             // Skip target identifier onto as keyword.
             context.Stream.Skip(TokenType.KeywordAs);
 
-            // Skip as keyword token, capture alias identifier.
-            string aliasName = context.Stream.Next(TokenType.Identifier).Value;
+            // Skip as keyword.
+            context.Stream.Skip();
 
-            // Skip alias identifier token onto semi-colon;
-            context.Stream.Skip(TokenType.SymbolSemiColon);
+            // Invoke identifier parser to capture alias name.
+            string aliasName = new IdentifierParser().Parse(context);
+
+            // Ensure current token is symbol semi-colon.
+            context.Stream.EnsureCurrent(TokenType.SymbolSemiColon);
 
             // Skip semi-colon.
             context.Stream.Skip();

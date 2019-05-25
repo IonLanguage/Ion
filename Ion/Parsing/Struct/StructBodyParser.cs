@@ -28,10 +28,13 @@ namespace Ion.Parsing
                 TokenType currentTokenType = context.Stream.Get().Type;
 
                 // Ensure current token is of type block end or symbol comma.
-                if (currentTokenType != TokenType.SymbolBlockR && currentTokenType != TokenType.SymbolComma)
+                if (currentTokenType != SyntaxAnalysis.TokenType.SymbolBlockR && currentTokenType != SyntaxAnalysis.TokenType.SymbolComma)
                 {
                     throw new Exception($"Expected token to be of type symbol block end or comma but got '{currentTokenType}'");
                 }
+
+                // Signal to always update the buffer with the current token.
+                return true;
             });
 
             // Ensure current token is block end.

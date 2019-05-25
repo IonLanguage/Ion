@@ -4,7 +4,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Struct : Expr, IStatement
+    public class StructExpr : Expr, IStatement
     {
         public StatementType StatementType => StatementType.Struct;
 
@@ -13,7 +13,7 @@ namespace Ion.CodeGeneration
         public string TargetIdentifier { get; }
 
         // TODO: Inline-property definitions support missing.
-        public Struct(string targetIdentifier)
+        public StructExpr(string targetIdentifier)
         {
             this.TargetIdentifier = targetIdentifier;
         }

@@ -41,6 +41,11 @@ namespace Ion.Parsing
             {
                 return new BooleanExprParser().Parse(context);
             }
+            // Struct expression.
+            else if (currentTokenType == TokenType.KeywordNew)
+            {
+                return new StructExprParser().Parse(context);
+            }
 
             // At this point, return null.
             return null;
