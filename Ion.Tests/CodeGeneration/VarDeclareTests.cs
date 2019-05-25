@@ -23,8 +23,6 @@ namespace Ion.Tests.CodeGeneration
             // Invoke the driver.
             this.Wrapper.InvokeDriver();
 
-            System.Console.WriteLine(this.Wrapper.Driver.Module.Emit());
-
             // Compare results.
             this.Wrapper.Compare();
         }
