@@ -116,7 +116,7 @@ An example usage of pipes:
 
 ```rust
 ...
-"Hello %s", "world!" | printf;
+: "Hello %s", "world!" | printf;
 
 // Is equivalent to:
 
@@ -130,7 +130,7 @@ Inspired by React.js' JSX syntax, the language will have built-in DOM and HTML s
 ```rust
 int main() 
 {
-    Web.Mount(<div>Built-in HTML syntax is awesome!</div>);
+    Web.mount(<div>Built-in HTML syntax is awesome!</div>);
 
     return 0;
 }
@@ -164,14 +164,14 @@ int main()
 #### Fibonacci sequence algorithm implementation
 
 ```c#
-int Fibonacci(number)
+int fibonacci(number)
 {
     if (number <= 1)
     {
         return 1;
     }
 
-    return Fibonacci(number - 1) + Fibonacci(number - 2);
+    return fibonacci(number - 1) + fibonacci(number - 2);
 }
 ```
 
@@ -193,15 +193,15 @@ void main()
 Class names should be in PascalCase, and members in camelCase.
 
 ```c#
-import Core.Console;
+extern int printf(string message, ...);
 
 class Example
 {
-    pub string name = "John Doe";
+    public string name = "John Doe";
 
-    void SayHello()
+    void sayHello()
     {
-        Console.Log("Hello, " + this.name);
+        printf("Hello, " + this.name);
     }
 }
 ```
