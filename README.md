@@ -161,8 +161,7 @@ int main() {
 
 ```c#
 int fibonacci(number) {
-    if (number <= 1)
-    {
+    if (number <= 1) {
         return 1;
     }
 
@@ -192,8 +191,7 @@ extern int printf(string message, ...);
 class Example {
     public string name = "John Doe";
 
-    void sayHello()
-    {
+    void sayHello() {
         printf("Hello, " + this.name);
     }
 }
