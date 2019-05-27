@@ -110,7 +110,9 @@ $ ion run
 
 1. **Simplicity**. The language should be simple, or as powerful as the programmer wishes. This means that some symbols and patterns are optional and infered by the compiler.
 
-2. **Flexible**. The language should contain tools and shortcuts to make the programming experience smooth, not rigid. Pipes are the best example of a planned feature that will add flexibility in the development environment.
+2. **Fully managed**.
+
+3. **Flexible**. The language should contain tools and shortcuts to make the programming experience smooth, not rigid. Pipes are the best example of a planned feature that will add flexibility in the development environment.
 
 An example usage of pipes:
 
@@ -123,7 +125,8 @@ An example usage of pipes:
 printf("Hello %s", "world!");
 ...
 ```
-3. **Built-in DOM support**.
+
+5. **Built-in DOM support**.
 
 Inspired by React.js' JSX syntax, the language will have built-in DOM and HTML support.
 
@@ -135,10 +138,6 @@ int main()
     return 0;
 }
 ```
-
-4. **Portable**.
-
-*Description coming soon*
 
 ### ✨ Syntax highlighting
 
