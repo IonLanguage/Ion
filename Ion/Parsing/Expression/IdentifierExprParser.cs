@@ -8,14 +8,8 @@ namespace Ion.Parsing
     {
         public Expr Parse(ParserContext context)
         {
-            // Capture current token.
-            Token token = context.Stream.Get();
-
-            // Ensure captured token is an identifier.
-            context.Stream.EnsureCurrent(SyntaxAnalysis.TokenType.Identifier);
-
-            // Capture identifier token value.
-            string identifier = token.Value;
+            // Invoke path parser.
+            PathResult path = new PathParser().Parse(context);
 
             // Variable reference.
             if (context.Stream.Peek().Type != SyntaxAnalysis.TokenType.SymbolParenthesesL)
@@ -25,7 +19,7 @@ namespace Ion.Parsing
                 context.Stream.Skip();
 
                 // Create and return the variable expression.
-                return new VariableExpr(identifier);
+                return new VariableExpr(path);
             }
 
             // Otherwise, it's a function call. Invoke the function call parser.

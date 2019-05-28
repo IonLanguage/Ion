@@ -1,6 +1,7 @@
 using System;
 using Ion.CodeGeneration.Helpers;
 using Ion.Core;
+using Ion.Parsing;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
@@ -12,6 +13,11 @@ namespace Ion.CodeGeneration
         public VariableExpr(string name)
         {
             this.SetName(name);
+        }
+
+        public VariableExpr(PathResult path) : this(path.ToString())
+        {
+            //
         }
 
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
