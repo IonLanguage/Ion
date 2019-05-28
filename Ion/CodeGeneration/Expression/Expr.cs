@@ -37,7 +37,9 @@ namespace Ion.CodeGeneration
 
         If,
 
-        Struct
+        Struct,
+
+        Array
     }
 
     public abstract class Expr : Named, IPipe<LLVMBuilderRef, LLVMValueRef>
@@ -45,7 +47,7 @@ namespace Ion.CodeGeneration
         // TODO: Expand this.
         public static Action<LLVMBuilderRef> Void = builder => { LLVM.BuildRetVoid(builder); };
 
-        public abstract ExprType Type { get; }
+        public abstract ExprType ExprType { get; }
 
         public string FunctionCallTarget { get; set; }
 

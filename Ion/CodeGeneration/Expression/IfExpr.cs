@@ -7,7 +7,7 @@ namespace Ion.CodeGeneration
 {
     public class IfExpr : Expr
     {
-        public override ExprType Type => ExprType.If;
+        public override ExprType ExprType => ExprType.If;
 
         public Expr Condition { get; }
 

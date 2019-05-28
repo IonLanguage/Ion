@@ -1,17 +1,23 @@
 using System;
 using Ion.CodeGeneration.Helpers;
 using Ion.Core;
+using Ion.Parsing;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
     public class VariableExpr : Expr
     {
-        public override ExprType Type => ExprType.VariableReference;
+        public override ExprType ExprType => ExprType.VariableReference;
 
         public VariableExpr(string name)
         {
             this.SetName(name);
+        }
+
+        public VariableExpr(PathResult path) : this(path.ToString())
+        {
+            //
         }
 
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)

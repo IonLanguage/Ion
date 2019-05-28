@@ -6,7 +6,7 @@ namespace Ion.CodeGeneration
 {
     public class VarDeclareExpr : Expr, IStatement, IPipe<LLVMBuilderRef, LLVMValueRef>
     {
-        public override ExprType Type => ExprType.VariableDeclaration;
+        public override ExprType ExprType => ExprType.VariableDeclaration;
 
         public Type ValueType { get; protected set; }
 

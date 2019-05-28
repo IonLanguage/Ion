@@ -6,7 +6,7 @@ namespace Ion.CodeGeneration
 {
     public class LambdaExpr : Expr
     {
-        public override ExprType Type => ExprType.Lambda;
+        public override ExprType ExprType => ExprType.Lambda;
 
         public FormalArgs Args;
 

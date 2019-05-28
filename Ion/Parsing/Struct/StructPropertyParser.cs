@@ -7,6 +7,13 @@ namespace Ion.Parsing
 {
     public class StructPropertyParser : IParser<StructProperty>
     {
+        protected readonly int index;
+
+        public StructPropertyParser(int index)
+        {
+            this.index = index;
+        }
+
         public StructProperty Parse(ParserContext context)
         {
             // Invoke identifier parser.
@@ -22,7 +29,7 @@ namespace Ion.Parsing
             Expr value = new ExprParser().Parse(context);
 
             // Create the resulting property construct.
-            StructProperty property = new StructProperty(identifier, value);
+            StructProperty property = new StructProperty(identifier, value, this.index);
 
             // Return the resulting property construct.
             return property;

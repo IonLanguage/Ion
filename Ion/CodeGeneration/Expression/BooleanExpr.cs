@@ -8,7 +8,7 @@ namespace Ion.CodeGeneration
 {
     public class BooleanExpr : Expr
     {
-        public override ExprType Type => ExprType.Boolean;
+        public override ExprType ExprType => ExprType.Boolean;
 
         public readonly TokenType tokenType;
 

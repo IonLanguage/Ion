@@ -7,7 +7,7 @@ namespace Ion.CodeGeneration
 {
     public class NumericExpr : Expr
     {
-        public override ExprType Type => ExprType.Numeric;
+        public override ExprType ExprType => ExprType.Numeric;
 
         public readonly TokenType tokenType;
 

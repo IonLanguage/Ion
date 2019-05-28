@@ -24,7 +24,7 @@ namespace Ion.CodeGeneration
             this.precedence = precedence;
         }
 
-        public override ExprType Type => ExprType.BinaryExpression;
+        public override ExprType ExprType => ExprType.BinaryExpression;
 
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {

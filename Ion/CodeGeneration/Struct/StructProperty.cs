@@ -6,10 +6,13 @@ namespace Ion.CodeGeneration
     {
         public Expr Value { get; }
 
-        public StructProperty(string identifier, Expr value)
+        public int Index { get; }
+
+        public StructProperty(string identifier, Expr value, int index)
         {
             this.SetName(identifier);
             this.Value = value;
+            this.Index = index;
         }
     }
 }
