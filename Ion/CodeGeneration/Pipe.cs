@@ -7,7 +7,7 @@ namespace Ion.CodeGeneration
 {
     public class Pipe : Expr
     {
-        public override ExprType Type => ExprType.Pipe;
+        public override ExprType ExprType => ExprType.Pipe;
 
         public Expr[] Arguments { get; }
 

@@ -8,7 +8,7 @@ namespace Ion.CodeGeneration
 {
     public class VariableExpr : Expr
     {
-        public override ExprType Type => ExprType.VariableReference;
+        public override ExprType ExprType => ExprType.VariableReference;
 
         public VariableExpr(string name)
         {

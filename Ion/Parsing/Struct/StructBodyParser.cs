@@ -18,11 +18,17 @@ namespace Ion.Parsing
             // Create the body's property list.
             List<StructProperty> properties = new List<StructProperty>();
 
+            // Create the index counter.
+            int indexCounter = 0;
+
             // Begin parsing properties.
             context.Stream.NextUntil(TokenType.SymbolBlockR, (Token token) =>
             {
                 // Invoke struct property parser.
-                StructProperty property = new StructPropertyParser().Parse(context);
+                StructProperty property = new StructPropertyParser(indexCounter).Parse(context);
+
+                // Increment the index counter.
+                indexCounter++;
 
                 // Retrieve the current token's type.
                 TokenType currentTokenType = context.Stream.Get().Type;

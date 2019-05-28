@@ -8,7 +8,7 @@ namespace Ion.CodeGeneration
 {
     public class StringExpr : Expr
     {
-        public override ExprType Type => ExprType.StringLiteral;
+        public override ExprType ExprType => ExprType.StringLiteral;
 
         public readonly TokenType tokenType;
 

@@ -7,7 +7,7 @@ namespace Ion.CodeGeneration
 {
     public class FunctionCallExpr : Expr
     {
-        public override ExprType Type => ExprType.FunctionCall;
+        public override ExprType ExprType => ExprType.FunctionCall;
 
         public string TargetName { get; }
 

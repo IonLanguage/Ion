@@ -10,7 +10,7 @@ namespace Ion.CodeGeneration
     {
         public StatementType StatementType => StatementType.Struct;
 
-        public override ExprType Type => ExprType.Struct;
+        public override ExprType ExprType => ExprType.Struct;
 
         public string TargetIdentifier { get; }
 
