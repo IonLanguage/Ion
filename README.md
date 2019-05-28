@@ -126,19 +126,6 @@ printf("Hello %s", "world!");
 ...
 ```
 
-5. **Built-in DOM support**.
-
-Inspired by React.js' JSX syntax, the language will have built-in DOM and HTML support.
-
-```rust
-int main() 
-{
-    Web.mount(<div>Built-in HTML syntax is awesome!</div>);
-
-    return 0;
-}
-```
-
 ### ✨ Syntax highlighting
 
 > [Notepad++](Notepad%2B%2B%20Ion.xml)
