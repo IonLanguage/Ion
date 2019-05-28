@@ -8,9 +8,9 @@ namespace Ion.Parsing
 {
     public class ArrayExprParser : IExprParser<ArrayExpr>
     {
-        protected readonly Type type;
+        protected readonly ITypeEmitter type;
 
-        public ArrayExprParser(Type type)
+        public ArrayExprParser(ITypeEmitter type)
         {
             this.type = type;
         }

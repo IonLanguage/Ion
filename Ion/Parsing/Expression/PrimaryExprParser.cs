@@ -1,5 +1,6 @@
 using Ion.CodeGeneration;
 using Ion.CognitiveServices;
+using Ion.Misc;
 using Ion.SyntaxAnalysis;
 
 namespace Ion.Parsing
@@ -45,6 +46,12 @@ namespace Ion.Parsing
             else if (currentTokenType == TokenType.KeywordNew)
             {
                 return new StructExprParser().Parse(context);
+            }
+            // Array expression.
+            else if (currentTokenType == TokenType.SymbolBracketL)
+            {
+                // TODO: Type is hard-coded for debugging purposes, not yet supported auto-type (might need infering?).
+                return new ArrayExprParser(PrimitiveTypeFactory.Int32()).Parse(context);
             }
 
             // At this point, return null.
