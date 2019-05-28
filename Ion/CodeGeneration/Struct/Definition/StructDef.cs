@@ -22,26 +22,34 @@ namespace Ion.CodeGeneration
             // Create the struct construct.
             LLVMTypeRef @struct = LLVM.StructCreateNamed(context.Target.GetContext(), this.Name);
 
-            // Create the struct symbol.
-            StructSymbol symbol = new StructSymbol(this.Name, @struct);
-
-            // TODO: Ensure it does not already exist on the symbol table? Or automatically does it?
-            // Register struct as a symbol in the symbol table.
-            context.SymbolTable.structs.Add(symbol);
-
             // Create the body buffer list.
             List<LLVMTypeRef> body = new List<LLVMTypeRef>();
+
+            // Create a buffer dictionary for the symbol.
+            Dictionary<string, LLVMTypeRef> symbolProperties = new Dictionary<string, LLVMTypeRef>();
 
             // Map the body's properties onto the body.
             foreach (StructDefProperty property in this.Body.Properties)
             {
                 // Emit the property's type.
-                body.Add(property.Type.Emit());
+                LLVMTypeRef type = property.Type.Emit();
+
+                // Append it to the body.
+                body.Add(type);
+
+                // Append it to the symbol's properties dictionary.
+                symbolProperties.Add(property.Name, type);
             }
 
-            // TODO: Finish implementing (heavy hard-coded debugging code below, a function must be registered beforehand this point or will hang).
             // Set the struct's body.
             LLVM.StructSetBody(@struct, body.ToArray(), true);
+
+            // Create the struct symbol.
+            StructSymbol symbol = new StructSymbol(this.Name, @struct, symbolProperties);
+
+            // TODO: Ensure it does not already exist on the symbol table? Or automatically does it?
+            // Register struct as a symbol in the symbol table.
+            context.SymbolTable.structs.Add(symbol);
 
             // Return the resulting struct.
             return @struct;
