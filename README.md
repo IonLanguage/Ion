@@ -57,8 +57,7 @@ Paste the following source code:
 ```c#
 extern int printf(string message, ...);
 
-int main()
-{
+int main() {
     printf("Hello world!");
 
     return 0;
@@ -90,8 +89,7 @@ Paste the following source code:
 ```c#
 extern int printf(string message, ...);
 
-int main()
-{
+int main() {
     printf("Hello world!");
 
     return 0;
@@ -139,8 +137,7 @@ printf("Hello %s", "world!");
 ```c#
 extern int printf(string message, ...);
 
-int main()
-{
+int main() {
     printf("Hello world!");
 
     return 0;
@@ -150,10 +147,8 @@ int main()
 #### Fibonacci sequence algorithm implementation
 
 ```c#
-int fibonacci(number)
-{
-    if (number <= 1)
-    {
+int fibonacci(number) {
+    if (number <= 1) {
         return 1;
     }
 
@@ -168,8 +163,7 @@ int fibonacci(number)
 All function names should be in PascalCase.
 
 ```rust
-void main()
-{
+void main() {
     //
 }
 ```
@@ -181,12 +175,10 @@ Class names should be in PascalCase, and members in camelCase.
 ```c#
 extern int printf(string message, ...);
 
-class Example
-{
+class Example {
     public string name = "John Doe";
 
-    void sayHello()
-    {
+    void sayHello() {
         printf("Hello, " + this.name);
     }
 }
@@ -198,8 +190,7 @@ Attributes are considered proxy functions, thus they should be treated as functi
 
 ```c
 [Transform(0)]
-int main()
-{
+int main() {
     // Return value will be transformed to '0'.
     return 1;
 }
