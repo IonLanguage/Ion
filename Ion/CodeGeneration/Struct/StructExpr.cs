@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Ion.CodeGeneration.Helpers;
+using Ion.Tracking.Symbols;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
@@ -12,10 +14,12 @@ namespace Ion.CodeGeneration
 
         public string TargetIdentifier { get; }
 
-        // TODO: Inline-property definitions support missing.
-        public StructExpr(string targetIdentifier)
+        public List<StructProperty> Body { get; }
+
+        public StructExpr(string targetIdentifier, List<StructProperty> body)
         {
             this.TargetIdentifier = targetIdentifier;
+            this.Body = body;
         }
 
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
@@ -26,11 +30,21 @@ namespace Ion.CodeGeneration
                 throw new Exception($"Reference to undefined struct named '${this.TargetIdentifier}'");
             }
 
-            // Otherwise, retrieve the target struct.
-            LLVMTypeRef @struct = context.SymbolTable.structs[this.TargetIdentifier].Value;
+            // Retrieve the symbol from the symbol table.
+            StructSymbol symbol = context.SymbolTable.structs[this.TargetIdentifier];
+
+            // Retrieve the target struct's LLVM reference value from the symbol.
+            LLVMTypeRef @struct = symbol.Value;
 
             // Build the struct allocation instruction.
             LLVMValueRef value = LLVM.BuildAlloca(context.Target, @struct, this.Name);
+
+            // Populate body properties.
+            foreach (StructProperty property in this.Body)
+            {
+                // TODO: Why does it require LLVMValueRef, instead of LLVMTypeRef when logically (?) it's the target struct?
+                // LLVMValueRef reference = LLVM.BuildStructGEP(context.Target, @struct., (uint)property.Index, property.Name);
+            }
 
             // Return the resulting value reference instruction.
             return value;
