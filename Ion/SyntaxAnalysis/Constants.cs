@@ -40,6 +40,8 @@ namespace Ion.SyntaxAnalysis
             {")", TokenType.SymbolParenthesesR},
             {"{", TokenType.SymbolBlockL},
             {"}", TokenType.SymbolBlockR},
+            {"[", TokenType.SymbolBracketL},
+            {"]", TokenType.SymbolBracketR},
             {":", TokenType.SymbolColon},
             {";", TokenType.SymbolSemiColon},
             {"=>", TokenType.SymbolArrow},
