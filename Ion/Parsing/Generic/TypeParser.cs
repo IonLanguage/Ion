@@ -31,13 +31,28 @@ namespace Ion.Parsing
                 context.Stream.Skip();
 
                 // TODO: Must ensure array length is integer somehow.
-                // Invoke expression parser to capture array length.
-                // arrayLength.Value = new ExprParser().Parse(context);
-                // TODO: Hard-coded value temporarily.
-                arrayLength = 3;
+                // TODO: Invoke expression parser to capture array length.
+                // TODO: arrayLength.Value = new ExprParser().Parse(context);
 
-                // Skip length token, onto bracket end token.
+                // BEGIN temporary solution.
+
+                // Ensure current token is an integer.
+                context.Stream.EnsureCurrent(TokenType.LiteralInteger);
+
+                // Capture the current integer token.
+                Token integerToken = context.Stream.Get();
+
+                // Assign the token value as the array length.
+                arrayLength = uint.Parse(integerToken.Value);
+
+                // Skip over the captured integer token.
                 context.Stream.Skip();
+
+                // END temporary solution.
+
+
+                // Ensure the current token is a closing bracket.
+                context.Stream.EnsureCurrent(TokenType.SymbolBracketR);
 
                 // Skip bracket end token.
                 context.Stream.Skip();
