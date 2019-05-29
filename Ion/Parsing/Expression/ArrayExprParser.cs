@@ -32,11 +32,14 @@ namespace Ion.Parsing
                 // Invoke expression parser.
                 Expr value = new ExprParser().Parse(context);
 
+                // Add the captured expression to the list.
+                values.Add(value);
+
                 // Capture current token.
                 Token current = context.Stream.Get();
 
                 // Ensure current token is either semi-colon or block end.
-                if (current.Type != TokenType.SymbolComma && current.Type != TokenType.SymbolBlockR)
+                if (current.Type != TokenType.SymbolComma && current.Type != TokenType.SymbolBracketR)
                 {
                     throw new Exception($"Expected token in array expression to be of type comma or bracket end, but got '{current.Type}'");
                 }
