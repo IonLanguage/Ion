@@ -29,7 +29,7 @@ namespace Ion.CodeGeneration
 
             // TODO: Callee is hard-coded.
             // Create the function call expression.
-            FunctionCallExpr functionCall = new FunctionCallExpr(this.TargetName, arguments);
+            CallExpr functionCall = new CallExpr(this.TargetName, arguments);
 
             // Emit and return the function call expression.
             return functionCall.Emit(context);

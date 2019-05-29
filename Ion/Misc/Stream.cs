@@ -7,6 +7,15 @@ namespace Ion.Misc
     // TODO: Upon adding (inserting) or removing items, the index will NOT update.
     public class Stream<T> : List<T>
     {
+        public T Current => this.Get();
+
+        public int Index => this.index;
+
+        /// <summary>
+        /// Whether the index currently points to the last item.
+        /// </summary>
+        public bool IsLastItem => this.index == this.Count - 1;
+
         protected int index;
 
         protected int pivotIndex = -1;
@@ -22,13 +31,6 @@ namespace Ion.Misc
             // Prepare the initial enumerator.
             this.Reset();
         }
-
-        public int Index => this.index;
-
-        /// <summary>
-        /// Whether the index currently points to the last item.
-        /// </summary>
-        public bool IsLastItem => this.index == this.Count - 1;
 
         /// <summary>
         /// Set the peek pivot relative to the current
@@ -80,19 +82,6 @@ namespace Ion.Misc
             }
 
             this.index++;
-
-            return true;
-        }
-
-        public bool Back()
-        {
-            // Ensure not overflowing.
-            if (this.index == 0)
-            {
-                return false;
-            }
-
-            this.index--;
 
             return true;
         }

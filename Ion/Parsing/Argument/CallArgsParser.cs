@@ -9,14 +9,14 @@ namespace Ion.Parsing
     {
         public List<Expr> Parse(ParserContext context)
         {
-            // Create the argument list result.
-            List<Expr> args = new List<Expr>();
-
             // Ensure current token is parentheses start.
             context.Stream.EnsureCurrent(TokenType.SymbolParenthesesL);
 
             // Skip parentheses start.
             context.Stream.Skip();
+
+            // Create the argument list result.
+            List<Expr> args = new List<Expr>();
 
             // Contains at least one argument.
             if (context.Stream.Get().Type != TokenType.SymbolParenthesesR)

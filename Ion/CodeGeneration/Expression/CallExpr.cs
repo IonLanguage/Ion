@@ -5,7 +5,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class FunctionCallExpr : Expr
+    public class CallExpr : Expr
     {
         public override ExprType ExprType => ExprType.FunctionCall;
 
@@ -13,7 +13,7 @@ namespace Ion.CodeGeneration
 
         public List<Expr> Args { get; }
 
-        public FunctionCallExpr(string targetName, List<Expr> args)
+        public CallExpr(string targetName, List<Expr> args)
         {
             this.TargetName = targetName;
             this.Args = args;

@@ -38,7 +38,7 @@ namespace Ion.Parsing
                 // Capture current token.
                 Token current = context.Stream.Get();
 
-                // Ensure current token is either semi-colon or block end.
+                // Ensure current token is either semi-colon or bracket end.
                 if (current.Type != TokenType.SymbolComma && current.Type != TokenType.SymbolBracketR)
                 {
                     throw new Exception($"Expected token in array expression to be of type comma or bracket end, but got '{current.Type}'");
