@@ -84,6 +84,19 @@ namespace Ion.Misc
             return true;
         }
 
+        public bool Back()
+        {
+            // Ensure not overflowing.
+            if (this.index == 0)
+            {
+                return false;
+            }
+
+            this.index--;
+
+            return true;
+        }
+
         public T Next()
         {
             // Skip current item.

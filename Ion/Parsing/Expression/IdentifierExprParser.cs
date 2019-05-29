@@ -8,8 +8,16 @@ namespace Ion.Parsing
     {
         public Expr Parse(ParserContext context)
         {
+            // TODO: PathResult should either by passed into VariableExprParser and FunctionCallExprParser, or
+            // TODO: the seperate parsers should do it themeselves, which then forces THIS parser to
+            // TODO: figure out if it is a VariableExpr or a FunctionCallExpr without first
+            // TODO: skipping over the subject.
+
             // Invoke path parser.
             PathResult path = new PathParser().Parse(context);
+
+            // Shift the stream back to account for the path parser skipping the final identifier.
+            context.Stream.Back();
 
             // Variable reference.
             if (context.Stream.Peek().Type != SyntaxAnalysis.TokenType.SymbolParenthesesL)
