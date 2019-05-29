@@ -13,7 +13,7 @@ namespace Ion.Tests.CodeGeneration
             this.Wrapper.Prepare("Array");
 
             // Invoke the driver.
-            this.Wrapper.InvokeDriver(1);
+            this.Wrapper.InvokeDriver();
 
             // TODO: Debugging.
             System.Console.WriteLine(this.Wrapper.Driver.Module.Emit());

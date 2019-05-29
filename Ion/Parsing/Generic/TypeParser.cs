@@ -18,11 +18,33 @@ namespace Ion.Parsing
                 throw new Exception($"Expected a type but got '{token.Type}'");
             }
 
-            // Skip current token.
-            context.Stream.Skip();
+            // Skip and capture the next token.
+            Token nextToken = context.Stream.Next();
+
+            // Create the array length (and flag), defaulting to null.
+            uint? arrayLength = null;
+
+            // Determine if type is an array.
+            if (nextToken.Type == TokenType.SymbolBracketL)
+            {
+                // Skip bracket start token.
+                context.Stream.Skip();
+
+                // TODO: Must ensure array length is integer somehow.
+                // Invoke expression parser to capture array length.
+                // arrayLength.Value = new ExprParser().Parse(context);
+                // TODO: Hard-coded value temporarily.
+                arrayLength = 3;
+
+                // Skip length token, onto bracket end token.
+                context.Stream.Skip();
+
+                // Skip bracket end token.
+                context.Stream.Skip();
+            }
 
             // Create the type.
-            return new Type(context.SymbolTable, token);
+            return new Type(context.SymbolTable, token, arrayLength);
         }
     }
 }

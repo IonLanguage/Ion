@@ -43,6 +43,11 @@ namespace Ion.Parsing
                 {
                     throw new Exception($"Expected token in array expression to be of type comma or bracket end, but got '{current.Type}'");
                 }
+                // Skip comma token.
+                else if (current.Type == TokenType.SymbolComma)
+                {
+                    context.Stream.Skip();
+                }
 
                 // Signal to update iterator to current token, since parsers where invoked.
                 return true;

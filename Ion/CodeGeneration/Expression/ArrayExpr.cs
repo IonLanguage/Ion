@@ -31,11 +31,23 @@ namespace Ion.CodeGeneration
                 values.Add(value.Emit(context));
             }
 
-            // Create the array.
-            LLVM.ConstArray(this.Type.Emit(), values.ToArray());
+            // TODO: Highly untested/unstable below this point.
+            // ----------------------- UNSTABLE START -----------------------
+            // Emit the items' type.
+            LLVMTypeRef itemType = this.Type.Emit();
 
-            // TODO: Finish implementing.
-            throw new NotImplementedException();
+            // Emit the array type.
+            LLVMTypeRef type = LLVM.ArrayType(itemType, (uint)this.Values.Length);
+
+            // Create the array.
+            LLVMValueRef array = LLVM.ConstArray(type, values.ToArray());
+
+            // Allocate the array.
+            LLVM.BuildArrayAlloca(context.Target, itemType, array, this.Name);
+
+            // Return the resulting array.
+            return array;
+            // ----------------------- UNSTABLE END -----------------------
         }
     }
 }
