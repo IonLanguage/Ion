@@ -31,8 +31,6 @@ namespace Ion.CodeGeneration
                 values.Add(value.Emit(context));
             }
 
-            // TODO: Highly untested/unstable below this point.
-            // ----------------------- UNSTABLE START -----------------------
             // Emit the items' type.
             LLVMTypeRef itemType = this.Type.Emit();
 
@@ -42,12 +40,8 @@ namespace Ion.CodeGeneration
             // Create the array.
             LLVMValueRef array = LLVM.ConstArray(type, values.ToArray());
 
-            // Allocate the array.
-            LLVM.BuildArrayAlloca(context.Target, itemType, array, this.Name);
-
             // Return the resulting array.
             return array;
-            // ----------------------- UNSTABLE END -----------------------
         }
     }
 }
