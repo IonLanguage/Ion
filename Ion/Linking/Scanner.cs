@@ -15,7 +15,7 @@ namespace Ion.Linking
 
             Match = new[]
             {
-                @"\.ion$"
+                $@"\.{ScannerConstants.FileExtension}$"
             }
         };
 
