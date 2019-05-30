@@ -1,4 +1,5 @@
 using Ion.CodeGeneration;
+using Ion.Misc;
 using Ion.SyntaxAnalysis;
 
 namespace Ion.Parsing
@@ -18,6 +19,9 @@ namespace Ion.Parsing
 
             // Capture string literal token.
             string value = context.Stream.Get(TokenType.LiteralString).Value;
+
+            // Remove the quotes from the value.
+            value = Util.ExtractStringLiteralValue(value);
 
             // Skip string literal token.
             context.Stream.Skip();
