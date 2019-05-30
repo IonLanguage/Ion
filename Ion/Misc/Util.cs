@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using Ion.CognitiveServices;
+using Ion.SyntaxAnalysis;
 
 namespace Ion.Misc
 {
@@ -39,6 +40,16 @@ namespace Ion.Misc
 
             // Ensure identifier pattern matches provided name.
             return Pattern.Identifier.IsMatch(identifier);
+        }
+
+        public static string ExtractStringLiteralValue(string stringLiteral)
+        {
+            return stringLiteral.Substring(1, stringLiteral.Length - 2);
+        }
+
+        public static string ExtractStringLiteralValue(Token token)
+        {
+            return Util.ExtractStringLiteralValue(token.Value);
         }
     }
 }

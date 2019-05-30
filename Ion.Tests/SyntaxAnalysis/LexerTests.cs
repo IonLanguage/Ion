@@ -71,7 +71,6 @@ namespace Ion.Tests.SyntaxAnalysis
         [Test]
         [TestCase("~")]
         [TestCase("$")]
-        [TestCase("#")]
         [TestCase("`")]
         public void NotTokenizeInvalidInput(string input)
         {

@@ -47,7 +47,8 @@ namespace Ion.SyntaxAnalysis
             {"=>", TokenType.SymbolArrow},
             {"...", TokenType.SymbolContinuous},
             {",", TokenType.SymbolComma},
-            {".", TokenType.SymbolDot}
+            {".", TokenType.SymbolDot},
+            {"#", TokenType.SymbolHash}
         }.SortByKeyLength();
 
         public static readonly TokenTypeMap operators = new TokenTypeMap

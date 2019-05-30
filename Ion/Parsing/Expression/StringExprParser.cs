@@ -1,6 +1,7 @@
 using System;
 using Ion.CodeGeneration;
 using Ion.CognitiveServices;
+using Ion.Misc;
 using Ion.SyntaxAnalysis;
 
 namespace Ion.Parsing
@@ -18,9 +19,8 @@ namespace Ion.Parsing
             // Skip string literal token.
             context.Stream.Skip();
 
-            // TODO: Hard-coded.
             // Remove string quotes.
-            string value = token.Value.Substring(1, token.Value.Length - 2);
+            string value = Util.ExtractStringLiteralValue(token);
 
             // Create the string expression entity.
             StringExpr stringExpr = new StringExpr(token.Type, value);

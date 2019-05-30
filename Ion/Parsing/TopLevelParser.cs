@@ -88,6 +88,15 @@ namespace Ion.Parsing
                 // Process the namespace definition reaction.
                 @namespace.Invoke(this.ModulePipeContext.Target);
             }
+            // Directive.
+            else if (type == SyntaxAnalysis.TokenType.SymbolHash)
+            {
+                // Invoke the directive parser.
+                Directive directive = new DirectiveParser().Parse(context);
+
+                // Invoke the directive onto the symbol table.
+                directive.Invoke(context);
+            }
             // Otherwise, throw an error.
             else
             {

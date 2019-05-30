@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ion.CodeGeneration.Helpers;
 using Ion.CognitiveServices;
 using Ion.Core;
 using Ion.NoticeReporting;
@@ -8,7 +9,7 @@ using Ion.Tracking;
 namespace Ion.Parsing
 {
     // TODO: Finish implementing.
-    public class ParserContext
+    public class ParserContext : IGenericPipeContext
     {
         public TokenStream Stream { get; }
 

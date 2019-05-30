@@ -241,6 +241,8 @@ namespace Ion.SyntaxAnalysis
 
         SymbolBracketR,
 
-        SymbolDot
+        SymbolDot,
+
+        SymbolHash
     }
 }

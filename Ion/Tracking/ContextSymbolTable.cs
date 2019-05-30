@@ -14,6 +14,8 @@ namespace Ion.Tracking
 
         public readonly Dictionary<string, CodeGeneration.Module> modules = new Dictionary<string, CodeGeneration.Module>();
 
+        public readonly Dictionary<string, string> directives = new Dictionary<string, string>();
+
         public readonly StructTable structs = new StructTable();
 
         /// <summary>

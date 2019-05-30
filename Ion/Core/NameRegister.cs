@@ -1,24 +1,24 @@
 namespace Ion.Core
 {
-    public static class NameCounter
+    public static class NameRegister
     {
         private static int str;
 
         private static int anonymous;
 
-        static NameCounter()
+        static NameRegister()
         {
             // Reset to initial values.
-            NameCounter.ResetAll();
+            NameRegister.ResetAll();
         }
 
         public static string GetString()
         {
             // Capture the result.
-            string result = $"str_{NameCounter.str}";
+            string result = $"str_{NameRegister.str}";
 
             // Increment the counter.
-            NameCounter.str++;
+            NameRegister.str++;
 
             // Return the result.
             return result;
@@ -27,10 +27,10 @@ namespace Ion.Core
         public static string GetAnonymous()
         {
             // Capture the result.
-            string result = $"anonymous_{NameCounter.anonymous}";
+            string result = $"anonymous_{NameRegister.anonymous}";
 
             // Increment the counter.
-            NameCounter.anonymous++;
+            NameRegister.anonymous++;
 
             // Return the result.
             return result;
@@ -42,8 +42,8 @@ namespace Ion.Core
         /// </summary>
         public static void ResetAll()
         {
-            NameCounter.str = 0;
-            NameCounter.anonymous = 0;
+            NameRegister.str = 0;
+            NameRegister.anonymous = 0;
         }
     }
 }

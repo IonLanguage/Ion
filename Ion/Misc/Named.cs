@@ -39,7 +39,7 @@ namespace Ion.Misc
         public void SetNameAnonymous()
         {
             // Retrieve name from the name counter.
-            string name = NameCounter.GetAnonymous();
+            string name = NameRegister.GetAnonymous();
 
             // Assign the name.
             this.SetName(name);
