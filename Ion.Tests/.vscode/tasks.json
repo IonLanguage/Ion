@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/IonTests.csproj"
+                "${workspaceFolder}/Ion.Tests.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -17,7 +17,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/IonTests.csproj"
+                "${workspaceFolder}/Ion.Tests.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -28,7 +28,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/IonTests.csproj"
+                "${workspaceFolder}/Ion.Tests.csproj"
             ],
             "problemMatcher": "$tsc"
         }
