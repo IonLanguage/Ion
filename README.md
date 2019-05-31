@@ -128,7 +128,7 @@ printf("Hello %s", "world!");
 
 ### 📚 Examples
 
-#### Hello world
+Hello world
 
 ```c#
 extern int printf(string message, ...);
@@ -138,7 +138,7 @@ void main() {
 }
 ```
 
-#### Fibonacci sequence algorithm implementation
+Fibonacci sequence algorithm implementation
 
 ```c#
 int fibonacci(number) {
