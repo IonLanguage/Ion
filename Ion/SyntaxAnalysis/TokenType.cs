@@ -2,6 +2,10 @@ namespace Ion.SyntaxAnalysis
 {
     public enum TokenType
     {
+        /// <summary>
+        /// Placeholder for a token to be deleted.
+        /// </summary>
+        Empty,
 
         /// <summary>
         /// Represents the start of the program.

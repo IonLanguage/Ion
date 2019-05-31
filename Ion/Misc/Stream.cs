@@ -7,6 +7,8 @@ namespace Ion.Misc
     // TODO: Upon adding (inserting) or removing items, the index will NOT update.
     public class Stream<T> : List<T>
     {
+        public delegate T StreamTransformCallback(T item);
+
         public T Current => this.Get();
 
         public int Index => this.index;
@@ -158,6 +160,30 @@ namespace Ion.Misc
 
             // Build the final string.
             return result.ToString();
+        }
+
+        public void Transform(StreamTransformCallback callback)
+        {
+            // Loop through all items.
+            for (int i = 0; i < this.Count; i++)
+            {
+                // Abstract the item.
+                T item = this[i];
+
+                // Invoke the callback and replace the item.
+                T result = callback(item);
+
+                // Callback returned remove signal, remove the item.
+                if (result == null)
+                {
+                    this.RemoveAt(i);
+                }
+                // Otherwise, replace the item.
+                else
+                {
+                    this[i] = result;
+                }
+            }
         }
     }
 }

@@ -7,11 +7,11 @@ namespace Ion.Tests.Core
 {
     internal sealed class TestUtil
     {
-        public static string dataDir = "../../../Data/";
+        public const string DataDir = "../../../Data/";
 
         public static string ResolveDataPath(string path)
         {
-            return Path.Join(TestUtil.dataDir, path);
+            return Path.Join(TestUtil.DataDir, path);
         }
 
         public static string ReadDataFile(string path)
@@ -29,14 +29,14 @@ namespace Ion.Tests.Core
             return content;
         }
 
-        public static string ReadOutputDataFile(string name)
+        public static string ReadOutputDataFile(string name, string extension = "ll")
         {
-            return TestUtil.ReadDataFile($"Output/{name}.ll");
+            return TestUtil.ReadDataFile($"Output/{name}.{extension}");
         }
 
-        public static string ReadInputDataFile(string name)
+        public static string ReadInputDataFile(string name, string extension = "ion")
         {
-            return TestUtil.ReadDataFile($"Input/{name}.ion");
+            return TestUtil.ReadDataFile($"Input/{name}.{extension}");
         }
 
         public static TokenStream CreateStreamFromInputDataFile(string path)

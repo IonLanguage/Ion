@@ -2,6 +2,11 @@ namespace Ion.SyntaxAnalysis
 {
     public struct Token
     {
+        public static Token Empty => new Token
+        {
+            Type = TokenType.Empty
+        };
+
         public TokenType Type;
 
         public string Value;
@@ -24,6 +29,14 @@ namespace Ion.SyntaxAnalysis
 
                 return this.StartPos + this.Value.Length;
             }
+        }
+
+        /// <summary>
+        /// Set the token's type to the special empty signal.
+        /// </summary>
+        public void SetEmpty()
+        {
+            this.Type = TokenType.Empty;
         }
 
         /// <summary>

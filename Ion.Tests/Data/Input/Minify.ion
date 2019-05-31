@@ -1,0 +1,28 @@
+extern int printf(string format, ...);
+extern int puts(string message);
+
+string getGreeting()
+{
+    return "Hello";
+}
+
+string getSubject()
+{
+    return "world";
+}
+
+string getFormat()
+{
+    return "%s, %s!";
+}
+
+string getPutsLine()
+{
+    return "This is another line.";
+}
+
+void main()
+{
+    printf(getFormat(), getGreeting(), getSubject());
+    puts(getPutsLine());
+}

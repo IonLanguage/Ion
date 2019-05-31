@@ -43,7 +43,7 @@ namespace Ion.SyntaxAnalysis
                 throw new IndexOutOfRangeException("From index argument must be zero or higher");
             }
             // Validate to range.
-            else if (to > this.Count - 1)
+            else if (to > this.Count)
             {
                 throw new IndexOutOfRangeException("To index is larger than the total amount of items in the list");
             }
@@ -66,6 +66,11 @@ namespace Ion.SyntaxAnalysis
 
             // Return the resulting string.
             return result;
+        }
+
+        public string Join()
+        {
+            return this.Join(0, this.Count - 1);
         }
 
         /// <summary>
@@ -187,6 +192,11 @@ namespace Ion.SyntaxAnalysis
                     buffer = this.Next();
                 }
             }
+        }
+
+        public TokenStream Clone()
+        {
+            return new TokenStream(this.ToArray());
         }
     }
 }
