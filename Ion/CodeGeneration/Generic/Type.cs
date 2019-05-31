@@ -11,7 +11,7 @@ namespace Ion.CodeGeneration
 {
     public class Type : ITypeEmitter
     {
-        protected readonly Token token;
+        public Token Token { get; }
 
         protected readonly ContextSymbolTable symbolTable;
 
@@ -20,7 +20,7 @@ namespace Ion.CodeGeneration
         public Type(ContextSymbolTable symbolTable, Token token, uint? arrayLength = null)
         {
             this.symbolTable = symbolTable;
-            this.token = token;
+            this.Token = token;
             this.arrayLength = arrayLength;
         }
 
@@ -30,20 +30,20 @@ namespace Ion.CodeGeneration
             LLVMTypeRef result;
 
             // Use LLVM type resolver if token is a primitive type.
-            if (TokenIdentifier.IsPrimitiveType(this.token))
+            if (TokenIdentifier.IsPrimitiveType(this.Token))
             {
                 // Delegate to primitive type construct.
-                result = new PrimitiveType(this.token.Value).Emit();
+                result = new PrimitiveType(this.Token.Value).Emit();
             }
             // Otherwise, look it up on the structs dictionary, on the symbol table.
-            else if (this.symbolTable.structs.Contains(this.token.Value))
+            else if (this.symbolTable.structs.Contains(this.Token.Value))
             {
-                result = this.symbolTable.structs[this.token.Value].Value;
+                result = this.symbolTable.structs[this.Token.Value].Value;
             }
             // At this point, provided token is not a valid type.
             else
             {
-                throw new Exception($"Token is not a primitive nor user-defined type: '{this.token.Value}'");
+                throw new Exception($"Token is not a primitive nor user-defined type: '{this.Token.Value}'");
             }
 
             // Convert result to an array if applicable.

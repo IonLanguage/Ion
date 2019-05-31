@@ -55,12 +55,10 @@ cmd> notepad Src/main.ion
 Paste the following source code:
 
 ```c#
-extern int printf(string message, ...);
+extern int puts(string message);
 
-int main() {
-    printf("Hello world!");
-
-    return 0;
+void main() {
+    puts("Hello world!");
 }
 ```
 
@@ -87,12 +85,10 @@ $ nano Src/main.ion
 Paste the following source code:
 
 ```c#
-extern int printf(string message, ...);
+extern int puts(string message);
 
-int main() {
-    printf("Hello world!");
-
-    return 0;
+void main() {
+    puts("Hello world!");
 }
 ```
 
@@ -137,10 +133,8 @@ printf("Hello %s", "world!");
 ```c#
 extern int printf(string message, ...);
 
-int main() {
+void main() {
     printf("Hello world!");
-
-    return 0;
 }
 ```
 

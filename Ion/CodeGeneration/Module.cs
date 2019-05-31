@@ -71,11 +71,8 @@ namespace Ion.CodeGeneration
             // Create the body.
             Block body = function.CreateBody();
 
-            // Set the body's name to entry.
-            body.SetNameEntry();
-
-            // Create the arguments.
-            function.CreateArgs();
+            // Create the function's prototype.
+            function.CreatePrototype();
 
             // Return the function.
             return function;
@@ -101,7 +98,7 @@ namespace Ion.CodeGeneration
         public Function EmitMainFunction()
         {
             // Create the function.
-            Function function = CreateMainFunction();
+            Function function = Module.CreateMainFunction();
 
             // Create pipe context for the function.
             PipeContext<Module> context = new PipeContext<Module>(this, this.SymbolTable);

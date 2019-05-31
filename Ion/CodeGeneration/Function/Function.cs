@@ -24,6 +24,11 @@ namespace Ion.CodeGeneration
             {
                 throw new Exception("Unexpected function prototype to be null");
             }
+            // Ensure that body returns a value if applicable.
+            else if (!this.Prototype.ReturnsVoid && !this.Body.HasReturnExpr)
+            {
+                throw new Exception("Functions that do not return void must return a value");
+            }
 
             // Emit the argument types.
             LLVMTypeRef[] args = this.Prototype.Args.Emit(context);
@@ -35,7 +40,7 @@ namespace Ion.CodeGeneration
             LLVMTypeRef type = LLVM.FunctionType(returnType, args, this.Prototype.Args.Continuous);
 
             // Create the function.
-            LLVMValueRef function = LLVM.AddFunction(context.Target.Target, this.Prototype.Name, type);
+            LLVMValueRef function = LLVM.AddFunction(context.Target.Target, this.Prototype.Identifier, type);
 
             // Create the body context.
             PipeContext<LLVMValueRef> bodyContext = context.Derive<LLVMValueRef>(function);
@@ -44,13 +49,13 @@ namespace Ion.CodeGeneration
             this.Body.Emit(bodyContext);
 
             // Ensures the function does not already exist
-            if (context.SymbolTable.functions.ContainsKey(this.Prototype.Name))
+            if (context.SymbolTable.functions.ContainsKey(this.Prototype.Identifier))
             {
-                throw new Exception($"A function with the name \"{this.Prototype.Name}\" already exists");
+                throw new Exception($"A function with the identifier '{this.Prototype.Identifier}' already exists");
             }
 
             // Register the function on the symbol table.
-            context.SymbolTable.functions.Add(this.Prototype.Name, function);
+            context.SymbolTable.functions.Add(this.Prototype.Identifier, function);
 
             // Return the function entity.
             return function;
@@ -64,6 +69,9 @@ namespace Ion.CodeGeneration
         {
             // Create a block as the body.
             Block body = new Block();
+
+            // Set the body's name to entry.
+            body.SetNameEntry();
 
             // Assign the created block as the body.
             this.Body = body;
@@ -101,7 +109,7 @@ namespace Ion.CodeGeneration
             ITypeEmitter returnType = PrimitiveTypeFactory.Void();
 
             // Create a new prototype instance.
-            this.Prototype = new Prototype(this.Name, null, returnType);
+            this.Prototype = new Prototype(this.Identifier, null, returnType, true);
 
             // Create formal arguments after assigning prototype to avoid infinite loop.
             FormalArgs args = this.CreateArgs();

@@ -37,7 +37,7 @@ namespace Ion.CodeGeneration
             LLVMTypeRef @struct = symbol.Value;
 
             // Build the struct allocation instruction.
-            LLVMValueRef value = LLVM.BuildAlloca(context.Target, @struct, this.Name);
+            LLVMValueRef value = LLVM.BuildAlloca(context.Target, @struct, this.Identifier);
 
             // Populate body properties.
             foreach (StructProperty property in this.Body)

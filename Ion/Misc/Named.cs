@@ -5,9 +5,14 @@ using Ion.Core;
 
 namespace Ion.Misc
 {
-    public abstract class Named
+    public interface INamed
     {
-        public string Name { get; protected set; }
+        string Identifier { get; }
+    }
+
+    public abstract class Named : INamed
+    {
+        public string Identifier { get; protected set; }
 
         protected Named()
         {
@@ -23,7 +28,7 @@ namespace Ion.Misc
             // Ensure name is valid.
             if (Util.ValidateIdentifier(name))
             {
-                this.Name = name;
+                this.Identifier = name;
             }
             // Otherwise, throw an error.
             else
@@ -48,7 +53,7 @@ namespace Ion.Misc
         public void EnsureNameOrThrow()
         {
             // Ensure name is not null nor empty.
-            if (String.IsNullOrEmpty(this.Name))
+            if (String.IsNullOrEmpty(this.Identifier))
             {
                 throw new Exception("Unexpected name property to be null or empty");
             }

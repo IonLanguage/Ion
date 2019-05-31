@@ -57,7 +57,7 @@ namespace Ion.CodeGeneration
             LLVMValueRef target = context.SymbolTable.functions[this.TargetName];
 
             // Create the function call.
-            LLVMValueRef functionCall = LLVM.BuildCall(context.Target, target, args.ToArray(), this.Name);
+            LLVMValueRef functionCall = LLVM.BuildCall(context.Target, target, args.ToArray(), this.Identifier);
 
             // Return the emitted function call.
             return functionCall;

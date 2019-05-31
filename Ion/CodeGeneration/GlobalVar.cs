@@ -19,7 +19,7 @@ namespace Ion.CodeGeneration
         public LLVMValueRef Emit(PipeContext<Module> context)
         {
             // Create the global variable.
-            LLVMValueRef globalVar = LLVM.AddGlobal(context.Target.Target, this.Type.Emit(), this.Name);
+            LLVMValueRef globalVar = LLVM.AddGlobal(context.Target.Target, this.Type.Emit(), this.Identifier);
 
             // Set the linkage to common.
             globalVar.SetLinkage(LLVMLinkage.LLVMCommonLinkage);

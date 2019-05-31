@@ -6,13 +6,16 @@ namespace Ion.CodeGeneration
     {
         public FormalArgs Args { get; set; }
 
-        public ITypeEmitter ReturnType { get; set; }
+        public ITypeEmitter ReturnType { get; }
 
-        public Prototype(string name, FormalArgs args, ITypeEmitter returnType)
+        public bool ReturnsVoid { get; }
+
+        public Prototype(string name, FormalArgs args, ITypeEmitter returnType, bool returnsVoid = false)
         {
             this.SetName(name);
             this.Args = args;
             this.ReturnType = returnType;
+            this.ReturnsVoid = returnsVoid;
         }
     }
 }

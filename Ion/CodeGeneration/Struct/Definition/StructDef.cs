@@ -20,7 +20,7 @@ namespace Ion.CodeGeneration
         public LLVMTypeRef Emit(PipeContext<Module> context)
         {
             // Create the struct construct.
-            LLVMTypeRef @struct = LLVM.StructCreateNamed(context.Target.GetContext(), this.Name);
+            LLVMTypeRef @struct = LLVM.StructCreateNamed(context.Target.GetContext(), this.Identifier);
 
             // Create the body buffer list.
             List<LLVMTypeRef> body = new List<LLVMTypeRef>();
@@ -38,14 +38,14 @@ namespace Ion.CodeGeneration
                 body.Add(type);
 
                 // Append it to the symbol's properties dictionary.
-                symbolProperties.Add(property.Name, type);
+                symbolProperties.Add(property.Identifier, type);
             }
 
             // Set the struct's body.
             LLVM.StructSetBody(@struct, body.ToArray(), true);
 
             // Create the struct symbol.
-            StructSymbol symbol = new StructSymbol(this.Name, @struct, symbolProperties);
+            StructSymbol symbol = new StructSymbol(this.Identifier, @struct, symbolProperties);
 
             // TODO: Ensure it does not already exist on the symbol table? Or automatically does it?
             // Register struct as a symbol in the symbol table.

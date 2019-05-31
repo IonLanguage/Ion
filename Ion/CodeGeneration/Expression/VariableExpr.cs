@@ -23,13 +23,13 @@ namespace Ion.CodeGeneration
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
             // Ensure the variable exists in the local scope.
-            if (!context.SymbolTable.localScope.ContainsKey(this.Name))
+            if (!context.SymbolTable.localScope.ContainsKey(this.Identifier))
             {
-                throw new Exception($"Reference to undefined variable named '{this.Name}'");
+                throw new Exception($"Reference to undefined variable named '{this.Identifier}'");
             }
 
             // Retrieve the value.
-            LLVMValueRef value = context.SymbolTable.localScope[this.Name];
+            LLVMValueRef value = context.SymbolTable.localScope[this.Identifier];
 
             // Return the retrieved value.
             return value;

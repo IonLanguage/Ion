@@ -1,7 +1,7 @@
 ; ModuleID = 'entry'
 source_filename = "entry"
 
-define i32 @test() {
+define void @test() {
 entry:
   ret void
 }

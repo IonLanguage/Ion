@@ -19,6 +19,8 @@ namespace Ion.CodeGeneration
 
         public Expr ReturnExpr { get; set; }
 
+        public bool HasReturnExpr => this.ReturnExpr != null;
+
         public BlockType Type { get; set; }
 
         // TODO: Find a better way to cache emitted values.
@@ -32,7 +34,7 @@ namespace Ion.CodeGeneration
         public LLVMBasicBlockRef Emit(PipeContext<LLVMValueRef> context)
         {
             // Create the block.
-            LLVMBasicBlockRef block = LLVM.AppendBasicBlock(context.Target, this.Name);
+            LLVMBasicBlockRef block = LLVM.AppendBasicBlock(context.Target, this.Identifier);
 
             // Create the block's builder.
             LLVMBuilderRef builder = block.CreateBuilder();
@@ -50,7 +52,7 @@ namespace Ion.CodeGeneration
             }
 
             // No value was returned.
-            if (this.ReturnExpr == null)
+            if (!this.HasReturnExpr)
             {
                 LLVM.BuildRetVoid(builder);
             }

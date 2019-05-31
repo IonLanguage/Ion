@@ -21,7 +21,7 @@ namespace Ion.CodeGeneration
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
             // Create the variable.
-            LLVMValueRef variable = LLVM.BuildAlloca(context.Target, this.ValueType.Emit(), this.Name);
+            LLVMValueRef variable = LLVM.BuildAlloca(context.Target, this.ValueType.Emit(), this.Identifier);
 
             // Assign value if applicable.
             if (this.Value != null)
@@ -30,7 +30,7 @@ namespace Ion.CodeGeneration
                 LLVM.BuildStore(context.Target, this.Value.Emit(context), variable);
 
                 // Register on symbol table.
-                context.SymbolTable.localScope.Add(this.Name, variable);
+                context.SymbolTable.localScope.Add(this.Identifier, variable);
             }
 
             // Return the resulting variable.

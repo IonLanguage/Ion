@@ -1,11 +1,8 @@
+using Ion.Misc;
+
 namespace Ion.Tracking
 {
-    public interface INamedSymbol
-    {
-        string Identifier { get; }
-    }
-
-    public abstract class NamedSymbol<T> : Symbol<T>, INamedSymbol
+    public abstract class NamedSymbol<T> : Symbol<T>, INamed
     {
         public string Identifier { get; }
 
