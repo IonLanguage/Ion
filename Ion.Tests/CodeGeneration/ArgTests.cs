@@ -16,5 +16,15 @@ namespace Ion.Tests.CodeGeneration
             // Invoke the driver and expect it to throw.
             Assert.Throws<Exception>(() => this.Wrapper.InvokeDriver(2));
         }
+
+        [Test]
+        public void ContinuousArgumentsMismatch()
+        {
+            // Prepare the wrapper.
+            this.Wrapper.Prepare("ContinuousArgCountMismatch");
+
+            // Invoke the driver and expect it to throw.
+            Assert.Throws<Exception>(() => this.Wrapper.InvokeDriver(2));
+        }
     }
 }
