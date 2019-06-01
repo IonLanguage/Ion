@@ -110,18 +110,6 @@ $ ion run
 
 3. **Flexible**. The language should contain tools and shortcuts to make the programming experience smooth, not rigid. Pipes are the best example of a planned feature that will add flexibility in the development environment.
 
-An example usage of pipes:
-
-```rust
-...
-: "Hello %s", "world!" | printf;
-
-// Is equivalent to:
-
-printf("Hello %s", "world!");
-...
-```
-
 ### ✨ Syntax highlighting
 
 > [Notepad++](Notepad%2B%2B%20Ion.xml)
