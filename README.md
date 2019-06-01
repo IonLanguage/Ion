@@ -1,5 +1,7 @@
 ### Ion language
 
+[![CircleCI](https://circleci.com/gh/IonLanguage/Ion.svg?style=svg)](https://circleci.com/gh/IonLanguage/Ion)
+
 A language implemented in C# using LLVM 5.0 bindings.
 
 **What is Ion?** Ion is a high-level (and low-level), strongly-typed language implemented using the LLVM project, currently undergoing early development.
