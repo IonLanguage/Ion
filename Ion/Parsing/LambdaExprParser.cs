@@ -1,4 +1,5 @@
 using Ion.CodeGeneration;
+using Ion.SyntaxAnalysis;
 
 namespace Ion.Parsing
 {
@@ -9,23 +10,29 @@ namespace Ion.Parsing
             // Create a lambda expression.
             LambdaExpr lambda = new LambdaExpr();
 
-            // Parse the return type.
-            Type type = new TypeParser().Parse(context);
-
-            // Assign the parsed type to the return type.
-            lambda.ReturnType = type;
-
             // Parse the formal arguments.
             FormalArgs args = new FormalArgsParser().Parse(context);
 
             // Assign the parsed arguments to the lambda.
             lambda.Args = args;
 
-            // Parse the block.
-            Block block = new BlockParser().Parse(context);
+            // Ensure current type is symbol colon.
+            context.Stream.EnsureCurrent(TokenType.SymbolColon);
+
+            // Skip symbol colon token.
+            context.Stream.Skip();
+
+            // Parse the return type.
+            Type type = new TypeParser().Parse(context);
+
+            // Assign the parsed type to the return type.
+            lambda.ReturnType = type;
+
+            // Parse the body block.
+            Block body = new BlockParser().Parse(context);
 
             // Assign the block to the lambda.
-            lambda.Block = block;
+            lambda.Body = body;
 
             // Return the resulting expression.
             return lambda;

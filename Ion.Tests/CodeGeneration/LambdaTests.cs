@@ -4,12 +4,12 @@ using Ion.Tests.Wrappers;
 namespace Ion.Tests.CodeGeneration
 {
     [TestFixture]
-    internal sealed class PrototypeTests : ConstructTest
+    internal sealed class LambdaTests : ConstructTest
     {
         [Test]
-        public void Complex()
+        public void Lambda()
         {
-            this.Wrapper.Bootstrap("ComplexPrototype");
+            this.Wrapper.Bootstrap("Lambda");
         }
     }
 }

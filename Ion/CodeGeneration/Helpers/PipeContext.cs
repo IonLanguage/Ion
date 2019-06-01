@@ -11,14 +11,18 @@ namespace Ion.CodeGeneration.Helpers
     /// </summary>
     public class PipeContext<T> : IGenericPipeContext
     {
+        public Module Module { get; }
+
+        public PipeContext<Module> ModuleContext => this.Module.AsPipeContext();
+
+        public ContextSymbolTable SymbolTable => this.Module.SymbolTable;
+
         public T Target { get; }
 
-        public ContextSymbolTable SymbolTable { get; }
-
-        public PipeContext(T target, ContextSymbolTable symbolTable)
+        public PipeContext(T target, Module module)
         {
             this.Target = target;
-            this.SymbolTable = symbolTable;
+            this.Module = module;
         }
 
         /// <summary>
@@ -29,7 +33,7 @@ namespace Ion.CodeGeneration.Helpers
         public PipeContext<TTarget> Derive<TTarget>(TTarget target)
         {
             // Create the derived context, with a reference to the local symbol table.
-            PipeContext<TTarget> context = new PipeContext<TTarget>(target, this.SymbolTable);
+            PipeContext<TTarget> context = new PipeContext<TTarget>(target, this.Module);
 
             // Return the created context.
             return context;

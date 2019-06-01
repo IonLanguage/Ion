@@ -22,6 +22,8 @@ namespace Ion.CodeGeneration
 
         public List<string> Imports { get; }
 
+        protected PipeContext<Module> PipeContext;
+
         public Module(string fileName, LLVMModuleRef target)
         {
             this.Target = target;
@@ -32,6 +34,9 @@ namespace Ion.CodeGeneration
 
             // Create imports.
             this.Imports = new List<string>();
+
+            // Create a save a pipe context as cache.
+            this.PipeContext = new PipeContext<Module>(this, this);
         }
 
         public Module(string fileName, string identifier) : this(fileName, LLVM.ModuleCreateWithNameInContext(identifier, LLVM.GetGlobalContext()))
@@ -100,11 +105,8 @@ namespace Ion.CodeGeneration
             // Create the function.
             Function function = Module.CreateMainFunction();
 
-            // Create pipe context for the function.
-            PipeContext<Module> context = new PipeContext<Module>(this, this.SymbolTable);
-
             // Emit the function.
-            function.Emit(context);
+            function.Emit(this.PipeContext);
 
             // Return the previously created function.
             return function;
@@ -148,6 +150,12 @@ namespace Ion.CodeGeneration
 
             // Return resulting output string.
             return outputString;
+        }
+
+        public PipeContext<Module> AsPipeContext()
+        {
+            // Return the cached pipe context.
+            return this.PipeContext;
         }
     }
 }

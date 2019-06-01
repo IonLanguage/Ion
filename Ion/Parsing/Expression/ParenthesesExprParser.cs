@@ -1,4 +1,5 @@
 using Ion.CodeGeneration;
+using Ion.CognitiveServices;
 using Ion.SyntaxAnalysis;
 
 namespace Ion.Parsing
@@ -9,6 +10,16 @@ namespace Ion.Parsing
         {
             // Ensure current token is parentheses start.
             context.Stream.EnsureCurrent(TokenType.SymbolParenthesesL);
+
+            // Peek at the next token.
+            Token peek = context.Stream.Peek();
+
+            // Lambda expresion.
+            if (TokenIdentifier.IsType(peek, context) || peek.Type == TokenType.SymbolParenthesesR)
+            {
+                // Delegate to the lambda expression parser.
+                return new LambdaExprParser().Parse(context);
+            }
 
             // Skip the parentheses start token.
             context.Stream.Skip();

@@ -8,16 +8,24 @@ namespace Ion.CodeGeneration
     {
         public override ExprType ExprType => ExprType.Lambda;
 
-        public FormalArgs Args;
+        public FormalArgs Args { get; set; }
 
-        public Type ReturnType;
+        public Type ReturnType { get; set; }
 
-        public Block Block;
+        public Block Body { get; set; }
 
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
-            // TODO: Implement.
-            throw new NotImplementedException();
+            // Create a new function.
+            Function function = new Function();
+
+            // Emit the created function.
+            LLVMValueRef result = function.Emit(context.ModuleContext);
+
+            // TODO: Fish implementation.
+
+            // Return the resulting lambda function.
+            return result;
         }
     }
 }

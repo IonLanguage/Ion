@@ -1,7 +1,7 @@
 namespace Ion.CodeGeneration.Helpers
 {
-    public interface IPipe<TInput, TOutput>
+    public interface IPipe<TContext, TOutput>
     {
-        TOutput Emit(PipeContext<TInput> context);
+        TOutput Emit(PipeContext<TContext> context);
     }
 }

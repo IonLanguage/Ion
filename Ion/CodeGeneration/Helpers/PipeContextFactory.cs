@@ -11,7 +11,7 @@ namespace Ion.CodeGeneration.Helpers
         public static PipeContext<Module> CreateFromModule(Module module)
         {
             // Create the instance and fill parameters from the module.
-            return new PipeContext<Module>(module, module.SymbolTable);
+            return new PipeContext<Module>(module, module);
         }
     }
 }
