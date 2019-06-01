@@ -69,6 +69,13 @@ namespace Ion.Tests.Core
             Assert.False(this.Driver.HasNext);
         }
 
+        public void Bootstrap(string baseFileName)
+        {
+            this.Prepare(baseFileName);
+            this.InvokeDriver();
+            this.Compare();
+        }
+
         /// <summary>
         /// Assert that the driver's module IR code matches
         /// the expected output located under the provided

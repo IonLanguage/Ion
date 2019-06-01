@@ -18,29 +18,13 @@ namespace Ion.Tests.CodeGeneration
         [Test]
         public void FunctionWithArguments()
         {
-            // Prepare the wrapper.
-            this.Wrapper.Prepare("FunctionWithArguments");
-
-            // Invoke the driver.
-            this.Wrapper.InvokeDriver();
-
-            // Compare results.
-            this.Wrapper.Compare();
+            this.Wrapper.Bootstrap("FunctionWithArguments");
         }
 
         [Test]
         public void FunctionWithoutArguments()
         {
-            // Prepare the wrapper.
-            this.Wrapper.Prepare("FunctionWithoutArguments");
-
-            // Invoke the driver.
-            this.Wrapper.InvokeDriver();
-
-            System.Console.WriteLine(this.Wrapper.Driver.Module.Emit());
-
-            // Compare results.
-            this.Wrapper.Compare();
+            this.Wrapper.Bootstrap("FunctionWithoutArguments");
         }
 
         [Test]

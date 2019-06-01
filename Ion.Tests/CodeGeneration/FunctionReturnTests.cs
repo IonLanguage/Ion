@@ -18,14 +18,7 @@ namespace Ion.Tests.CodeGeneration
         [Test]
         public void MainWithReturn()
         {
-            // Prepare the wrapper.
-            this.Wrapper.Prepare("MainWithReturn");
-
-            // Invoke the driver.
-            this.Wrapper.InvokeDriver();
-
-            // Compare results.
-            this.Wrapper.Compare();
+            this.Wrapper.Bootstrap("MainWithReturn");
         }
 
         [Test]

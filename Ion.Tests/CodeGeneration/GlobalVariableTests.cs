@@ -18,14 +18,7 @@ namespace Ion.Tests.CodeGeneration
         [Test]
         public void GlobalVariable()
         {
-            // Prepare the wrapper.
-            this.Wrapper.Prepare("GlobalVariable");
-
-            // Invoke the driver.
-            this.Wrapper.InvokeDriver();
-
-            // Compare results.
-            this.Wrapper.Compare();
+            this.Wrapper.Bootstrap("GlobalVariable");
         }
     }
 }

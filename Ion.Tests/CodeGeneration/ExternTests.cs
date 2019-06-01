@@ -18,14 +18,7 @@ namespace Ion.Tests.CodeGeneration
         [Test]
         public void Extern()
         {
-            // Prepare the wrapper.
-            this.Wrapper.Prepare("Extern");
-
-            // Invoke the driver.
-            this.Wrapper.InvokeDriver();
-
-            // Compare results.
-            this.Wrapper.Compare();
+            this.Wrapper.Bootstrap("Extern");
         }
     }
 }

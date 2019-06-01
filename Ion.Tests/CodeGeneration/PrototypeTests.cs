@@ -8,45 +8,17 @@ using Ion.Tests.Core;
 using Ion.CodeGeneration;
 using Ion.Parsing;
 using Ion.Core;
+using Ion.Tests.Wrappers;
 
 namespace Ion.Tests.CodeGeneration
 {
     [TestFixture]
-    internal sealed class PrototypeTests
+    internal sealed class PrototypeTests : ConstructTest
     {
-        [SetUp]
-        public static void Setup()
-        {
-            // Reset the name counter before every test.
-            NameRegister.ResetAll();
-        }
-
         [Test]
         public void Complex()
         {
-            // Create the token stream.
-            TokenStream stream = TestUtil.CreateStreamFromInputDataFile("ComplexPrototype");
-
-            // Create the driver.
-            Driver driver = new Driver(stream);
-
-            // Expect driver to have next.
-            Assert.True(driver.HasNext);
-
-            // Invoke the driver.
-            driver.Next();
-
-            // Expect driver to not have next.
-            Assert.False(driver.HasNext);
-
-            // Read the expected output IR code.
-            string expected = TestUtil.ReadOutputDataFile("ComplexPrototype");
-
-            // Emit the driver's module.
-            string output = driver.Module.Emit();
-
-            // Compare stored IR code with the actual, emitted output.
-            Assert.AreEqual(expected, output);
+            this.Wrapper.Bootstrap("ComplexPrototype");
         }
     }
 }

@@ -18,14 +18,7 @@ namespace Ion.Tests.CodeGeneration
         [Test]
         public void Complex()
         {
-            // Prepare the wrapper.
-            this.Wrapper.Prepare("Complex");
-
-            // Invoke the driver.
-            this.Wrapper.InvokeDriver();
-
-            // Compare results.
-            this.Wrapper.Compare();
+            this.Wrapper.Bootstrap("Complex");
         }
     }
 }

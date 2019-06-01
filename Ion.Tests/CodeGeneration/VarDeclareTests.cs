@@ -17,14 +17,7 @@ namespace Ion.Tests.CodeGeneration
         [Test]
         public void VarDeclare()
         {
-            // Prepare the wrapper.
-            this.Wrapper.Prepare("VariableDeclaration");
-
-            // Invoke the driver.
-            this.Wrapper.InvokeDriver();
-
-            // Compare results.
-            this.Wrapper.Compare();
+            this.Wrapper.Bootstrap("VariableDeclaration");
         }
     }
 }
