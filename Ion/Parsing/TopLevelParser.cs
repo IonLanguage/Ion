@@ -36,13 +36,13 @@ namespace Ion.Parsing
                 return;
             }
             // Function definition or global variable.
-            else if (TokenIdentifier.IsPrimitiveType(type))
+            else if (TokenIdentifier.IsPrimitiveType(type) || type == TokenType.SymbolBracketL)
             {
                 // Peek the token after identifier.
                 Token afterIdentifier = context.Stream.Peek(2);
 
                 // Function definition.
-                if (afterIdentifier.Type == SyntaxAnalysis.TokenType.SymbolParenthesesL)
+                if (type == TokenType.SymbolBracketL || afterIdentifier.Type == SyntaxAnalysis.TokenType.SymbolParenthesesL)
                 {
                     // Invoke the function parser.
                     Function function = new FunctionParser().Parse(context);
