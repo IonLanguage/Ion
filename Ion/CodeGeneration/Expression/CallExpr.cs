@@ -19,6 +19,11 @@ namespace Ion.CodeGeneration
             this.Args = args;
         }
 
+        public CallExpr(string targetName) : this(targetName, new List<Expr>())
+        {
+            //
+        }
+
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
             // Create the resulting arguments.

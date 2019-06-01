@@ -39,7 +39,9 @@ namespace Ion.CodeGeneration
 
         Struct,
 
-        Array
+        Array,
+
+        Attribute
     }
 
     public abstract class Expr : Named, IPipe<LLVMBuilderRef, LLVMValueRef>
