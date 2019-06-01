@@ -72,12 +72,12 @@ namespace Ion.Core
                 }
 
                 // If the main function exists, mark this module as the main module.
-                if (module.SymbolTable.functions.ContainsKey(SpecialName.Main))
+                if (module.SymbolTable.functions.Contains(SpecialName.Main))
                 {
                     // Ensure main module has not already been previously marked.
                     if (mainModule != null)
                     {
-                        throw new Exception("Duplicate entry point");
+                        throw new Exception("Multiple entry points are disallowed");
                     }
 
                     // Mark module as the main module.

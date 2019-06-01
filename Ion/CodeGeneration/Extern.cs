@@ -1,6 +1,7 @@
 using System;
 using Ion.CodeGeneration.Helpers;
 using Ion.Core;
+using Ion.Tracking.Symbols;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
@@ -35,10 +36,10 @@ namespace Ion.CodeGeneration
             LLVMValueRef external = LLVM.AddFunction(context.Target.Target, this.Prototype.Identifier, type);
 
             // Determine if should be registered on the symbol table.
-            if (!context.SymbolTable.functions.ContainsKey(this.Prototype.Identifier))
+            if (!context.SymbolTable.functions.Contains(this.Prototype.Identifier))
             {
                 // Register the external definition as a function in the symbol table.
-                context.SymbolTable.functions.Add(this.Prototype.Identifier, external);
+                context.SymbolTable.functions.Add(new FunctionSymbol(this.Prototype.Identifier, external));
             }
             // Otherwise, issue a warning.
             else
