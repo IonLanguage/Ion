@@ -44,8 +44,18 @@ namespace Ion.Misc
             // Position the builder at the beginning of the block.
             if (!positionAtEnd)
             {
-                // TODO: This is causing a hang up.
-                LLVM.PositionBuilderBefore(builder, block.GetLastInstruction());
+                LLVMValueRef lastInstruction = block.GetLastInstruction();
+
+                // No instructions, position at beginning.
+                if (lastInstruction.Pointer == IntPtr.Zero)
+                {
+                    LLVM.PositionBuilderAtEnd(builder, block);
+                }
+                // Otherwise, position it before the last instruction.
+                else
+                {
+                    LLVM.PositionBuilderBefore(builder, lastInstruction);
+                }
             }
             // Otherwise, at the end of the block.
             else

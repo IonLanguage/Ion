@@ -27,6 +27,9 @@ namespace Ion.Parsing
             // Create the function.
             Function function = new Function();
 
+            // Assign the function attributes.
+            function.Attributes = attributes.ToArray();
+
             // Assign the function prototype to the parsed prototype.
             function.Prototype = prototype;
 

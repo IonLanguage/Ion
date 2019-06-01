@@ -8,9 +8,16 @@ namespace Ion.CodeGeneration
 {
     public class Function : Named, ITopLevelPipe
     {
+        public Attribute[] Attributes { get; set; }
+
         public Prototype Prototype { get; set; }
 
         public Block Body { get; set; }
+
+        public Function()
+        {
+            this.Attributes = new Attribute[] { };
+        }
 
         public LLVMValueRef Emit(PipeContext<CodeGeneration.Module> context)
         {
@@ -42,11 +49,24 @@ namespace Ion.CodeGeneration
             // Create the function.
             LLVMValueRef function = LLVM.AddFunction(context.Target.Target, this.Prototype.Identifier, type);
 
-            // Create the body context.
-            PipeContext<LLVMValueRef> bodyContext = context.Derive<LLVMValueRef>(function);
+            // Create the function context.
+            PipeContext<LLVMValueRef> functionContext = context.Derive<LLVMValueRef>(function);
 
             // Emit the body to its corresponding context.
-            this.Body.Emit(bodyContext);
+            LLVMBasicBlockRef body = this.Body.Emit(functionContext);
+
+            // Create a new builder reference for the body.
+            LLVMBuilderRef bodyBuilder = body.CreateBuilder(false);
+
+            // Derive a context for the body's builder.
+            PipeContext<LLVMBuilderRef> bodyContext = context.Derive<LLVMBuilderRef>(bodyBuilder);
+
+            // Emit attributes as first-class instructions if applicable.
+            foreach (Attribute attribute in this.Attributes)
+            {
+                // Emit the attribute onto the body's builder context.
+                attribute.Emit(bodyContext);
+            }
 
             // Ensures the function does not already exist
             if (context.SymbolTable.functions.ContainsKey(this.Prototype.Identifier))

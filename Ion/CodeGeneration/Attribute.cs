@@ -9,6 +9,11 @@ namespace Ion.CodeGeneration
     {
         public override ExprType ExprType => ExprType.Attribute;
 
+        public Attribute(string identifier)
+        {
+            this.SetName(identifier);
+        }
+
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
             // Create a new call expression.

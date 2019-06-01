@@ -10,10 +10,12 @@ namespace Ion.Tests.CodeGeneration
         public void Attribute()
         {
             // Prepare the wrapper.
-            this.Wrapper.Prepare("Attribute", "EmptyMainFunction");
+            this.Wrapper.Prepare("Attribute");
 
             // Invoke the driver.
-            this.Wrapper.InvokeDriver();
+            this.Wrapper.InvokeDriver(2);
+
+            System.Console.WriteLine(this.Wrapper.Driver.Module.Emit());
 
             // Compare results.
             this.Wrapper.Compare();

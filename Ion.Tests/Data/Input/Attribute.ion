@@ -1,2 +1,4 @@
+void test() { }
+
 [test]
 void main() { }
