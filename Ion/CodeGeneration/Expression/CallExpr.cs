@@ -65,12 +65,12 @@ namespace Ion.CodeGeneration
             // Ensure argument count is correct (with continuous arguments).
             if (target.ContinuousArgs && args.Count < target.ArgumentCount - 1)
             {
-                throw new Exception($"Target function requires at least {target.ArgumentCount - 1} arguments");
+                throw new Exception($"Target function requires at least {target.ArgumentCount - 1} argument(s)");
             }
             // Otherwise, expect the argument count to be exact.
             else if (args.Count != target.ArgumentCount)
             {
-                throw new Exception($"Argument amount mismatch, target function requires exactly {target.ArgumentCount} arguments");
+                throw new Exception($"Argument amount mismatch, target function requires exactly {target.ArgumentCount} argument(s)");
             }
 
             // Create the function call.

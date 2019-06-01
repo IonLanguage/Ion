@@ -1,0 +1,5 @@
+void target(int first) { }
+
+void test() {
+    target();
+}
