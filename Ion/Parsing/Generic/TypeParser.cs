@@ -34,7 +34,7 @@ namespace Ion.Parsing
                 // TODO: Invoke expression parser to capture array length.
                 // TODO: arrayLength.Value = new ExprParser().Parse(context);
 
-                // BEGIN temporary solution.
+                // TODO: BEGIN temporary solution.
 
                 // Ensure current token is an integer.
                 context.Stream.EnsureCurrent(TokenType.LiteralInteger);
@@ -48,8 +48,7 @@ namespace Ion.Parsing
                 // Skip over the captured integer token.
                 context.Stream.Skip();
 
-                // END temporary solution.
-
+                // TODO: END temporary solution.
 
                 // Ensure the current token is a closing bracket.
                 context.Stream.EnsureCurrent(TokenType.SymbolBracketR);
