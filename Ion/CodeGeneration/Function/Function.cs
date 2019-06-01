@@ -2,6 +2,7 @@ using System;
 using Ion.CodeGeneration.Helpers;
 using Ion.Core;
 using Ion.Misc;
+using Ion.Tracking.Symbols;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
@@ -70,13 +71,13 @@ namespace Ion.CodeGeneration
             }
 
             // Ensures the function does not already exist
-            if (context.SymbolTable.functions.ContainsKey(this.Prototype.Identifier))
+            if (context.SymbolTable.functions.Contains(this.Prototype.Identifier))
             {
                 throw new Exception($"A function with the identifier '{this.Prototype.Identifier}' already exists");
             }
 
             // Register the function on the symbol table.
-            context.SymbolTable.functions.Add(this.Prototype.Identifier, function);
+            context.SymbolTable.functions.Add(new FunctionSymbol(this.Prototype.Identifier, function, this.Prototype.Args.Continuous));
 
             // Return the function entity.
             return function;

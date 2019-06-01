@@ -1,13 +1,9 @@
 using Ion.CodeGeneration;
 
-
 namespace Ion.Parsing
 {
-
     public class LambdaParser : IParser<Expr>
     {
-
-
         public Expr Parse(ParserContext context)
         {
             // Create a lambda expression.
@@ -34,7 +30,5 @@ namespace Ion.Parsing
             // Return the resulting expression.
             return lambda;
         }
-
     }
-
 }

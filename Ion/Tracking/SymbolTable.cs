@@ -3,7 +3,7 @@ using Ion.Misc;
 
 namespace Ion.Tracking
 {
-    public abstract class SymbolTable<T> where T : INamed
+    public class SymbolTable<T> where T : INamed
     {
         public readonly Dictionary<string, T> symbols = new Dictionary<string, T>();
 

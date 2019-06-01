@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Ion.CodeGeneration.Helpers;
+using Ion.Tracking.Symbols;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
@@ -53,16 +54,27 @@ namespace Ion.CodeGeneration
             }
 
             // Ensure the function has been emitted.
-            if (!context.SymbolTable.functions.ContainsKey(this.TargetName))
+            if (!context.SymbolTable.functions.Contains(this.TargetName))
             {
                 throw new Exception($"Call to a non-existent function named '{this.TargetName}' performed");
             }
 
             // Retrieve the target function.
-            LLVMValueRef target = context.SymbolTable.functions[this.TargetName];
+            FunctionSymbol target = context.SymbolTable.functions[this.TargetName];
+
+            // Ensure argument count is correct (with continuous arguments).
+            if (target.ContinuousArgs && args.Count < target.ArgumentCount - 1)
+            {
+                throw new Exception($"Target function requires at least {target.ArgumentCount - 1} arguments");
+            }
+            // Otherwise, expect the argument count to be exact.
+            else if (args.Count != target.ArgumentCount)
+            {
+                throw new Exception($"Argument amount mismatch, target function requires exactly {target.ArgumentCount} arguments");
+            }
 
             // Create the function call.
-            LLVMValueRef functionCall = LLVM.BuildCall(context.Target, target, args.ToArray(), this.Identifier);
+            LLVMValueRef functionCall = LLVM.BuildCall(context.Target, target.Value, args.ToArray(), this.Identifier);
 
             // Return the emitted function call.
             return functionCall;

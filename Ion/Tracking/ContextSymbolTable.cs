@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Ion.CodeGeneration;
+using Ion.Tracking.Symbols;
 using LLVMSharp;
 
 namespace Ion.Tracking
@@ -10,13 +11,13 @@ namespace Ion.Tracking
     /// </summary>
     public class ContextSymbolTable
     {
-        public readonly Dictionary<string, LLVMValueRef> functions = new Dictionary<string, LLVMValueRef>();
+        public readonly SymbolTable<FunctionSymbol> functions = new SymbolTable<FunctionSymbol>();
 
         public readonly Dictionary<string, CodeGeneration.Module> modules = new Dictionary<string, CodeGeneration.Module>();
 
         public readonly Dictionary<string, string> directives = new Dictionary<string, string>();
 
-        public readonly StructTable structs = new StructTable();
+        public readonly SymbolTable<StructSymbol> structs = new SymbolTable<StructSymbol>();
 
         /// <summary>
         /// Contains locally-scoped emitted values.
@@ -35,13 +36,13 @@ namespace Ion.Tracking
         public Dictionary<string, LLVMValueRef> strings = new Dictionary<string, LLVMValueRef>();
 
         /// <summary>
-        /// Retrieve a stored function, otherwise throw an error
+        /// Retrieve a stored function symbol, otherwise throw an error
         /// if the requested function does not exist.
         /// </summary>
-        public LLVMValueRef RetrieveFunctionOrThrow(string name)
+        public FunctionSymbol RetrieveFunctionOrThrow(string name)
         {
             // Ensure function with provided name exists.
-            if (!this.functions.ContainsKey(name))
+            if (!this.functions.Contains(name))
             {
                 throw new Exception($"Attempted to retrieve a non-existent function with name '{name}'");
             }
@@ -62,7 +63,8 @@ namespace Ion.Tracking
         public void HardReset()
         {
             this.Reset();
-            this.functions.Clear();
+            this.functions.symbols.Clear();
+            this.structs.symbols.Clear();
             this.modules.Clear();
             this.strings.Clear();
         }
