@@ -61,6 +61,7 @@ namespace Ion.CodeGeneration
             // Derive a context for the body's builder.
             PipeContext<LLVMBuilderRef> bodyContext = context.Derive<LLVMBuilderRef>(bodyBuilder);
 
+            // TODO: Missing support for native attribute emission.
             // Emit attributes as first-class instructions if applicable.
             foreach (Attribute attribute in this.Attributes)
             {

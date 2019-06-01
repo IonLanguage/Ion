@@ -9,9 +9,12 @@ namespace Ion.CodeGeneration
     {
         public override ExprType ExprType => ExprType.Attribute;
 
-        public Attribute(string identifier)
+        public bool Native { get; }
+
+        public Attribute(string identifier, bool native = false)
         {
             this.SetName(identifier);
+            this.Native = native;
         }
 
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
