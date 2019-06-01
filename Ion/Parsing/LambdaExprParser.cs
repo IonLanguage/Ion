@@ -2,7 +2,7 @@ using Ion.CodeGeneration;
 
 namespace Ion.Parsing
 {
-    public class LambdaParser : IParser<Expr>
+    public class LambdaExprParser : IParser<Expr>
     {
         public Expr Parse(ParserContext context)
         {
