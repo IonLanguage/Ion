@@ -50,6 +50,19 @@ namespace Ion.CodeGeneration
             // Create the function.
             LLVMValueRef function = LLVM.AddFunction(context.Target.Target, this.Prototype.Identifier, type);
 
+            // Create the argument index counter.
+            uint argIndexCounter = 0;
+
+            // Name arguments.
+            foreach (FormalArg arg in this.Prototype.Args.Values)
+            {
+                // Name the argument.
+                LLVM.SetValueName(LLVM.GetParam(function, argIndexCounter), arg.Identifier);
+
+                // Increment the index counter for next iteration.
+                argIndexCounter++;
+            }
+
             // Create the function context.
             PipeContext<LLVMValueRef> functionContext = context.Derive<LLVMValueRef>(function);
 

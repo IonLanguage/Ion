@@ -3,7 +3,7 @@ source_filename = "entry"
 
 @str_0 = private unnamed_addr constant [12 x i8] c"Test string\00"
 
-define void @Test(i8*) {
+define void @Test(i8* %input) {
 entry:
   ret void
 }
