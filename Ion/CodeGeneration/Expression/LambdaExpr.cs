@@ -1,5 +1,7 @@
 using System;
 using Ion.CodeGeneration.Helpers;
+using Ion.Core;
+using Ion.SyntaxAnalysis;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
@@ -19,12 +21,29 @@ namespace Ion.CodeGeneration
             // Create a new function.
             Function function = new Function();
 
+            // Set the function name.
+            function.SetName(NameRegister.GetLambda());
+
+            // Assign the function's body.
+            function.Body = this.Body;
+
+            // Create a default prototype.
+            function.CreatePrototype();
+
+            // Assign the prototype's argument list.
+            function.Prototype.Args = this.Args;
+
             // Emit the created function.
-            LLVMValueRef result = function.Emit(context.ModuleContext);
+            LLVMValueRef functionRef = function.Emit(context.ModuleContext);
 
-            // TODO: Fish implementation.
+            // TODO: What about input arguments?
+            // Create a function call.
+            CallExpr call = new CallExpr(function.Identifier);
 
-            // Return the resulting lambda function.
+            // Emit the function call.
+            LLVMValueRef result = call.Emit(context);
+
+            // Return the resulting function call.
             return result;
         }
     }

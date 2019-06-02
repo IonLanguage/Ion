@@ -28,6 +28,12 @@ namespace Ion.Parsing
             // Assign the parsed type to the return type.
             lambda.ReturnType = type;
 
+            // Ensure current token is symbol arrow.
+            context.Stream.EnsureCurrent(TokenType.SymbolArrow);
+
+            // Skip arrow symbol token.
+            context.Stream.Skip();
+
             // Parse the body block.
             Block body = new BlockParser().Parse(context);
 

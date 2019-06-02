@@ -7,5 +7,7 @@ namespace Ion.CodeGeneration.Helpers
         public const string Anonymous = "anonymous";
 
         public const string Main = "main";
+
+        public const string Lambda = "lambda";
     }
 }

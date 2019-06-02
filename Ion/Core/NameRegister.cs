@@ -6,6 +6,8 @@ namespace Ion.Core
 
         private static int anonymous;
 
+        private static int lambda;
+
         static NameRegister()
         {
             // Reset to initial values.
@@ -36,6 +38,18 @@ namespace Ion.Core
             return result;
         }
 
+        public static string GetLambda()
+        {
+            // Capture the result.
+            string result = $"lambda_{NameRegister.lambda}";
+
+            // Increment the counter.
+            NameRegister.lambda++;
+
+            // Return the result.
+            return result;
+        }
+
         /// <summary>
         /// Reset all the name counters back to
         /// their initial values.
@@ -44,6 +58,7 @@ namespace Ion.Core
         {
             NameRegister.str = 0;
             NameRegister.anonymous = 0;
+            NameRegister.lambda = 0;
         }
     }
 }

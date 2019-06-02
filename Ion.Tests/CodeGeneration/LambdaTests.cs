@@ -9,6 +9,10 @@ namespace Ion.Tests.CodeGeneration
         [Test]
         public void Lambda()
         {
+            this.Wrapper.Prepare("Lambda");
+            this.Wrapper.InvokeDriver();
+            
+            System.Console.WriteLine(this.Wrapper.Driver.Module.Emit());
             this.Wrapper.Bootstrap("Lambda");
         }
     }

@@ -1,5 +1,5 @@
 void test() {
-    () => {
+    (): void => {
         float pi = 3.14;
     };
 }
