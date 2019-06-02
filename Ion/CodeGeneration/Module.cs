@@ -70,14 +70,14 @@ namespace Ion.CodeGeneration
             // Create the entity.
             Function function = new Function();
 
-            // Assign name as main.
-            function.SetName(SpecialName.Main);
-
             // Create the body.
             Block body = function.CreateBody();
 
             // Create the function's prototype.
             function.CreatePrototype();
+
+            // Set the function's name.
+            function.Prototype.SetName(SpecialName.Main);
 
             // Return the function.
             return function;

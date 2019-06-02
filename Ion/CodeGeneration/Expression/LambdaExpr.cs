@@ -12,7 +12,7 @@ namespace Ion.CodeGeneration
 
         public FormalArgs Args { get; set; }
 
-        public Type ReturnType { get; set; }
+        public ITypeEmitter ReturnType { get; set; }
 
         public Block Body { get; set; }
 
@@ -21,24 +21,18 @@ namespace Ion.CodeGeneration
             // Create a new function.
             Function function = new Function();
 
-            // Set the function name.
-            function.SetName(NameRegister.GetLambda());
-
             // Assign the function's body.
             function.Body = this.Body;
 
-            // Create a default prototype.
-            function.CreatePrototype();
-
-            // Assign the prototype's argument list.
-            function.Prototype.Args = this.Args;
+            // Create the function's prototype.
+            function.Prototype = new Prototype(NameRegister.GetLambda(), this.Args, this.ReturnType);
 
             // Emit the created function.
             LLVMValueRef functionRef = function.Emit(context.ModuleContext);
 
             // TODO: What about input arguments?
             // Create a function call.
-            CallExpr call = new CallExpr(function.Identifier);
+            CallExpr call = new CallExpr(function.Prototype.Identifier);
 
             // Emit the function call.
             LLVMValueRef result = call.Emit(context);

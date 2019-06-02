@@ -11,6 +11,8 @@ namespace Ion.CodeGeneration
 {
     public class Type : ITypeEmitter
     {
+        public bool IsVoid => this.Token.Type == TokenType.TypeVoid;
+
         public Token Token { get; }
 
         protected readonly ContextSymbolTable symbolTable;

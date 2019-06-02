@@ -8,14 +8,11 @@ namespace Ion.CodeGeneration
 
         public ITypeEmitter ReturnType { get; }
 
-        public bool ReturnsVoid { get; }
-
-        public Prototype(string name, FormalArgs args, ITypeEmitter returnType, bool returnsVoid = false)
+        public Prototype(string name, FormalArgs args, ITypeEmitter returnType)
         {
             this.SetName(name);
             this.Args = args;
             this.ReturnType = returnType;
-            this.ReturnsVoid = returnsVoid;
         }
     }
 }

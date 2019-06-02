@@ -7,7 +7,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Function : Named, ITopLevelPipe
+    public class Function : ITopLevelPipe
     {
         public Attribute[] Attributes { get; set; }
 
@@ -33,7 +33,7 @@ namespace Ion.CodeGeneration
                 throw new Exception("Unexpected function prototype to be null");
             }
             // Ensure that body returns a value if applicable.
-            else if (!this.Prototype.ReturnsVoid && !this.Body.HasReturnExpr)
+            else if (!this.Prototype.ReturnType.IsVoid && !this.Body.HasReturnExpr)
             {
                 throw new Exception("Functions that do not return void must return a value");
             }
@@ -131,7 +131,7 @@ namespace Ion.CodeGeneration
             ITypeEmitter returnType = PrimitiveTypeFactory.Void();
 
             // Create a new prototype instance.
-            this.Prototype = new Prototype(this.Identifier, null, returnType, true);
+            this.Prototype = new Prototype(NameRegister.GetAnonymous(), null, returnType);
 
             // Create formal arguments after assigning prototype to avoid infinite loop.
             FormalArgs args = this.CreateArgs();

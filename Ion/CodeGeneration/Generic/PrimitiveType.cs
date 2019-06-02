@@ -8,6 +8,8 @@ namespace Ion.CodeGeneration
 {
     public class PrimitiveType : ITypeEmitter
     {
+        public bool IsVoid => this.TokenValue == TypeName.Void;
+
         public string TokenValue { get; }
 
         public PrimitiveType(string tokenValue)

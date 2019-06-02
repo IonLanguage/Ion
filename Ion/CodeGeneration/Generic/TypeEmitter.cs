@@ -5,6 +5,6 @@ namespace Ion.CodeGeneration
 {
     public interface ITypeEmitter : IOneWayPipe<LLVMTypeRef>
     {
-        //
+        bool IsVoid { get; }
     }
 }

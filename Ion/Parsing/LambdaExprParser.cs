@@ -1,4 +1,5 @@
 using Ion.CodeGeneration;
+using Ion.Misc;
 using Ion.SyntaxAnalysis;
 
 namespace Ion.Parsing
@@ -16,14 +17,21 @@ namespace Ion.Parsing
             // Assign the parsed arguments to the lambda.
             lambda.Args = args;
 
-            // Ensure current type is symbol colon.
-            context.Stream.EnsureCurrent(TokenType.SymbolColon);
+            // Create the type buffer, defaulting to void.
+            ITypeEmitter type = PrimitiveTypeFactory.Void();
 
-            // Skip symbol colon token.
-            context.Stream.Skip();
+            // Return type is explicitly specified, parse and use it instead of the default.
+            if (context.Stream.Current.Type == TokenType.SymbolColon)
+            {
+                // Ensure current type is symbol colon.
+                context.Stream.EnsureCurrent(TokenType.SymbolColon);
 
-            // Parse the return type.
-            Type type = new TypeParser().Parse(context);
+                // Skip symbol colon token.
+                context.Stream.Skip();
+
+                // Parse the return type.
+                type = new TypeParser().Parse(context);
+            }
 
             // Assign the parsed type to the return type.
             lambda.ReturnType = type;

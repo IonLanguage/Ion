@@ -8,6 +8,6 @@ entry:
 
 define void @main() {
 entry:
-  %anonymous_6 = call void @test()
+  %anonymous_4 = call void @test()
   ret void
 }

@@ -6,7 +6,7 @@ source_filename = "entry"
 define void @Test() {
 entry:
   %instance = alloca %TestStruct
-  %anonymous_8 = alloca %TestStruct
-  store %TestStruct* %anonymous_8, %TestStruct* %instance
+  %anonymous_7 = alloca %TestStruct
+  store %TestStruct* %anonymous_7, %TestStruct* %instance
   ret void
 }
