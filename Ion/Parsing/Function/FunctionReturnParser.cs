@@ -14,7 +14,7 @@ namespace Ion.Parsing
             context.Stream.Skip();
 
             // Capture the current token.
-            Token token = context.Stream.Get();
+            Token token = context.Stream.Current;
 
             // There is no return expression.
             if (token.Type == SyntaxAnalysis.TokenType.SymbolSemiColon)

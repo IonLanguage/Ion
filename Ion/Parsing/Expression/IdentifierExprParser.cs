@@ -12,7 +12,7 @@ namespace Ion.Parsing
             PathResult path = new PathParser().Parse(context);
 
             // Variable reference.
-            if (context.Stream.Get().Type != SyntaxAnalysis.TokenType.SymbolParenthesesL)
+            if (context.Stream.Current.Type != SyntaxAnalysis.TokenType.SymbolParenthesesL)
             {
                 // TODO: Should be done by an independent parser (VariableExprParser)?
 

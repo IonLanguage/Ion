@@ -23,7 +23,7 @@ namespace Ion.Parsing
             Block otherwise = null;
 
             // Capture the current token.
-            Token token = context.Stream.Get();
+            Token token = context.Stream.Current;
 
             // If expression contains an alternative action.
             if (token.Type == SyntaxAnalysis.TokenType.KeywordElse)

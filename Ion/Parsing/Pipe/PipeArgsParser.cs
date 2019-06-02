@@ -19,7 +19,7 @@ namespace Ion.Parsing
             arguments.Add(value);
 
             // Capture the current token.
-            Token token = context.Stream.Get();
+            Token token = context.Stream.Current;
 
             // Expect either a comma or pipe symbol.
             if (token.Type != SyntaxAnalysis.TokenType.OperatorPipe && token.Type != SyntaxAnalysis.TokenType.SymbolComma)

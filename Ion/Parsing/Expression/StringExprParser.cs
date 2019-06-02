@@ -14,7 +14,7 @@ namespace Ion.Parsing
             context.Stream.EnsureCurrent(SyntaxAnalysis.TokenType.LiteralString);
 
             // Capture string literal token.
-            Token token = context.Stream.Get();
+            Token token = context.Stream.Current;
 
             // Skip string literal token.
             context.Stream.Skip();

@@ -17,7 +17,7 @@ namespace Ion.Parsing
             nodes.Add(node);
 
             // Use recursion if symbol dot is present.
-            if (context.Stream.Get().Type == TokenType.SymbolDot)
+            if (context.Stream.Current.Type == TokenType.SymbolDot)
             {
                 // Create the parser instance.
                 PathParser childParser = new PathParser();

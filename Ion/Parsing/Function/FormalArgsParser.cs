@@ -18,7 +18,7 @@ namespace Ion.Parsing
             FormalArgs args = new FormalArgs();
 
             // Create the loop buffer token.
-            Token buffer = context.Stream.Get();
+            Token buffer = context.Stream.Current;
 
             // Loop until parentheses end.
             while (buffer.Type != TokenType.SymbolParenthesesR)
@@ -45,7 +45,7 @@ namespace Ion.Parsing
                 FormalArg arg = new FormalArgParser().Parse(context);
 
                 // Update the buffer.
-                buffer = context.Stream.Get();
+                buffer = context.Stream.Current;
 
                 // Ensure next token is valid.
                 if (buffer.Type != TokenType.SymbolComma && buffer.Type != TokenType.SymbolParenthesesR)
@@ -58,7 +58,7 @@ namespace Ion.Parsing
                     context.Stream.Skip();
 
                     // Make sure to update the buffer after skipping the comma token.
-                    buffer = context.Stream.Get();
+                    buffer = context.Stream.Current;
                 }
 
                 // Append the parsed argument.

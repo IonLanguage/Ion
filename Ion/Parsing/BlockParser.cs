@@ -10,7 +10,7 @@ namespace Ion.Parsing
         public Block Parse(ParserContext context)
         {
             // Capture current token. Either block start or arrow for anonymous functions.
-            Token begin = context.Stream.Get();
+            Token begin = context.Stream.Current;
 
             // Skip begin token.
             context.Stream.Skip();
@@ -38,7 +38,7 @@ namespace Ion.Parsing
             }
 
             // Capture the current token.
-            Token token = context.Stream.Get();
+            Token token = context.Stream.Current;
 
             // While next token is not a block-closing token.
             while (token.Type != SyntaxAnalysis.TokenType.SymbolBlockR && block.Type != BlockType.Short)
@@ -75,7 +75,7 @@ namespace Ion.Parsing
                 context.Stream.Skip();
 
                 // Get the new token for next parse.
-                token = context.Stream.Get();
+                token = context.Stream.Current;
             }
 
             // Skip onto default block end or short block end.

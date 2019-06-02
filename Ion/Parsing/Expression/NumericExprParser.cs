@@ -10,7 +10,7 @@ namespace Ion.Parsing
         public NumericExpr Parse(ParserContext context)
         {
             // Consume numeric literal token.
-            Token token = context.Stream.Get();
+            Token token = context.Stream.Current;
 
             // Skip numeric literal token.
             context.Stream.Skip();

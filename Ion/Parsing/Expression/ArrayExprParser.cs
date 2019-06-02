@@ -36,7 +36,7 @@ namespace Ion.Parsing
                 values.Add(value);
 
                 // Capture current token.
-                Token current = context.Stream.Get();
+                Token current = context.Stream.Current;
 
                 // Ensure current token is either semi-colon or bracket end.
                 if (current.Type != TokenType.SymbolComma && current.Type != TokenType.SymbolBracketR)

@@ -31,7 +31,7 @@ namespace Ion.Parsing
                 indexCounter++;
 
                 // Retrieve the current token's type.
-                TokenType currentTokenType = context.Stream.Get().Type;
+                TokenType currentTokenType = context.Stream.Current.Type;
 
                 // Ensure current token is of type block end or symbol comma.
                 if (currentTokenType != SyntaxAnalysis.TokenType.SymbolBlockR && currentTokenType != SyntaxAnalysis.TokenType.SymbolComma)

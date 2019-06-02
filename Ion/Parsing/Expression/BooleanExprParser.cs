@@ -10,7 +10,7 @@ namespace Ion.Parsing
         public BooleanExpr Parse(ParserContext context)
         {
             // Consume boolean literal token.
-            Token token = context.Stream.Get();
+            Token token = context.Stream.Current;
 
             // Skip boolean literal token.
             context.Stream.Skip();

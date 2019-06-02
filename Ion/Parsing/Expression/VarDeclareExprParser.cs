@@ -22,7 +22,7 @@ namespace Ion.Parsing
             declaration.SetName(identifier);
 
             // Capture current token.
-            Token token = context.Stream.Get();
+            Token token = context.Stream.Current;
 
             // A value is being assigned.
             if (token.Type == SyntaxAnalysis.TokenType.OperatorAssignment)

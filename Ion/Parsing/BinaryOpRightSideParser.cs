@@ -27,7 +27,7 @@ namespace Ion.Parsing
             while (true)
             {
                 // Capture the current token.
-                Token token = context.Stream.Get();
+                Token token = context.Stream.Current;
 
                 // Calculate precedence for the current token.
                 int firstPrecedence = Precedence.Get(token);

@@ -19,7 +19,7 @@ namespace Ion.Parsing
             List<Expr> args = new List<Expr>();
 
             // Contains at least one argument.
-            if (context.Stream.Get().Type != TokenType.SymbolParenthesesR)
+            if (context.Stream.Current.Type != TokenType.SymbolParenthesesR)
             {
                 while (true)
                 {
@@ -30,7 +30,7 @@ namespace Ion.Parsing
                     args.Add(arg);
 
                     // Capture the current token's type.
-                    TokenType currentTokenType = context.Stream.Get().Type;
+                    TokenType currentTokenType = context.Stream.Current.Type;
 
                     // Arguments ended.
                     if (currentTokenType == TokenType.SymbolParenthesesR)

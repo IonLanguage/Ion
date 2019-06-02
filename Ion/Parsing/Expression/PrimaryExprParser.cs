@@ -10,7 +10,7 @@ namespace Ion.Parsing
         public Expr Parse(ParserContext context)
         {
             // Capture current token type.
-            TokenType currentTokenType = context.Stream.Get().Type;
+            TokenType currentTokenType = context.Stream.Current.Type;
 
             // Pipe operation.
             if (currentTokenType == TokenType.SymbolColon)

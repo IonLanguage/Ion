@@ -10,7 +10,7 @@ namespace Ion.Parsing
         public Type Parse(ParserContext context)
         {
             // Capture current type token.
-            Token token = context.Stream.Get();
+            Token token = context.Stream.Current;
 
             // Ensure current token is a type.
             if (!TokenIdentifier.IsType(token, context))
@@ -40,7 +40,7 @@ namespace Ion.Parsing
                 context.Stream.EnsureCurrent(TokenType.LiteralInteger);
 
                 // Capture the current integer token.
-                Token integerToken = context.Stream.Get();
+                Token integerToken = context.Stream.Current;
 
                 // Assign the token value as the array length.
                 arrayLength = uint.Parse(integerToken.Value);

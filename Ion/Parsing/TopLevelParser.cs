@@ -18,7 +18,7 @@ namespace Ion.Parsing
         public void Invoke(ParserContext context)
         {
             // Retrieve the current token.
-            Token token = context.Stream.Get();
+            Token token = context.Stream.Current;
 
             // Abstract the token's type.
             TokenType type = token.Type;
