@@ -69,10 +69,10 @@ namespace Ion.Tests.Core
             Assert.False(this.Driver.HasNext);
         }
 
-        public void Bootstrap(string baseFileName)
+        public void Bootstrap(string baseFileName, int invokeCounter = 1)
         {
             this.Prepare(baseFileName);
-            this.InvokeDriver();
+            this.InvokeDriver(invokeCounter);
             this.Compare();
         }
 
