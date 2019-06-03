@@ -120,23 +120,53 @@ $ ion run
 
 Hello world
 
-```c#
-extern int printf(string message, ...);
+```cs
+extern int puts(string message);
 
 void main() {
-    printf("Hello world!");
+    puts("Hello world!");
 }
 ```
 
-Fibonacci sequence algorithm implementation
+Fibonacci sequence
 
-```c#
-int fibonacci(number) {
+```cs
+int fib(number) {
     if (number <= 1) {
         return 1;
     }
 
-    return fibonacci(number - 1) + fibonacci(number - 2);
+    return fib(number - 1) + fib(number - 2);
+}
+```
+
+Formatted output
+
+```cs
+extern int printf(string format, ...);
+
+void main() {
+    printf("%d + 2 = 3", 1);
+}
+```
+
+Struct
+
+```cs
+extern int printf(string format, ...);
+
+struct Person {
+    string name;
+    int age;
+}
+
+void main() {
+    Person joe = new Person {
+        name: "Joe",
+        age: 25
+    };
+
+    printf("Joe's age in 5 years will be: %d", joe.age + 5);
 }
 ```
 
