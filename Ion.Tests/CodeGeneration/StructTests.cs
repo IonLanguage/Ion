@@ -21,7 +21,7 @@ namespace Ion.Tests.CodeGeneration
         [Test]
         public void StructPropAccess()
         {
-            this.Wrapper.BootStrap("StructPropAccess", 2);
+            this.Wrapper.Bootstrap("StructPropAccess", 2);
         }
     }
 }
