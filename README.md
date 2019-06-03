@@ -5,7 +5,7 @@
         <img src="https://circleci.com/gh/IonLanguage/Ion.svg?style=svg" />
     </a>
     <a href="https://discord.gg/H3eMUXp">
-        <img src="https://discordapp.com/api/guilds/133049272517001216/widget.png?style=shield" alt="Discord Server" />
+        <img src="https://discordapp.com/api/guilds/572951207862206474/widget.png?style=shield" alt="Discord Server" />
     </a>
 </p>
 
