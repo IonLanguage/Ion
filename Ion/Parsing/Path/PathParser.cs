@@ -19,6 +19,9 @@ namespace Ion.Parsing
             // Use recursion if symbol dot is present.
             if (context.Stream.Current.Type == TokenType.SymbolDot)
             {
+                // Skip symbol dot token.
+                context.Stream.Skip();
+
                 // Create the parser instance.
                 PathParser childParser = new PathParser();
 

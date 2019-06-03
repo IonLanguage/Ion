@@ -22,8 +22,8 @@ namespace Ion.CodeGeneration
                 return new IfExprParser().Parse(context);
             }
 
-            // Otherwise, delegate to the primary expression parser.
-            Expr expr = new PrimaryExprParser().Parse(context);
+            // Otherwise, delegate to the expression parser.
+            Expr expr = new ExprParser().Parse(context);
 
             // Return the parsed expression.
             return expr;

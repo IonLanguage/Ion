@@ -1,0 +1,13 @@
+struct Person {
+    int age;
+    string name;
+}
+
+void test() {
+    Person joe = new Person {
+        age: 25,
+        name: "Joe"
+    };
+    
+    int futureAge = joe.age + 5;
+}

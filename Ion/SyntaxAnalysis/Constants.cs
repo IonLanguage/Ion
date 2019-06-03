@@ -16,6 +16,8 @@ namespace Ion.SyntaxAnalysis
 
         public delegate LLVMValueRef SimpleMathBuilderInvoker(LLVMBuilderRef builder, LLVMValueRef leftSide, LLVMValueRef rightSide, string name);
 
+        public const string PathDelimiter = ".";
+
         public static readonly TokenTypeMap keywords = new TokenTypeMap
         {
             {"exit", TokenType.KeywordExit},
@@ -47,7 +49,7 @@ namespace Ion.SyntaxAnalysis
             {"=>", TokenType.SymbolArrow},
             {"...", TokenType.SymbolContinuous},
             {",", TokenType.SymbolComma},
-            {".", TokenType.SymbolDot},
+            {Constants.PathDelimiter, TokenType.SymbolDot},
             {"#", TokenType.SymbolHash}
         }.SortByKeyLength();
 
