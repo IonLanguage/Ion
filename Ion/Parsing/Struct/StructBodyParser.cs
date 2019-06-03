@@ -27,6 +27,9 @@ namespace Ion.Parsing
                 // Invoke struct property parser.
                 StructProperty property = new StructPropertyParser(indexCounter).Parse(context);
 
+                // Append the property.
+                properties.Add(property);
+
                 // Increment the index counter.
                 indexCounter++;
 
@@ -34,9 +37,14 @@ namespace Ion.Parsing
                 TokenType currentTokenType = context.Stream.Current.Type;
 
                 // Ensure current token is of type block end or symbol comma.
-                if (currentTokenType != SyntaxAnalysis.TokenType.SymbolBlockR && currentTokenType != SyntaxAnalysis.TokenType.SymbolComma)
+                if (currentTokenType != TokenType.SymbolBlockR && currentTokenType != TokenType.SymbolComma)
                 {
                     throw new Exception($"Expected token to be of type symbol block end or comma but got '{currentTokenType}'");
+                }
+                // Skip comma token.
+                else if (currentTokenType == TokenType.SymbolComma)
+                {
+                    context.Stream.Skip();
                 }
 
                 // Signal to always update the buffer with the current token.

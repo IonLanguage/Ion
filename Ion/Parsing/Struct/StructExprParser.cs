@@ -20,8 +20,6 @@ namespace Ion.Parsing
             // Invoke struct body parser.
             List<StructProperty> body = new StructBodyParser().Parse(context);
 
-            // TODO: Assignment of body's properties not yet implemented.
-
             // Create the resulting struct.
             StructExpr @struct = new StructExpr(identifier, body);
 

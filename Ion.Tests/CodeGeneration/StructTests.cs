@@ -15,6 +15,23 @@ namespace Ion.Tests.CodeGeneration
             // Invoke the driver.
             this.Wrapper.InvokeDriver(2);
 
+            System.Console.WriteLine(this.Wrapper.Driver.Module.Emit());
+
+            // Compare results.
+            this.Wrapper.Compare();
+        }
+
+        [Test]
+        public void StructMultipleProps()
+        {
+            // Prepare the wrapper.
+            this.Wrapper.Prepare("StructMultipleProps");
+
+            // Invoke the driver.
+            this.Wrapper.InvokeDriver(2);
+
+            System.Console.WriteLine(this.Wrapper.Driver.Module.Emit());
+
             // Compare results.
             this.Wrapper.Compare();
         }

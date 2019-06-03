@@ -34,20 +34,23 @@ namespace Ion.CodeGeneration
             StructSymbol symbol = context.SymbolTable.structs[this.TargetIdentifier];
 
             // Retrieve the target struct's LLVM reference value from the symbol.
-            LLVMTypeRef @struct = symbol.Value;
+            LLVMTypeRef structDef = symbol.Value;
 
-            // Build the struct allocation instruction.
-            LLVMValueRef value = LLVM.BuildAlloca(context.Target, @struct, this.Identifier);
+            // Create a value buffer list.
+            List<LLVMValueRef> values = new List<LLVMValueRef>();
 
             // Populate body properties.
             foreach (StructProperty property in this.Body)
             {
-                // TODO: Why does it require LLVMValueRef, instead of LLVMTypeRef when logically (?) it's the target struct?
-                // LLVMValueRef reference = LLVM.BuildStructGEP(context.Target, @struct., (uint)property.Index, property.Name);
+                // Emit and append the value to the buffer list.
+                values.Add(property.Value.Emit(context));
             }
 
-            // Return the resulting value reference instruction.
-            return value;
+            // Create the resulting struct assignment value.
+            LLVMValueRef assignment = LLVM.ConstNamedStruct(structDef, values.ToArray());
+
+            // Return the resulting struct assignment instruction.
+            return assignment;
         }
     }
 }

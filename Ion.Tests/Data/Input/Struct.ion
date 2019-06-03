@@ -2,7 +2,6 @@ struct TestStruct {
     int prop1;
 }
 
-void Test()
-{
+void Test() {
     TestStruct instance = new TestStruct { prop1: 5 };
 }

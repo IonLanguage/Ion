@@ -1,0 +1,11 @@
+struct Person {
+    int sex;
+    string name;
+}
+
+void test() {
+    Person joe = new Person {
+        sex: 0,
+        name: "Joe"
+    };
+}
