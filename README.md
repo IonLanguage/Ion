@@ -1,6 +1,6 @@
 <p align="center">
-    <img src="https://i.ibb.co/ZJJGJmn/ion-full.jpg" alt="Odin logo" />
-    <h1>Ion Language</h1>
+    <img src="https://i.ibb.co/ZJJGJmn/ion-full.jpg" alt="Ion Logo" />
+    <br />
     <a href="https://circleci.com/gh/IonLanguage/Ion">
         <img src="https://circleci.com/gh/IonLanguage/Ion.svg?style=svg" />
     </a>
