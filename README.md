@@ -1,9 +1,13 @@
-### Ion language
-
-[![CircleCI](https://circleci.com/gh/IonLanguage/Ion.svg?style=svg)](https://circleci.com/gh/IonLanguage/Ion)
-<a href="https://discord.gg/H3eMUXp">
-   <img src="https://discordapp.com/api/guilds/133049272517001216/widget.png?style=shield" alt="Discord Server">
-</a>
+<p align="center">
+    <img src="https://i.ibb.co/ZJJGJmn/ion-full.jpg" alt="Odin logo" />
+    <h1>Ion Language</h1>
+    <a href="https://circleci.com/gh/IonLanguage/Ion">
+        <img src="https://circleci.com/gh/IonLanguage/Ion.svg?style=svg" />
+    </a>
+    <a href="https://discord.gg/H3eMUXp">
+        <img src="https://discordapp.com/api/guilds/133049272517001216/widget.png?style=shield" alt="Discord Server" />
+    </a>
+</p>
 
 A language implemented in C# using LLVM 5.0 bindings.
 
