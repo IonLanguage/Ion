@@ -166,7 +166,7 @@ void main() {
         age: 25
     };
 
-    printf("Joe's age in 5 years will be: %d", joe.age + 5);
+    printf("Joe's age in 5 years will be: %d.", joe.age + 5);
 }
 ```
 
