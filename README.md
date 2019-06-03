@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://i.ibb.co/PFS60V2/ion-white-smaller.jpg" alt="Ion Logo" />
+    <img src="https://i.ibb.co/PFS60V2/ion-white-smaller.jpg" height="200px" alt="Ion Logo" />
     <br />
     <a href="https://circleci.com/gh/IonLanguage/Ion">
         <img src="https://circleci.com/gh/IonLanguage/Ion.svg?style=svg" />
