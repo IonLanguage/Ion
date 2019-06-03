@@ -18,27 +18,13 @@ namespace Ion.Tests.CodeGeneration
         [Test]
         public void CallWithoutArguments()
         {
-            // Prepare the wrapper.
-            this.Wrapper.Prepare("CallWithoutArguments");
-
-            // Invoke the driver.
-            this.Wrapper.InvokeDriver(2);
-
-            // Compare results.
-            this.Wrapper.Compare();
+            this.Wrapper.Bootstrap("CallWithoutArguments", 2);
         }
 
         [Test]
         public void CallWithSingleArg()
         {
-            // Prepare the wrapper.
-            this.Wrapper.Prepare("CallWithSingleArg");
-
-            // Invoke the driver.
-            this.Wrapper.InvokeDriver(2);
-
-            // Compare results.
-            this.Wrapper.Compare();
+            this.Wrapper.Bootstrap("CallWithSingleArg", 2);
         }
     }
 }

@@ -10,13 +10,7 @@ namespace Ion.Tests.CodeGeneration
         public void Attribute()
         {
             // Prepare the wrapper.
-            this.Wrapper.Prepare("Attribute");
-
-            // Invoke the driver.
-            this.Wrapper.InvokeDriver(2);
-
-            // Compare results.
-            this.Wrapper.Compare();
+            this.Wrapper.Bootstrap("Attribute", 2);
         }
     }
 }

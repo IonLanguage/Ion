@@ -9,40 +9,19 @@ namespace Ion.Tests.CodeGeneration
         [Test]
         public void Struct()
         {
-            // Prepare the wrapper.
-            this.Wrapper.Prepare("Struct");
-
-            // Invoke the driver.
-            this.Wrapper.InvokeDriver(2);
-
-            // Compare results.
-            this.Wrapper.Compare();
+            this.Wrapper.Bootstrap("Struct", 2);
         }
 
         [Test]
         public void StructMultipleProps()
         {
-            // Prepare the wrapper.
-            this.Wrapper.Prepare("StructMultipleProps");
-
-            // Invoke the driver.
-            this.Wrapper.InvokeDriver(2);
-
-            // Compare results.
-            this.Wrapper.Compare();
+            this.Wrapper.Bootstrap("StructMultipleProps", 2);
         }
 
         [Test]
         public void StructPropAccess()
         {
-            // Prepare the wrapper.
-            this.Wrapper.Prepare("StructPropAccess");
-
-            // Invoke the driver.
-            this.Wrapper.InvokeDriver(2);
-
-            // Compare results.
-            this.Wrapper.Compare();
+            this.Wrapper.BootStrap("StructPropAccess", 2);
         }
     }
 }
