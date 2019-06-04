@@ -181,7 +181,7 @@ void main() {
 
 #### Functions
 
-All function names should be in PascalCase.
+All function names should be in camelCase.
 
 ```rust
 void main() {
@@ -207,7 +207,7 @@ class Example {
 
 #### Attributes
 
-Attributes are considered proxy functions, thus they should be treated as functions and be named in PascalCase.
+Attributes are considered proxy functions, thus they should be treated as functions and be named in camelCase.
 
 ```c
 [Transform(0)]
