@@ -1,8 +1,23 @@
 #### Table of contents
 
-[TODO](#)
+* [Globals](#)
+* [Functions](#)
+* [Structs](#)
+* [Lambdas](#)
+* [Importing modules](#)
 
-#### Functions
+Globals
+
+```cs
+int @counter = 0;
+
+void main() {
+    counter++;
+    // ...
+}
+```
+
+Functions
 
 ```cs
 void join(char delimiter, ...) {
@@ -14,7 +29,7 @@ void main() {
 }
 ```
 
-#### Structs
+Structs
 
 ```cs
 struct Person {
@@ -35,7 +50,7 @@ void main() {
 }
 ```
 
-#### Lambdas
+Lambdas
 
 ```cs
 delegate void WorkCallback(int status);
@@ -54,7 +69,7 @@ void main() {
 }
 ```
 
-#### Importing modules
+Importing modules
 
 ```cs
 // Import a module.

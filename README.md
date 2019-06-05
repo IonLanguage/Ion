@@ -23,6 +23,8 @@ A language implemented in C# using LLVM 5.0 bindings.
 
 File extension: `.ion`
 
+[View syntax guide](SYNTAX.md)
+
 ### 📋 Table of Contents
 
 * [Requirements](#-requirements)
