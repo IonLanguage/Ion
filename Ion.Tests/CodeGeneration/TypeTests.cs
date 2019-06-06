@@ -3,23 +3,30 @@ using Ion.CodeGeneration;
 using System;
 using Ion.Core;
 using Ion.CodeGeneration;
+using Ion.Tests.Wrappers;
 
 namespace Ion.Tests.CodeGeneration
 {
     [TestFixture]
-    internal sealed class TypeTests
+    internal sealed class TypeTests : ConstructTest
     {
-        [SetUp]
-        public static void Setup()
-        {
-            // Reset the name counter before every test.
-            NameRegister.ResetAll();
-        }
-
         [Test]
         public void ThrowsOnInvalidParams()
         {
             Assert.Throws<Exception>(() => new PrimitiveType("test").Emit());
+        }
+
+        [Test]
+        public void Pointer()
+        {
+            // TODO: Finish testing implementation.
+            this.Wrapper.Prepare("Pointer");
+
+            this.Wrapper.InvokeDriver();
+
+            System.Console.WriteLine(this.Wrapper.Driver.Module.Emit());
+
+            this.Wrapper.Compare();
         }
     }
 }

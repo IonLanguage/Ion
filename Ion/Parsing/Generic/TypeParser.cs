@@ -58,7 +58,7 @@ namespace Ion.Parsing
             }
 
             // Update the next token buffer.
-            nextToken = context.Stream.Peek();
+            nextToken = context.Stream.Get();
 
             // Create the pointer flag.
             bool isPointer = false;
@@ -68,9 +68,6 @@ namespace Ion.Parsing
             {
                 // Raise the pointer flag.
                 isPointer = true;
-
-                // Skip onto the pointer token.
-                context.Stream.Skip();
 
                 // Skip the pointer token.
                 context.Stream.Skip();
