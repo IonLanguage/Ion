@@ -57,6 +57,12 @@ namespace Ion.CodeGeneration
                 result = LLVM.ArrayType(result, this.arrayLength.Value);
             }
 
+            // Convert result to a pointer if applicable.
+            if (this.IsPointer)
+            {
+                result = LLVM.PointerType(result, result.GetPointerAddressSpace());
+            }
+
             // Return the resulting type.
             return result;
         }
