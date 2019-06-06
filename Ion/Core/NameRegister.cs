@@ -1,64 +1,58 @@
+using System.Collections.Generic;
+
 namespace Ion.Core
 {
     public static class NameRegister
     {
-        private static int str;
+        private static Dictionary<string, uint> register = new Dictionary<string, uint>();
 
-        private static int anonymous;
-
-        private static int lambda;
-
-        static NameRegister()
+        public static string Get(string name)
         {
-            // Reset to initial values.
-            NameRegister.ResetAll();
+            // Create the counter buffer.
+            uint counter = 0;
+
+            // Retrieve the counter if it already exists.
+            if (NameRegister.register.ContainsKey(name))
+            {
+                // Retrieve the counter.
+                counter = NameRegister.register[name];
+            }
+
+            // Increment the counter.
+            counter++;
+
+            // Save the counter.
+            NameRegister.register[name] = counter;
+
+            // Form the string.
+            string result = $".{name}.{counter}";
+
+            // Return the resulting string.
+            return result;
         }
 
         public static string GetString()
         {
-            // Capture the result.
-            string result = $"str_{NameRegister.str}";
-
-            // Increment the counter.
-            NameRegister.str++;
-
-            // Return the result.
-            return result;
+            return NameRegister.Get("str");
         }
 
         public static string GetAnonymous()
         {
-            // Capture the result.
-            string result = $"anonymous_{NameRegister.anonymous}";
-
-            // Increment the counter.
-            NameRegister.anonymous++;
-
-            // Return the result.
-            return result;
+            return NameRegister.Get("anonymous");
         }
 
         public static string GetLambda()
         {
-            // Capture the result.
-            string result = $"lambda_{NameRegister.lambda}";
-
-            // Increment the counter.
-            NameRegister.lambda++;
-
-            // Return the result.
-            return result;
+            return NameRegister.Get("lambda");
         }
 
         /// <summary>
         /// Reset all the name counters back to
         /// their initial values.
         /// </summary>
-        public static void ResetAll()
+        public static void Reset()
         {
-            NameRegister.str = 0;
-            NameRegister.anonymous = 0;
-            NameRegister.lambda = 0;
+            NameRegister.register.Clear();
         }
     }
 }
