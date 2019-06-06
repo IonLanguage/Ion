@@ -39,7 +39,7 @@ namespace Ion.CodeGeneration
             if (!context.SymbolTable.functions.Contains(this.Prototype.Identifier))
             {
                 // Register the external definition as a function in the symbol table.
-                context.SymbolTable.functions.Add(new FunctionSymbol(this.Prototype.Identifier, external));
+                context.SymbolTable.functions.Add(new FunctionSymbol(this.Prototype.Identifier, external, this.Prototype.Args.Continuous));
             }
             // Otherwise, issue a warning.
             else
