@@ -15,14 +15,17 @@ namespace Ion.CodeGeneration
 
         public Token Token { get; }
 
+        public bool IsPointer { get; }
+
         protected readonly ContextSymbolTable symbolTable;
 
         protected readonly uint? arrayLength;
 
-        public Type(ContextSymbolTable symbolTable, Token token, uint? arrayLength = null)
+        public Type(ContextSymbolTable symbolTable, Token token, bool isPointer = false, uint? arrayLength = null)
         {
             this.symbolTable = symbolTable;
             this.Token = token;
+            this.IsPointer = isPointer;
             this.arrayLength = arrayLength;
         }
 

@@ -57,8 +57,27 @@ namespace Ion.Parsing
                 context.Stream.Skip();
             }
 
+            // Update the next token buffer.
+            nextToken = context.Stream.Peek();
+
+            // Create the pointer flag.
+            bool isPointer = false;
+
+            // Determine if pointer sequence exists.
+            if (nextToken.Type == TokenType.OperatorMultiplication)
+            {
+                // Raise the pointer flag.
+                isPointer = true;
+
+                // Skip onto the pointer token.
+                context.Stream.Skip();
+
+                // Skip the pointer token.
+                context.Stream.Skip();
+            }
+
             // Create the type.
-            return new Type(context.SymbolTable, token, arrayLength);
+            return new Type(context.SymbolTable, token, isPointer, arrayLength);
         }
     }
 }
