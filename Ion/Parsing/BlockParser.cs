@@ -48,6 +48,9 @@ namespace Ion.Parsing
 
                     // Assign the return expression to the block.
                     block.ReturnExpr = returnExpr;
+
+                    // Return immediatly, signal to update the token buffer to the current token.
+                    return true;
                 }
 
                 // Token must be a statement.

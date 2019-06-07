@@ -8,7 +8,7 @@ entry:
 }
 
 define void @.lambda.0() {
-.anonymous.3:
+.block.1:
   %pi = alloca float
   store double 3.140000e+00, float* %pi
   ret void
