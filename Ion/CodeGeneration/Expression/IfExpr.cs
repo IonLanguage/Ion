@@ -20,7 +20,7 @@ namespace Ion.CodeGeneration
             // Ensure condition and action are set.
             if (condition == null || action == null)
             {
-                throw new ArgumentNullException("Neither Condition nor action argument may be null");
+                throw new ArgumentNullException("Neither condition nor action argument may be null");
             }
 
             // Populate properties.
@@ -53,13 +53,13 @@ namespace Ion.CodeGeneration
 
             LLVMBasicBlockRef otherwise = LLVM.AppendBasicBlock(function, "else");
 
-            // TODO: Debugging, Ret void for otherwise.
+            // TODO: Debugging, ret void for otherwise.
             LLVM.PositionBuilderAtEnd(context.Target, otherwise);
             LLVM.BuildRetVoid(context.Target);
 
             LLVMBasicBlockRef merge = LLVM.AppendBasicBlock(function, "ifcont");
 
-            // TODO: Debugging, Ret void for merge.
+            // TODO: Debugging, ret void for merge.
             LLVM.PositionBuilderAtEnd(context.Target, merge);
             LLVM.BuildRetVoid(context.Target);
 
@@ -72,7 +72,7 @@ namespace Ion.CodeGeneration
             // TODO: Debugging, not complete.
             LLVM.PositionBuilderAtEnd(context.Target, action);
 
-            // Return the resulting LLVM value reference for futher use if applicable.
+            // Return the resulting LLVM value reference for further use if applicable.
             return @if;
         }
     }
