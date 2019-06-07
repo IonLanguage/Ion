@@ -22,12 +22,12 @@ namespace Ion.Parsing
             context.SymbolTable.activeBlock = block;
 
             // Mark the block as default.
-            if (begin.Type == SyntaxAnalysis.TokenType.SymbolBlockL)
+            if (begin.Type == TokenType.SymbolBlockL)
             {
                 block.Type = BlockType.Default;
             }
             // Mark the block as short.
-            else if (begin.Type == SyntaxAnalysis.TokenType.SymbolArrow)
+            else if (begin.Type == TokenType.SymbolArrow)
             {
                 block.Type = BlockType.Short;
             }
@@ -37,23 +37,17 @@ namespace Ion.Parsing
                 throw new Exception("Unexpected block type");
             }
 
-            // Capture the current token.
-            Token token = context.Stream.Current;
-
-            // While next token is not a block-closing token.
-            while (token.Type != SyntaxAnalysis.TokenType.SymbolBlockR && block.Type != BlockType.Short)
+            // Begin the iteration.
+            context.Stream.NextUntil(TokenType.SymbolBlockR, (Token token) =>
             {
                 // Returning a value.
-                if (token.Type == SyntaxAnalysis.TokenType.KeywordReturn)
+                if (token.Type == TokenType.KeywordReturn)
                 {
                     // Invoke the return parser. It's okay if it returns null, as it will be emitted as void.
                     Expr returnExpr = new FunctionReturnParser().Parse(context);
 
                     // Assign the return expression to the block.
                     block.ReturnExpr = returnExpr;
-
-                    // Exit the loop and return
-                    break;
                 }
 
                 // Token must be a statement.
@@ -68,15 +62,19 @@ namespace Ion.Parsing
                 // Append the parsed statement to the block's expression list.
                 block.Expressions.Add(statement);
 
-                // Ensure current token is a semi-colon.
-                context.Stream.EnsureCurrent(SyntaxAnalysis.TokenType.SymbolSemiColon);
+                // Ensure current token is a semi-colon, if previous statement did not parse a block.
+                if (statement.ExprType != ExprType.If)
+                {
+                    // Ensure semi-colon token.
+                    context.Stream.EnsureCurrent(SyntaxAnalysis.TokenType.SymbolSemiColon);
 
-                // Skip over the semi-colon.
-                context.Stream.Skip();
+                    // Skip over the semi-colon.
+                    context.Stream.Skip();
+                }
 
-                // Get the new token for next parse.
-                token = context.Stream.Current;
-            }
+                // Signal to update the token buffer with the current token.
+                return true;
+            });
 
             // Skip onto default block end or short block end.
             context.Stream.Skip();

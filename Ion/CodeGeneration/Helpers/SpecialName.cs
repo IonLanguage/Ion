@@ -9,5 +9,7 @@ namespace Ion.CodeGeneration.Helpers
         public const string Main = "main";
 
         public const string Lambda = "lambda";
+
+        public const string Block = "block";
     }
 }

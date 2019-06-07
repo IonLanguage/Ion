@@ -175,12 +175,6 @@ namespace Ion.SyntaxAnalysis
                 // Invoke the callback and capture the result.
                 bool updateToCurrent = callback(buffer);
 
-                // At this point, throw an error if EOF was reached.
-                if (this.IsLastItem)
-                {
-                    throw new IndexOutOfRangeException($"Expected '{type}' to be encountered, but got EOF");
-                }
-
                 if (updateToCurrent)
                 {
                     // Update the buffer with the current token.
@@ -190,6 +184,12 @@ namespace Ion.SyntaxAnalysis
                 {
                     // Update the buffer with the next token.
                     buffer = this.Next();
+                }
+
+                // At this point, throw an error if EOF was reached.
+                if (this.IsLastItem && buffer.Type != type)
+                {
+                    throw new ArgumentOutOfRangeException($"Expected '{type}' to be encountered, but got EOF");
                 }
             }
         }

@@ -1,0 +1,7 @@
+void test() {
+    if (1) {
+        int one;
+    }
+
+    int two;
+}

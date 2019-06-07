@@ -1,15 +1,16 @@
 using System.Collections.Generic;
+using Ion.CodeGeneration.Helpers;
 
 namespace Ion.Core
 {
     public static class NameRegister
     {
-        private static Dictionary<string, uint> register = new Dictionary<string, uint>();
+        private static Dictionary<string, int> register = new Dictionary<string, int>();
 
         public static string Get(string name)
         {
             // Create the counter buffer.
-            uint counter = 0;
+            int counter = -1;
 
             // Retrieve the counter if it already exists.
             if (NameRegister.register.ContainsKey(name))
@@ -31,6 +32,11 @@ namespace Ion.Core
             return result;
         }
 
+        public static string GetBlock()
+        {
+            return NameRegister.Get(SpecialName.Block);
+        }
+
         public static string GetString()
         {
             return NameRegister.Get("str");
@@ -38,12 +44,12 @@ namespace Ion.Core
 
         public static string GetAnonymous()
         {
-            return NameRegister.Get("anonymous");
+            return NameRegister.Get(SpecialName.Anonymous);
         }
 
         public static string GetLambda()
         {
-            return NameRegister.Get("lambda");
+            return NameRegister.Get(SpecialName.Lambda);
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Ion.CodeGeneration.Helpers;
+using Ion.Core;
 using Ion.Misc;
 using LLVMSharp;
 
@@ -29,6 +30,7 @@ namespace Ion.CodeGeneration
         public Block()
         {
             this.Expressions = new List<Expr>();
+            this.SetName(NameRegister.GetBlock());
         }
 
         public LLVMBasicBlockRef Emit(PipeContext<LLVMValueRef> context)
