@@ -5,9 +5,9 @@ clean:
 	rm -r Ion/bin Ion/obj
 
 install:
-	# TODO: Make this path not constant 
+	# TODO: Make this path not constant.
 	mkdir /opt/Ion
-	cp -r Ion/bin/Release/netcoreapp2.2 /opt/Ion
+	cp -r Ion/bin/Release /opt/Ion
 
 uninstall:
 	rm -r /opt/Ion
