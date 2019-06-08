@@ -5,9 +5,9 @@ clean:
 	rm -r Ion/bin Ion/obj
 
 install:
-	# TODO: Make this path not constant.
-	mkdir /opt/Ion
-	cp -r Ion/bin/Release /opt/Ion
+	# TODO: Path is hard-coded.
+	mkdir /opt/ion
+	cp -r Ion/bin/Release /opt/ion
 
 uninstall:
-	rm -r /opt/Ion
+	rm -r /opt/ion
