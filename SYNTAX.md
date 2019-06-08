@@ -1,85 +1,103 @@
-#### Table of contents
 
+<p align="center">
+    <img src="https://i.ibb.co/PFS60V2/ion-white-smaller.jpg" height="200px" alt="Ion Logo" />
+    <br />
+    <a href="https://circleci.com/gh/IonLanguage/Ion">
+        <img src="https://circleci.com/gh/IonLanguage/Ion.svg?style=svg" />
+    </a>
+    <a href="https://discord.gg/H3eMUXp">
+        <img src="https://discordapp.com/api/guilds/572951207862206474/widget.png?style=shield" alt="Discord Server" />
+    </a>
+</p>
+
+## Syntax Examples
+
+### Table of Contents
 * [Globals](#)
 * [Functions](#)
 * [Structs](#)
 * [Lambdas](#)
 * [Importing modules](#)
+<hr/>
 
-Globals
+#### Globals
+> ```cs
+>int @counter = 0;
+>
+>void main() {
+>    counter++;
+>    // ...
+>    }
+>```
 
-```cs
-int @counter = 0;
+<hr/>
 
-void main() {
-    counter++;
-    // ...
-}
-```
+#### Functions
+>```cs
+>void join(char delimiter, ...) {
+>    // ...
+>}
+>
+>void main() {
+>    // ...
+>}
+>```
 
-Functions
+<hr/>
 
-```cs
-void join(char delimiter, ...) {
-    // ...
-}
+#### Structs
+>```cs
+>struct Person {
+>    string name;
+>    int age;
+>}
+>
+>void main() {
+>    // Create the struct.
+>    Person joe = new Person {
+>        name: "Joe",
+>        age: 25
+>    };
+>
+>    // Access its properties.
+>    joe.name;
+>    joe.age;
+>}
+>```
 
-void main() {
-    // ...
-}
-```
+<hr/>
 
-Structs
+#### Lambdas
+>```cs
+>delegate void WorkCallback(int status);
+>
+>void work(WorkCallback callback) {
+>    int status;
+>    // ...
+>    callback(status);
+>}
+>
+>void main() {
+>    // Pass lambda as parameter.
+>    work((int status) => {
+>        // ...
+>    });
+>}
+>```
 
-```cs
-struct Person {
-    string name;
-    int age;
-}
+<hr/>
 
-void main() {
-    // Create the struct.
-    Person joe = new Person {
-        name: "Joe",
-        age: 25
-    };
+#### Importing modules
 
-    // Access its properties.
-    joe.name;
-    joe.age;
-}
-```
-
-Lambdas
-
-```cs
-delegate void WorkCallback(int status);
-
-void work(WorkCallback callback) {
-    int status;
-    // ...
-    callback(status);
-}
-
-void main() {
-    // Pass lambda as parameter.
-    work((int status) => {
-        // ...
-    });
-}
-```
-
-Importing modules
-
-```cs
-// Import a module.
-import my.module;
-
-// Import a system/built-in module.
-import <os>;
-
-// Import a module with an alias.
-import my.other.module as other;
-
-// ...
-```
+>```cs
+>// Import a module.
+>import my.module;
+>
+>// Import a system/built-in module.
+>import <os>;
+>
+>// Import a module with an alias.
+>import my.other.module as other;
+>
+>// ...
+>```
