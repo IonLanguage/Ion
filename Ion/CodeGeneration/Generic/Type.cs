@@ -60,7 +60,7 @@ namespace Ion.CodeGeneration
             // Convert result to a pointer if applicable.
             if (this.IsPointer)
             {
-                result = LLVM.PointerType(result, result.GetPointerAddressSpace());
+                result = LLVM.PointerType(result, 0);
             }
 
             // Return the resulting type.

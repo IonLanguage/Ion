@@ -3,6 +3,6 @@ source_filename = "entry"
 
 define void @test() {
 entry:
-  %stringType = alloca i32 addrspace(32)*
+  %stringType = alloca i32*
   ret void
 }
