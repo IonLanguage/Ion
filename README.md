@@ -89,8 +89,8 @@ Use the following instructions to initialize and run a project in Linux.
 $ mkdir myproject
 $ cd myproject
 $ ion init
-$ mkdir Src
-$ nano Src/main.ion
+$ mkdir src
+$ nano src/main.ion
 ```
 
 Paste the following source code:
