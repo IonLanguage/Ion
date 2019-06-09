@@ -143,9 +143,6 @@ namespace Ion.Syntax
                         // Reduce the position.
                         this.Position -= token.Value.Length - pair.Key.Length;
 
-                        // Skim the last character off.
-                        token.Value = pair.Key;
-
                         // Return the token.
                         return token;
                     }
@@ -175,27 +172,14 @@ namespace Ion.Syntax
         /// if positive, it'll update the referenced token to the provided type with
         /// the matched text.
         /// </summary>
-        protected bool MatchExpression(ref Token token, TokenType type, Regex regex, bool modifyToken = true)
+        protected bool MatchExpression(ref Token token, TokenType type, Regex regex)
         {
             // Substrings from the current position to get the viable matching string.
             string input = this.Input.Substring(this.Position);
             Match match = regex.Match(input);
 
-            // If the match is success, update the token to reflect this.
-            if (match.Success && match.Index == 0)
-            {
-                if (modifyToken)
-                {
-                    token.Value = match.Value;
-                    token.Type = type;
-
-                    this.Skip(match.Value.Length);
-                }
-
-                return true;
-            }
-
-            return false;
+            // Return success if the match was successful.
+            return match.Success && match.Index == 0;
         }
 
         /// <summary>
