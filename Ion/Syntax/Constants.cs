@@ -89,16 +89,16 @@ namespace Ion.Syntax
         /// which include operators, symbols and keywords.
         /// </summary>
         public static readonly TokenTypeMap simpleTokenTypes = new[]
-            {
-                keywords,
-                symbols,
-                operators,
-                primitiveTypes
-            }
-            .SelectMany(dictionary => dictionary)
-            .ToLookup(pair => pair.Key, pair => pair.Value)
-            .ToDictionary(group => group.Key, group => group.First())
-            .SortByKeyLength();
+        {
+            keywords,
+            symbols,
+            operators,
+            primitiveTypes
+        }
+        .SelectMany(dictionary => dictionary)
+        .ToLookup(pair => pair.Key, pair => pair.Value)
+        .ToDictionary(group => group.Key, group => group.First())
+        .SortByKeyLength();
 
         public static readonly ComplexTokenTypeMap complexTokenTypes = new ComplexTokenTypeMap
         {
