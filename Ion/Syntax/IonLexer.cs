@@ -1,3 +1,5 @@
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -25,12 +27,6 @@ namespace Ion.Syntax
     {
         public LexerOptions Options { get; }
 
-        /// <summary>
-        /// Temporarily the captured string value
-        /// as a buffer.
-        /// </summary>
-        protected string buffer;
-
         public IonLexer(string input, LexerOptions options = LexerOptions.IgnoreComments | LexerOptions.IgnoreWhitespace) : base(input)
         {
             this.Options = options;
@@ -47,17 +43,17 @@ namespace Ion.Syntax
             Token? nextToken = this.GetNextToken();
 
             // Obtain all possible tokens.
-            while (nextToken.HasValue)
+            while (nextToken != null)
             {
                 // If the token is unknown, issue a warning in console.
-                if (nextToken.Value.Type == TokenType.Unknown)
+                if (nextToken.Type == TokenType.Unknown)
                 {
                     // TODO: This should be done through ErrorReporting (implement in the future).
-                    Console.WriteLine($"Warning: Unexpected token type to be unknown, value: {nextToken.Value.Value}");
+                    Console.WriteLine($"Warning: Unexpected token type to be unknown, value: {nextToken.Value}");
                 }
 
                 // Append token value to the result list.
-                tokens.Add(nextToken.Value);
+                tokens.Add(nextToken);
 
                 // Continue enumeration.
                 nextToken = this.GetNextToken();
