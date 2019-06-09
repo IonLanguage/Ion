@@ -14,7 +14,7 @@ namespace Ion.CodeGeneration
         Short
     }
 
-    public class Block : Named, IPipe<LLVMValueRef, LLVMBasicBlockRef>
+    public class Block : Named, IContextPipe<LLVMValueRef, LLVMBasicBlockRef>
     {
         public readonly List<Expr> Expressions;
 

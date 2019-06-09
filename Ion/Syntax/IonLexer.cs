@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Ion.Misc;
 using Ion.CognitiveServices;
+using Ion.Engine.Syntax;
 
 namespace Ion.Syntax
 {
@@ -20,32 +21,9 @@ namespace Ion.Syntax
     /// Parses input code string and creates
     /// corresponding tokens.
     /// </summary>
-    public class Lexer
+    public class IonLexer : Lexer<TokenType>
     {
-        public static readonly int EOF = -1;
-
-        public int Position { get; set; }
-
-        public string Input { get; }
-
         public LexerOptions Options { get; }
-
-        /// <summary>
-        /// The character located at the current
-        /// position in the input string.
-        /// </summary>
-        public char? Char
-        {
-            get
-            {
-                if (this.Position < this.Input.Length)
-                {
-                    return this.Input[this.Position];
-                }
-
-                return null;
-            }
-        }
 
         /// <summary>
         /// Temporarily the captured string value
@@ -53,9 +31,8 @@ namespace Ion.Syntax
         /// </summary>
         protected string buffer;
 
-        public Lexer(string input, LexerOptions options = LexerOptions.IgnoreComments | LexerOptions.IgnoreWhitespace)
+        public IonLexer(string input, LexerOptions options = LexerOptions.IgnoreComments | LexerOptions.IgnoreWhitespace) : base(input)
         {
-            this.Input = input;
             this.Options = options;
         }
 
@@ -64,7 +41,7 @@ namespace Ion.Syntax
         /// possible tokens from the input string. Tokens which are
         /// unable to be identified will default to token type unknown.
         /// </summary>
-        public Token[] Tokenize()
+        public override Token[] Tokenize()
         {
             List<Token> tokens = new List<Token>();
             Token? nextToken = this.GetNextToken();
@@ -93,7 +70,7 @@ namespace Ion.Syntax
         /// Attempt to obtain the next upcoming
         /// token.
         /// </summary>
-        public Token? GetNextToken()
+        protected Token? GetNextToken()
         {
             // Return immediatly if position overflows.
             if (this.Position >= this.Input.Length)
@@ -102,14 +79,7 @@ namespace Ion.Syntax
             }
 
             // Begin capturing the token. Identify the token as unknown initially.
-            Token token = new Token
-            {
-                StartPos = this.Position,
-                Type = TokenType.Unknown,
-
-                // Default to current character to avoid infinite loop.
-                Value = this.Char.Value.ToString()
-            };
+            Token token = new Token(TokenType.Unknown, this.Char.Value.ToString(), this.Position);
 
             // Skip whitespace characters if applicable.
             if (this.Options.HasFlag(LexerOptions.IgnoreWhitespace))
@@ -209,7 +179,7 @@ namespace Ion.Syntax
         /// if positive, it'll update the referenced token to the provided type with
         /// the matched text.
         /// </summary>
-        public bool MatchExpression(ref Token token, TokenType type, Regex regex, bool modifyToken = true)
+        protected bool MatchExpression(ref Token token, TokenType type, Regex regex, bool modifyToken = true)
         {
             // Substrings from the current position to get the viable matching string.
             string input = this.Input.Substring(this.Position);

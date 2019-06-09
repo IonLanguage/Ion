@@ -10,7 +10,7 @@ namespace Ion.Parsing
         public static TokenStream CreateFromInput(string input)
         {
             // Create the lexer.
-            Lexer lexer = new Lexer(input);
+            IonLexer lexer = new IonLexer(input);
 
             // Tokenize the input.
             Token[] tokens = lexer.Tokenize();

@@ -44,7 +44,7 @@ namespace Ion.CodeGeneration
         Attribute
     }
 
-    public abstract class Expr : Named, IPipe<LLVMBuilderRef, LLVMValueRef>
+    public abstract class Expr : Named, IContextPipe<LLVMBuilderRef, LLVMValueRef>
     {
         // TODO: Expand this.
         public static Action<LLVMBuilderRef> Void = builder => { LLVM.BuildRetVoid(builder); };

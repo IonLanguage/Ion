@@ -56,7 +56,7 @@ namespace Ion.Optimization.Minification
         public string Minify(string input)
         {
             // Create a new lexer instance.
-            Lexer lexer = new Lexer(input);
+            IonLexer lexer = new IonLexer(input);
 
             // Invoke the lexer, create resulting token stream.
             TokenStream stream = new TokenStream(lexer.Tokenize());

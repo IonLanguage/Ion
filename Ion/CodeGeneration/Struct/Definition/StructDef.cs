@@ -7,7 +7,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class StructDef : Named, IPipe<Module, LLVMTypeRef>
+    public class StructDef : Named, IContextPipe<Module, LLVMTypeRef>
     {
         public StructDefBody Body { get; }
 

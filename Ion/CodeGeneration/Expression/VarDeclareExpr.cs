@@ -4,7 +4,7 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class VarDeclareExpr : Expr, IStatement, IPipe<LLVMBuilderRef, LLVMValueRef>
+    public class VarDeclareExpr : Expr, IStatement, IContextPipe<LLVMBuilderRef, LLVMValueRef>
     {
         public override ExprType ExprType => ExprType.VariableDeclaration;
 
