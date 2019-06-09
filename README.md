@@ -13,4 +13,4 @@ A language implemented in C# using LLVM 5.0 bindings.
 
 File extension: `.ion`
 
-> [View documentation](https://github.com/IonLanguage/Ion.Documentation)
+> [View documentation](https://github.com/IonLanguage/Ion.Docs)
