@@ -24,17 +24,11 @@ namespace Ion.Syntax
     {
         public static readonly int EOF = -1;
 
-        /// <summary>
-        /// Temporarily the captured string value
-        /// as a buffer.
-        /// </summary>
-        protected string buffer;
+        public int Position { get; set; }
 
-        public Lexer(string input, LexerOptions options = LexerOptions.IgnoreComments | LexerOptions.IgnoreWhitespace)
-        {
-            this.Input = input;
-            this.Options = options;
-        }
+        public string Input { get; }
+
+        public LexerOptions Options { get; }
 
         /// <summary>
         /// The character located at the current
@@ -53,11 +47,17 @@ namespace Ion.Syntax
             }
         }
 
-        public int Position { get; set; }
+        /// <summary>
+        /// Temporarily the captured string value
+        /// as a buffer.
+        /// </summary>
+        protected string buffer;
 
-        public string Input { get; }
-
-        public LexerOptions Options { get; }
+        public Lexer(string input, LexerOptions options = LexerOptions.IgnoreComments | LexerOptions.IgnoreWhitespace)
+        {
+            this.Input = input;
+            this.Options = options;
+        }
 
         /// <summary>
         /// Begin the tokenization process, obtaining/extracting all
@@ -145,7 +145,7 @@ namespace Ion.Syntax
             {
                 if (this.MatchExpression(ref token, pair.Value, pair.Key))
                 {
-                    // If the lexer should ignore comments, return the next comment.
+                    // If the lexer should ignore comments, return the next token.
                     if (this.Options.HasFlag(LexerOptions.IgnoreComments))
                     {
                         return this.GetNextToken();
