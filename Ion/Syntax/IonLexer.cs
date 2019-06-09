@@ -21,7 +21,7 @@ namespace Ion.Syntax
     /// Parses input code string and creates
     /// corresponding tokens.
     /// </summary>
-    public class IonLexer : Lexer<TokenType>
+    public class IonLexer : Lexer<Token, TokenType>
     {
         public LexerOptions Options { get; }
 
