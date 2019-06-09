@@ -1,5 +1,5 @@
 using Ion.CodeGeneration;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.Parsing
 {
@@ -8,7 +8,7 @@ namespace Ion.Parsing
         public Expr Parse(ParserContext context)
         {
             // Ensure current return keyword.
-            context.Stream.EnsureCurrent(SyntaxAnalysis.TokenType.KeywordReturn);
+            context.Stream.EnsureCurrent(TokenType.KeywordReturn);
 
             // Skip over the return keyword.
             context.Stream.Skip();
@@ -17,7 +17,7 @@ namespace Ion.Parsing
             Token token = context.Stream.Current;
 
             // There is no return expression.
-            if (token.Type == SyntaxAnalysis.TokenType.SymbolSemiColon)
+            if (token.Type == TokenType.SymbolSemiColon)
             {
                 // Skip the semi-colon.
                 context.Stream.Skip();
@@ -31,7 +31,7 @@ namespace Ion.Parsing
             Expr expr = new ExprParser().Parse(context);
 
             // Ensure current is a semi-colon.
-            context.Stream.EnsureCurrent(SyntaxAnalysis.TokenType.SymbolSemiColon);
+            context.Stream.EnsureCurrent(TokenType.SymbolSemiColon);
 
             // Skip the semi-colon.
             context.Stream.Skip();

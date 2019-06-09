@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using LLVMSharp;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using NUnit.Framework;
 using Ion.Tests.Core;
 using Ion.CodeGeneration;

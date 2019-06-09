@@ -1,4 +1,4 @@
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using System.Collections.Generic;
 
 namespace Ion.Parsing

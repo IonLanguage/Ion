@@ -1,6 +1,6 @@
 using System;
 using Ion.CodeGeneration;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.Parsing
 {
@@ -12,7 +12,7 @@ namespace Ion.Parsing
             PathResult path = new PathParser().Parse(context);
 
             // Variable reference.
-            if (context.Stream.Current.Type != SyntaxAnalysis.TokenType.SymbolParenthesesL)
+            if (context.Stream.Current.Type != TokenType.SymbolParenthesesL)
             {
                 // TODO: Should be done by an independent parser (VariableExprParser)?
 

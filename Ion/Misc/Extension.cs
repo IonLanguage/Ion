@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using LLVMSharp;
-using TokenTypeMap = System.Collections.Generic.Dictionary<string, Ion.SyntaxAnalysis.TokenType>;
+using TokenTypeMap = System.Collections.Generic.Dictionary<string, Ion.Syntax.TokenType>;
 
 namespace Ion.Misc
 {

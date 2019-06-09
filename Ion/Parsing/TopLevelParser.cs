@@ -2,7 +2,7 @@ using System;
 using Ion.CodeGeneration;
 using Ion.CodeGeneration.Helpers;
 using Ion.CognitiveServices;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.Parsing
 {
@@ -24,7 +24,7 @@ namespace Ion.Parsing
             TokenType type = token.Type;
 
             // Skip unknown tokens for error recovery.
-            if (type == SyntaxAnalysis.TokenType.Unknown)
+            if (type == TokenType.Unknown)
             {
                 // Create the warning.
                 context.NoticeRepository.UnknownToken(token.Value);
@@ -42,7 +42,7 @@ namespace Ion.Parsing
                 Token afterIdentifier = context.Stream.Peek(2);
 
                 // Function definition.
-                if (type == TokenType.SymbolBracketL || afterIdentifier.Type == SyntaxAnalysis.TokenType.SymbolParenthesesL)
+                if (type == TokenType.SymbolBracketL || afterIdentifier.Type == TokenType.SymbolParenthesesL)
                 {
                     // Invoke the function parser.
                     Function function = new FunctionParser().Parse(context);
@@ -61,7 +61,7 @@ namespace Ion.Parsing
                 }
             }
             // Struct definition.
-            else if (type == SyntaxAnalysis.TokenType.KeywordStruct)
+            else if (type == TokenType.KeywordStruct)
             {
                 // Invoke the struct parser.
                 StructDef @struct = new StructDefParser().Parse(context);
@@ -70,7 +70,7 @@ namespace Ion.Parsing
                 @struct.Emit(this.ModulePipeContext);
             }
             // External definition.
-            else if (type == SyntaxAnalysis.TokenType.KeywordExternal)
+            else if (type == TokenType.KeywordExternal)
             {
                 // Invoke the external definition parser.
                 Extern @extern = new ExternParser().Parse(context);
@@ -80,7 +80,7 @@ namespace Ion.Parsing
             }
             // TODO: Enforce a single namespace definition per-file.
             // Namespace definition.
-            else if (type == SyntaxAnalysis.TokenType.KeywordNamespace)
+            else if (type == TokenType.KeywordNamespace)
             {
                 // Invoke the namespace definition parser.
                 Namespace @namespace = new NamespaceParser().Parse(context);
@@ -89,7 +89,7 @@ namespace Ion.Parsing
                 @namespace.Invoke(this.ModulePipeContext.Target);
             }
             // Directive.
-            else if (type == SyntaxAnalysis.TokenType.SymbolHash)
+            else if (type == TokenType.SymbolHash)
             {
                 // Invoke the directive parser.
                 Directive directive = new DirectiveParser().Parse(context);

@@ -4,11 +4,10 @@ using Ion.CognitiveServices;
 using Ion.NoticeReporting;
 using Ion.Misc;
 using LLVMSharp;
-using TokenTypeMap = System.Collections.Generic.Dictionary<string, Ion.SyntaxAnalysis.TokenType>;
-using ComplexTokenTypeMap =
-    System.Collections.Generic.Dictionary<System.Text.RegularExpressions.Regex, Ion.SyntaxAnalysis.TokenType>;
+using TokenTypeMap = System.Collections.Generic.Dictionary<string, Ion.Syntax.TokenType>;
+using ComplexTokenTypeMap = System.Collections.Generic.Dictionary<System.Text.RegularExpressions.Regex, Ion.Syntax.TokenType>;
 
-namespace Ion.SyntaxAnalysis
+namespace Ion.Syntax
 {
     public static class Constants
     {

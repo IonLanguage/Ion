@@ -1,7 +1,7 @@
 using System;
 using Ion.CodeGeneration;
 using Ion.Core;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.Parsing
 {
@@ -69,7 +69,7 @@ namespace Ion.Parsing
                 if (statement.ExprType != ExprType.If)
                 {
                     // Ensure semi-colon token.
-                    context.Stream.EnsureCurrent(SyntaxAnalysis.TokenType.SymbolSemiColon);
+                    context.Stream.EnsureCurrent(TokenType.SymbolSemiColon);
 
                     // Skip over the semi-colon.
                     context.Stream.Skip();

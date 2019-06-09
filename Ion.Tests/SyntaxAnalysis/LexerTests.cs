@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
 using Ion.Core;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using Ion.NoticeReporting;
 using Ion.Tests.Core;
 

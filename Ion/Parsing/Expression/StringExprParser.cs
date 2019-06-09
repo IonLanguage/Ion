@@ -2,7 +2,7 @@ using System;
 using Ion.CodeGeneration;
 using Ion.CognitiveServices;
 using Ion.Misc;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.Parsing
 {
@@ -11,7 +11,7 @@ namespace Ion.Parsing
         public StringExpr Parse(ParserContext context)
         {
             // Ensure current token is string literal.
-            context.Stream.EnsureCurrent(SyntaxAnalysis.TokenType.LiteralString);
+            context.Stream.EnsureCurrent(TokenType.LiteralString);
 
             // Capture string literal token.
             Token token = context.Stream.Current;

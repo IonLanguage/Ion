@@ -1,7 +1,7 @@
 using Ion.CodeGeneration.Helpers;
 using Ion.CognitiveServices;
 using Ion.Misc;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration

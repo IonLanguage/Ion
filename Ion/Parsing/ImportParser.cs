@@ -1,4 +1,4 @@
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using Ion.CodeGeneration;
 using System.Collections.Generic;
 

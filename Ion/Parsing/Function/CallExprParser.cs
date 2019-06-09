@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Ion.CodeGeneration;
 using Ion.Core;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using LLVMSharp;
 
 namespace Ion.Parsing

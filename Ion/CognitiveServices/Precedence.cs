@@ -1,4 +1,4 @@
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.CognitiveServices
 {

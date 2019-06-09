@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using Ion.Misc;
 using Ion.Tests.Core;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using Ion.Optimization.Minification;
 
 namespace Ion.Tests.Optimization

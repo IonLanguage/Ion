@@ -1,5 +1,5 @@
 using Ion.CodeGeneration.Helpers;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.AST
 {

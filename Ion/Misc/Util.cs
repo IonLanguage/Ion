@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using Ion.CognitiveServices;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.Misc
 {

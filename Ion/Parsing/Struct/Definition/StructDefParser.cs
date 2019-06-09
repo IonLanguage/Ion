@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Ion.CodeGeneration;
 using Ion.CognitiveServices;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.Parsing
 {
@@ -37,7 +37,7 @@ namespace Ion.Parsing
                 string name = new IdentifierParser().Parse(context);
 
                 // Ensure current token is symbol semi-colon.
-                context.Stream.EnsureCurrent(SyntaxAnalysis.TokenType.SymbolSemiColon);
+                context.Stream.EnsureCurrent(TokenType.SymbolSemiColon);
 
                 // Create property.
                 StructDefProperty property = new StructDefProperty(type, name);

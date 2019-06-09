@@ -1,7 +1,7 @@
 using Ion.CodeGeneration;
 using Ion.CognitiveServices;
 using Ion.Misc;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.Parsing
 {

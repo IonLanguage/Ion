@@ -3,7 +3,7 @@ using System.Text;
 using Ion.Core;
 using Ion.Misc;
 
-namespace Ion.SyntaxAnalysis
+namespace Ion.Syntax
 {
     public class TokenStream : Stream<Token>
     {

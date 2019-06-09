@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Ion.CodeGeneration;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using Type = Ion.CodeGeneration.Type;
 
 namespace Ion.Parsing

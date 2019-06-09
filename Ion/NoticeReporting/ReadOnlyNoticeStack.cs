@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Text;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.NoticeReporting
 {

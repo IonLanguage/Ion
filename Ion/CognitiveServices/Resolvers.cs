@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Ion.CodeGeneration;
 using Ion.Misc;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using LLVMSharp;
 using Type = Ion.CodeGeneration.Type;
 

@@ -1,5 +1,5 @@
 using Ion.CodeGeneration;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.Parsing
 {
@@ -8,7 +8,7 @@ namespace Ion.Parsing
         public IfExpr Parse(ParserContext context)
         {
             // Ensure current token type is keyword if.
-            context.Stream.EnsureCurrent(SyntaxAnalysis.TokenType.KeywordIf);
+            context.Stream.EnsureCurrent(TokenType.KeywordIf);
 
             // Skip if keyword token.
             context.Stream.Skip();
@@ -26,7 +26,7 @@ namespace Ion.Parsing
             Token token = context.Stream.Current;
 
             // If expression contains an alternative action.
-            if (token.Type == SyntaxAnalysis.TokenType.KeywordElse)
+            if (token.Type == TokenType.KeywordElse)
             {
                 // Skip else keyword token.
                 context.Stream.Skip();

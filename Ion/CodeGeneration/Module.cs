@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using Ion.CodeGeneration;
 using Ion.CodeGeneration.Helpers;
 using Ion.Core;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using Ion.Tracking;
 using LLVMSharp;
 

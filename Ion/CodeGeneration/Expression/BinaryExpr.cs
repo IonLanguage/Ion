@@ -1,8 +1,8 @@
 using System;
 using Ion.CodeGeneration.Helpers;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using LLVMSharp;
-using static Ion.SyntaxAnalysis.Constants;
+using static Ion.Syntax.Constants;
 
 namespace Ion.CodeGeneration
 {

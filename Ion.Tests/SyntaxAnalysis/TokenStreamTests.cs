@@ -1,4 +1,4 @@
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using NUnit.Framework;
 
 namespace Ion.Tests.SyntaxAnalysis

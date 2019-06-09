@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Ion.CodeGeneration;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.Parsing
 {
@@ -22,12 +22,12 @@ namespace Ion.Parsing
             Token token = context.Stream.Current;
 
             // Expect either a comma or pipe symbol.
-            if (token.Type != SyntaxAnalysis.TokenType.OperatorPipe && token.Type != SyntaxAnalysis.TokenType.SymbolComma)
+            if (token.Type != TokenType.OperatorPipe && token.Type != TokenType.SymbolComma)
             {
                 throw new Exception($"Expected next token to be of type either comma symbol or pipe operator, but got '{token.Type}'");
             }
             // There is another value.
-            else if (token.Type == SyntaxAnalysis.TokenType.SymbolComma)
+            else if (token.Type == TokenType.SymbolComma)
             {
                 // Skip comma token.
                 context.Stream.Skip();

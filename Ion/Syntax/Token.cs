@@ -1,4 +1,4 @@
-namespace Ion.SyntaxAnalysis
+namespace Ion.Syntax
 {
     public struct Token
     {
@@ -14,8 +14,8 @@ namespace Ion.SyntaxAnalysis
         public int StartPos;
 
         /// <summary>
-        ///     The end position of this token.
-        ///     Returns the start position if the value is null.
+        /// The end position of this token.
+        /// Returns the start position if the value is null.
         /// </summary>
         public int EndPos
         {
@@ -40,8 +40,8 @@ namespace Ion.SyntaxAnalysis
         }
 
         /// <summary>
-        ///     Stringify the token to be able to be inspected
-        ///     in the console.
+        /// Stringify the token to be able to be inspected
+        /// in the console.
         /// </summary>
         public override string ToString()
         {

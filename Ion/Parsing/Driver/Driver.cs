@@ -2,7 +2,7 @@ using System;
 using Ion.CodeGeneration;
 using Ion.CodeGeneration.Helpers;
 using Ion.CognitiveServices;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.Parsing
 {

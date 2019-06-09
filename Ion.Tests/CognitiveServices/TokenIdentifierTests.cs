@@ -2,7 +2,7 @@ using NUnit.Framework;
 using Ion.Core;
 using Ion.NoticeReporting;
 using Ion.CognitiveServices;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.Tests.Core
 {

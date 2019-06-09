@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using Ion.Misc;
 using Ion.CognitiveServices;
 
-namespace Ion.SyntaxAnalysis
+namespace Ion.Syntax
 {
     [Flags]
     public enum LexerOptions

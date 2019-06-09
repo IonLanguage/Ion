@@ -1,6 +1,6 @@
 using System;
 using Ion.CognitiveServices;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using Type = Ion.CodeGeneration.Type;
 
 namespace Ion.Parsing

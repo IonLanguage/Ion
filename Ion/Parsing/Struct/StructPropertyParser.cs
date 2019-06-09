@@ -1,6 +1,6 @@
 using Ion.CodeGeneration;
 using Ion.CodeGeneration.Helpers;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using Ion.Tracking.Symbols;
 
 namespace Ion.Parsing

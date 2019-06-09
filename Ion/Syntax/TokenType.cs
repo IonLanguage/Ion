@@ -1,4 +1,4 @@
-namespace Ion.SyntaxAnalysis
+namespace Ion.Syntax
 {
     public enum TokenType
     {

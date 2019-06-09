@@ -1,6 +1,6 @@
 using System;
 using Ion.CodeGeneration;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using Type = Ion.CodeGeneration.Type;
 
 namespace Ion.Parsing
@@ -25,7 +25,7 @@ namespace Ion.Parsing
             Token token = context.Stream.Current;
 
             // A value is being assigned.
-            if (token.Type == SyntaxAnalysis.TokenType.OperatorAssignment)
+            if (token.Type == TokenType.OperatorAssignment)
             {
                 // Skip the assignment operator.
                 context.Stream.Skip();

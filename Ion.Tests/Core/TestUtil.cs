@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Ion.Parsing;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.Tests.Core
 {

@@ -3,7 +3,7 @@ using Ion.CodeGeneration.Helpers;
 using Ion.CognitiveServices;
 using Ion.Core;
 using Ion.NoticeReporting;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 using Ion.Tracking;
 
 namespace Ion.Parsing

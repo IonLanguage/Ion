@@ -1,5 +1,5 @@
 using System.Text;
-using Ion.SyntaxAnalysis;
+using Ion.Syntax;
 
 namespace Ion.Optimization.Minification
 {
