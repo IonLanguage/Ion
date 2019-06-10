@@ -54,7 +54,7 @@ namespace Ion.Tests.SyntaxAnalysis
         public void Tokenize(string input)
         {
             // Create lexer and tokenize the input.
-            Lexer lexer = new Lexer(input, (LexerOptions.IgnoreWhitespace));
+            IonLexer lexer = new IonLexer(input, (LexerOptions.IgnoreWhitespace));
             Token[] tokens = lexer.Tokenize();
 
             // Ensure length is the same.
@@ -75,7 +75,7 @@ namespace Ion.Tests.SyntaxAnalysis
         public void NotTokenizeInvalidInput(string input)
         {
             // Create the lexer.
-            Lexer lexer = new Lexer(input);
+            IonLexer lexer = new IonLexer(input);
 
             // Tokenize the input.
             Token[] tokens = lexer.Tokenize();
@@ -105,7 +105,7 @@ namespace Ion.Tests.SyntaxAnalysis
         public void PossibleConflictingTokens(string input, params TokenType[] expected)
         {
             // Create the lexer without any options.
-            Lexer lexer = new Lexer(input, LexerOptions.None);
+            IonLexer lexer = new IonLexer(input, LexerOptions.None);
 
             // Tokenize the input.
             Token[] tokens = lexer.Tokenize();

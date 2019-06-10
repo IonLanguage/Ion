@@ -12,20 +12,9 @@ namespace Ion.Tests.SyntaxAnalysis
         {
             this.stream = new TokenStream
             {
-                new Token
-                {
-                    Type = TokenType.Unknown
-                },
-
-                new Token
-                {
-                    Type = TokenType.TypeVoid
-                },
-
-                new Token
-                {
-                    Type = TokenType.Identifier
-                }
+                new Token(TokenType.Unknown, "", 0),
+                new Token(TokenType.Identifier, "", 0),
+                new Token(TokenType.TypeVoid, "", 0)
             };
         }
 
