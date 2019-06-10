@@ -1,5 +1,5 @@
 using System.Text;
-using Ion.Misc;
+using Ion.Engine.Misc;
 using Ion.Syntax;
 
 namespace Ion.NoticeReporting

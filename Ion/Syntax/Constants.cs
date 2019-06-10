@@ -6,6 +6,7 @@ using Ion.Misc;
 using LLVMSharp;
 using TokenTypeMap = System.Collections.Generic.Dictionary<string, Ion.Syntax.TokenType>;
 using ComplexTokenTypeMap = System.Collections.Generic.Dictionary<System.Text.RegularExpressions.Regex, Ion.Syntax.TokenType>;
+using Ion.Engine.Misc;
 
 namespace Ion.Syntax
 {

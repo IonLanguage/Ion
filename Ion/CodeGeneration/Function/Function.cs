@@ -1,6 +1,7 @@
 using System;
 using Ion.CodeGeneration.Helpers;
 using Ion.Core;
+using Ion.Engine.Misc;
 using Ion.Misc;
 using Ion.Tracking.Symbols;
 using LLVMSharp;
@@ -144,7 +145,7 @@ namespace Ion.CodeGeneration
             ITypeEmitter returnType = PrimitiveTypeFactory.Void();
 
             // Create a new prototype instance.
-            this.Prototype = new Prototype(NameRegister.GetAnonymous(), null, returnType);
+            this.Prototype = new Prototype(Ion.Core.NameRegister.GetAnonymous(), null, returnType);
 
             // Create formal arguments after assigning prototype to avoid infinite loop.
             FormalArgs args = this.CreateArgs();
