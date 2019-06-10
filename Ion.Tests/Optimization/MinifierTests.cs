@@ -1,8 +1,8 @@
 using NUnit.Framework;
 using Ion.Misc;
-using Ion.Tests.Core;
 using Ion.Syntax;
 using Ion.Optimization.Minification;
+using Ion.Tests.Core;
 
 namespace Ion.Tests.Optimization
 {

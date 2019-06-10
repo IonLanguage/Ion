@@ -2,7 +2,6 @@ using NUnit.Framework;
 using Ion.CodeGeneration;
 using System;
 using Ion.Core;
-using Ion.CodeGeneration;
 using Ion.Tests.Wrappers;
 
 namespace Ion.Tests.CodeGeneration

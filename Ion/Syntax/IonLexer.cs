@@ -39,6 +39,15 @@ namespace Ion.Syntax
         /// </summary>
         public override Token[] Tokenize()
         {
+            // Ensure input contains more than zero characters.
+            if (this.Input.Length <= 0)
+            {
+                throw new Exception("Input must contain at least one character");
+            }
+
+            // Set initial position.
+            this.Position = 0;
+
             List<Token> tokens = new List<Token>();
             Token? nextToken = this.GetNextToken();
 
@@ -73,6 +82,10 @@ namespace Ion.Syntax
             {
                 return null;
             }
+            else if (!this.Char.HasValue)
+            {
+                throw new Exception("Expected current character to not be null");
+            }
 
             // Begin capturing the token. Identify the token as unknown initially.
             Token token = new Token(TokenType.Unknown, this.Char.Value.ToString(), this.Position);
@@ -98,9 +111,9 @@ namespace Ion.Syntax
             else if (char.IsWhiteSpace(this.Char.Value))
             {
                 // Match all whitespace characters until we hit a normal character.
-                if (this.MatchExpression(ref token, TokenType.Whitespace, Pattern.ContinuousWhitespace))
+                if (this.MatchExpression(token, TokenType.Whitespace, Pattern.ContinuousWhitespace, out token))
                 {
-                    // Return the token
+                    // Return the token.
                     return token;
                 }
             }
@@ -109,7 +122,8 @@ namespace Ion.Syntax
             // If it starts with '/', it's a candidate.
             foreach (var pair in Constants.commentTokenTypes)
             {
-                if (this.MatchExpression(ref token, pair.Value, pair.Key))
+                // Proceed if successful.
+                if (this.MatchExpression(token, pair.Value, pair.Key, out token))
                 {
                     // If the lexer should ignore comments, return the next token.
                     if (this.Options.HasFlag(LexerOptions.IgnoreComments))
@@ -117,6 +131,7 @@ namespace Ion.Syntax
                         return this.GetNextToken();
                     }
 
+                    // Return the token.
                     return token;
                 }
             }
@@ -138,10 +153,10 @@ namespace Ion.Syntax
                     }
 
                     // If the symbol is next in the input.
-                    if (this.MatchExpression(ref token, pair.Value, pattern))
+                    if (this.MatchExpression(token, pair.Value, pattern, out token))
                     {
-                        // Reduce the position.
-                        this.Position -= token.Value.Length - pair.Key.Length;
+                        // Skim the last character off.
+                        token = new Token(token.Type, pair.Key, token.StartPos);
 
                         // Return the token.
                         return token;
@@ -153,7 +168,7 @@ namespace Ion.Syntax
             foreach (var pair in Constants.complexTokenTypes)
             {
                 // If it matches, return the token (already modified by the function).
-                if (this.MatchExpression(ref token, pair.Value, pair.Key))
+                if (this.MatchExpression(token, pair.Value, pair.Key, out token))
                 {
                     // Return the token.
                     return token;
@@ -167,19 +182,47 @@ namespace Ion.Syntax
             return token;
         }
 
+        protected void SetPosition(int position)
+        {
+            // Catch out-of-bounds positioning.
+            if (position < 0)
+            {
+                position = 0;
+            }
+
+            // Set the position.
+            this.Position = position;
+        }
+
         /// <summary>
         /// Checks for a positive match for a complex type or just generic regex,
         /// if positive, it'll update the referenced token to the provided type with
         /// the matched text.
         /// </summary>
-        protected bool MatchExpression(ref Token token, TokenType type, Regex regex)
+        protected bool MatchExpression(Token token, TokenType type, Regex regex, out Token result)
         {
             // Substrings from the current position to get the viable matching string.
             string input = this.Input.Substring(this.Position);
             Match match = regex.Match(input);
 
-            // Return success if the match was successful.
-            return match.Success && match.Index == 0;
+            // If successful, return a new token with different value and type.
+            if (match.Success && match.Index == 0)
+            {
+                // Modify the result.
+                result = new Token(type, match.Value, token.StartPos);
+
+                // Skip the capture value's amount.
+                this.Skip(result.Value.Length);
+
+                // Return true to indicate success.
+                return true;
+            }
+
+            // Replace result with the original token, making no changes.
+            result = token;
+
+            // Return false to indicate failure.
+            return false;
         }
 
         /// <summary>
@@ -195,7 +238,7 @@ namespace Ion.Syntax
             //     return;
             // }
 
-            this.Position += amount;
+            this.SetPosition(this.Position + amount);
         }
     }
 }

@@ -10,6 +10,10 @@ jobs:
           command:
             dotnet restore
       - run:
+          name: Restore git submodules
+          command:
+            git submodule init && git submodule update
+      - run:
           name: Build core library
           command:
             dotnet build ./Ion
