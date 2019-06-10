@@ -19,8 +19,8 @@ namespace Ion.Parsing
                 throw new Exception($"Expected a type but got '{token.Type}'");
             }
 
-            // Peek and capture the next token.
-            Token nextToken = context.Stream.Peek();
+            // Skip and capture the next token.
+            Token nextToken = context.Stream.Next();
 
             // Create the array length (and flag), defaulting to null.
             uint? arrayLength = null;
@@ -28,9 +28,6 @@ namespace Ion.Parsing
             // Determine if type is an array.
             if (nextToken.Type == TokenType.SymbolBracketL)
             {
-                // Skip onto bracket start token.
-                context.Stream.Skip();
-
                 // Skip bracket start token.
                 context.Stream.Skip();
 

@@ -155,6 +155,9 @@ namespace Ion.Syntax
                     // If the symbol is next in the input.
                     if (this.MatchExpression(token, pair.Value, pattern, out token))
                     {
+                        // Reduce the position.
+                        this.Position -= token.Value.Length - pair.Key.Length;
+
                         // Skim the last character off.
                         token = new Token(token.Type, pair.Key, token.StartPos);
 

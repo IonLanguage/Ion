@@ -13,8 +13,8 @@ namespace Ion.Tests.SyntaxAnalysis
             this.stream = new TokenStream
             {
                 new Token(TokenType.Unknown, "", 0),
-                new Token(TokenType.Identifier, "", 0),
-                new Token(TokenType.TypeVoid, "", 0)
+                new Token(TokenType.TypeVoid, "", 0),
+                new Token(TokenType.Identifier, "", 0)
             };
         }
 
