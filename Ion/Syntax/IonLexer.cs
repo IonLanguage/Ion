@@ -46,9 +46,12 @@ namespace Ion.Syntax
             }
 
             // Set initial position.
-            this.Position = 0;
+            this.SetPosition(0);
 
+            // Create the resulting list.
             List<Token> tokens = new List<Token>();
+
+            // Create the next token buffer.
             Token? nextToken = this.GetNextToken();
 
             // Obtain all possible tokens.
@@ -68,6 +71,7 @@ namespace Ion.Syntax
                 nextToken = this.GetNextToken();
             }
 
+            // Return the resulting tokens as an array.
             return tokens.ToArray();
         }
 
@@ -156,7 +160,7 @@ namespace Ion.Syntax
                     if (this.MatchExpression(token, pair.Value, pattern, out token))
                     {
                         // Reduce the position.
-                        this.Position -= token.Value.Length - pair.Key.Length;
+                        this.SetPosition(token.Value.Length - pair.Key.Length);
 
                         // Skim the last character off.
                         token = new Token(token.Type, pair.Key, token.StartPos);
@@ -183,18 +187,6 @@ namespace Ion.Syntax
 
             // Return the default token. The token type defaults to unknown.
             return token;
-        }
-
-        protected void SetPosition(int position)
-        {
-            // Catch out-of-bounds positioning.
-            if (position < 0)
-            {
-                position = 0;
-            }
-
-            // Set the position.
-            this.Position = position;
         }
 
         /// <summary>
@@ -226,22 +218,6 @@ namespace Ion.Syntax
 
             // Return false to indicate failure.
             return false;
-        }
-
-        /// <summary>
-        /// Skip a specific amount of characters
-        /// from the current position.
-        /// </summary>
-        public void Skip(int amount = 1)
-        {
-            // TODO: Ensure overflow does not occur, also verify amount?
-            // if (this.character + characters >= this.program.Length)
-            // {
-            //     this.character = this.program.Length - 1;
-            //     return;
-            // }
-
-            this.SetPosition(this.Position + amount);
         }
     }
 }

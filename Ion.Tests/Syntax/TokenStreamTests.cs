@@ -1,7 +1,7 @@
 using Ion.Syntax;
 using NUnit.Framework;
 
-namespace Ion.Tests.SyntaxAnalysis
+namespace Ion.Tests.Syntax
 {
     public class TokenStreamTests
     {

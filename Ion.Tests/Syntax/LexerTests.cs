@@ -6,7 +6,7 @@ using Ion.Syntax;
 using Ion.NoticeReporting;
 using Ion.Tests.Core;
 
-namespace Ion.Tests.SyntaxAnalysis
+namespace Ion.Tests.Syntax
 {
     internal sealed class LexerTests
     {
