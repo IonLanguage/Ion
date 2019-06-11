@@ -1,3 +1,4 @@
+using Ion.Engine.Parsing;
 using Ion.Syntax;
 
 namespace Ion.Parsing
@@ -7,8 +8,8 @@ namespace Ion.Parsing
         T Parse(TokenStream stream);
     }
 
-    public interface IParser<T>
+    public interface IParser<T> : IGenericParser<T, ParserContext>
     {
-        T Parse(ParserContext context);
+        //
     }
 }

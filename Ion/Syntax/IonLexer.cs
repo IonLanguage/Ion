@@ -160,7 +160,7 @@ namespace Ion.Syntax
                     if (this.MatchExpression(token, pair.Value, pattern, out token))
                     {
                         // Reduce the position.
-                        this.SetPosition(token.Value.Length - pair.Key.Length);
+                        this.SetPosition(this.Position - token.Value.Length - pair.Key.Length);
 
                         // Skim the last character off.
                         token = new Token(token.Type, pair.Key, token.StartPos);
