@@ -13,7 +13,7 @@ namespace Ion.Tests.Wrappers
         public void Setup()
         {
             // Reset the name counter before every test.
-            NameRegister.Reset();
+            GlobalNameRegister.Reset();
 
             // Prepare a new parser test wrapper instance.
             this.Wrapper = new ConstructWrapper();

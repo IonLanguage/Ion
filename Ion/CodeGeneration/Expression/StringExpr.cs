@@ -23,7 +23,7 @@ namespace Ion.CodeGeneration
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {
             // Retrieve a string name.
-            string name = NameRegister.GetString();
+            string name = GlobalNameRegister.GetString();
 
             // Create the global string pointer.
             LLVMValueRef stringPtr = LLVM.BuildGlobalStringPtr(context.Target, this.value, name);

@@ -25,7 +25,7 @@ namespace Ion.CodeGeneration
             function.Body = this.Body;
 
             // Create the function's prototype.
-            function.Prototype = new Prototype(NameRegister.GetLambda(), this.Args, this.ReturnType);
+            function.Prototype = new Prototype(GlobalNameRegister.GetLambda(), this.Args, this.ReturnType);
 
             // Emit the created function.
             LLVMValueRef functionRef = function.Emit(context.ModuleContext);

@@ -2,6 +2,7 @@ using System;
 using Ion.CodeGeneration.Helpers;
 using Ion.CognitiveServices;
 using Ion.Core;
+using Ion.Engine.Misc;
 
 namespace Ion.Misc
 {
@@ -44,7 +45,7 @@ namespace Ion.Misc
         public void SetNameAnonymous()
         {
             // Retrieve name from the name counter.
-            string name = NameRegister.GetAnonymous();
+            string name = GlobalNameRegister.GetAnonymous();
 
             // Assign the name.
             this.SetName(name);

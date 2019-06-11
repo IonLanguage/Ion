@@ -145,7 +145,7 @@ namespace Ion.CodeGeneration
             ITypeEmitter returnType = PrimitiveTypeFactory.Void();
 
             // Create a new prototype instance.
-            this.Prototype = new Prototype(Ion.Core.NameRegister.GetAnonymous(), null, returnType);
+            this.Prototype = new Prototype(Ion.Core.GlobalNameRegister.GetAnonymous(), null, returnType);
 
             // Create formal arguments after assigning prototype to avoid infinite loop.
             FormalArgs args = this.CreateArgs();

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Ion.CodeGeneration;
+using Ion.Engine.CodeGeneration.Helpers;
 using Ion.CodeGeneration.Helpers;
 using Ion.Core;
 using Ion.Syntax;

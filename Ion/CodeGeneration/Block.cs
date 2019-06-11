@@ -31,7 +31,7 @@ namespace Ion.CodeGeneration
         public Block()
         {
             this.Expressions = new List<Expr>();
-            this.SetName(Ion.Core.NameRegister.GetBlock());
+            this.SetName(Ion.Core.GlobalNameRegister.GetBlock());
         }
 
         public LLVMBasicBlockRef Emit(PipeContext<LLVMValueRef> context)

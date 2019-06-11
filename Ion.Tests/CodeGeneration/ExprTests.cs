@@ -18,7 +18,7 @@ namespace Ion.Tests.CodeGeneration
         public static void Setup()
         {
             // Reset the name counter before every test.
-            NameRegister.Reset();
+            GlobalNameRegister.Reset();
         }
 
         [Test]

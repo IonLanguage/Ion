@@ -1,5 +1,5 @@
 using System;
-using Ion.CodeGeneration.Helpers;
+using Ion.Engine.CodeGeneration.Helpers;
 using Ion.Parsing;
 
 namespace Ion.CodeGeneration

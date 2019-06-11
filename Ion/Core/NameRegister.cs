@@ -3,7 +3,7 @@ using Ion.CodeGeneration.Helpers;
 
 namespace Ion.Core
 {
-    public static class NameRegister
+    public static class GlobalNameRegister
     {
         private static Dictionary<string, int> register = new Dictionary<string, int>();
 
@@ -13,17 +13,17 @@ namespace Ion.Core
             int counter = -1;
 
             // Retrieve the counter if it already exists.
-            if (NameRegister.register.ContainsKey(name))
+            if (GlobalNameRegister.register.ContainsKey(name))
             {
                 // Retrieve the counter.
-                counter = NameRegister.register[name];
+                counter = GlobalNameRegister.register[name];
             }
 
             // Increment the counter.
             counter++;
 
             // Save the counter.
-            NameRegister.register[name] = counter;
+            GlobalNameRegister.register[name] = counter;
 
             // Form the string.
             string result = $".{name}.{counter}";
@@ -34,22 +34,22 @@ namespace Ion.Core
 
         public static string GetBlock()
         {
-            return NameRegister.Get(SpecialName.Block);
+            return GlobalNameRegister.Get(SpecialName.Block);
         }
 
         public static string GetString()
         {
-            return NameRegister.Get("str");
+            return GlobalNameRegister.Get("str");
         }
 
         public static string GetAnonymous()
         {
-            return NameRegister.Get(SpecialName.Anonymous);
+            return GlobalNameRegister.Get(SpecialName.Anonymous);
         }
 
         public static string GetLambda()
         {
-            return NameRegister.Get(SpecialName.Lambda);
+            return GlobalNameRegister.Get(SpecialName.Lambda);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Ion.Core
         /// </summary>
         public static void Reset()
         {
-            NameRegister.register.Clear();
+            GlobalNameRegister.register.Clear();
         }
     }
 }
