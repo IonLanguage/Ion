@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Ion.Engine.Misc;
-using Ion.CognitiveServices;
 using Ion.Engine.Syntax;
 using Ion.Engine.Constants;
 
