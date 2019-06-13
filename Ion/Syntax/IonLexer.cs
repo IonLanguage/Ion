@@ -96,24 +96,28 @@ namespace Ion.Syntax
             Token token = new Token(TokenType.Unknown, this.Char.Value.ToString(), this.Position);
 
             // Skip whitespace characters if applicable.
-            if (this.Options.HasFlag(LexerOptions.IgnoreWhitespace))
-            {
-                // While the current character is whitespace.
-                while (this.Char.HasValue && char.IsWhiteSpace(this.Char.Value))
-                {
-                    // Skip over the character.
-                    this.Skip();
-                }
+            // if (this.Options.HasFlag(LexerOptions.IgnoreWhitespace))
+            // {
+            //     // While the current character is whitespace.
+            //     while (this.Char.HasValue && char.IsWhiteSpace(this.Char.Value))
+            //     {
+            //         // Skip over the character.
+            //         this.Skip();
+            //     }
 
-                // Input terminated.
-                if (!this.Char.HasValue)
-                {
-                    // Return null immediatly.
-                    return null;
-                }
-            }
+            //     // Input terminated.
+            //     if (!this.Char.HasValue)
+            //     {
+            //         // Return null immediatly.
+            //         return null;
+            //     }
+
+            //     // Update the token.
+            //     token = new Token(token.Type, this.Char.Value.ToString(), this.Position);
+            // }
             // If ignore whitespace isn't enabled, then we can save it as a token.
-            else if (char.IsWhiteSpace(this.Char.Value))
+            /*else */
+            if (char.IsWhiteSpace(this.Char.Value))
             {
                 // Match all whitespace characters until we hit a normal character.
                 if (this.MatchExpression(token, TokenType.Whitespace, Pattern.ContinuousWhitespace, out token))
@@ -151,20 +155,17 @@ namespace Ion.Syntax
                     Regex pattern = Util.CreateRegex(Regex.Escape(pair.Key));
 
                     // If the match starts with a letter, modify the regex to force either whitespace or EOF at the end.
-                    if (Pattern.Identifier.IsMatch(pair.Key))
+                    if (char.IsLetter(pair.Key[0]))
                     {
                         // Modify the regex to include whitespace/EOF/semi-colon at the end.
-                        pattern = Util.CreateRegex($@"{Regex.Escape(pair.Key)}([^a-zA-Z_0-9])");
+                        pattern = Util.CreateRegex($@"({Regex.Escape(pair.Key)})[^a-zA-Z_0-9]");
                     }
 
                     // If the symbol is next in the input.
                     if (this.MatchExpression(token, pair.Value, pattern, out token))
                     {
                         // Reduce the position.
-                        this.SetPosition(this.Position - token.Value.Length - pair.Key.Length);
-
-                        // Skim the last character off.
-                        token = new Token(token.Type, pair.Key, token.StartPos);
+                        //this.SetPosition(this.Position - token.Value.Length - pair.Key.Length);
 
                         // Return the token.
                         return token;
@@ -202,13 +203,16 @@ namespace Ion.Syntax
             Match match = regex.Match(input);
 
             // If successful, return a new token with different value and type.
-            if (match.Success && match.Index == 0)
+            if (match.Success && match.Index == 0 && match.Groups.Count > 1)
             {
+                // Abstract the group's value.
+                string value = match.Groups[match.Groups.Count - 1].Value;
+
                 // Modify the result.
-                result = new Token(type, match.Value, token.StartPos);
+                result = new Token(type, value, token.StartPos);
 
                 // Skip the capture value's amount.
-                this.Skip(result.Value.Length);
+                this.Skip(value.Length);
 
                 // Return true to indicate success.
                 return true;
