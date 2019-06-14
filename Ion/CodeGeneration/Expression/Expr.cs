@@ -2,6 +2,8 @@ using System;
 using Ion.CodeGeneration.Helpers;
 using Ion.Misc;
 using LLVMSharp;
+using Ion.IR.Generation;
+using Ion.IR.Constructs;
 
 namespace Ion.CodeGeneration
 {
@@ -44,15 +46,15 @@ namespace Ion.CodeGeneration
         Attribute
     }
 
-    public abstract class Expr : Named, IContextPipe<LLVMBuilderRef, LLVMValueRef>
+    public abstract class Expr : Named, IContextPipe<IConstruct, IConstruct>
     {
         // TODO: Expand this.
-        public static Action<LLVMBuilderRef> Void = builder => { LLVM.BuildRetVoid(builder); };
+        public static Action<LLVMBuilderRef> Void = (builder) => LLVM.BuildRetVoid(builder);
 
         public abstract ExprType ExprType { get; }
 
         public string FunctionCallTarget { get; set; }
 
-        public abstract LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context);
+        public abstract IConstruct Emit(PipeContext<IrBuilder> context);
     }
 }

@@ -1,10 +1,10 @@
-using System;
 using System.Collections.Generic;
 using Ion.CodeGeneration.Helpers;
-using Ion.Core;
 using Ion.Engine.Misc;
 using Ion.Misc;
 using LLVMSharp;
+using Ion.IR.Constructs;
+using Ion.IR.Generation;
 
 namespace Ion.CodeGeneration
 {
@@ -15,7 +15,7 @@ namespace Ion.CodeGeneration
         Short
     }
 
-    public class Block : Named, IContextPipe<LLVMValueRef, LLVMBasicBlockRef>
+    public class Block : Named, IContextPipe<IrBuilder, Section>
     {
         public readonly List<Expr> Expressions;
 
@@ -26,7 +26,7 @@ namespace Ion.CodeGeneration
         public BlockType Type { get; set; }
 
         // TODO: Find a better way to cache emitted values.
-        public LLVMBasicBlockRef Current { get; protected set; }
+        public Section Current { get; protected set; }
 
         public Block()
         {
@@ -34,24 +34,18 @@ namespace Ion.CodeGeneration
             this.SetName(Ion.Core.GlobalNameRegister.GetBlock());
         }
 
-        public LLVMBasicBlockRef Emit(PipeContext<LLVMValueRef> context)
+        public Section Emit(PipeContext<IrBuilder> context)
         {
             // Create the block.
-            LLVMBasicBlockRef block = LLVM.AppendBasicBlock(context.Target, this.Identifier);
+            Section block = new Section();
 
-            // Create the block's builder.
-            LLVMBuilderRef builder = block.CreateBuilder();
-
-            // Derive a context for the builder.
-            PipeContext<LLVMBuilderRef> builderContext = context.Derive<LLVMBuilderRef>(builder);
-
-            // Position and link the builder.
-            LLVM.PositionBuilderAtEnd(builder, block);
+            // Create the block's statement list.
+            List<Instruction> statements = new List<Instruction>();
 
             // Emit the expressions.
-            foreach (var expr in this.Expressions)
+            foreach (Expr expr in this.Expressions)
             {
-                expr.Emit(builderContext);
+                context.Target.Emit(expr.Emit());
             }
 
             // No value was returned.

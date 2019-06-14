@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Ion.CodeGeneration.Helpers;
 using Ion.Tracking.Symbols;
 using LLVMSharp;
+using Ion.IR.Generation;
+using Ion.IR.Constructs;
 
 namespace Ion.CodeGeneration
 {
@@ -10,13 +12,13 @@ namespace Ion.CodeGeneration
     {
         public override ExprType ExprType => ExprType.FunctionCall;
 
-        public string TargetName { get; }
+        public string TargetIdentifier { get; }
 
         public List<Expr> Args { get; }
 
         public CallExpr(string targetName, List<Expr> args)
         {
-            this.TargetName = targetName;
+            this.TargetIdentifier = targetName;
             this.Args = args;
         }
 
@@ -25,7 +27,7 @@ namespace Ion.CodeGeneration
             //
         }
 
-        public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
+        public override Instruction Emit(PipeContext<IrBuilder> context)
         {
             // Create the resulting arguments.
             List<LLVMValueRef> args = new List<LLVMValueRef>();
@@ -54,13 +56,13 @@ namespace Ion.CodeGeneration
             }
 
             // Ensure the function has been emitted.
-            if (!context.SymbolTable.functions.Contains(this.TargetName))
+            if (!context.SymbolTable.functions.Contains(this.TargetIdentifier))
             {
-                throw new Exception($"Call to a non-existent function named '{this.TargetName}' performed");
+                throw new Exception($"Call to a non-existent function named '{this.TargetIdentifier}' performed");
             }
 
             // Retrieve the target function.
-            FunctionSymbol target = context.SymbolTable.functions[this.TargetName];
+            FunctionSymbol target = context.SymbolTable.functions[this.TargetIdentifier];
 
             // Ensure argument count is correct (with continuous arguments).
             if (target.ContinuousArgs && args.Count < target.ArgumentCount - 1)
@@ -74,7 +76,7 @@ namespace Ion.CodeGeneration
             }
 
             // Create the function call.
-            LLVMValueRef functionCall = LLVM.BuildCall(context.Target, target.Value, args.ToArray(), this.Identifier);
+            Instruction functionCall = new Instruction(this.Identifier, this.TargetIdentifier);
 
             // Return the emitted function call.
             return functionCall;

@@ -205,7 +205,7 @@ namespace Ion.Syntax
             if (match.Success && match.Index == 0 && match.Groups.Count > 1)
             {
                 // Abstract the group's value.
-                string value = match.Groups[match.Groups.Count - 1].Value;
+                string value = match.Groups[1].Value;
 
                 // Modify the result.
                 result = new Token(type, value, token.StartPos);

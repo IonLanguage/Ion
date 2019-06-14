@@ -1,6 +1,5 @@
 using Ion.CodeGeneration.Helpers;
 using LLVMSharp;
-using System;
 using System.Collections.Generic;
 
 namespace Ion.CodeGeneration

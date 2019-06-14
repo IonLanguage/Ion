@@ -11,5 +11,6 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="../Ion.Engine/IonEngine/Ion.Engine.csproj" />
+        <ProjectReference Include="../Ion.IR/IonIR/Ion.IR.csproj" />
     </ItemGroup>
 </Project>
