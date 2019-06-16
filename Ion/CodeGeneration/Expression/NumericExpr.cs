@@ -1,5 +1,7 @@
 using Ion.CodeGeneration.Helpers;
 using Ion.CognitiveServices;
+using Ion.IR.Constructs;
+using Ion.IR.Generation;
 using Ion.Syntax;
 using LLVMSharp;
 
@@ -22,7 +24,7 @@ namespace Ion.CodeGeneration
             this.value = value;
         }
 
-        public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
+        public override IConstruct Emit(PipeContext<IrBuilder> context)
         {
             // Emit the value.
             LLVMValueRef valueRef = Resolvers.Literal(this.tokenType, this.value, this.type);

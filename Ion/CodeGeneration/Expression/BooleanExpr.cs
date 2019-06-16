@@ -1,5 +1,6 @@
 using Ion.CodeGeneration.Helpers;
 using Ion.CognitiveServices;
+using Ion.IR.Generation;
 using Ion.Misc;
 using Ion.Syntax;
 using LLVMSharp;
@@ -20,7 +21,7 @@ namespace Ion.CodeGeneration
             this.value = value;
         }
 
-        public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
+        public override LLVMValueRef Emit(PipeContext<InstructionBuilder> context)
         {
             // Create a new primitive boolean type instance.
             PrimitiveType type = PrimitiveTypeFactory.Boolean();

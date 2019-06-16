@@ -1,16 +1,5 @@
-using System;
-using Ion.CodeGeneration.Helpers;
-using Ion.CognitiveServices;
-using Ion.Core;
-using Ion.Engine.Misc;
-
-namespace Ion.Misc
+namespace Ion.Tracking
 {
-    public interface INamed
-    {
-        string Identifier { get; }
-    }
-
     public abstract class Named : INamed
     {
         public string Identifier { get; protected set; }

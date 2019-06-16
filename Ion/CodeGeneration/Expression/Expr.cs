@@ -46,7 +46,7 @@ namespace Ion.CodeGeneration
         Attribute
     }
 
-    public abstract class Expr : Named, IContextPipe<IConstruct, IConstruct>
+    public abstract class Expr : Named, IContextPipe<InstructionBuilder, IConstruct>
     {
         // TODO: Expand this.
         public static Action<LLVMBuilderRef> Void = (builder) => LLVM.BuildRetVoid(builder);
@@ -55,6 +55,6 @@ namespace Ion.CodeGeneration
 
         public string FunctionCallTarget { get; set; }
 
-        public abstract IConstruct Emit(PipeContext<IrBuilder> context);
+        public abstract IConstruct Emit(PipeContext<InstructionBuilder> context);
     }
 }

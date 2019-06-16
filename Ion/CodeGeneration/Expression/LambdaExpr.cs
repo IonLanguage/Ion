@@ -1,7 +1,7 @@
-using System;
 using Ion.CodeGeneration.Helpers;
 using Ion.Core;
-using Ion.Syntax;
+using Ion.IR.Constructs;
+using Ion.IR.Generation;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
@@ -16,7 +16,7 @@ namespace Ion.CodeGeneration
 
         public Block Body { get; set; }
 
-        public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
+        public override IConstruct Emit(PipeContext<IrBuilder> context)
         {
             // Create a new function.
             Function function = new Function();
