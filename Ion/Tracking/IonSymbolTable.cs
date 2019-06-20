@@ -9,7 +9,7 @@ namespace Ion.Tracking
     /// <summary>
     /// Keeps track of emitted entities.
     /// </summary>
-    public class ContextSymbolTable
+    public class IonSymbolTable
     {
         public readonly SymbolTable<FunctionSymbol> functions = new SymbolTable<FunctionSymbol>();
 

@@ -1,14 +1,9 @@
 using System;
-using Ion.CodeGeneration.Helpers;
-using Ion.Core;
-using Ion.Engine.Misc;
 using Ion.Misc;
-using Ion.Tracking.Symbols;
-using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class Function : ITopLevelPipe
+    public class Function : Construct
     {
         public Attribute[] Attributes { get; set; }
 
@@ -19,82 +14,6 @@ namespace Ion.CodeGeneration
         public Function()
         {
             this.Attributes = new Attribute[] { };
-        }
-
-        public LLVMValueRef Emit(PipeContext<CodeGeneration.Module> context)
-        {
-            // Ensure body was provided or created.
-            if (this.Body == null)
-            {
-                throw new Exception("Unexpected function body to be null");
-            }
-            // Ensure prototype is set.
-            else if (this.Prototype == null)
-            {
-                throw new Exception("Unexpected function prototype to be null");
-            }
-            // Ensure that body returns a value if applicable.
-            else if (!this.Prototype.ReturnType.IsVoid && !this.Body.HasReturnExpr)
-            {
-                throw new Exception("Functions that do not return void must return a value");
-            }
-
-            // Emit the argument types.
-            LLVMTypeRef[] args = this.Prototype.Args.Emit(context);
-
-            // Emit the return type
-            LLVMTypeRef returnType = this.Prototype.ReturnType.Emit();
-
-            // Emit the function type.
-            LLVMTypeRef type = LLVM.FunctionType(returnType, args, this.Prototype.Args.Continuous);
-
-            // Create the function.
-            LLVMValueRef function = LLVM.AddFunction(context.Target.Target, this.Prototype.Identifier, type);
-
-            // Create the argument index counter.
-            uint argIndexCounter = 0;
-
-            // Name arguments.
-            foreach (FormalArg arg in this.Prototype.Args.Values)
-            {
-                // Name the argument.
-                LLVM.SetValueName(LLVM.GetParam(function, argIndexCounter), arg.Identifier);
-
-                // Increment the index counter for next iteration.
-                argIndexCounter++;
-            }
-
-            // Create the function context.
-            PipeContext<LLVMValueRef> functionContext = context.Derive<LLVMValueRef>(function);
-
-            // Emit the body to its corresponding context.
-            LLVMBasicBlockRef body = this.Body.Emit(functionContext);
-
-            // Create a new builder reference for the body.
-            LLVMBuilderRef bodyBuilder = body.CreateBuilder(false);
-
-            // Derive a context for the body's builder.
-            PipeContext<LLVMBuilderRef> bodyContext = context.Derive<LLVMBuilderRef>(bodyBuilder);
-
-            // TODO: Missing support for native attribute emission.
-            // Emit attributes as first-class instructions if applicable.
-            foreach (Attribute attribute in this.Attributes)
-            {
-                // Emit the attribute onto the body's builder context.
-                attribute.Emit(bodyContext);
-            }
-
-            // Ensures the function does not already exist
-            if (context.SymbolTable.functions.Contains(this.Prototype.Identifier))
-            {
-                throw new Exception($"A function with the identifier '{this.Prototype.Identifier}' already exists");
-            }
-
-            // Register the function on the symbol table.
-            context.SymbolTable.functions.Add(new FunctionSymbol(this.Prototype.Identifier, function, this.Prototype.Args.Continuous));
-
-            // Return the function entity.
-            return function;
         }
 
         /// <summary>
@@ -155,6 +74,11 @@ namespace Ion.CodeGeneration
 
             // Return the prototype.
             return this.Prototype;
+        }
+
+        public override Construct Accept(CodeGenVisitor visitor)
+        {
+            return visitor.Visit(this);
         }
     }
 }

@@ -1,10 +1,5 @@
 using System.Collections.Generic;
-using Ion.CodeGeneration.Helpers;
-using Ion.Engine.Misc;
-using Ion.Misc;
-using LLVMSharp;
 using Ion.IR.Constructs;
-using Ion.IR.Generation;
 
 namespace Ion.CodeGeneration
 {
@@ -15,7 +10,7 @@ namespace Ion.CodeGeneration
         Short
     }
 
-    public class Block : Named, IContextPipe<IrBuilder, Section>
+    public class Block : ICodeGenVisitable
     {
         public readonly List<Expr> Expressions;
 
@@ -31,45 +26,11 @@ namespace Ion.CodeGeneration
         public Block()
         {
             this.Expressions = new List<Expr>();
-            this.SetName(Ion.Core.GlobalNameRegister.GetBlock());
         }
 
-        public Section Emit(PipeContext<IrBuilder> context)
+        public Construct Accept(CodeGenVisitor visitor)
         {
-            // Create the block.
-            Section block = new Section();
-
-            // Create the block's statement list.
-            List<Instruction> statements = new List<Instruction>();
-
-            // Emit the expressions.
-            foreach (Expr expr in this.Expressions)
-            {
-                context.Target.Emit(expr.Emit());
-            }
-
-            // No value was returned.
-            if (!this.HasReturnExpr)
-            {
-                LLVM.BuildRetVoid(builder);
-            }
-            // Otherwise, emit the set return value.
-            else
-            {
-                // Emit the return expression.
-                LLVM.BuildRet(builder, this.ReturnExpr.Emit(builderContext));
-            }
-
-            // Cache emitted block.
-            this.Current = block;
-
-            // Return the block.
-            return block;
-        }
-
-        public void SetNameEntry()
-        {
-            this.SetName(SpecialName.Entry);
+            return visitor.Visit(this);
         }
     }
 }

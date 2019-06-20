@@ -3,9 +3,9 @@ using Ion.Syntax;
 
 namespace Ion.Parsing
 {
-    public class GlobalVarParser : IParser<GlobalVar>
+    public class GlobalVarParser : IParser<Global>
     {
-        public GlobalVar Parse(ParserContext context)
+        public Global Parse(ParserContext context)
         {
             // Invoke type parser.
             Type type = new TypeParser().Parse(context);
@@ -20,7 +20,7 @@ namespace Ion.Parsing
             string identifier = new IdentifierParser().Parse(context);
 
             // Create the global variable.
-            GlobalVar globalVar = new GlobalVar(identifier, type);
+            Global globalVar = new Global(identifier, type);
 
             // Return the global variable.
             return globalVar;

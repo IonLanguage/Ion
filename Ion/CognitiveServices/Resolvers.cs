@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Ion.CodeGeneration;
+using Ion.Engine.Llvm;
 using Ion.Misc;
 using Ion.Syntax;
 using LLVMSharp;
-using Type = Ion.CodeGeneration.Type;
 
 namespace Ion.CognitiveServices
 {
@@ -44,18 +44,18 @@ namespace Ion.CognitiveServices
                 {TokenType.KeywordFalse, PrimitiveTypeFactory.Boolean}
             };
 
-        public static LLVMTypeRef LlvmTypeFromName(string name)
+        public static LlvmType LlvmTypeFromName(string name)
         {
             // TODO: Implement functionality for pointer types.
             // Special case for string type.
             if (name == TypeName.String)
             {
-                return LLVMTypeRef.PointerType(LLVMTypeRef.Int8Type(), 0);
+                return LLVMTypeRef.PointerType(LLVMTypeRef.Int8Type(), 0).Wrap();
             }
             // Otherwise, use LLVM type map.
             else if (LlvmTypeMap.ContainsKey(name))
             {
-                return LlvmTypeMap[name]();
+                return LlvmTypeMap[name]().Wrap();
             }
 
             // Throw an exception.

@@ -1,7 +1,4 @@
-using System;
 using Ion.Engine.CodeGeneration.Helpers;
-using System.Collections.Generic;
-using Ion.Misc;
 using Ion.Parsing;
 
 namespace Ion.CodeGeneration

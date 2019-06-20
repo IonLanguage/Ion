@@ -1,5 +1,3 @@
-using Ion.Misc;
-
 namespace Ion.CodeGeneration
 {
     public class Prototype : Named

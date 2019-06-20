@@ -1,13 +1,14 @@
-using Ion.CodeGeneration.Helpers;
 using Ion.Parsing;
 
 namespace Ion.CodeGeneration
 {
-    public class Directive : IGenericReaction
+    public class Directive : Construct
     {
         public string Key { get; }
 
         public string Value { get; }
+
+        public override ConstructType ConstructType => ConstructType.Directive;
 
         public Directive(string key, string value)
         {
@@ -20,10 +21,9 @@ namespace Ion.CodeGeneration
             //
         }
 
-        public void Invoke(IGenericPipeContext context)
+        public override Construct Accept(CodeGenVisitor visitor)
         {
-            // Register the directive on the symbol table.
-            context.SymbolTable.directives.Add(this.Key, this.Value);
+            return visitor.Visit(this);
         }
     }
 }

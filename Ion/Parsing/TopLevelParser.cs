@@ -55,7 +55,7 @@ namespace Ion.Parsing
                 else
                 {
                     // Invoke the global variable parser.
-                    GlobalVar globalVariable = new GlobalVarParser().Parse(context);
+                    Global globalVariable = new GlobalVarParser().Parse(context);
 
                     // Emit the global variable.
                     globalVariable.Emit(this.ModulePipeContext);

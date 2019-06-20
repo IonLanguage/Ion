@@ -1,4 +1,3 @@
-using System;
 using Ion.Engine.CodeGeneration.Helpers;
 using Ion.Parsing;
 

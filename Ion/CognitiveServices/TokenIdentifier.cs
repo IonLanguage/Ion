@@ -1,7 +1,5 @@
-using Ion.CodeGeneration;
 using Ion.Parsing;
 using Ion.Syntax;
-
 namespace Ion.CognitiveServices
 {
     public static class TokenIdentifier

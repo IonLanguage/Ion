@@ -15,7 +15,7 @@ namespace Ion.Parsing
 
         public Driver Driver { get; }
 
-        public ContextSymbolTable SymbolTable => this.Driver.Module.SymbolTable;
+        public IonSymbolTable SymbolTable => this.Driver.Module.SymbolTable;
 
         public NoticeRepository NoticeRepository;
 

@@ -8,6 +8,8 @@ namespace Ion.CodeGeneration
 {
     public class BinaryExpr : Expr
     {
+        public override ExprType ExprType => ExprType.BinaryExpression;
+
         protected readonly TokenType operation;
 
         protected readonly int precedence;
@@ -23,8 +25,6 @@ namespace Ion.CodeGeneration
             this.rightSide = rightSide;
             this.precedence = precedence;
         }
-
-        public override ExprType ExprType => ExprType.BinaryExpression;
 
         public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
         {

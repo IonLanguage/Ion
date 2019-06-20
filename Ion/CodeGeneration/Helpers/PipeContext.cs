@@ -15,7 +15,7 @@ namespace Ion.CodeGeneration.Helpers
 
         public PipeContext<Module> ModuleContext => this.Module.AsPipeContext();
 
-        public ContextSymbolTable SymbolTable => this.Module.SymbolTable;
+        public IonSymbolTable SymbolTable => this.Module.SymbolTable;
 
         public T Target { get; }
 
