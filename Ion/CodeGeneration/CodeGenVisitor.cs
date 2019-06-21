@@ -4,7 +4,6 @@ using Ion.CognitiveServices;
 using Ion.Engine.Llvm;
 using Ion.IR.Constructs;
 using Ion.Tracking;
-using Ion.Tracking.Symbols;
 using LLVMSharp;
 
 namespace Ion.CodeGeneration
@@ -18,6 +17,8 @@ namespace Ion.CodeGeneration
     {
         protected readonly IonSymbolTable symbolTable;
 
+        protected Stack<LlvmBlock> blockStack;
+
         protected Stack<LlvmValue> valueStack;
 
         protected Stack<LlvmType> typeStack;
@@ -26,26 +27,45 @@ namespace Ion.CodeGeneration
 
         protected LlvmModule module;
 
-        public CodeGenVisitor(LlvmModule module)
+        public CodeGenVisitor(LlvmModule module, LlvmBuilder builder)
         {
             this.module = module;
+            this.builder = builder;
             this.symbolTable = new IonSymbolTable();
             this.valueStack = new Stack<LlvmValue>();
             this.typeStack = new Stack<LlvmType>();
         }
 
+        public Construct Visit(Construct node)
+        {
+            return node.Accept(this);
+        }
+
         public Construct Visit(Global node)
         {
+            // Visit the type.
+            this.Visit(node.Type);
+
+            // Pop the type off the stack.
+            LlvmType type = this.typeStack.Pop();
+
             // Create the global variable.
-            LlvmValue global = LLVM.AddGlobal(context.Target.Target, node.Type.Emit(), node.Identifier);
+            LlvmGlobal global = this.module.CreateGlobal(node.Identifier, type);
 
             // Set the linkage to common.
             global.SetLinkage(LLVMLinkage.LLVMCommonLinkage);
 
-            // Assign value if applicable.
-            if (node.Value != null)
+            // Assign initial value if applicable.
+            if (node.InitialValue != null)
             {
-                global.SetInitializer(this.Value.Emit());
+                // Visit the initial value.
+                this.Visit(node.InitialValue);
+
+                // Pop off the initial value off the stack.
+                LlvmValue initialValue = this.valueStack.Pop();
+
+                // Set the initial value.
+                global.SetInitialValue(initialValue);
             }
 
             // Append the global onto the stack.
@@ -120,36 +140,45 @@ namespace Ion.CodeGeneration
             }
 
             // Emit the argument types.
-            LlvmType[] args = node.Prototype.Args.Emit(context);
+            LlvmType[] arguments = node.Prototype.Args.Emit(context);
 
-            // Emit the return type
-            LlvmType returnType = node.Prototype.ReturnType.Emit();
+            // Visit the return type node.
+            this.Visit(node.Prototype.ReturnType);
+
+            // Pop off the return type off the stack.
+            LlvmType returnType = this.typeStack.Pop();
 
             // Emit the function type.
-            LlvmType type = LLVM.FunctionType(returnType, args, node.Prototype.Args.Continuous);
+            LlvmType type = LlvmTypeFactory.Function(returnType, arguments, node.Prototype.Args.Continuous);
 
             // Create the function.
             LlvmFunction function = this.module.CreateFunction(node.Prototype.Identifier, type);
 
             // Create the argument index counter.
-            uint argIndexCounter = 0;
+            uint argumentIndexCounter = 0;
 
             // Name arguments.
-            foreach (FormalArg arg in this.Prototype.Args.Values)
+            foreach (FormalArg formalArgument in node.Prototype.Args.Values)
             {
+                // Retrieve the argument.
+                LlvmValue argument = function.GetArgumentAt(argumentIndexCounter);
+
                 // Name the argument.
-                LLVM.SetValueName(LLVM.GetParam(function, argIndexCounter), arg.Identifier);
+                argument.SetName(formalArgument.Identifier);
 
                 // Increment the index counter for next iteration.
-                argIndexCounter++;
+                argumentIndexCounter++;
             }
 
-            // Emit the body to its corresponding context.
-            LlvmBlock body = this.Body.Emit(functionContext);
+            // Visit the body.
+            this.Visit(node.Body);
+
+            // Pop the body off the stack.
+            LlvmBlock body = this.blockStack.Pop();
 
             // TODO: Missing support for native attribute emission.
             // Emit attributes as first-class instructions if applicable.
-            foreach (Attribute attribute in this.Attributes)
+            foreach (Attribute attribute in node.Attributes)
             {
                 // Emit the attribute onto the body's builder context.
                 attribute.Emit(bodyContext);
@@ -162,7 +191,7 @@ namespace Ion.CodeGeneration
             }
 
             // Register the function on the symbol table.
-            this.symbolTable.functions.Add(new FunctionSymbol(node.Prototype.Identifier, function, node.Prototype.Args.Continuous));
+            this.symbolTable.functions.Add(function);
 
             // Append the function onto the stack.
             this.valueStack.Push(function);
@@ -180,7 +209,7 @@ namespace Ion.CodeGeneration
             List<Instruction> statements = new List<Instruction>();
 
             // Emit the expressions.
-            foreach (Expr expr in this.Expressions)
+            foreach (Expr expr in node.Expressions)
             {
                 context.Target.Emit(expr.Emit());
             }
@@ -194,7 +223,7 @@ namespace Ion.CodeGeneration
             else
             {
                 // Emit the return expression.
-                this.builder.CreateReturn(this.ReturnExpr.Emit(builderContext));
+                this.builder.CreateReturn(node.ReturnExpr.Emit(builderContext));
             }
 
             // Append the resulting block onto the stack.

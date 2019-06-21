@@ -1,14 +1,17 @@
 namespace Ion.CodeGeneration
 {
-    public class Prototype : Named
+    public class Prototype
     {
+        public string Identifier { get; }
+
         public FormalArgs Args { get; set; }
 
-        public ITypeEmitter ReturnType { get; }
+        // TODO: Must verify return type to be a type emitter (either Type or PrimitiveType).
+        public Construct ReturnType { get; }
 
-        public Prototype(string name, FormalArgs args, ITypeEmitter returnType)
+        public Prototype(string identifier, FormalArgs args, Construct returnType)
         {
-            this.SetName(name);
+            this.Identifier = identifier;
             this.Args = args;
             this.ReturnType = returnType;
         }

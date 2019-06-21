@@ -1,17 +1,23 @@
+#nullable enable
+
 namespace Ion.CodeGeneration
 {
     public class Global : Construct
     {
-        public Type Type { get; }
-
-        public Value Value { get; set; }
-
         public override ConstructType ConstructType => ConstructType.Global;
 
-        public Global(string identifier, Type type)
+        public string Identifier { get; }
+
+        public Type Type { get; }
+
+        // TODO: Need to verify value as a constant.
+        public Construct? InitialValue { get; }
+
+        public Global(string identifier, Type type, Construct? initialValue)
         {
-            this.SetName(identifier);
+            this.Identifier = identifier;
             this.Type = type;
+            this.InitialValue = initialValue;
         }
 
         public override Construct Accept(CodeGenVisitor visitor)

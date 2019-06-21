@@ -1,12 +1,9 @@
-using Ion.CodeGeneration.Helpers;
-using LLVMSharp;
-
 namespace Ion.CodeGeneration
 {
     // TODO: Finish implementing.
-    public class Attribute : Expr
+    public class Attribute : Construct
     {
-        public override ExprType ExprType => ExprType.Attribute;
+        public override ConstructType ConstructType => ExprType.Attribute;
 
         public bool Native { get; }
 
@@ -14,18 +11,6 @@ namespace Ion.CodeGeneration
         {
             this.SetName(identifier);
             this.Native = native;
-        }
-
-        public override LLVMValueRef Emit(PipeContext<LLVMBuilderRef> context)
-        {
-            // Create a new call expression.
-            CallExpr call = new CallExpr(this.Identifier);
-
-            // Emit the call.
-            LLVMValueRef result = call.Emit(context);
-
-            // Return the resulting call reference value.
-            return result;
         }
     }
 }

@@ -4,12 +4,15 @@ using LLVMSharp;
 
 namespace Ion.CodeGeneration
 {
-    public class FormalArg : Named, IGenericPipe<LLVMTypeRef>
+    public class FormalArg : IGenericPipe<LLVMTypeRef>
     {
+        public string Identifier { get; }
+
         protected readonly Type type;
 
-        public FormalArg(Type type)
+        public FormalArg(string identifier, Type type)
         {
+            this.Identifier = identifier;
             this.type = type;
         }
 

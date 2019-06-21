@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Ion.CodeGeneration;
+using Ion.Engine.Llvm;
 using Ion.Tracking.Symbols;
 using LLVMSharp;
 
@@ -11,7 +12,7 @@ namespace Ion.Tracking
     /// </summary>
     public class IonSymbolTable
     {
-        public readonly SymbolTable<FunctionSymbol> functions = new SymbolTable<FunctionSymbol>();
+        public readonly SymbolTable<LlvmFunction> functions = new SymbolTable<LlvmFunction>();
 
         public readonly Dictionary<string, CodeGeneration.Module> modules = new Dictionary<string, CodeGeneration.Module>();
 
