@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Ion.CodeGeneration.Helpers;
+using Ion.Generation.Helpers;
 
 namespace Ion.Core
 {

@@ -1,5 +1,5 @@
 using System;
-using Ion.CodeGeneration;
+using Ion.Generation;
 using Ion.CognitiveServices;
 using Ion.Syntax;
 
@@ -22,7 +22,7 @@ namespace Ion.Parsing
             }
 
             // Create the numeric expression entity.
-            NumericExpr numericExpr = new NumericExpr(token.Type, Resolvers.PrimitiveType(token), token.Value);
+            NumericExpr numericExpr = new NumericExpr(token.Type, Resolver.PrimitiveType(token), token.Value);
 
             // Return the numeric expression entity.
             return numericExpr;

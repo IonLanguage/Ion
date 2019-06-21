@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Ion.CodeGeneration;
+using Ion.Generation;
 using Ion.Syntax;
 using LLVMSharp;
 

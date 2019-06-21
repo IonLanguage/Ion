@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Ion.CodeGeneration;
-using Ion.CodeGeneration.Helpers;
+using Ion.Generation;
+using Ion.Generation.Helpers;
 
 namespace Ion.Core
 {

@@ -1,6 +1,6 @@
 using System;
-using Ion.CodeGeneration;
-using Ion.CodeGeneration.Helpers;
+using Ion.Generation;
+using Ion.Generation.Helpers;
 using Ion.CognitiveServices;
 using Ion.Syntax;
 

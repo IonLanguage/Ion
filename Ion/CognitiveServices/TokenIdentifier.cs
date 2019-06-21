@@ -59,7 +59,7 @@ namespace Ion.CognitiveServices
 
         public static bool IsNumeric(TokenType tokenType)
         {
-            return TokenGroups.numeric.Contains(tokenType);
+            return TokenGroup.numeric.Contains(tokenType);
         }
 
         public static bool IsNumeric(Token token)
@@ -69,7 +69,7 @@ namespace Ion.CognitiveServices
 
         public static bool IsBoolean(TokenType tokenType)
         {
-            return TokenGroups.boolean.Contains(tokenType);
+            return TokenGroup.boolean.Contains(tokenType);
         }
 
         public static bool IsBoolean(Token token)

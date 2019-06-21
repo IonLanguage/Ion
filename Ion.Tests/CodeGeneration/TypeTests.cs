@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using Ion.CodeGeneration;
+using Ion.Generation;
 using System;
 using Ion.Core;
 using Ion.Tests.Wrappers;

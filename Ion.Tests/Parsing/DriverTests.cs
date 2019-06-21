@@ -5,7 +5,7 @@ using LLVMSharp;
 using Ion.Syntax;
 using NUnit.Framework;
 using Ion.Tests.Core;
-using Ion.CodeGeneration;
+using Ion.Generation;
 using Ion.Parsing;
 using Ion.Core;
 

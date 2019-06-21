@@ -1,5 +1,5 @@
 using System;
-using Ion.CodeGeneration;
+using Ion.Generation;
 using Ion.Core;
 using Ion.Syntax;
 

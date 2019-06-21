@@ -10,7 +10,7 @@ jobs:
           command:
             dotnet restore
       - run:
-          name: Restore git submodules
+          name: Process Git submodules
           command:
             git submodule update --init --recursive
       - run:

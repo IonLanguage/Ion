@@ -1,8 +1,8 @@
 using System;
-using Ion.CodeGeneration;
+using Ion.Generation;
 using Ion.CognitiveServices;
 using Ion.Syntax;
-using Type = Ion.CodeGeneration.Type;
+using Type = Ion.Generation.Type;
 
 namespace Ion.Parsing
 {

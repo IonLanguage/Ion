@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Ion.CodeGeneration.Helpers;
+using Ion.Generation.Helpers;
 using Ion.CognitiveServices;
 using Ion.Core;
 using Ion.NoticeReporting;

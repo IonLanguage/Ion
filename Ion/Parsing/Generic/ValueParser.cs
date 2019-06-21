@@ -1,5 +1,5 @@
 using System;
-using Ion.CodeGeneration;
+using Ion.Generation;
 using Ion.CognitiveServices;
 using Ion.Syntax;
 
@@ -22,7 +22,7 @@ namespace Ion.Parsing
             }
 
             // Create and return the value.
-            return new Value(Resolvers.PrimitiveType(type.Value), type.Value, value);
+            return new Value(Resolver.PrimitiveType(type.Value), type.Value, value);
         }
     }
 }

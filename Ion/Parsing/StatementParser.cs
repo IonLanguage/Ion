@@ -2,7 +2,7 @@ using Ion.CognitiveServices;
 using Ion.Parsing;
 using Ion.Syntax;
 
-namespace Ion.CodeGeneration
+namespace Ion.Generation
 {
     public class StatementParser : IParser<Expr>
     {

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Ion.CodeGeneration;
+using Ion.Generation;
 using Ion.Core;
 using Ion.Syntax;
 using LLVMSharp;
