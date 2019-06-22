@@ -45,6 +45,11 @@ namespace Ion.Generation
             return node.Accept(this);
         }
 
+        public Construct VisitExtension(Construct node)
+        {
+            return node.VisitChildren(this);
+        }
+
         public Construct Visit(BinaryExpr node)
         {
             // Ensure operation is registered.

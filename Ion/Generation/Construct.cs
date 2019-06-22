@@ -4,6 +4,14 @@ namespace Ion.Generation
     {
         public abstract ConstructType ConstructType { get; }
 
-        public abstract Construct Accept(IrVisitor visitor);
+        public virtual Construct Accept(IrVisitor visitor)
+        {
+            return visitor.VisitExtension(this);
+        }
+
+        public virtual Construct VisitChildren(IrVisitor visitor)
+        {
+            return visitor.Visit(this);
+        }
     }
 }
