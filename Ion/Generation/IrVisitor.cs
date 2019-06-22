@@ -11,12 +11,12 @@ using static Ion.Syntax.Constants;
 
 namespace Ion.Generation
 {
-    public interface ICodeGenVisitable
+    public interface IrVisitable
     {
-        Construct Accept(CodeGenVisitor visitor);
+        Construct Accept(IrVisitor visitor);
     }
 
-    public class CodeGenVisitor
+    public class IrVisitor
     {
         protected readonly IonSymbolTable symbolTable;
 
@@ -30,7 +30,7 @@ namespace Ion.Generation
 
         protected LlvmModule module;
 
-        public CodeGenVisitor(LlvmModule module, LlvmBuilder builder)
+        public IrVisitor(LlvmModule module, LlvmBuilder builder)
         {
             this.module = module;
             this.builder = builder;
@@ -77,56 +77,8 @@ namespace Ion.Generation
 
         public Construct Visit(Call node)
         {
-            // Create an argument buffer list.
-            List<LlvmValue> arguments = new List<LlvmValue>();
-
-            // Emit the call arguments.
-            foreach (Construct argument in node.Arguments)
-            {
-                // Continue if the argument is null.
-                if (argument == null)
-                {
-                    continue;
-                }
-
-                // Visit the argument.
-                this.Visit(argument);
-
-                // Pop the argument off the value stack.
-                LlvmValue argumentValue = this.valueStack.Pop();
-
-                // Append argument value to the argument buffer list.
-                arguments.Add(argumentValue);
-            }
-
-            // Ensure the function has been emitted.
-            if (!this.symbolTable.functions.Contains(node.TargetIdentifier))
-            {
-                throw new Exception($"Call to a non-existent function named '{node.TargetIdentifier}' performed");
-            }
-
-            // Retrieve the target function.
-            LlvmFunction target = this.symbolTable.functions[node.TargetIdentifier];
-
-            // Ensure argument count is correct (with continuous arguments).
-            if (target.ContinuousArgs && arguments.Count < target.ArgumentCount - 1)
-            {
-                throw new Exception($"Target function requires at least {target.ArgumentCount - 1} argument(s)");
-            }
-            // Otherwise, expect the argument count to be exact.
-            else if (arguments.Count != target.ArgumentCount)
-            {
-                throw new Exception($"Argument amount mismatch, target function requires exactly {target.ArgumentCount} argument(s)");
-            }
-
-            // Create the function call.
-            Instruction functionCall = new Instruction(this.Identifier, this.TargetIdentifier);
-
-            // Append the value onto the stack.
-            this.valueStack.Push(functionCall);
-
-            // Return the node.
-            return node;
+            // TODO: Implement.
+            throw new NotImplementedException();
         }
 
         public Construct Visit(Boolean node)
@@ -248,84 +200,8 @@ namespace Ion.Generation
 
         public Construct Visit(Function node)
         {
-            // Ensure body was provided or created.
-            if (node.Body == null)
-            {
-                throw new Exception("Unexpected function body to be null");
-            }
-            // Ensure prototype is set.
-            else if (node.Prototype == null)
-            {
-                throw new Exception("Unexpected function prototype to be null");
-            }
-            // Ensure that body returns a value if applicable.
-            else if (!node.Prototype.ReturnType.IsVoid && !node.Body.HasReturnExpr)
-            {
-                throw new Exception("Functions that do not return void must return a value");
-            }
-
-            // Emit the argument types.
-            LlvmType[] arguments = node.Prototype.Arguments.Emit(context);
-
-            // Visit the return type node.
-            this.Visit(node.Prototype.ReturnType);
-
-            // Pop off the return type off the stack.
-            LlvmType returnType = this.typeStack.Pop();
-
-            // Emit the function type.
-            LlvmType type = LlvmTypeFactory.Function(returnType, arguments, node.Prototype.Arguments.Continuous);
-
-            // Create the function.
-            LlvmFunction function = this.module.CreateFunction(node.Prototype.Identifier, type);
-
-            // Create the argument index counter.
-            uint argumentIndexCounter = 0;
-
-            // Name arguments.
-            foreach (FormalArg formalArgument in node.Prototype.Arguments.Values)
-            {
-                // Retrieve the argument.
-                LlvmValue argument = function.GetArgumentAt(argumentIndexCounter);
-
-                // Name the argument.
-                argument.SetName(formalArgument.Identifier);
-
-                // Increment the index counter for next iteration.
-                argumentIndexCounter++;
-            }
-
-            // Visit the body.
-            this.Visit(node.Body);
-
-            // Pop the body off the stack.
-            LlvmBlock body = this.blockStack.Pop();
-
-            // Position the body's builder at the beginning.
-            body.Builder.PositionAtStart();
-
-            // TODO: Missing support for native attribute emission.
-            // Emit attributes as first-class instructions if applicable.
-            foreach (Attribute attribute in node.Attributes)
-            {
-                // Emit the attribute onto the body's builder context.
-                attribute.Emit(bodyContext);
-            }
-
-            // Ensures the function does not already exist
-            if (this.symbolTable.functions.Contains(node.Prototype.Identifier))
-            {
-                throw new Exception($"A function with the identifier '{node.Prototype.Identifier}' already exists");
-            }
-
-            // Register the function on the symbol table.
-            this.symbolTable.functions.Add(function);
-
-            // Append the function onto the stack.
-            this.valueStack.Push(function);
-
-            // Return the node.
-            return node;
+            // TODO: Implement.
+            throw new NotImplementedException();
         }
 
         public Construct Visit(Block node)

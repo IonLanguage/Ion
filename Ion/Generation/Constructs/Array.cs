@@ -43,7 +43,7 @@ namespace Ion.Generation
             return array;
         }
 
-        public override Construct Accept(CodeGenVisitor visitor)
+        public override Construct Accept(IrVisitor visitor)
         {
             throw new System.NotImplementedException();
         }

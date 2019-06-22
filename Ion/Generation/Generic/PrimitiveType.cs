@@ -16,7 +16,7 @@ namespace Ion.Generation
             this.TokenValue = tokenValue;
         }
 
-        public override Construct Accept(CodeGenVisitor visitor)
+        public override Construct Accept(IrVisitor visitor)
         {
             throw new NotImplementedException();
         }

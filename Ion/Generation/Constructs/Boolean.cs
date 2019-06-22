@@ -16,7 +16,7 @@ namespace Ion.Generation
             this.value = value;
         }
 
-        public override Construct Accept(CodeGenVisitor visitor)
+        public override Construct Accept(IrVisitor visitor)
         {
             return visitor.Visit(this);
         }
