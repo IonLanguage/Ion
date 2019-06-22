@@ -1,6 +1,5 @@
 using System;
 using Ion.Generation.Helpers;
-using Ion.Core;
 using Ion.Parsing;
 using LLVMSharp;
 

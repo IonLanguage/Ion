@@ -16,6 +16,12 @@ namespace Ion.Generation
 
         Attribute,
 
-        Block
+        Block,
+
+        Pipe,
+
+        Function,
+
+        Array
     }
 }

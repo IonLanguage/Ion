@@ -1,10 +1,11 @@
-using System;
 using Ion.Misc;
 
 namespace Ion.Generation
 {
     public class Function : Construct
     {
+        public override ConstructType ConstructType => ConstructType.Function;
+
         public Attribute[] Attributes { get; set; }
 
         public Prototype Prototype { get; set; }

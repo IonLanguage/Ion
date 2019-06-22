@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using Ion.Generation;
 using Ion.Syntax;
-using Type = Ion.Generation.Type;
 
 namespace Ion.Parsing
 {
-    public class ArrayExprParser : IExprParser<ArrayExpr>
+    public class ArrayExprParser : IExprParser<Generation.Array>
     {
         protected readonly ITypeEmitter type;
 
@@ -15,7 +14,7 @@ namespace Ion.Parsing
             this.type = type;
         }
 
-        public ArrayExpr Parse(ParserContext context)
+        public Array Parse(ParserContext context)
         {
             // Ensure current token is bracket start.
             context.Stream.EnsureCurrent(TokenType.SymbolBracketL);
@@ -60,7 +59,7 @@ namespace Ion.Parsing
             context.Stream.Skip();
 
             // Create the resulting array construct.
-            ArrayExpr arrayExpr = new ArrayExpr(this.type, values.ToArray());
+            Generation.Array arrayExpr = new Generation.Array(this.type, values.ToArray());
 
             // Return the resulting array construct.
             return arrayExpr;

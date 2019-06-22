@@ -42,6 +42,23 @@ namespace Ion.Generation
             return node.Accept(this);
         }
 
+        public Construct Visit(Pipe node)
+        {
+            // Create the argument list.
+            List<Expr> arguments = new List<Expr>(node.Arguments);
+
+            // TODO: Callee is hard-coded.
+            // Create the function call expression.
+            CallExpr functionCall = new CallExpr(node.TargetName, arguments);
+
+            // Emit and return the function call expression.
+            // TODO
+            return functionCall.Emit(context);
+
+            // Return the node.
+            return node;
+        }
+
         public Construct Visit(FormalArgs node)
         {
             // Create the resulting argument list.
@@ -232,16 +249,17 @@ namespace Ion.Generation
 
         public Construct Visit(Block node)
         {
-            // Create the block.
-            Section block = new Section();
-
             // Create the block's statement list.
-            List<Instruction> statements = new List<Instruction>();
+            List<LlvmValue> statements = new List<LlvmValue>();
 
-            // Emit the expressions.
-            foreach (Expr expr in node.Expressions)
+            // Visit and process the statements.
+            foreach (Construct statement in node.Statements)
             {
-                context.Target.Emit(expr.Emit());
+                // Visit the statement.
+                this.Visit(statement);
+
+                // Pop off the value off the stack and append to the buffer list.
+                statements.Add(this.valueStack.Pop());
             }
 
             // No value was returned.
@@ -249,12 +267,21 @@ namespace Ion.Generation
             {
                 this.builder.CreateReturnVoid();
             }
-            // Otherwise, emit the set return value.
+            // Otherwise, process the set return value.
             else
             {
-                // Emit the return expression.
-                this.builder.CreateReturn(node.ReturnExpr.Emit(builderContext));
+                // Visit the return construct.
+                this.Visit(node.ReturnConstruct);
+
+                // Pop the return construct off the stack.
+                LlvmValue returnConstruct = this.valueStack.Pop();
+
+                // Create the return construct.
+                this.builder.CreateReturn(returnConstruct);
             }
+
+            // Create the block.
+            Section block = new Section(node.Identifier);
 
             // Append the resulting block onto the stack.
             this.valueStack.Push(block);

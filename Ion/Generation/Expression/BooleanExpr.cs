@@ -1,6 +1,5 @@
 using Ion.Generation.Helpers;
 using Ion.CognitiveServices;
-using Ion.IR.Generation;
 using Ion.Misc;
 using Ion.Syntax;
 using LLVMSharp;

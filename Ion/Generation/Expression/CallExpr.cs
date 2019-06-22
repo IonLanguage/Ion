@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Ion.Generation.Helpers;
-using Ion.Tracking.Symbols;
 using LLVMSharp;
 using Ion.IR.Generation;
 using Ion.IR.Constructs;

@@ -47,7 +47,7 @@ namespace Ion.Parsing
                     Expr returnExpr = new FunctionReturnParser().Parse(context);
 
                     // Assign the return expression to the block.
-                    block.ReturnExpr = returnExpr;
+                    block.ReturnConstruct = returnExpr;
 
                     // Return immediatly, signal to update the token buffer to the current token.
                     return true;

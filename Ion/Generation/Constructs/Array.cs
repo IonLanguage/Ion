@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace Ion.Generation
 {
-    public class ArrayExpr : Expr
+    public class Array : Construct
     {
-        public override ExprType ExprType => ExprType.Array;
+        public override ConstructType ConstructType => ConstructType.Array;
 
         public ITypeEmitter Type { get; }
 
         public Expr[] Values { get; }
 
-        public ArrayExpr(ITypeEmitter type, Expr[] values)
+        public Array(ITypeEmitter type, Expr[] values)
         {
             this.Type = type;
             this.Values = values;
@@ -41,6 +41,11 @@ namespace Ion.Generation
 
             // Return the resulting array.
             return array;
+        }
+
+        public override Construct Accept(CodeGenVisitor visitor)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
