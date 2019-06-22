@@ -5,9 +5,9 @@ using Ion.Syntax;
 
 namespace Ion.Parsing
 {
-    public class BooleanExprParser : IParser<BooleanExpr>
+    public class BooleanExprParser : IParser<Generation.Boolean>
     {
-        public BooleanExpr Parse(ParserContext context)
+        public Boolean Parse(ParserContext context)
         {
             // Consume boolean literal token.
             Token token = context.Stream.Current;
@@ -22,7 +22,7 @@ namespace Ion.Parsing
             }
 
             // Create the boolean expression entity.
-            BooleanExpr booleanExpr = new BooleanExpr(token.Type, token.Value);
+            Generation.Boolean booleanExpr = new Generation.Boolean(token.Type, token.Value);
 
             // Return the boolean expression entity.
             return booleanExpr;

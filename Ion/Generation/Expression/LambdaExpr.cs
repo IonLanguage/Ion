@@ -32,7 +32,7 @@ namespace Ion.Generation
 
             // TODO: What about input arguments?
             // Create a function call.
-            CallExpr call = new CallExpr(function.Prototype.Identifier);
+            Call call = new Call(function.Prototype.Identifier);
 
             // Emit the function call.
             LLVMValueRef result = call.Emit(context);

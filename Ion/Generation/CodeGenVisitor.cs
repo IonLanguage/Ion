@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using Ion.CognitiveServices;
 using Ion.Engine.Llvm;
 using Ion.IR.Constructs;
+using Ion.Misc;
+using Ion.Syntax;
 using Ion.Tracking;
 using LLVMSharp;
+using static Ion.Syntax.Constants;
 
 namespace Ion.Generation
 {
@@ -42,38 +45,116 @@ namespace Ion.Generation
             return node.Accept(this);
         }
 
-        public Construct Visit(Pipe node)
+        public Construct Visit(BinaryExpr node)
         {
-            // Create the argument list.
-            List<Expr> arguments = new List<Expr>(node.Arguments);
+            // Ensure operation is registered.
+            if (!Constants.operatorBuilderMap.ContainsKey(node.Operation))
+            {
+                throw new Exception($"Unexpected unsupported operation: {node.Operation}");
+            }
 
-            // TODO: Callee is hard-coded.
-            // Create the function call expression.
-            CallExpr functionCall = new CallExpr(node.TargetName, arguments);
+            // Create the operation invoker.
+            SimpleMathBuilderInvoker invoker = Constants.operatorBuilderMap[node.Operation];
 
-            // Emit and return the function call expression.
-            // TODO
-            return functionCall.Emit(context);
+            // Visit the left and right sides.
+            this.Visit(node.LeftSide);
+            this.Visit(node.RightSide);
+
+            // Pop off respective values.
+            LlvmValue rightSideValue = this.valueStack.Pop();
+            LlvmValue leftSideValue = this.valueStack.Pop();
+
+            // TODO: Side expressions emitting to context?
+            // Invoke the operation generator and wrap the resulting value.
+            LlvmValue value = invoker(this.builder.Unwrap(), leftSideValue.Unwrap(), rightSideValue.Unwrap(), node.Identifier).Wrap();
+
+            // Append the value onto the stack.
+            this.valueStack.Push(value);
 
             // Return the node.
             return node;
         }
 
-        public Construct Visit(FormalArgs node)
+        public Construct Visit(Call node)
         {
-            // Create the resulting argument list.
-            List<LLVMTypeRef> arguments = new List<LLVMTypeRef>();
+            // Create an argument buffer list.
+            List<LlvmValue> arguments = new List<LlvmValue>();
 
-            // Emit all arguments.
-            foreach (FormalArg argument in node.Values)
+            // Emit the call arguments.
+            foreach (Construct argument in node.Arguments)
             {
-                // Emit and append each argument.
-                arguments.Add(argument.Emit(context));
+                // Continue if the argument is null.
+                if (argument == null)
+                {
+                    continue;
+                }
+
+                // Visit the argument.
+                this.Visit(argument);
+
+                // Pop the argument off the value stack.
+                LlvmValue argumentValue = this.valueStack.Pop();
+
+                // Append argument value to the argument buffer list.
+                arguments.Add(argumentValue);
             }
 
-            // TODO
-            // Return the resulting argument array.
-            // return args.ToArray();
+            // Ensure the function has been emitted.
+            if (!this.symbolTable.functions.Contains(node.TargetIdentifier))
+            {
+                throw new Exception($"Call to a non-existent function named '{node.TargetIdentifier}' performed");
+            }
+
+            // Retrieve the target function.
+            LlvmFunction target = this.symbolTable.functions[node.TargetIdentifier];
+
+            // Ensure argument count is correct (with continuous arguments).
+            if (target.ContinuousArgs && arguments.Count < target.ArgumentCount - 1)
+            {
+                throw new Exception($"Target function requires at least {target.ArgumentCount - 1} argument(s)");
+            }
+            // Otherwise, expect the argument count to be exact.
+            else if (arguments.Count != target.ArgumentCount)
+            {
+                throw new Exception($"Argument amount mismatch, target function requires exactly {target.ArgumentCount} argument(s)");
+            }
+
+            // Create the function call.
+            Instruction functionCall = new Instruction(this.Identifier, this.TargetIdentifier);
+
+            // Append the value onto the stack.
+            this.valueStack.Push(functionCall);
+
+            // Return the node.
+            return node;
+        }
+
+        public Construct Visit(Boolean node)
+        {
+            // Create a new primitive boolean type instance.
+            PrimitiveType type = PrimitiveTypeFactory.Boolean();
+
+            // Resolve the value.
+            LlvmValue valueRef = Resolver.Literal(node.tokenType, node.value, type).Wrap();
+
+            // Append the value onto the stack.
+            this.valueStack.Push(valueRef);
+
+            // Return the node.
+            return node;
+        }
+
+        public Construct Visit(Pipe node)
+        {
+            // TODO: Callee is hard-coded as a string.
+            // Create the function call expression.
+            Call functionCall = new Call(node.TargetName, node.Arguments);
+
+            // Visit the function call.
+            this.Visit(functionCall);
+
+            // Pop the resulting value off the stack.
+            LlvmValue value = this.valueStack.Pop();
 
             // Return the node.
             return node;

@@ -21,7 +21,7 @@ namespace Ion.Parsing
             }
 
             // Otherwise, it's a function call. Invoke the function call parser.
-            CallExpr callExpr = new CallExprParser(path).Parse(context);
+            Call callExpr = new CallExprParser(path).Parse(context);
 
             // Return the function call entity.
             return callExpr;

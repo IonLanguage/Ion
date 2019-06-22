@@ -22,6 +22,12 @@ namespace Ion.Generation
 
         Function,
 
-        Array
+        Array,
+
+        Boolean,
+
+        Call,
+
+        BinaryExpr
     }
 }

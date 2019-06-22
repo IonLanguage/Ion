@@ -1,13 +1,9 @@
-using System;
 using System.Collections.Generic;
 using Ion.Generation;
-using Ion.Core;
-using Ion.Syntax;
-using LLVMSharp;
 
 namespace Ion.Parsing
 {
-    public class CallExprParser : IParser<CallExpr>
+    public class CallExprParser : IParser<Call>
     {
         protected readonly string identifier;
 
@@ -21,13 +17,13 @@ namespace Ion.Parsing
             //
         }
 
-        public CallExpr Parse(ParserContext context)
+        public Call Parse(ParserContext context)
         {
             // Invoke the function call argument parser.
             List<Expr> args = new CallArgsParser().Parse(context);
 
             // Create the function call expression entity.
-            CallExpr functionCall = new CallExpr(this.identifier, args);
+            Call functionCall = new Call(this.identifier, args);
 
             // Return the function call expression.
             return functionCall;
