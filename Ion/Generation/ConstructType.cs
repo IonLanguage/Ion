@@ -14,6 +14,8 @@ namespace Ion.Generation
 
         FormalArguments,
 
-        Attribute
+        Attribute,
+
+        Block
     }
 }

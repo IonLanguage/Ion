@@ -10,8 +10,10 @@ namespace Ion.Generation
         Short
     }
 
-    public class Block : ICodeGenVisitable
+    public class Block : Construct
     {
+        public override ConstructType ConstructType => ConstructType.Block;
+
         public readonly List<Expr> Expressions;
 
         public Expr ReturnExpr { get; set; }
@@ -28,7 +30,7 @@ namespace Ion.Generation
             this.Expressions = new List<Expr>();
         }
 
-        public Construct Accept(CodeGenVisitor visitor)
+        public override Construct Accept(CodeGenVisitor visitor)
         {
             return visitor.Visit(this);
         }

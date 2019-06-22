@@ -34,6 +34,7 @@ namespace Ion.Generation
             this.symbolTable = new IonSymbolTable();
             this.valueStack = new Stack<LlvmValue>();
             this.typeStack = new Stack<LlvmType>();
+            this.blockStack = new Stack<LlvmBlock>();
         }
 
         public Construct Visit(Construct node)
@@ -279,8 +280,11 @@ namespace Ion.Generation
             // Use LLVM type resolver if token is a primitive type.
             if (TokenIdentifier.IsPrimitiveType(node.Token))
             {
-                // Delegate to primitive type construct.
-                type = new PrimitiveType(node.Token.Value).Emit();
+                // Create and visit the type.
+                this.Visit(new PrimitiveType(node.Token.Value));
+
+                // Pop the type off the stack.
+                type = this.typeStack.Pop();
             }
             // Otherwise, look it up on the structs dictionary, on the symbol table.
             else if (this.symbolTable.structs.Contains(node.Token.Value))
