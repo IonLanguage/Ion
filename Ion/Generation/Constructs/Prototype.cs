@@ -4,15 +4,15 @@ namespace Ion.Generation
     {
         public string Identifier { get; }
 
-        public FormalArgs Arguments { get; set; }
+        public Type[] Arguments { get; set; }
 
         // TODO: Must verify return type to be a type emitter (either Type or PrimitiveType).
         public Construct ReturnType { get; }
 
-        public Prototype(string identifier, FormalArgs args, Construct returnType)
+        public Prototype(string identifier, Type[] arguments, Construct returnType)
         {
             this.Identifier = identifier;
-            this.Arguments = args;
+            this.Arguments = arguments;
             this.ReturnType = returnType;
         }
     }

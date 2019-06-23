@@ -1,7 +1,6 @@
 using System;
 using System.Text;
-using Ion.Core;
-using Ion.Misc;
+using Ion.Engine.Syntax;
 
 namespace Ion.Syntax
 {
@@ -14,12 +13,6 @@ namespace Ion.Syntax
         /// return true.
         /// </summary>
         public delegate bool NextUntilCallback(Token token);
-
-        public TokenStream()
-        {
-            // Prepare the initial enumerator.
-            this.Reset();
-        }
 
         public TokenStream(Token[] tokens) : base(tokens)
         {
