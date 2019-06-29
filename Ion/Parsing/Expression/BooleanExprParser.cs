@@ -1,5 +1,4 @@
 using System;
-using Ion.Generation;
 using Ion.CognitiveServices;
 using Ion.Syntax;
 
@@ -7,7 +6,7 @@ namespace Ion.Parsing
 {
     public class BooleanExprParser : IParser<Generation.Boolean>
     {
-        public Boolean Parse(ParserContext context)
+        public Generation.Boolean Parse(ParserContext context)
         {
             // Consume boolean literal token.
             Token token = context.Stream.Current;

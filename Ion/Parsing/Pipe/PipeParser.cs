@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Ion.Generation;
 using Ion.Syntax;
-using LLVMSharp;
 
 namespace Ion.Parsing
 {

@@ -1,4 +1,3 @@
-using System;
 using Ion.Generation;
 using Ion.Syntax;
 using Type = Ion.Generation.Type;

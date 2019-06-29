@@ -75,7 +75,7 @@ namespace Ion.Parsing
             }
 
             // Create the type.
-            return new Type(context.SymbolTable, token, isPointer, arrayLength);
+            return new Type(token, isPointer, arrayLength);
         }
     }
 }

@@ -20,11 +20,9 @@ namespace Ion.Generation
     {
         protected readonly IonSymbolTable symbolTable;
 
-        protected Stack<LlvmBlock> blockStack;
+        protected Stack<IR.Constructs.Construct> stack;
 
-        protected Stack<LlvmValue> valueStack;
-
-        protected Stack<LlvmType> typeStack;
+        protected Stack<Kind> kindStack;
 
         protected LlvmBuilder builder;
 
@@ -35,9 +33,8 @@ namespace Ion.Generation
             this.module = module;
             this.builder = builder;
             this.symbolTable = new IonSymbolTable();
-            this.valueStack = new Stack<LlvmValue>();
-            this.typeStack = new Stack<LlvmType>();
-            this.blockStack = new Stack<LlvmBlock>();
+            this.stack = new Stack<IR.Constructs.Construct>();
+            this.kindStack = new Stack<Kind>();
         }
 
         public Construct Visit(Construct node)
@@ -66,15 +63,15 @@ namespace Ion.Generation
             this.Visit(node.RightSide);
 
             // Pop off respective values.
-            LlvmValue rightSideValue = this.valueStack.Pop();
-            LlvmValue leftSideValue = this.valueStack.Pop();
+            LlvmValue rightSideValue = this.stack.Pop();
+            LlvmValue leftSideValue = this.stack.Pop();
 
             // TODO: Side expressions emitting to context?
             // Invoke the operation generator and wrap the resulting value.
             LlvmValue value = invoker(this.builder.Unwrap(), leftSideValue.Unwrap(), rightSideValue.Unwrap(), node.Identifier).Wrap();
 
             // Append the value onto the stack.
-            this.valueStack.Push(value);
+            this.stack.Push(value);
 
             // Return the node.
             return node;
@@ -95,7 +92,7 @@ namespace Ion.Generation
             LlvmValue valueRef = Resolver.Literal(node.tokenType, node.value, type).Wrap();
 
             // Append the value onto the stack.
-            this.valueStack.Push(valueRef);
+            this.stack.Push(valueRef);
 
             // Return the node.
             return node;
@@ -111,7 +108,7 @@ namespace Ion.Generation
             this.Visit(functionCall);
 
             // Pop the resulting value off the stack.
-            LlvmValue value = this.valueStack.Pop();
+            LlvmValue value = this.stack.Pop();
 
             // Return the node.
             return node;
@@ -123,7 +120,7 @@ namespace Ion.Generation
             this.Visit(node.Type);
 
             // Pop the type off the stack.
-            LlvmType type = this.typeStack.Pop();
+            Kind type = this.kindStack.Pop();
 
             // Create the global variable.
             LlvmGlobal global = this.module.CreateGlobal(node.Identifier, type);
@@ -138,14 +135,14 @@ namespace Ion.Generation
                 this.Visit(node.InitialValue);
 
                 // Pop off the initial value off the stack.
-                LlvmValue initialValue = this.valueStack.Pop();
+                LlvmValue initialValue = this.stack.Pop();
 
                 // Set the initial value.
                 global.SetInitialValue(initialValue);
             }
 
             // Append the global onto the stack.
-            this.valueStack.Push(global);
+            this.stack.Push(global);
 
             // Return the node.
             return node;
@@ -175,10 +172,10 @@ namespace Ion.Generation
             this.Visit(node.Prototype.ReturnType);
 
             // Pop the return type off the stack.
-            LlvmType returnType = this.typeStack.Pop();
+            Kind returnType = this.typeStack.Pop();
 
             // Emit the function type.
-            LlvmType type = LlvmTypeFactory.Function(returnType, args, node.Prototype.Arguments.Continuous);
+            Kind type = LlvmFactory.Function(returnType, args, node.Prototype.Arguments.Continuous);
 
             // Emit the external definition to context and capture the LLVM value reference.
             LlvmValue @extern = this.module.CreateFunction(node.Prototype.Identifier, type);
@@ -197,7 +194,7 @@ namespace Ion.Generation
             }
 
             // Push the resulting value onto the stack.
-            this.valueStack.Push(@extern);
+            this.stack.Push(@extern);
 
             // Return the resulting LLVM value reference.
             return node;
@@ -221,7 +218,7 @@ namespace Ion.Generation
                 this.Visit(statement);
 
                 // Pop off the value off the stack and append to the buffer list.
-                statements.Add(this.valueStack.Pop());
+                statements.Add(this.stack.Pop());
             }
 
             // No value was returned.
@@ -236,7 +233,7 @@ namespace Ion.Generation
                 this.Visit(node.ReturnConstruct);
 
                 // Pop the return construct off the stack.
-                LlvmValue returnConstruct = this.valueStack.Pop();
+                LlvmValue returnConstruct = this.stack.Pop();
 
                 // Create the return construct.
                 this.builder.CreateReturn(returnConstruct);
@@ -246,7 +243,7 @@ namespace Ion.Generation
             Section block = new Section(node.Identifier);
 
             // Append the resulting block onto the stack.
-            this.valueStack.Push(block);
+            this.stack.Push(block);
 
             // Return the node.
             return node;
@@ -264,7 +261,7 @@ namespace Ion.Generation
         public Construct Visit(Type node)
         {
             // Create the result buffer.
-            LlvmType type;
+            Kind kind;
 
             // Use LLVM type resolver if token is a primitive type.
             if (TokenIdentifier.IsPrimitiveType(node.Token))
@@ -273,12 +270,12 @@ namespace Ion.Generation
                 this.Visit(new PrimitiveType(node.Token.Value));
 
                 // Pop the type off the stack.
-                type = this.typeStack.Pop();
+                kind = this.typeStack.Pop();
             }
             // Otherwise, look it up on the structs dictionary, on the symbol table.
             else if (this.symbolTable.structs.Contains(node.Token.Value))
             {
-                type = this.symbolTable.structs[node.Token.Value].Value;
+                kind = this.symbolTable.structs[node.Token.Value].Value;
             }
             // At this point, provided token is not a valid type.
             else
@@ -289,17 +286,17 @@ namespace Ion.Generation
             // Convert result to an array if applicable.
             if (node.IsArray)
             {
-                type.ConvertToArray(node.ArrayLength.Value);
+                kind.ConvertToArray(node.ArrayLength.Value);
             }
 
             // Convert result to a pointer if applicable.
             if (node.IsPointer)
             {
-                type.ConvertToPointer();
+                kind.ConvertToPointer();
             }
 
             // Append the resulting type onto the stack.
-            this.typeStack.Push(type);
+            this.typeStack.Push(kind);
 
             // Return the node.
             return node;

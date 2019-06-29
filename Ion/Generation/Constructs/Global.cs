@@ -13,7 +13,7 @@ namespace Ion.Generation
         // TODO: Need to verify value as a constant.
         public Construct? InitialValue { get; }
 
-        public Global(string identifier, Type type, Construct? initialValue)
+        public Global(string identifier, Type type, Construct? initialValue = null)
         {
             this.Identifier = identifier;
             this.Type = type;

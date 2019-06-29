@@ -14,7 +14,7 @@ namespace Ion.Parsing
             this.type = type;
         }
 
-        public Array Parse(ParserContext context)
+        public Generation.Array Parse(ParserContext context)
         {
             // Ensure current token is bracket start.
             context.Stream.EnsureCurrent(TokenType.SymbolBracketL);

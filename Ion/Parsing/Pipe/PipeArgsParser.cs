@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Ion.Generation;
 using Ion.Syntax;
 
 namespace Ion.Parsing
