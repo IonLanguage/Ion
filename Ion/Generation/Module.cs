@@ -19,8 +19,6 @@ namespace Ion.Generation
 
         public List<string> Imports { get; }
 
-        protected PipeContext<Module> PipeContext;
-
         public Module(string fileName, LLVMModuleRef target)
         {
             this.Target = target;
@@ -31,9 +29,6 @@ namespace Ion.Generation
 
             // Create imports.
             this.Imports = new List<string>();
-
-            // Create a save a pipe context as cache.
-            this.PipeContext = new PipeContext<Module>(this, this);
         }
 
         public Module(string fileName, string identifier) : this(fileName, LLVM.ModuleCreateWithNameInContext(identifier, LLVM.GetGlobalContext()))
@@ -107,12 +102,6 @@ namespace Ion.Generation
 
             // Return resulting output string.
             return outputString;
-        }
-
-        public PipeContext<Module> AsPipeContext()
-        {
-            // Return the cached pipe context.
-            return this.PipeContext;
         }
     }
 }
