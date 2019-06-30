@@ -5,9 +5,9 @@ using Ion.Syntax;
 
 namespace Ion.Parsing
 {
-    public class CallArgsParser : IParser<List<Expr>>
+    public class CallArgsParser : IParser<List<Construct>>
     {
-        public List<Expr> Parse(ParserContext context)
+        public List<Construct> Parse(ParserContext context)
         {
             // Ensure current token is parentheses start.
             context.Stream.EnsureCurrent(TokenType.SymbolParenthesesL);
@@ -16,7 +16,7 @@ namespace Ion.Parsing
             context.Stream.Skip();
 
             // Create the argument list result.
-            List<Expr> args = new List<Expr>();
+            List<Construct> args = new List<Construct>();
 
             // Contains at least one argument.
             if (context.Stream.Current.Type != TokenType.SymbolParenthesesR)
@@ -24,7 +24,7 @@ namespace Ion.Parsing
                 while (true)
                 {
                     // Invoke the expression parser to parse the argument.
-                    Expr arg = new ExprParser().Parse(context);
+                    Construct arg = new ExprParser().Parse(context);
 
                     // Append the parsed argument.
                     args.Add(arg);

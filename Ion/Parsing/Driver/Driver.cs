@@ -1,7 +1,5 @@
-using System;
 using Ion.Generation;
 using Ion.Generation.Helpers;
-using Ion.CognitiveServices;
 using Ion.Syntax;
 
 namespace Ion.Parsing
@@ -14,8 +12,6 @@ namespace Ion.Parsing
         public bool HasNext => !this.stream.IsLastItem;
 
         public ParserContext ParserContext { get; protected set; }
-
-        public PipeContext<CodeGeneration.Module> ModulePipeContext { get; protected set; }
 
         protected TokenStream stream;
 
@@ -65,13 +61,10 @@ namespace Ion.Parsing
             this.stream = stream;
 
             // Create a new module instance.
-            this.Module = new CodeGeneration.Module(name);
+            this.Module = new Generation.Module(name);
 
             // Create a new parser context instance.
             this.ParserContext = new ParserContext(this, this.stream);
-
-            // Create a generic pipe context for potential use.
-            this.ModulePipeContext = PipeContextFactory.CreateFromModule(this.Module);
         }
 
         /// <summary>

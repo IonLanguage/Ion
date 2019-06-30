@@ -7,9 +7,9 @@ namespace Ion.Parsing
 {
     public class ArrayExprParser : IExprParser<Generation.Array>
     {
-        protected readonly ITypeEmitter type;
+        protected readonly Generation.Type type;
 
-        public ArrayExprParser(ITypeEmitter type)
+        public ArrayExprParser(Generation.Type type)
         {
             this.type = type;
         }
@@ -23,13 +23,13 @@ namespace Ion.Parsing
             context.Stream.Skip();
 
             // Create the value buffer list.
-            List<Expr> values = new List<Expr>();
+            List<Construct> values = new List<Construct>();
 
             // Begin parsing values.
             context.Stream.NextUntil(TokenType.SymbolBracketR, (Token token) =>
             {
                 // Invoke expression parser.
-                Expr value = new ExprParser().Parse(context);
+                Construct value = new ExprParser().Parse(context);
 
                 // Add the captured expression to the list.
                 values.Add(value);
