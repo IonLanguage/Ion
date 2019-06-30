@@ -7,9 +7,9 @@ namespace Ion.Generation
         public Type[] Arguments { get; set; }
 
         // TODO: Must verify return type to be a type emitter (either Type or PrimitiveType).
-        public Construct ReturnType { get; }
+        public Type ReturnType { get; }
 
-        public Prototype(string identifier, Type[] arguments, Construct returnType)
+        public Prototype(string identifier, Type[] arguments, Type returnType)
         {
             this.Identifier = identifier;
             this.Arguments = arguments;

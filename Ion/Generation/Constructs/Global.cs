@@ -22,7 +22,7 @@ namespace Ion.Generation
 
         public override Construct Accept(IrVisitor visitor)
         {
-            return visitor.Visit(this);
+            return visitor.VisitGlobal(this);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Ion.Generation
             return node.VisitChildren(this);
         }
 
-        public Construct Visit(BinaryExpr node)
+        public Construct VisitBinaryExpr(BinaryExpr node)
         {
             // Ensure operation is registered.
             if (!Constants.operatorBuilderMap.ContainsKey(node.Operation))
@@ -77,13 +77,13 @@ namespace Ion.Generation
             return node;
         }
 
-        public Construct Visit(Call node)
+        public Construct VisitCall(Call node)
         {
             // TODO: Implement.
             throw new NotImplementedException();
         }
 
-        public Construct Visit(Boolean node)
+        public Construct VisitBoolean(Boolean node)
         {
             // Create a new primitive boolean type instance.
             PrimitiveType type = PrimitiveTypeFactory.Boolean();
@@ -98,14 +98,14 @@ namespace Ion.Generation
             return node;
         }
 
-        public Construct Visit(Pipe node)
+        public Construct VisitPipe(Pipe node)
         {
             // TODO: Callee is hard-coded as a string.
             // Create the function call expression.
             Call functionCall = new Call(node.TargetName, node.Arguments);
 
             // Visit the function call.
-            this.Visit(functionCall);
+            this.VisitCall(functionCall);
 
             // Pop the resulting value off the stack.
             LlvmValue value = this.stack.Pop();
@@ -114,10 +114,10 @@ namespace Ion.Generation
             return node;
         }
 
-        public Construct Visit(Global node)
+        public Construct VisitGlobal(Global node)
         {
             // Visit the type.
-            this.Visit(node.Type);
+            this.VisitType(node.Type);
 
             // Pop the type off the stack.
             Kind type = this.kindStack.Pop();
@@ -148,7 +148,7 @@ namespace Ion.Generation
             return node;
         }
 
-        public Construct Visit(Directive node)
+        public Construct VisitDirective(Directive node)
         {
             // Register the directive on the symbol table.
             this.symbolTable.directives.Add(node.Key, node.Value);
@@ -157,56 +157,76 @@ namespace Ion.Generation
             return node;
         }
 
-        public Construct Visit(Extern node)
+        public Construct VisitExtern(Extern node)
         {
-            // Ensure prototype is set.
-            if (node.Prototype == null)
-            {
-                throw new Exception("Unexpected external definition's prototype to be null");
-            }
-
-            // Emit the formal arguments.
-            LlvmType[] args = node.Prototype.Arguments.Emit(context);
-
             // Visit the prototype's return type.
-            this.Visit(node.Prototype.ReturnType);
+            this.VisitType(node.Prototype.ReturnType);
 
             // Pop the return type off the stack.
-            Kind returnType = this.typeStack.Pop();
+            Kind returnKind = this.kindStack.Pop();
 
-            // Emit the function type.
-            Kind type = LlvmFactory.Function(returnType, args, node.Prototype.Arguments.Continuous);
+            // Create the arguments buffer list.
+            List<(Kind, Reference)> arguments = new List<(Kind, Reference)>();
 
-            // Emit the external definition to context and capture the LLVM value reference.
-            LlvmValue @extern = this.module.CreateFunction(node.Prototype.Identifier, type);
-
-            // Determine if should be registered on the symbol table.
-            if (!this.symbolTable.functions.Contains(node.Prototype.Identifier))
+            // Visit the prototype's arguments.
+            foreach (Type type in node.Prototype.Arguments)
             {
-                // Register the external definition as a function in the symbol table.
-                this.symbolTable.functions.Add((LlvmFunction)@extern);
-            }
-            // Otherwise, issue a warning.
-            else
-            {
-                // TODO
-                System.Console.WriteLine($"Warning: Extern definition '{node.Prototype.Identifier}' being re-defined");
+                // Visit type.
+                this.VisitType(type);
+
+                // Pop the resulting kind off the stack.
+                Kind kind = this.kindStack.Pop();
+
+                // TODO: Hard-coded argument references/names.
+                // Append it onto the arguments list.
+                arguments.Add((kind, new Reference("arg")));
             }
 
-            // Push the resulting value onto the stack.
+            // TODO: Infinite arguments support (currently hard-coded).
+            IR.Constructs.Prototype prototype = new IR.Constructs.Prototype(node.Prototype.Identifier, arguments.ToArray(), returnKind, false);
+
+            // Create the extern construct.
+            IR.Constructs.Extern @extern = new IR.Constructs.Extern(prototype);
+
+            // Append onto the stack.
             this.stack.Push(@extern);
 
-            // Return the resulting LLVM value reference.
+            // Return the node.
             return node;
         }
 
-        public Construct Visit(Function node)
+        public Construct VisitFunction(Function node)
         {
             // TODO: Implement.
             throw new NotImplementedException();
         }
 
-        public Construct Visit(Block node)
+        public Construct VisitArray(Array node)
+        {
+            // Prepare the value buffer list.
+            List<LlvmValue> values = new List<LlvmValue>();
+
+            // Iterate and emit all the values onto the buffer list.
+            foreach (Construct value in this.Values)
+            {
+                // Emit the value onto the context.
+                values.Add(value.Emit(context));
+            }
+
+            // Emit the items' type.
+            LlvmType itemType = this.Type.Emit();
+
+            // Emit the array type.
+            LlvmType type = LLVM.ArrayType(itemType, (uint)this.Values.Length);
+
+            // Create the array.
+            LlvmValue array = LLVM.ConstArray(type, values.ToArray());
+
+            // Return the resulting array.
+            return array;
+        }
+
+        public Construct VisitBlock(Block node)
         {
             // Create the block's statement list.
             List<LlvmValue> statements = new List<LlvmValue>();
@@ -249,7 +269,7 @@ namespace Ion.Generation
             return node;
         }
 
-        public Construct Visit(PrimitiveType node)
+        public Construct VisitPrimitiveType(PrimitiveType node)
         {
             // Invoke LLVM type resolver, will automatically handle possible non-existent error.
             this.typeStack.Push(Resolver.LlvmTypeFromName(node.TokenValue));
@@ -258,7 +278,7 @@ namespace Ion.Generation
             return node;
         }
 
-        public Construct Visit(Type node)
+        public Construct VisitType(Type node)
         {
             // Create the result buffer.
             Kind kind;
@@ -267,7 +287,7 @@ namespace Ion.Generation
             if (TokenIdentifier.IsPrimitiveType(node.Token))
             {
                 // Create and visit the type.
-                this.Visit(new PrimitiveType(node.Token.Value));
+                this.VisitPrimitiveType(new PrimitiveType(node.Token.Value));
 
                 // Pop the type off the stack.
                 kind = this.typeStack.Pop();
