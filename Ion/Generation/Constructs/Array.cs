@@ -4,11 +4,11 @@ namespace Ion.Generation
     {
         public override ConstructType ConstructType => ConstructType.Array;
 
-        public ITypeEmitter Type { get; }
+        public Type Type { get; }
 
         public Construct[] Values { get; }
 
-        public Array(ITypeEmitter type, Construct[] values)
+        public Array(Type type, Construct[] values)
         {
             this.Type = type;
             this.Values = values;

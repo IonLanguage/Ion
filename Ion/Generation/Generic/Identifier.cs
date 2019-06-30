@@ -19,11 +19,6 @@ namespace Ion.Generation.Generic
             return new Reference(this.Value);
         }
 
-        public string AsIrReferenceString()
-        {
-            return this.AsIrReference().Emit();
-        }
-
         public override string ToString()
         {
             return this.Value;
