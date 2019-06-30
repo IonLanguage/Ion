@@ -207,32 +207,38 @@ namespace Ion.Generation
         public Construct VisitArray(Array node)
         {
             // Prepare the value buffer list.
-            List<LlvmValue> values = new List<LlvmValue>();
+            List<IR.Constructs.Value> values = new List<IR.Constructs.Value>();
 
             // Iterate and emit all the values onto the buffer list.
-            foreach (Construct value in this.Values)
+            foreach (Value value in node.Values)
             {
-                // Emit the value onto the context.
-                values.Add(value.Emit(context));
+                // Visit the value.
+                this.VisitValue(value);
+
+                // Pop the value off the stack and append it onto the list.
+                values.Add((IR.Constructs.Value)this.stack.Pop());
             }
 
-            // Emit the items' type.
-            LlvmType itemType = this.Type.Emit();
+            // Visit the element type.
+            this.VisitType(node.Type);
 
-            // Emit the array type.
-            LlvmType type = LLVM.ArrayType(itemType, (uint)this.Values.Length);
+            // Pop the resulting kind off the stack.
+            Kind elementKind = this.kindStack.Pop();
 
-            // Create the array.
-            LlvmValue array = LLVM.ConstArray(type, values.ToArray());
+            // Create the array IR construct.
+            IR.Constructs.Array array = new IR.Constructs.Array(elementKind, values.ToArray());
 
-            // Return the resulting array.
-            return array;
+            // Append the array onto the stack.
+            this.stack.Push(array);
+
+            // Return the node.
+            return node;
         }
 
         public Construct VisitBlock(Block node)
         {
             // Create the block's statement list.
-            List<LlvmValue> statements = new List<LlvmValue>();
+            List<IR.Constructs.Construct> statements = new List<IR.Constructs.Construct>();
 
             // Visit and process the statements.
             foreach (Construct statement in node.Statements)
