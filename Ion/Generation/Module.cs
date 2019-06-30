@@ -57,29 +57,6 @@ namespace Ion.Generation
             LLVM.DisposeModule(this.Target);
         }
 
-        /// <summary>
-        /// Create an empty main function with a
-        /// body, empty arguments and void return
-        /// type. Does not emit the function.
-        /// </summary>
-        public static Function CreateMainFunction()
-        {
-            // Create the entity.
-            Function function = new Function();
-
-            // Create the body.
-            Block body = function.CreateBody();
-
-            // Create the function's prototype.
-            function.CreatePrototype();
-
-            // Set the function's name.
-            function.Prototype.SetName(SpecialName.Main);
-
-            // Return the function.
-            return function;
-        }
-
         // TODO: Throws "AccessViolationException" (uncatchable) exception if function does not exist.
         // TODO: ... determine a way to see if the function exists first. LLVM.IsNull() and LLVMValueRef.IsNull()
         // TODO: ... all trigger the exception too.
@@ -89,23 +66,6 @@ namespace Ion.Generation
             LLVMValueRef function = LLVM.GetNamedFunction(this.Target, name);
 
             // Return the retrieved function.
-            return function;
-        }
-
-        /// <summary>
-        /// Create and emit an empty main function
-        /// with a body, empty arguments and void return
-        /// type.
-        /// </summary>
-        public Function EmitMainFunction()
-        {
-            // Create the function.
-            Function function = Module.CreateMainFunction();
-
-            // Emit the function.
-            function.Emit(this.PipeContext);
-
-            // Return the previously created function.
             return function;
         }
 
