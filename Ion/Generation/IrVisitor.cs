@@ -1,3 +1,5 @@
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using Ion.CognitiveServices;
@@ -45,6 +47,11 @@ namespace Ion.Generation
         public Construct VisitExtension(Construct node)
         {
             return node.VisitChildren(this);
+        }
+
+        public Construct VisitValue(Value node)
+        {
+            throw new NotImplementedException();
         }
 
         public Construct VisitBinaryExpr(BinaryExpr node)
@@ -119,27 +126,23 @@ namespace Ion.Generation
             // Visit the type.
             this.VisitType(node.Type);
 
-            // Pop the type off the stack.
-            Kind type = this.kindStack.Pop();
+            // Pop the kind off the stack.
+            Kind kind = this.kindStack.Pop();
 
-            // Create the global variable.
-            LlvmGlobal global = this.module.CreateGlobal(node.Identifier, type);
+            // Create the value buffer.
+            IR.Constructs.Value? value = null;
 
-            // Set the linkage to common.
-            global.SetLinkage(LLVMLinkage.LLVMCommonLinkage);
-
-            // Assign initial value if applicable.
             if (node.InitialValue != null)
             {
                 // Visit the initial value.
-                this.Visit(node.InitialValue);
+                this.VisitValue(node.InitialValue);
 
-                // Pop off the initial value off the stack.
-                LlvmValue initialValue = this.stack.Pop();
-
-                // Set the initial value.
-                global.SetInitialValue(initialValue);
+                // Pop the value off the stack.
+                value = (IR.Constructs.Value)this.stack.Pop();
             }
+
+            // Create the global variable.
+            IR.Constructs.Global global = new IR.Constructs.Global(node.Identifier, kind, value);
 
             // Append the global onto the stack.
             this.stack.Push(global);
