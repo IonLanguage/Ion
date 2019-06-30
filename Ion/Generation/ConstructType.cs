@@ -28,6 +28,12 @@ namespace Ion.Generation
 
         Call,
 
-        BinaryExpr
+        BinaryExpr,
+
+        Lambda,
+
+        VariableDeclaration,
+
+        Variable
     }
 }

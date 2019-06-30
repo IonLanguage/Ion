@@ -16,7 +16,7 @@ namespace Ion.Parsing
                 // TODO: Should be done by an independent parser (VariableExprParser)?
 
                 // Create and return the variable expression.
-                return new VariableExpr(path);
+                return new Variable(path);
             }
 
             // Otherwise, it's a function call. Invoke the function call parser.

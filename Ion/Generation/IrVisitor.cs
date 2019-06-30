@@ -8,7 +8,6 @@ using Ion.IR.Constructs;
 using Ion.Misc;
 using Ion.Syntax;
 using Ion.Tracking;
-using LLVMSharp;
 using static Ion.Syntax.Constants;
 
 namespace Ion.Generation
@@ -54,6 +53,84 @@ namespace Ion.Generation
             throw new NotImplementedException();
         }
 
+        public Construct VisitVariable(Variable node)
+        {
+            // Variable is nested within a struct (struct property).
+            if (this.Path.nodes.Count >= 2 && context.SymbolTable.localScope.ContainsKey(this.Path.FirstNode))
+            {
+                // TODO: Add support for nested properties more than 1 level.
+                if (this.Path.nodes.Count > 2)
+                {
+                    throw new NotImplementedException("Support for deeply nested nodes has not been implemented");
+                }
+
+                // Retrieve the struct from the local scope in the symbol table.
+                LLVMValueRef @struct = context.SymbolTable.localScope[this.Path.FirstNode];
+
+                // TODO: Index is hard-coded, need method to determine index from prop identifier (in local scope).
+                // Create a reference to the struct's targeted property.
+                LLVMValueRef reference = LLVM.BuildStructGEP(context.Target, @struct, 0, this.Identifier);
+
+                // Return the reference.
+                return reference;
+            }
+            // Ensure the variable exists in the local scope.
+            else if (!context.SymbolTable.localScope.ContainsKey(this.Identifier))
+            {
+                throw new Exception($"Reference to undefined variable named '{this.Identifier}'");
+            }
+
+            // Retrieve the value.
+            LLVMValueRef value = context.SymbolTable.localScope[this.Identifier];
+
+            // Return the retrieved value.
+            return value;
+        }
+
+        public Construct VisitVarDeclare(VarDeclare node)
+        {
+            // Create the variable.
+            LLVMValueRef variable = LLVM.BuildAlloca(context.Target, this.ValueType.Emit(), this.Identifier);
+
+            // Assign value if applicable.
+            if (this.Value != null)
+            {
+                // Create the store instruction.
+                LLVM.BuildStore(context.Target, this.Value.Emit(context), variable);
+
+                // Register on symbol table.
+                context.SymbolTable.localScope.Add(this.Identifier, variable);
+            }
+
+            // Return the resulting variable.
+            return variable;
+        }
+
+        public Construct VisitLambda(Lambda node)
+        {
+            // Create a new function.
+            Function function = new Function();
+
+            // Assign the function's body.
+            function.Body = this.Body;
+
+            // Create the function's prototype.
+            function.Prototype = new Prototype(GlobalNameRegister.GetLambda(), this.Args, this.ReturnType);
+
+            // Emit the created function.
+            LLVMValueRef functionRef = function.Emit(context.ModuleContext);
+
+            // TODO: What about input arguments?
+            // Create a function call.
+            Call call = new Call(function.Prototype.Identifier);
+
+            // Emit the function call.
+            LLVMValueRef result = call.Emit(context);
+
+            // Return the resulting function call.
+            return result;
+        }
+
         public Construct VisitBinaryExpr(BinaryExpr node)
         {
             // Ensure operation is registered.
@@ -70,12 +147,12 @@ namespace Ion.Generation
             this.Visit(node.RightSide);
 
             // Pop off respective values.
-            LlvmValue rightSideValue = this.stack.Pop();
-            LlvmValue leftSideValue = this.stack.Pop();
+            Construct rightSide = this.stack.Pop();
+            Construct leftSide = this.stack.Pop();
 
             // TODO: Side expressions emitting to context?
             // Invoke the operation generator and wrap the resulting value.
-            LlvmValue value = invoker(this.builder.Unwrap(), leftSideValue.Unwrap(), rightSideValue.Unwrap(), node.Identifier).Wrap();
+            LlvmValue value = invoker(this.builder.Unwrap(), leftSide.Unwrap(), rightSide.Unwrap(), node.Identifier).Wrap();
 
             // Append the value onto the stack.
             this.stack.Push(value);
@@ -107,15 +184,12 @@ namespace Ion.Generation
 
         public Construct VisitPipe(Pipe node)
         {
-            // TODO: Callee is hard-coded as a string.
+            // TODO: Callee is hard-coded as a string?
             // Create the function call expression.
             Call functionCall = new Call(node.TargetName, node.Arguments);
 
             // Visit the function call.
             this.VisitCall(functionCall);
-
-            // Pop the resulting value off the stack.
-            LlvmValue value = this.stack.Pop();
 
             // Return the node.
             return node;

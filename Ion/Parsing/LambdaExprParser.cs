@@ -9,13 +9,13 @@ namespace Ion.Parsing
         public Expr Parse(ParserContext context)
         {
             // Create a lambda expression.
-            LambdaExpr lambda = new LambdaExpr();
+            Lambda lambda = new Lambda();
 
             // Parse the formal arguments.
             FormalArgs args = new FormalArgsParser().Parse(context);
 
             // Assign the parsed arguments to the lambda.
-            lambda.Args = args;
+            lambda.Arguments = args;
 
             // Create the type buffer, defaulting to void.
             ITypeEmitter type = PrimitiveTypeFactory.Void();

@@ -1,5 +1,4 @@
 using System;
-using Ion.Generation.Helpers;
 using Ion.Misc;
 using LLVMSharp;
 

@@ -1,4 +1,3 @@
-using Ion.Generation.Helpers;
 using Ion.Core;
 using Ion.Syntax;
 using LLVMSharp;

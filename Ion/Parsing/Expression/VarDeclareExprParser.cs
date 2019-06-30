@@ -4,15 +4,15 @@ using Type = Ion.Generation.Type;
 
 namespace Ion.Parsing
 {
-    public class VarDeclareExprParser : IParser<VarDeclareExpr>
+    public class VarDeclareExprParser : IParser<VarDeclare>
     {
-        public VarDeclareExpr Parse(ParserContext context)
+        public VarDeclare Parse(ParserContext context)
         {
             // Parse the type.
             Type type = new TypeParser().Parse(context);
 
             // Create the variable declaration & link the type.
-            VarDeclareExpr declaration = new VarDeclareExpr(type, null);
+            VarDeclare declaration = new VarDeclare(type, null);
 
             // Invoke identifier parser.
             string identifier = new IdentifierParser().Parse(context);
