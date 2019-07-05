@@ -9,19 +9,19 @@ namespace Ion.Parsing
     /// Parser right-side of a binary operation.
     /// See https://llvm.org/docs/tutorial/LangImpl02.html @ ParseBinOpRHS().
     /// </summary>
-    public class BinaryOpRightSideParser : IParser<Expr>
+    public class BinaryOpRightSideParser : IParser<Construct>
     {
         protected readonly int minimalPrecedence;
 
-        protected Expr leftSide;
+        protected Construct leftSide;
 
-        public BinaryOpRightSideParser(Expr leftSide, int minimalPrecedence)
+        public BinaryOpRightSideParser(Construct leftSide, int minimalPrecedence)
         {
             this.leftSide = leftSide;
             this.minimalPrecedence = minimalPrecedence;
         }
 
-        public Expr Parse(ParserContext context)
+        public Construct Parse(ParserContext context)
         {
             // If this is a binary operation, find it's precedence.
             while (true)
@@ -57,7 +57,7 @@ namespace Ion.Parsing
                 context.Stream.Skip();
 
                 // Parse the right-side.
-                Expr rightSide = new PrimaryExprParser().Parse(context);
+                Construct rightSide = new PrimaryExprParser().Parse(context);
 
                 // Ensure that the right-side was successfully parsed.
                 if (rightSide == null)

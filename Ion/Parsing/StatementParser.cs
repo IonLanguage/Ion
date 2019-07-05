@@ -4,9 +4,9 @@ using Ion.Syntax;
 
 namespace Ion.Generation
 {
-    public class StatementParser : IParser<Expr>
+    public class StatementParser : IParser<Construct>
     {
-        public Expr Parse(ParserContext context)
+        public Construct Parse(ParserContext context)
         {
             // Capture the current token's type.
             Token token = context.Stream.Current;
@@ -19,11 +19,11 @@ namespace Ion.Generation
             // If expression.
             else if (token.Type == TokenType.KeywordIf)
             {
-                return new IfExprParser().Parse(context);
+                return new IfParser().Parse(context);
             }
 
             // Otherwise, delegate to the expression parser.
-            Expr expr = new ExprParser().Parse(context);
+            Construct expr = new ExprParser().Parse(context);
 
             // Return the parsed expression.
             return expr;

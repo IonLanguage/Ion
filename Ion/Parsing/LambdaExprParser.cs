@@ -4,9 +4,9 @@ using Ion.Syntax;
 
 namespace Ion.Parsing
 {
-    public class LambdaExprParser : IParser<Expr>
+    public class LambdaExprParser : IParser<Lambda>
     {
-        public Expr Parse(ParserContext context)
+        public Lambda Parse(ParserContext context)
         {
             // Create a lambda expression.
             Lambda lambda = new Lambda();
@@ -18,7 +18,7 @@ namespace Ion.Parsing
             lambda.Arguments = args;
 
             // Create the type buffer, defaulting to void.
-            ITypeEmitter type = PrimitiveTypeFactory.Void();
+            Type type = PrimitiveTypeFactory.Void();
 
             // Return type is explicitly specified, parse and use it instead of the default.
             if (context.Stream.Current.Type == TokenType.SymbolColon)

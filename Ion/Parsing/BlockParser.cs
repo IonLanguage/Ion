@@ -8,8 +8,8 @@ namespace Ion.Parsing
     {
         public Block Parse(ParserContext context)
         {
-            // Capture current token. Either block start or arrow for anonymous functions.
-            Token begin = context.Stream.Current;
+            // Ensure current token is block start.
+            context.Stream.EnsureCurrent(TokenType.SymbolBraceL);
 
             // Skip begin token.
             context.Stream.Skip();
@@ -20,22 +20,6 @@ namespace Ion.Parsing
             // Set the block as active in the symbol table.
             context.SymbolTable.activeBlock = block;
 
-            // Mark the block as default.
-            if (begin.Type == TokenType.SymbolBlockL)
-            {
-                block.Type = BlockType.Default;
-            }
-            // Mark the block as short.
-            else if (begin.Type == TokenType.SymbolArrow)
-            {
-                block.Type = BlockType.Short;
-            }
-            // Otherwise, the block type could not be identified.
-            else
-            {
-                throw new Exception("Unexpected block type");
-            }
-
             // Begin the iteration.
             context.Stream.NextUntil(TokenType.SymbolBlockR, (Token token) =>
             {
@@ -43,7 +27,7 @@ namespace Ion.Parsing
                 if (token.Type == TokenType.KeywordReturn)
                 {
                     // Invoke the return parser. It's okay if it returns null, as it will be emitted as void.
-                    Expr returnExpr = new FunctionReturnParser().Parse(context);
+                    Construct returnExpr = new FunctionReturnParser().Parse(context);
 
                     // Assign the return expression to the block.
                     block.ReturnConstruct = returnExpr;
@@ -53,7 +37,7 @@ namespace Ion.Parsing
                 }
 
                 // Token must be a statement.
-                Expr statement = new StatementParser().Parse(context);
+                Construct statement = new StatementParser().Parse(context);
 
                 // Ensure statement was successfully parsed.
                 if (statement == null)

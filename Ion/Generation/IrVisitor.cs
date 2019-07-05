@@ -43,6 +43,36 @@ namespace Ion.Generation
             return node.Accept(this);
         }
 
+        public Construct VisitIf(If node)
+        {
+            // Visit the condition.
+            this.Visit(node.Condition);
+
+            // Pop the construct off the stack.
+            IR.Constructs.Construct condition = this.stack.Pop();
+
+            // Visit the action.
+            this.VisitBlock(node.Action);
+
+            // Pop the construct off the stack.
+            IR.Constructs.Section action = (IR.Constructs.Section)this.stack.Pop();
+
+            // Visit the else.
+            this.VisitBlock(node.Otherwise);
+
+            // Pop the construct off the stack.
+            IR.Constructs.Section otherwise = (IR.Constructs.Section)this.stack.Pop();
+
+            // Create the IR construct.
+            IR.Constructs.If @if = new IR.Constructs.If(condition, action, otherwise);
+
+            // Append the construct onto the stack.
+            this.stack.Push(@if);
+            
+            // Return the node.
+            return node;
+        }
+
         public Construct VisitExtension(Construct node)
         {
             return node.VisitChildren(this);

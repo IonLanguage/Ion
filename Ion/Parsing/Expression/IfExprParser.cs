@@ -3,9 +3,9 @@ using Ion.Syntax;
 
 namespace Ion.Parsing
 {
-    public class IfExprParser : IParser<IfExpr>
+    public class IfParser : IParser<If>
     {
-        public IfExpr Parse(ParserContext context)
+        public If Parse(ParserContext context)
         {
             // Ensure current token type is keyword if.
             context.Stream.EnsureCurrent(TokenType.KeywordIf);
@@ -36,7 +36,7 @@ namespace Ion.Parsing
             }
 
             // Create the if expression entity.
-            IfExpr ifExpression = new IfExpr(condition, action, otherwise);
+            If ifExpression = new If(condition, action, otherwise);
 
             // Return the resulting if expression entity.
             return ifExpression;

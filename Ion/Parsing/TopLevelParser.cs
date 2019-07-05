@@ -1,21 +1,12 @@
 using System;
 using Ion.Generation;
-using Ion.Generation.Helpers;
-using Ion.Engine.CodeGeneration.Helpers;
 using Ion.CognitiveServices;
 using Ion.Syntax;
 
 namespace Ion.Parsing
 {
-    public class TopLevelHandler : IReaction<ParserContext>
+    public class TopLevelHandler
     {
-        public readonly PipeContext<Module> ModulePipeContext;
-
-        public TopLevelHandler(PipeContext<Module> pipeContext)
-        {
-            this.ModulePipeContext = pipeContext;
-        }
-
         public void Invoke(ParserContext context)
         {
             // Retrieve the current token.

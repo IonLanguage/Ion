@@ -34,6 +34,8 @@ namespace Ion.Generation
 
         VariableDeclaration,
 
-        Variable
+        Variable,
+
+        If
     }
 }
