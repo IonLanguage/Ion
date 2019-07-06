@@ -19,7 +19,7 @@ namespace Ion.Parsing
             string identifier = new IdentifierParser().Parse(context);
 
             // Ensure current token is block start.
-            context.Stream.EnsureCurrent(TokenType.SymbolBlockL);
+            context.Stream.EnsureCurrent(TokenType.SymbolBraceL);
 
             // Skip block start token.
             context.Stream.Skip();
@@ -28,7 +28,7 @@ namespace Ion.Parsing
             List<StructDefProperty> properties = new List<StructDefProperty>();
 
             // Start iteration with callback.
-            context.Stream.NextUntil(TokenType.SymbolBlockR, (Token token) =>
+            context.Stream.NextUntil(TokenType.SymbolBraceR, (Token token) =>
             {
                 // Invoke type parser.
                 Type type = new TypeParser().Parse(context);
@@ -53,7 +53,7 @@ namespace Ion.Parsing
             StructDefBody body = new StructDefBody(properties);
 
             // Ensure current token type is block end.
-            context.Stream.EnsureCurrent(TokenType.SymbolBlockR);
+            context.Stream.EnsureCurrent(TokenType.SymbolBraceR);
 
             // Skip block end token.
             context.Stream.Skip();

@@ -10,7 +10,7 @@ namespace Ion.Parsing
         public List<StructProperty> Parse(ParserContext context)
         {
             // Ensure current token is block start.
-            context.Stream.EnsureCurrent(TokenType.SymbolBlockL);
+            context.Stream.EnsureCurrent(TokenType.SymbolBraceL);
 
             // Skip block start token.
             context.Stream.Skip();
@@ -22,7 +22,7 @@ namespace Ion.Parsing
             int indexCounter = 0;
 
             // Begin parsing properties.
-            context.Stream.NextUntil(TokenType.SymbolBlockR, (Token token) =>
+            context.Stream.NextUntil(TokenType.SymbolBraceR, (Token token) =>
             {
                 // Invoke struct property parser.
                 StructProperty property = new StructPropertyParser(indexCounter).Parse(context);
@@ -37,7 +37,7 @@ namespace Ion.Parsing
                 TokenType currentTokenType = context.Stream.Current.Type;
 
                 // Ensure current token is of type block end or symbol comma.
-                if (currentTokenType != TokenType.SymbolBlockR && currentTokenType != TokenType.SymbolComma)
+                if (currentTokenType != TokenType.SymbolBraceR && currentTokenType != TokenType.SymbolComma)
                 {
                     throw new Exception($"Expected token to be of type symbol block end or comma but got '{currentTokenType}'");
                 }
@@ -52,7 +52,7 @@ namespace Ion.Parsing
             });
 
             // Ensure current token is block end.
-            context.Stream.EnsureCurrent(TokenType.SymbolBlockR);
+            context.Stream.EnsureCurrent(TokenType.SymbolBraceR);
 
             // Skip symbol block end token.
             context.Stream.Skip();

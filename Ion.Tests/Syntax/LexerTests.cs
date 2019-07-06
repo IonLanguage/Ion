@@ -21,7 +21,7 @@ namespace Ion.Tests.Syntax
                 TokenType.SymbolComma,
                 TokenType.SymbolParenthesesR,
                 TokenType.SymbolColon,
-                TokenType.SymbolBlockL,
+                TokenType.SymbolBraceL,
                 TokenType.KeywordTrue,
                 TokenType.KeywordFalse,
                 TokenType.LiteralInteger,
@@ -38,7 +38,7 @@ namespace Ion.Tests.Syntax
                 TokenType.OperatorOr,
                 TokenType.Identifier,
                 TokenType.SymbolSemiColon,
-                TokenType.SymbolBlockR,
+                TokenType.SymbolBraceR,
                 TokenType.CommentMultiLine,
                 TokenType.CommentSingleLine
             };
@@ -91,7 +91,7 @@ namespace Ion.Tests.Syntax
         [TestCase("andor", TokenType.Identifier)]
         [TestCase("anda", TokenType.Identifier)]
         [TestCase("and ", TokenType.OperatorAnd, TokenType.Whitespace)]
-        [TestCase("and{", TokenType.OperatorAnd, TokenType.SymbolBlockL)]
+        [TestCase("and{", TokenType.OperatorAnd, TokenType.SymbolBraceL)]
         [TestCase("and(", TokenType.OperatorAnd, TokenType.SymbolParenthesesL)]
         [TestCase("and123", TokenType.Identifier)]
         [TestCase("and_", TokenType.Identifier)]
