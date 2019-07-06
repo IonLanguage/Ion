@@ -1,15 +1,14 @@
 using System;
 using Ion.Generation;
-using Ion.Syntax;
 
 namespace Ion.Parsing
 {
-    public class ExprParser : IParser<Expr>
+    public class ExprParser : IParser<Construct>
     {
-        public Expr Parse(ParserContext context)
+        public Construct Parse(ParserContext context)
         {
             // Parse the left side of the expression.
-            Expr leftSide = new PrimaryExprParser().Parse(context);
+            Construct leftSide = new PrimaryExprParser().Parse(context);
 
             // Ensure left side was successfully parsed, otherwise throw an error.
             if (leftSide == null)
@@ -18,7 +17,7 @@ namespace Ion.Parsing
             }
 
             // Invoke the binary expression parser, for potential following expression(s).
-            Expr expr = new BinaryOpRightSideParser(leftSide, 0).Parse(context);
+            Construct expr = new BinaryOpRightSideParser(leftSide, 0).Parse(context);
 
             // Return the parsed expression.
             return expr;

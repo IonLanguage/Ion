@@ -6,9 +6,9 @@ namespace Ion.Generation
 
         public Type Type { get; }
 
-        public Value[] Values { get; }
+        public Construct[] Values { get; }
 
-        public Array(Type type, Value[] values)
+        public Array(Type type, Construct[] values)
         {
             this.Type = type;
             this.Values = values;

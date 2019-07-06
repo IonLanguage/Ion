@@ -4,14 +4,17 @@ namespace Ion.Generation
     {
         public override ConstructType ConstructType => ConstructType.VariableDeclaration;
 
-        public Type ValueType { get; protected set; }
+        public string Identifier { get; }
 
-        public Value Value { get; set; }
+        public Type Type { get; }
 
-        public VarDeclare(Type valueType, Value value)
+        public Value Value { get; }
+
+        public VarDeclare(string identifier, Type type, Value value)
         {
-            this.ValueType = valueType;
+            this.Type = type;
             this.Value = value;
+            this.Identifier = identifier;
         }
 
         public override Construct Accept(IrVisitor visitor)

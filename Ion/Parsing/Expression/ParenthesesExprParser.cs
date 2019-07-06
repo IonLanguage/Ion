@@ -25,7 +25,7 @@ namespace Ion.Parsing
             context.Stream.Skip();
 
             // Parse the expression.
-            Expr expr = new ExprParser().Parse(context);
+            Construct expr = new ExprParser().Parse(context);
 
             // Ensure current token is parentheses end.
             context.Stream.EnsureCurrent(TokenType.SymbolParenthesesR);

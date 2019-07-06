@@ -24,7 +24,7 @@ namespace Ion.Parsing
             context.Stream.Skip();
 
             // Invoke expression parser to capture the value.
-            Expr value = new ExprParser().Parse(context);
+            Construct value = new ExprParser().Parse(context);
 
             // Create the resulting property construct.
             StructProperty property = new StructProperty(identifier, value, this.index);

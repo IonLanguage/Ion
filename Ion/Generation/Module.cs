@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Ion.Generation.Helpers;
-using Ion.Tracking;
 using LLVMSharp;
 
 namespace Ion.Generation
@@ -15,17 +14,12 @@ namespace Ion.Generation
 
         public string FileName { get; }
 
-        public IonSymbolTable SymbolTable { get; }
-
         public List<string> Imports { get; }
 
         public Module(string fileName, LLVMModuleRef target)
         {
             this.Target = target;
             this.FileName = fileName;
-
-            // Create a new symbol table instance.
-            this.SymbolTable = new IonSymbolTable();
 
             // Create imports.
             this.Imports = new List<string>();
