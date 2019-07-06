@@ -1,11 +1,12 @@
-using System;
+using System.Collections.Generic;
+using Ion.Generation;
 using Ion.Syntax;
 
 namespace Ion.Parsing
 {
-    public class FormalArgsParser : IParser<FormalArgs>
+    public class FormalArgsParser : IParser<(string, Type)[]>
     {
-        public FormalArgs Parse(ParserContext context)
+        public (string, Type)[] Parse(ParserContext context)
         {
             // Ensure position.
             context.Stream.EnsureCurrent(TokenType.SymbolParenthesesL);
@@ -14,7 +15,7 @@ namespace Ion.Parsing
             context.Stream.Skip();
 
             // Create the formal args entity.
-            FormalArgs args = new FormalArgs();
+            List<(string, Type)> arguments = new List<(string, Type)>();
 
             // Create the loop buffer token.
             Token buffer = context.Stream.Current;
@@ -23,10 +24,10 @@ namespace Ion.Parsing
             while (buffer.Type != TokenType.SymbolParenthesesR)
             {
                 // Continuous arguments.
-                if (!args.Continuous && buffer.Type == TokenType.SymbolContinuous)
+                if (!arguments.Continuous && buffer.Type == TokenType.SymbolContinuous)
                 {
                     // Set the continuous flag.
-                    args.Continuous = true;
+                    arguments.Continuous = true;
 
                     // Advance stream immediatly.
                     buffer = context.Stream.Next(TokenType.SymbolParenthesesR);
@@ -35,13 +36,13 @@ namespace Ion.Parsing
                     continue;
                 }
                 // Continuous arguments must be final.
-                else if (args.Continuous)
+                else if (arguments.Continuous)
                 {
-                    throw new Exception("Unexpected token after continuous arguments");
+                    throw new System.Exception("Unexpected token after continuous arguments");
                 }
 
                 // Invoke the arg parser.
-                FormalArg arg = new FormalArgParser().Parse(context);
+                (string, Type) arg = new FormalArgParser().Parse(context);
 
                 // Update the buffer.
                 buffer = context.Stream.Current;
@@ -49,7 +50,7 @@ namespace Ion.Parsing
                 // Ensure next token is valid.
                 if (buffer.Type != TokenType.SymbolComma && buffer.Type != TokenType.SymbolParenthesesR)
                 {
-                    throw new Exception($"Unexpected token of type '{buffer.Type}'; Expected comma or parentheses end in argument list");
+                    throw new System.Exception($"Unexpected token of type '{buffer.Type}'; Expected comma or parentheses end in argument list");
                 }
                 // Skip the comma token.
                 else if (buffer.Type == TokenType.SymbolComma)
@@ -61,7 +62,7 @@ namespace Ion.Parsing
                 }
 
                 // Append the parsed argument.
-                args.Values.Add(arg);
+                arguments.Add(arg);
             }
 
             // Ensure current token is parentheses end.
@@ -70,8 +71,8 @@ namespace Ion.Parsing
             // Skip parentheses end token.
             context.Stream.Skip();
 
-            // Finish process.
-            return args;
+            // Return results.
+            return arguments.ToArray();
         }
     }
 }

@@ -176,8 +176,8 @@ namespace Ion.Generation
             this.Visit(node.RightSide);
 
             // Pop off respective values.
-            Construct rightSide = this.stack.Pop();
-            Construct leftSide = this.stack.Pop();
+            IR.Constructs.Construct rightSide = this.stack.Pop();
+            IR.Constructs.Construct leftSide = this.stack.Pop();
 
             // TODO: Side expressions emitting to context?
             // Invoke the operation generator and wrap the resulting value.
@@ -202,10 +202,10 @@ namespace Ion.Generation
             PrimitiveType type = PrimitiveTypeFactory.Boolean();
 
             // Resolve the value.
-            LlvmValue valueRef = Resolver.Literal(node.tokenType, node.value, type).Wrap();
+            LlvmValue value = Resolver.Literal(node.tokenType, node.value, type).Wrap();
 
             // Append the value onto the stack.
-            this.stack.Push(valueRef);
+            this.stack.Push(value);
 
             // Return the node.
             return node;

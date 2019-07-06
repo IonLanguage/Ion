@@ -3,21 +3,18 @@ using Type = Ion.Generation.Type;
 
 namespace Ion.Parsing
 {
-    public class FormalArgParser : IParser<FormalArg>
+    public class FormalArgParser : IParser<(string, Type)>
     {
-        public FormalArg Parse(ParserContext context)
+        public (string, Type) Parse(ParserContext context)
         {
             // Parse the type.
             Type type = new TypeParser().Parse(context);
 
-            // Create the formal argument entity.
-            FormalArg arg = new FormalArg(type);
-
             // Capture the argument's name.
             string name = context.Stream.Get(TokenType.Identifier).Value;
 
-            // Assign the argument's name.
-            arg.SetName(name);
+            // Create the formal argument entity.
+            (string, Type) arg = (name, type);
 
             // Skip the identifier token.
             context.Stream.Skip();
