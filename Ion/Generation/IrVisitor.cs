@@ -20,8 +20,6 @@ namespace Ion.Generation
 
     public class IrVisitor
     {
-        protected readonly IonSymbolTable symbolTable;
-
         protected Stack<IR.Constructs.Construct> stack;
 
         protected Stack<Kind> kindStack;
@@ -34,7 +32,6 @@ namespace Ion.Generation
         {
             this.module = module;
             this.builder = builder;
-            this.symbolTable = new IonSymbolTable();
             this.stack = new Stack<IR.Constructs.Construct>();
             this.kindStack = new Stack<Kind>();
         }
