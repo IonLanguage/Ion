@@ -1,17 +1,15 @@
-using Ion.Engine.CodeGeneration.Helpers;
-using Ion.Misc;
-using LLVMSharp;
-
 namespace Ion.Generation
 {
-    public class StructDefProperty : Named, IOneWayPipe<LLVMTypeRef>
+    public class StructDefProperty
     {
         public Type Type { get; }
 
-        public StructDefProperty(Type type, string name)
+        public string Identifier { get; }
+
+        public StructDefProperty(Type type, string identifier)
         {
             this.Type = type;
-            this.SetName(name);
+            this.Identifier = identifier;
         }
     }
 }

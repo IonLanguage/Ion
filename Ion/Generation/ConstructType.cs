@@ -42,6 +42,8 @@ namespace Ion.Generation
 
         Numeric,
 
-        Struct
+        Struct,
+
+        StructDef
     }
 }
