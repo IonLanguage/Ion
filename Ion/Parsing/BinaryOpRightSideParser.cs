@@ -85,12 +85,9 @@ namespace Ion.Parsing
                     }
                 }
 
+                // TODO: Identifier.
                 // Create the binary expression entity.
-                BinaryExpr binaryExpr = new BinaryExpr(binaryOperator, this.leftSide, rightSide, firstPrecedence);
-
-                // TODO: Name is temporary?
-                // Set the name of the binary expression's output.
-                binaryExpr.SetName("tmp");
+                BinaryExpr binaryExpr = new BinaryExpr("tmp", binaryOperator, this.leftSide, rightSide, firstPrecedence);
 
                 // Merge left-side/right-side.
                 this.leftSide = binaryExpr;

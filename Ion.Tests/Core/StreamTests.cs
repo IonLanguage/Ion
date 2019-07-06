@@ -1,6 +1,5 @@
+using Ion.Engine.Syntax;
 using NUnit.Framework;
-using Ion.Core;
-using Ion.Misc;
 
 namespace Ion.Tests.Core
 {

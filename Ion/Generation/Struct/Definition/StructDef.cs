@@ -2,7 +2,7 @@ namespace Ion.Generation
 {
     public class StructDef : Construct
     {
-        public override ConstructType ConstructType => throw new System.NotImplementedException();
+        public override ConstructType ConstructType => ConstructType.StructDef;
 
         public string Identifier { get; }
 

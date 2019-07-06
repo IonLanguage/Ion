@@ -14,7 +14,7 @@ namespace Ion.Parsing
             context.Stream.Skip();
 
             // Invoke parentheses expression parser to parse condition.
-            Expr condition = new ParenthesesExprParser().Parse(context);
+            Construct condition = new ParenthesesExprParser().Parse(context);
 
             // Invoke block parser to parse if block, which is its action.
             Block action = new BlockParser().Parse(context);

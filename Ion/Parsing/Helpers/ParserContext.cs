@@ -1,7 +1,6 @@
 using Ion.CognitiveServices;
 using Ion.NoticeReporting;
 using Ion.Syntax;
-using Ion.Tracking;
 
 namespace Ion.Parsing
 {
@@ -11,8 +10,6 @@ namespace Ion.Parsing
         public TokenStream Stream { get; }
 
         public Driver Driver { get; }
-
-        public IonSymbolTable SymbolTable => this.Driver.Module.SymbolTable;
 
         public NoticeRepository NoticeRepository;
 
