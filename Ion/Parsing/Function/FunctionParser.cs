@@ -37,7 +37,8 @@ namespace Ion.Parsing
             Block body = new BlockParser().Parse(context);
 
             // Set the name of the body block.
-            body.SetNameEntry();
+            // TODO
+            // body.SetNameEntry();
 
             // Assign the body.
             function.Body = body;

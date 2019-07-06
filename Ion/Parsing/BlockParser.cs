@@ -1,4 +1,7 @@
+#nullable enable
+
 using System;
+using System.Collections.Generic;
 using Ion.Generation;
 using Ion.Syntax;
 
@@ -14,14 +17,14 @@ namespace Ion.Parsing
             // Skip begin token.
             context.Stream.Skip();
 
-            // Create the block.
-            Block block = new Block();
+            // Create a construct buffer for the reutrn construct.
+            Construct? returnConstruct = null;
 
-            // Set the block as active in the symbol table.
-            context.SymbolTable.activeBlock = block;
+            // Create the statement buffer list.
+            List<Construct> statements = new List<Construct>();
 
             // Begin the iteration.
-            context.Stream.NextUntil(TokenType.SymbolBlockR, (Token token) =>
+            context.Stream.NextUntil(TokenType.SymbolBraceR, (Token token) =>
             {
                 // Returning a value.
                 if (token.Type == TokenType.KeywordReturn)
@@ -30,7 +33,7 @@ namespace Ion.Parsing
                     Construct returnExpr = new FunctionReturnParser().Parse(context);
 
                     // Assign the return expression to the block.
-                    block.ReturnConstruct = returnExpr;
+                    returnConstruct = returnExpr;
 
                     // Return immediatly, signal to update the token buffer to the current token.
                     return true;
@@ -45,11 +48,11 @@ namespace Ion.Parsing
                     throw new Exception("Unexpected statement to be null");
                 }
 
-                // Append the parsed statement to the block's expression list.
-                block.Expressions.Add(statement);
+                // Append the parsed statement to the block's statement list.
+                statements.Add(statement);
 
                 // Ensure current token is a semi-colon, if previous statement did not parse a block.
-                if (statement.ExprType != ExprType.If)
+                if (statement.ConstructType != ConstructType.Block)
                 {
                     // Ensure semi-colon token.
                     context.Stream.EnsureCurrent(TokenType.SymbolSemiColon);
@@ -64,6 +67,10 @@ namespace Ion.Parsing
 
             // Skip onto default block end or short block end.
             context.Stream.Skip();
+
+            // TODO: Identifier?
+            // Create the block.
+            Block block = new Block("entry", statements.ToArray(), returnConstruct);
 
             // Return the resulting block.
             return block;

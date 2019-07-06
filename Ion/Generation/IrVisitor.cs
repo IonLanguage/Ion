@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using Ion.CognitiveServices;
+using Ion.Core;
 using Ion.Engine.Llvm;
 using Ion.IR.Constructs;
 using Ion.Misc;
@@ -43,6 +44,11 @@ namespace Ion.Generation
             return node.Accept(this);
         }
 
+        public Construct VisitString(StringExpr node)
+        {
+
+        }
+
         public Construct VisitIf(If node)
         {
             // Visit the condition.
@@ -68,7 +74,7 @@ namespace Ion.Generation
 
             // Append the construct onto the stack.
             this.stack.Push(@if);
-            
+
             // Return the node.
             return node;
         }
@@ -120,7 +126,7 @@ namespace Ion.Generation
         public Construct VisitVarDeclare(VarDeclare node)
         {
             // Create the variable.
-            LLVMValueRef variable = LLVM.BuildAlloca(context.Target, this.ValueType.Emit(), this.Identifier);
+            LlvmValue variable = LLVM.BuildAlloca(context.Target, this.ValueType.Emit(), this.Identifier);
 
             // Assign value if applicable.
             if (this.Value != null)
@@ -148,14 +154,14 @@ namespace Ion.Generation
             function.Prototype = new Prototype(GlobalNameRegister.GetLambda(), this.Args, this.ReturnType);
 
             // Emit the created function.
-            LLVMValueRef functionRef = function.Emit(context.ModuleContext);
+            LlvmValue functionRef = function.Emit(context.ModuleContext);
 
             // TODO: What about input arguments?
             // Create a function call.
             Call call = new Call(function.Prototype.Identifier);
 
             // Emit the function call.
-            LLVMValueRef result = call.Emit(context);
+            LlvmValue result = call.Emit(context);
 
             // Return the resulting function call.
             return result;

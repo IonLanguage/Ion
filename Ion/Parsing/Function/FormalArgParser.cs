@@ -1,6 +1,3 @@
-using System;
-using Ion.Generation;
-using Ion.CognitiveServices;
 using Ion.Syntax;
 using Type = Ion.Generation.Type;
 

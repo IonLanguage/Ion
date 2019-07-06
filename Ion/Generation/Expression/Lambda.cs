@@ -4,15 +4,16 @@ namespace Ion.Generation
     {
         public override ConstructType ConstructType => ConstructType.Lambda;
 
-        public FormalArgs Arguments { get; set; }
+        public Construct[] Arguments { get; set; }
 
         public Type ReturnType { get; set; }
 
         public Block Body { get; set; }
 
-        public Lambda(Type returnType, Block body)
+        public Lambda(Type returnType, Construct[] arguments, Block body)
         {
             this.ReturnType = returnType;
+            this.Arguments = arguments;
             this.Body = body;
         }
 

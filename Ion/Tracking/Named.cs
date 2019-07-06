@@ -1,3 +1,6 @@
+using System;
+using Ion.Core;
+
 namespace Ion.Tracking
 {
     public abstract class Named : INamed

@@ -21,7 +21,7 @@ namespace Ion.Parsing
             string value = Util.ExtractStringLiteralValue(token);
 
             // Create the string expression entity.
-            StringExpr stringExpr = new StringExpr(token.Type, value);
+            StringExpr stringExpr = new IR.Constructs.String(value);
 
             // Return the string expression entity.
             return stringExpr;

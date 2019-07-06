@@ -1,12 +1,13 @@
 using Ion.CognitiveServices;
+using Ion.Generation;
 using Ion.Misc;
 using Ion.Syntax;
 
 namespace Ion.Parsing
 {
-    public class PrimaryExprParser : IParser<Expr>
+    public class PrimaryExprParser : IParser<Construct>
     {
-        public Expr Parse(ParserContext context)
+        public Construct Parse(ParserContext context)
         {
             // Capture current token type.
             TokenType currentTokenType = context.Stream.Current.Type;

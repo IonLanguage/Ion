@@ -215,9 +215,9 @@ namespace Ion.Syntax
         KeywordNew,
 
         // Symbols.
-        SymbolBlockL,
+        SymbolBraceL,
 
-        SymbolBlockR,
+        SymbolBraceR,
 
         SymbolParenthesesL,
 

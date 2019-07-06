@@ -30,7 +30,7 @@ namespace Ion.Parsing
                 context.Stream.Skip();
 
                 // Parse value.
-                Expr value = new ExprParser().Parse(context);
+                Construct value = new ExprParser().Parse(context);
 
                 // Assign value.
                 declaration.Value = value;

@@ -20,10 +20,10 @@ namespace Ion.Parsing
         public Call Parse(ParserContext context)
         {
             // Invoke the function call argument parser.
-            List<Expr> args = new CallArgsParser().Parse(context);
+            List<Construct> arguments = new CallArgsParser().Parse(context);
 
             // Create the function call expression entity.
-            Call functionCall = new Call(this.identifier, args);
+            Call functionCall = new Call(this.identifier, arguments.ToArray());
 
             // Return the function call expression.
             return functionCall;

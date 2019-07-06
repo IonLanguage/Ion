@@ -15,7 +15,7 @@ namespace Ion.Parsing
             context.Stream.Skip();
 
             // Invoke the pipe arguments parser.
-            List<Expr> arguments = new PipeArgsParser().Parse(context);
+            List<Construct> arguments = new PipeArgsParser().Parse(context);
 
             // Expect current token to be pipe operator.
             context.Stream.EnsureCurrent(TokenType.OperatorPipe);

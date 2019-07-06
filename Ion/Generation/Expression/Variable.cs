@@ -6,17 +6,19 @@ namespace Ion.Generation
     {
         public override ConstructType ConstructType => ConstructType.Variable;
 
+        public string Identifier { get; }
+
         public PathResult Path { get; }
 
-        public Variable(string name) : this(new PathResult(name))
+        public Variable(string identifier) : this(new PathResult(identifier))
         {
-            this.SetName(name);
+            this.Identifier = identifier;
         }
 
         public Variable(PathResult path)
         {
             this.Path = path;
-            this.SetName(this.Path.ToString());
+            this.Identifier = this.Path.ToString();
         }
     }
 }

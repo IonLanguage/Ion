@@ -3,9 +3,9 @@ using Ion.Syntax;
 
 namespace Ion.Parsing
 {
-    public class FunctionReturnParser : IParser<Expr>
+    public class FunctionReturnParser : IParser<Construct>
     {
-        public Expr Parse(ParserContext context)
+        public Construct Parse(ParserContext context)
         {
             // Ensure current return keyword.
             context.Stream.EnsureCurrent(TokenType.KeywordReturn);
@@ -28,7 +28,7 @@ namespace Ion.Parsing
             }
 
             // Otherwise, invoke the expression parser.
-            Expr expr = new ExprParser().Parse(context);
+            Construct expr = new ExprParser().Parse(context);
 
             // Ensure current is a semi-colon.
             context.Stream.EnsureCurrent(TokenType.SymbolSemiColon);

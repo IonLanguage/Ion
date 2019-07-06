@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Ion.Generation.Helpers;
-using Ion.Misc;
 using Ion.Tracking.Symbols;
 using LLVMSharp;
 

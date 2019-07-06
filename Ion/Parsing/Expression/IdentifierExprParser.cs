@@ -3,9 +3,9 @@ using Ion.Syntax;
 
 namespace Ion.Parsing
 {
-    public class IdentifierExprParser : IParser<Expr>
+    public class IdentifierExprParser : IParser<Construct>
     {
-        public Expr Parse(ParserContext context)
+        public Construct Parse(ParserContext context)
         {
             // Invoke path parser.
             PathResult path = new PathParser().Parse(context);

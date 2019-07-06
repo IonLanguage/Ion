@@ -1,18 +1,19 @@
 using System;
 using System.Collections.Generic;
+using Ion.Generation;
 using Ion.Syntax;
 
 namespace Ion.Parsing
 {
-    public class PipeArgsParser : IParser<List<Expr>>
+    public class PipeArgsParser : IParser<List<Construct>>
     {
-        public List<Expr> Parse(ParserContext context)
+        public List<Construct> Parse(ParserContext context)
         {
             // Create the resulting argument list.
-            List<Expr> arguments = new List<Expr>();
+            List<Construct> arguments = new List<Construct>();
 
             // Parse the next value.
-            Expr value = new ExprParser().Parse(context);
+            Construct value = new ExprParser().Parse(context);
 
             // Append value to the argument list.
             arguments.Add(value);
@@ -32,7 +33,7 @@ namespace Ion.Parsing
                 context.Stream.Skip();
 
                 // Recursively invoke a new pipe args parser instance.
-                List<Expr> nextArguments = new PipeArgsParser().Parse(context);
+                List<Construct> nextArguments = new PipeArgsParser().Parse(context);
 
                 // Append resulting arguments.
                 arguments.AddRange(nextArguments);

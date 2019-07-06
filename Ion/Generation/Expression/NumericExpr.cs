@@ -1,15 +1,10 @@
-using Ion.Generation.Helpers;
-using Ion.CognitiveServices;
-using Ion.IR.Constructs;
-using Ion.IR.Generation;
 using Ion.Syntax;
-using LLVMSharp;
 
 namespace Ion.Generation
 {
-    public class NumericExpr : Expr
+    public class NumericExpr : Construct
     {
-        public override ExprType ExprType => ExprType.Numeric;
+        public override ConstructType ConstructType => ConstructType.Numeric;
 
         public readonly TokenType tokenType;
 
@@ -22,15 +17,6 @@ namespace Ion.Generation
             this.tokenType = tokenType;
             this.type = type;
             this.value = value;
-        }
-
-        public override IConstruct Emit(PipeContext<IrBuilder> context)
-        {
-            // Emit the value.
-            LLVMValueRef valueRef = Resolver.Literal(this.tokenType, this.value, this.type);
-
-            // Return the emitted value.
-            return valueRef;
         }
     }
 }

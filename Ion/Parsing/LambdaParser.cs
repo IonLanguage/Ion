@@ -4,7 +4,7 @@ using Ion.Syntax;
 
 namespace Ion.Parsing
 {
-    public class LambdaExprParser : IParser<Lambda>
+    public class LambdaParser : IParser<Lambda>
     {
         public Lambda Parse(ParserContext context)
         {

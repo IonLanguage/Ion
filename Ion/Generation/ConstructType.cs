@@ -36,6 +36,10 @@ namespace Ion.Generation
 
         Variable,
 
-        If
+        If,
+
+        String,
+
+        Numeric
     }
 }
