@@ -40,6 +40,8 @@ namespace Ion.Generation
 
         String,
 
-        Numeric
+        Numeric,
+
+        Struct
     }
 }

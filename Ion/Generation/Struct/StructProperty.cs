@@ -1,16 +1,18 @@
-using Ion.Misc;
-
 namespace Ion.Generation
 {
-    public class StructProperty : Named
+    public class StructProperty : Construct
     {
-        public Expr Value { get; }
+        public override ConstructType ConstructType => throw new System.NotImplementedException();
+
+        public string Identifier { get; }
+
+        public Construct Value { get; }
 
         public int Index { get; }
 
-        public StructProperty(string identifier, Expr value, int index)
+        public StructProperty(string identifier, Construct value, int index)
         {
-            this.SetName(identifier);
+            this.Identifier = identifier;
             this.Value = value;
             this.Index = index;
         }

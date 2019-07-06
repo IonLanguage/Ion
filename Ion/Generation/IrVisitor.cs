@@ -44,9 +44,14 @@ namespace Ion.Generation
             return node.Accept(this);
         }
 
+        public Construct VisitStruct(StructExpr node)
+        {
+            // TODO
+        }
+
         public Construct VisitString(StringExpr node)
         {
-
+            // TODO
         }
 
         public Construct VisitIf(If node)
@@ -125,21 +130,7 @@ namespace Ion.Generation
 
         public Construct VisitVarDeclare(VarDeclare node)
         {
-            // Create the variable.
-            LlvmValue variable = LLVM.BuildAlloca(context.Target, this.ValueType.Emit(), this.Identifier);
-
-            // Assign value if applicable.
-            if (this.Value != null)
-            {
-                // Create the store instruction.
-                LLVM.BuildStore(context.Target, this.Value.Emit(context), variable);
-
-                // Register on symbol table.
-                context.SymbolTable.localScope.Add(this.Identifier, variable);
-            }
-
-            // Return the resulting variable.
-            return variable;
+            // TODO
         }
 
         public Construct VisitLambda(Lambda node)
