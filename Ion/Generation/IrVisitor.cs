@@ -132,14 +132,16 @@ namespace Ion.Generation
 
         public Construct VisitLambda(Lambda node)
         {
+            // TODO: Should be moved to Ion.IR?
+
             // Create a new function.
             Function function = new Function();
 
             // Assign the function's body.
-            function.Body = this.Body;
+            function.Body = node.Body;
 
             // Create the function's prototype.
-            function.Prototype = new Prototype(GlobalNameRegister.GetLambda(), this.Args, this.ReturnType);
+            function.Prototype = new Prototype(GlobalNameRegister.GetLambda(), node.Args, node.ReturnType);
 
             // Emit the created function.
             LlvmValue functionRef = function.Emit(context.ModuleContext);
@@ -151,8 +153,11 @@ namespace Ion.Generation
             // Emit the function call.
             LlvmValue result = call.Emit(context);
 
-            // Return the resulting function call.
-            return result;
+            // Append the result onto the stack.
+            this.stack.Push(result);
+
+            // Return the node.
+            return node;
         }
 
         public Construct VisitBinaryExpr(BinaryExpr node)
